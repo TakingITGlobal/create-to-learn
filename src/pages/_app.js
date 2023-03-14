@@ -1,23 +1,25 @@
-import React from "react";
-import Navbar from "./../components/Navbar";
-import IndexPage from "./index";
-import AboutPage from "./about";
-import FaqPage from "./faq";
-import ContactPage from "./contact";
-import PricingPage from "./pricing";
-import DashboardPage from "./dashboard";
-import AuthPage from "./auth";
-import SettingsPage from "./settings";
-import LegalPage from "./legal";
-import { Switch, Route, Router } from "./../util/router";
-import Auth0Callback from "./auth0-callback";
-import NotFoundPage from "./404";
-import Footer from "./../components/Footer";
-import "./../util/analytics";
-import Chat from "./../components/Chat";
-import { AuthProvider } from "./../util/auth";
-import { ThemeProvider } from "./../util/theme";
-import { QueryClientProvider } from "./../util/db";
+import React from 'react'
+import Navbar from './../components/Navbar'
+import IndexPage from './index'
+import AboutPage from './about'
+import FaqPage from './faq'
+import ContactPage from './contact'
+import PricingPage from './pricing'
+import DashboardPage from './dashboard'
+import BrowsePage from './browse'
+import MyCoursesPage from './mycourses'
+import AuthPage from './auth'
+import SettingsPage from './settings'
+import LegalPage from './legal'
+import { Switch, Route, Router } from './../util/router'
+import Auth0Callback from './auth0-callback'
+import NotFoundPage from './404'
+import Footer from './../components/Footer'
+import './../util/analytics'
+import Chat from './../components/Chat'
+import { AuthProvider } from './../util/auth'
+import { ThemeProvider } from './../util/theme'
+import { QueryClientProvider } from './../util/db'
 
 function App(props) {
   return (
@@ -48,6 +50,10 @@ function App(props) {
 
                 <Route exact path="/auth/:type" component={AuthPage} />
 
+                <Route exact path="/browse" component={BrowsePage} />
+
+                <Route exact path="/mycourses" component={MyCoursesPage} />
+
                 <Route
                   exact
                   path="/settings/:section"
@@ -77,7 +83,7 @@ function App(props) {
         </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>
-  );
+  )
 }
 
-export default App;
+export default App
