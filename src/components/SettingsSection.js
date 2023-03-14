@@ -5,9 +5,14 @@ import Alert from "@material-ui/lab/Alert";
 import Section from "./Section";
 import ReauthModal from "./ReauthModal";
 import SettingsNav from "./SettingsNav";
-import SettingsGeneral from "./SettingsGeneral";
+import SettingsMyAccount from "./SettingsMyAccount";
 import SettingsPassword from "./SettingsPassword";
+import SettingsNotifications from "./SettingsNotifications";
+import SettingsDataUsage from "./SettingsDataUsage";
+import SettingsLegal from "./SettingsLegal";
 import SettingsBilling from "./SettingsBilling";
+import SettingsGeneral from "./SettingsGeneral";
+
 import { useAuth } from "./../util/auth";
 
 function SettingsSection(props) {
@@ -21,12 +26,16 @@ function SettingsSection(props) {
   });
 
   const validSections = {
-    general: true,
+    myaccount: true,
     password: true,
-    billing: true,
+    notifications: true,
+    datausage: true,
+    legal: true,
+    // general: true,
+    // billing: true,
   };
 
-  const section = validSections[props.section] ? props.section : "general";
+  const section = validSections[props.section] ? props.section : "myaccount";
 
   // Handle status of type "success", "error", or "requires-recent-login"
   // We don't treat "requires-recent-login" as an error as we handle it
@@ -74,13 +83,27 @@ function SettingsSection(props) {
             </Box>
           )}
 
-          {section === "general" && <SettingsGeneral onStatus={handleStatus} />}
+          {section === "myaccount" && (
+            <SettingsMyAccount onStatus={handleStatus} />
+          )}
 
           {section === "password" && (
             <SettingsPassword onStatus={handleStatus} />
           )}
 
-          {section === "billing" && <SettingsBilling onStatus={handleStatus} />}
+          {section === "notifications" && (
+            <SettingsNotifications onStatus={handleStatus} />
+          )}
+
+          {section === "datausage" && (
+            <SettingsDataUsage onStatus={handleStatus} />
+          )}
+
+          {section === "legal" && <SettingsLegal onStatus={handleStatus} />}
+
+          {/* {section === "general" && <SettingsGeneral onStatus={handleStatus} />} */}
+
+          {/* {section === "billing" && <SettingsBilling onStatus={handleStatus} />} */}
         </Container>
       </Box>
     </Section>

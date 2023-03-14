@@ -13,16 +13,41 @@ function SettingsNav(props) {
     >
       <Tab
         component={Link}
-        to="/settings/general"
-        label="General"
-        value="general"
+        to="/settings/myaccount"
+        label="My Account"
+        value="myaccount"
       />
+
       <Tab
         component={Link}
         to="/settings/password"
         label="Password"
         value="password"
       />
+      <Tab
+        component={Link}
+        to="/settings/notifications"
+        label="Notifications"
+        value="notifications"
+      />
+      <Tab
+        component={Link}
+        to="/settings/datausage"
+        label="Data Usage"
+        value="datausage"
+      />
+      <Tab
+        component={Link}
+        to="/settings/legal"
+        label="Legal and About"
+        value="legal"
+      />
+      {/* <Tab
+        component={Link}
+        to="/settings/general"
+        label="General"
+        value="general"
+      /> */}
       {/* <Tab
         component={Link}
         to="/settings/billing"

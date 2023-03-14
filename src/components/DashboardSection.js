@@ -114,7 +114,7 @@ function DashboardSection(props) {
                         You can change your account info{` `}
                         {auth.user.stripeSubscriptionId && <>and plan{` `}</>}
                         in{` `}
-                        <LinkMui component={Link} to="/settings/general">
+                        <LinkMui component={Link} to="/settings/myaccount">
                           <strong>settings</strong>
                         </LinkMui>
                         .
