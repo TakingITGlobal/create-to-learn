@@ -16,6 +16,7 @@ import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
+import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Section from './Section'
 import { Link } from './../util/router'
@@ -74,6 +75,15 @@ function Navbar(props) {
               {/* <img src={logo} alt="Logo" className={classes.logo} /> */}
               <span className={classes.logo}>CREATE TO LEARN</span>
             </Link>
+            <Button component={Link} to="/dashboard">
+              Dashboard
+            </Button>
+            <Button component={Link} to="/browse">
+              Browse
+            </Button>
+            <Button component={Link} to="/mycourses">
+              My Courses
+            </Button>
             <div className={classes.spacer} />
             <Hidden smUp={true} implementation="css">
               <IconButton
@@ -130,7 +140,7 @@ function Navbar(props) {
                     <MenuItem component={Link} to="/dashboard">
                       Dashboard
                     </MenuItem>
-                    <MenuItem component={Link} to="/settings/general">
+                    <MenuItem component={Link} to="/settings/myaccount">
                       Settings
                     </MenuItem>
                     <Divider />

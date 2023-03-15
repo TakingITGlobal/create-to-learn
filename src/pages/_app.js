@@ -20,13 +20,11 @@ import Chat from './../components/Chat'
 import { AuthProvider } from './../util/auth'
 import { ThemeProvider, useDarkMode } from './../util/theme'
 import { QueryClientProvider } from './../util/db'
-import { useTheme } from '@material-ui/core/styles'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+import BottomNavbar from '../components/BottomNavbar'
+import Hidden from '@material-ui/core/Hidden'
 
 function App(props) {
-  const theme = useTheme()
   const darkMode = useDarkMode()
-  const matches = useMediaQuery(theme.breakpoints.up('md'))
 
   return (
     <QueryClientProvider>
@@ -35,12 +33,13 @@ function App(props) {
           <Chat />
           <Router>
             <>
-              <Navbar
-                color="default"
-                logo="https://uploads.divjoy.com/logo.svg"
-                logoInverted="https://uploads.divjoy.com/logo-white.svg"
-              />
-
+              <Hidden smDown={true}>
+                <Navbar
+                  color="default"
+                  logo="https://uploads.divjoy.com/logo.svg"
+                  logoInverted="https://uploads.divjoy.com/logo-white.svg"
+                />
+              </Hidden>
               <Switch>
                 <Route exact path="/" component={IndexPage} />
 
@@ -72,8 +71,7 @@ function App(props) {
 
                 <Route component={NotFoundPage} />
               </Switch>
-
-              {matches && (
+              <Hidden smDown>
                 <Footer
                   bgColor="light"
                   size="normal"
@@ -85,7 +83,10 @@ function App(props) {
                   logoInverted="https://uploads.divjoy.com/logo-white.svg"
                   sticky={true}
                 />
-              )}
+              </Hidden>
+              <Hidden smUp>
+                <BottomNavbar />
+              </Hidden>
             </>
           </Router>
         </AuthProvider>
