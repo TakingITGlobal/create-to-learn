@@ -20,9 +20,13 @@ import Chat from './../components/Chat'
 import { AuthProvider } from './../util/auth'
 import { ThemeProvider, useDarkMode } from './../util/theme'
 import { QueryClientProvider } from './../util/db'
+import { useTheme } from '@material-ui/core/styles'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 function App(props) {
+  const theme = useTheme()
   const darkMode = useDarkMode()
+  const matches = useMediaQuery(theme.breakpoints.up('md'))
 
   return (
     <QueryClientProvider>
@@ -69,17 +73,19 @@ function App(props) {
                 <Route component={NotFoundPage} />
               </Switch>
 
-              <Footer
-                bgColor="light"
-                size="normal"
-                bgImage=""
-                bgImageOpacity={1}
-                description="A short description of what you do here"
-                copyright={`© ${new Date().getFullYear()} Company`}
-                logo="https://uploads.divjoy.com/logo.svg"
-                logoInverted="https://uploads.divjoy.com/logo-white.svg"
-                sticky={true}
-              />
+              {matches && (
+                <Footer
+                  bgColor="light"
+                  size="normal"
+                  bgImage=""
+                  bgImageOpacity={1}
+                  description="A short description of what you do here"
+                  copyright={`© ${new Date().getFullYear()} Company`}
+                  logo="https://uploads.divjoy.com/logo.svg"
+                  logoInverted="https://uploads.divjoy.com/logo-white.svg"
+                  sticky={true}
+                />
+              )}
             </>
           </Router>
         </AuthProvider>
