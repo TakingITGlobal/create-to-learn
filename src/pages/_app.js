@@ -22,13 +22,14 @@ import { ThemeProvider, useDarkMode } from './../util/theme'
 import { QueryClientProvider } from './../util/db'
 import BottomNavbar from '../components/BottomNavbar'
 import Hidden from '@material-ui/core/Hidden'
+import { useTheme } from '@material-ui/core/styles'
 
 function App(props) {
-  const darkMode = useDarkMode()
-
+  //Default to dark theme for now
+  const theme = useTheme()
   return (
     <QueryClientProvider>
-      <ThemeProvider theme={darkMode}>
+      <ThemeProvider theme={theme.dark}>
         <AuthProvider>
           <Chat />
           <Router>
