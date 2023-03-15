@@ -18,13 +18,15 @@ import Footer from './../components/Footer'
 import './../util/analytics'
 import Chat from './../components/Chat'
 import { AuthProvider } from './../util/auth'
-import { ThemeProvider } from './../util/theme'
+import { ThemeProvider, useDarkMode } from './../util/theme'
 import { QueryClientProvider } from './../util/db'
 
 function App(props) {
+  const darkMode = useDarkMode()
+
   return (
     <QueryClientProvider>
-      <ThemeProvider>
+      <ThemeProvider theme={darkMode}>
         <AuthProvider>
           <Chat />
           <Router>

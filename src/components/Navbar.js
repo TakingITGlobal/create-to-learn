@@ -1,26 +1,26 @@
-import React, { useState } from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Container from "@material-ui/core/Container";
-import Toolbar from "@material-ui/core/Toolbar";
-import Hidden from "@material-ui/core/Hidden";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import Button from "@material-ui/core/Button";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import Divider from "@material-ui/core/Divider";
-import NightsStayIcon from "@material-ui/icons/NightsStay";
-import WbSunnyIcon from "@material-ui/icons/WbSunny";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import { makeStyles } from "@material-ui/core/styles";
-import Section from "./Section";
-import { Link } from "./../util/router";
-import { useAuth } from "./../util/auth";
-import { useDarkMode } from "./../util/theme";
+import React, { useState } from 'react'
+import AppBar from '@material-ui/core/AppBar'
+import Container from '@material-ui/core/Container'
+import Toolbar from '@material-ui/core/Toolbar'
+import Hidden from '@material-ui/core/Hidden'
+import IconButton from '@material-ui/core/IconButton'
+import MenuIcon from '@material-ui/icons/Menu'
+import Button from '@material-ui/core/Button'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
+import Divider from '@material-ui/core/Divider'
+import NightsStayIcon from '@material-ui/icons/NightsStay'
+import WbSunnyIcon from '@material-ui/icons/WbSunny'
+import Drawer from '@material-ui/core/Drawer'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import { makeStyles } from '@material-ui/core/styles'
+import Section from './Section'
+import { Link } from './../util/router'
+import { useAuth } from './../util/auth'
+import { useDarkMode } from './../util/theme'
 
 const useStyles = makeStyles((theme) => ({
   logo: {
@@ -40,37 +40,37 @@ const useStyles = makeStyles((theme) => ({
   spacer: {
     flexGrow: 1,
   },
-}));
+}))
 
 function Navbar(props) {
-  const classes = useStyles();
+  const classes = useStyles()
 
-  const auth = useAuth();
-  const darkMode = useDarkMode();
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [menuState, setMenuState] = useState(null);
+  const auth = useAuth()
+  const darkMode = useDarkMode()
+  const [drawerOpen, setDrawerOpen] = useState(false)
+  const [menuState, setMenuState] = useState(null)
 
   // Use inverted logo if specified
   // and we are in dark mode
   const logo =
-    props.logoInverted && darkMode.value ? props.logoInverted : props.logo;
+    props.logoInverted && darkMode.value ? props.logoInverted : props.logo
 
   const handleOpenMenu = (event, id) => {
     // Store clicked element (to anchor the menu to)
     // and the menu id so we can tell which menu is open.
-    setMenuState({ anchor: event.currentTarget, id });
-  };
+    setMenuState({ anchor: event.currentTarget, id })
+  }
 
   const handleCloseMenu = () => {
-    setMenuState(null);
-  };
+    setMenuState(null)
+  }
 
   return (
     <Section bgColor={props.color} size="auto">
       <AppBar position="static" color="transparent" elevation={0}>
         <Container disableGutters={true}>
           <Toolbar>
-            <Link to="/" style={{textDecoration: 'none'}}>
+            <Link to="/" style={{ textDecoration: 'none' }}>
               {/* <img src={logo} alt="Logo" className={classes.logo} /> */}
               <span className={classes.logo}>CREATE TO LEARN</span>
             </Link>
@@ -78,7 +78,7 @@ function Navbar(props) {
             <Hidden smUp={true} implementation="css">
               <IconButton
                 onClick={() => {
-                  setDrawerOpen(true);
+                  setDrawerOpen(true)
                 }}
                 color="inherit"
               >
@@ -100,7 +100,7 @@ function Navbar(props) {
                     aria-controls="account-menu"
                     aria-haspopup="true"
                     onClick={(event) => {
-                      handleOpenMenu(event, "account-menu");
+                      handleOpenMenu(event, 'account-menu')
                     }}
                   >
                     Account
@@ -109,7 +109,7 @@ function Navbar(props) {
                   <Menu
                     id="account-menu"
                     open={
-                      menuState && menuState.id === "account-menu"
+                      menuState && menuState.id === 'account-menu'
                         ? true
                         : false
                     }
@@ -119,12 +119,12 @@ function Navbar(props) {
                     onClose={handleCloseMenu}
                     keepMounted={true}
                     anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "center",
+                      vertical: 'bottom',
+                      horizontal: 'center',
                     }}
                     transformOrigin={{
-                      vertical: "top",
-                      horizontal: "center",
+                      vertical: 'top',
+                      horizontal: 'center',
                     }}
                   >
                     <MenuItem component={Link} to="/dashboard">
@@ -136,7 +136,7 @@ function Navbar(props) {
                     <Divider />
                     <MenuItem
                       onClick={(event) => {
-                        auth.signout();
+                        auth.signout()
                       }}
                     >
                       Signout
@@ -145,7 +145,7 @@ function Navbar(props) {
                 </>
               )}
 
-              <IconButton
+              {/* <IconButton
                 color="inherit"
                 onClick={darkMode.toggle}
                 style={{ opacity: 0.6 }}
@@ -153,7 +153,7 @@ function Navbar(props) {
                 {darkMode.value && <NightsStayIcon />}
 
                 {!darkMode.value && <WbSunnyIcon />}
-              </IconButton>
+              </IconButton> */}
             </Hidden>
           </Toolbar>
         </Container>
@@ -185,7 +185,7 @@ function Navbar(props) {
               <ListItem
                 button={true}
                 onClick={(event) => {
-                  auth.signout();
+                  auth.signout()
                 }}
               >
                 <ListItemText>Sign out</ListItemText>
@@ -193,7 +193,7 @@ function Navbar(props) {
             </>
           )}
 
-          <ListItem>
+          {/* <ListItem>
             <IconButton
               color="inherit"
               onClick={darkMode.toggle}
@@ -203,11 +203,11 @@ function Navbar(props) {
 
               {!darkMode.value && <WbSunnyIcon />}
             </IconButton>
-          </ListItem>
+          </ListItem> */}
         </List>
       </Drawer>
     </Section>
-  );
+  )
 }
 
-export default Navbar;
+export default Navbar
