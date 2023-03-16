@@ -1,7 +1,7 @@
-import React from "react";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import { Link } from "./../util/router";
+import React from 'react'
+import Tabs from '@material-ui/core/Tabs'
+import Tab from '@material-ui/core/Tab'
+import { Link } from './../util/router'
 
 function SettingsNav(props) {
   return (
@@ -32,15 +32,15 @@ function SettingsNav(props) {
       />
       <Tab
         component={Link}
-        to="/settings/datausage"
+        to="/settings/data-usage"
         label="Data Usage"
-        value="datausage"
+        value="data-usage"
       />
       <Tab
         component={Link}
-        to="/settings/legal"
+        to="/settings/legal-and-about"
         label="Legal and About"
-        value="legal"
+        value="legal-and-about"
       />
       {/* <Tab
         component={Link}
@@ -55,7 +55,7 @@ function SettingsNav(props) {
         value="billing"
       /> */}
     </Tabs>
-  );
+  )
 }
 
-export default SettingsNav;
+export default SettingsNav

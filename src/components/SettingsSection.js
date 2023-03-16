@@ -1,63 +1,63 @@
-import React, { useState } from "react";
-import Box from "@material-ui/core/Box";
-import Container from "@material-ui/core/Container";
-import Alert from "@material-ui/lab/Alert";
-import Section from "./Section";
-import ReauthModal from "./ReauthModal";
-import SettingsNav from "./SettingsNav";
-import SettingsMyAccount from "./SettingsMyAccount";
-import SettingsPassword from "./SettingsPassword";
-import SettingsNotifications from "./SettingsNotifications";
-import SettingsDataUsage from "./SettingsDataUsage";
-import SettingsLegal from "./SettingsLegal";
-import SettingsBilling from "./SettingsBilling";
-import SettingsGeneral from "./SettingsGeneral";
+import React, { useState } from 'react'
+import Box from '@material-ui/core/Box'
+import Container from '@material-ui/core/Container'
+import Alert from '@material-ui/lab/Alert'
+import Section from './Section'
+import ReauthModal from './ReauthModal'
+import SettingsNav from './SettingsNav'
+import SettingsMyAccount from './SettingsMyAccount'
+import SettingsPassword from './SettingsPassword'
+import SettingsNotifications from './SettingsNotifications'
+import SettingsDataUsage from './SettingsDataUsage'
+import SettingsLegal from './SettingsLegal'
+import SettingsBilling from './SettingsBilling'
+import SettingsGeneral from './SettingsGeneral'
 
-import { useAuth } from "./../util/auth";
+import { useAuth } from './../util/auth'
 
 function SettingsSection(props) {
-  const auth = useAuth();
-  const [formAlert, setFormAlert] = useState(null);
+  const auth = useAuth()
+  const [formAlert, setFormAlert] = useState(null)
 
   // State to control whether we show a re-authentication flow
   // Required by some security sensitive actions, such as changing password.
   const [reauthState, setReauthState] = useState({
     show: false,
-  });
+  })
 
   const validSections = {
-    myaccount: true,
+    'my-account': true,
     password: true,
     notifications: true,
-    datausage: true,
-    legal: true,
+    'data-usage': true,
+    'legal-and-about': true,
     // general: true,
     // billing: true,
-  };
+  }
 
-  const section = validSections[props.section] ? props.section : "myaccount";
+  const section = validSections[props.section] ? props.section : 'myaccount'
 
   // Handle status of type "success", "error", or "requires-recent-login"
   // We don't treat "requires-recent-login" as an error as we handle it
   // gracefully by taking the user through a re-authentication flow.
   const handleStatus = ({ type, message, callback }) => {
-    if (type === "requires-recent-login") {
+    if (type === 'requires-recent-login') {
       // First clear any existing message
-      setFormAlert(null);
+      setFormAlert(null)
       // Then update state to show re-authentication modal
       setReauthState({
         show: true,
         // Failed action to try again after reauth
         callback: callback,
-      });
+      })
     } else {
       // Display message to user (type is success or error)
       setFormAlert({
         type: type,
         message: message,
-      });
+      })
     }
-  };
+  }
 
   return (
     <Section
@@ -83,23 +83,25 @@ function SettingsSection(props) {
             </Box>
           )}
 
-          {section === "myaccount" && (
+          {section === 'myaccount' && (
             <SettingsMyAccount onStatus={handleStatus} />
           )}
 
-          {section === "password" && (
+          {section === 'password' && (
             <SettingsPassword onStatus={handleStatus} />
           )}
 
-          {section === "notifications" && (
+          {section === 'notifications' && (
             <SettingsNotifications onStatus={handleStatus} />
           )}
 
-          {section === "datausage" && (
+          {section === 'data-usage' && (
             <SettingsDataUsage onStatus={handleStatus} />
           )}
 
-          {section === "legal" && <SettingsLegal onStatus={handleStatus} />}
+          {section === 'legal-and-about' && (
+            <SettingsLegal onStatus={handleStatus} />
+          )}
 
           {/* {section === "general" && <SettingsGeneral onStatus={handleStatus} />} */}
 
@@ -107,7 +109,7 @@ function SettingsSection(props) {
         </Container>
       </Box>
     </Section>
-  );
+  )
 }
 
-export default SettingsSection;
+export default SettingsSection

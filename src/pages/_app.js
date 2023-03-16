@@ -7,7 +7,7 @@ import ContactPage from './contact'
 import PricingPage from './pricing'
 import DashboardPage from './dashboard'
 import BrowsePage from './browse'
-import MyCoursesPage from './mycourses'
+import MyCoursesPage from './myCourses'
 import AuthPage from './auth'
 import SettingsPage from './settings'
 import LegalPage from './legal'
@@ -58,7 +58,7 @@ function App(props) {
 
                 <Route exact path="/browse" component={BrowsePage} />
 
-                <Route exact path="/mycourses" component={MyCoursesPage} />
+                <Route exact path="/my-courses" component={MyCoursesPage} />
 
                 <Route
                   exact

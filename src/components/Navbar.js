@@ -81,7 +81,7 @@ function Navbar(props) {
             <Button component={Link} to="/browse">
               Browse
             </Button>
-            <Button component={Link} to="/mycourses">
+            <Button component={Link} to="/my-courses">
               My Courses
             </Button>
             <div className={classes.spacer} />
