@@ -1,9 +1,9 @@
-import { apiRequest } from "./util";
+import { apiRequest } from './util'
 
 function subscribe(data) {
-  return apiRequest("newsletter", "POST", data);
+  return apiRequest('newsletter', 'POST', data)
 }
 
-const newsletter = { subscribe };
+const newsletter = { subscribe }
 
-export default newsletter;
+export default newsletter

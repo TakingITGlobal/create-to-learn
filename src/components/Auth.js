@@ -1,21 +1,21 @@
-import React, { useState } from "react";
-import Box from "@material-ui/core/Box";
-import Alert from "@material-ui/lab/Alert";
-import AuthForm from "./AuthForm";
-import AuthSocial from "./AuthSocial";
-import { useRouter } from "./../util/router";
+import React, { useState } from 'react'
+import Box from '@material-ui/core/Box'
+import Alert from '@material-ui/lab/Alert'
+import AuthForm from './AuthForm'
+import AuthSocial from './AuthSocial'
+import { useRouter } from './../util/router'
 
 function Auth(props) {
-  const router = useRouter();
-  const [formAlert, setFormAlert] = useState(null);
+  const router = useRouter()
+  const [formAlert, setFormAlert] = useState(null)
 
   const handleAuth = (user) => {
-    router.push(props.afterAuthPath);
-  };
+    router.push(props.afterAuthPath)
+  }
 
   const handleFormAlert = (data) => {
-    setFormAlert(data);
-  };
+    setFormAlert(data)
+  }
 
   return (
     <>
@@ -32,7 +32,7 @@ function Auth(props) {
         onFormAlert={handleFormAlert}
       />
 
-      {["signup", "signin"].includes(props.type) && (
+      {['signup', 'signin'].includes(props.type) && (
         <>
           {props.providers && props.providers.length && (
             <>
@@ -46,9 +46,9 @@ function Auth(props) {
                 onAuth={handleAuth}
                 onError={(message) => {
                   handleFormAlert({
-                    type: "error",
+                    type: 'error',
                     message: message,
-                  });
+                  })
                 }}
               />
             </>
@@ -56,7 +56,7 @@ function Auth(props) {
         </>
       )}
     </>
-  );
+  )
 }
 
-export default Auth;
+export default Auth

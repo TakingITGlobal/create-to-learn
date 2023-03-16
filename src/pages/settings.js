@@ -1,11 +1,11 @@
-import React from "react";
-import Meta from "./../components/Meta";
-import SettingsSection from "./../components/SettingsSection";
-import { useRouter } from "./../util/router";
-import { requireAuth } from "./../util/auth";
+import React from 'react'
+import Meta from './../components/Meta'
+import SettingsSection from './../components/SettingsSection'
+import { useRouter } from './../util/router'
+import { requireAuth } from './../util/auth'
 
 function SettingsPage(props) {
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <>
@@ -19,7 +19,7 @@ function SettingsPage(props) {
         key={router.query.section}
       />
     </>
-  );
+  )
 }
 
-export default requireAuth(SettingsPage);
+export default requireAuth(SettingsPage)

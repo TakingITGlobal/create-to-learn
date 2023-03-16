@@ -1,45 +1,45 @@
-import React, { useState } from "react";
-import Box from "@material-ui/core/Box";
-import Alert from "@material-ui/lab/Alert";
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { useForm } from "react-hook-form";
-import contact from "./../util/contact";
+import React, { useState } from 'react'
+import Box from '@material-ui/core/Box'
+import Alert from '@material-ui/lab/Alert'
+import Grid from '@material-ui/core/Grid'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { useForm } from 'react-hook-form'
+import contact from './../util/contact'
 
 function Contact(props) {
-  const [pending, setPending] = useState(false);
-  const [formAlert, setFormAlert] = useState(null);
-  const { handleSubmit, register, errors, reset } = useForm();
+  const [pending, setPending] = useState(false)
+  const [formAlert, setFormAlert] = useState(null)
+  const { handleSubmit, register, errors, reset } = useForm()
 
   const onSubmit = (data) => {
     // Show pending indicator
-    setPending(true);
+    setPending(true)
 
     contact
       .submit(data)
       .then(() => {
         // Clear form
-        reset();
+        reset()
         // Show success alert message
         setFormAlert({
-          type: "success",
-          message: "Your message has been sent!",
-        });
+          type: 'success',
+          message: 'Your message has been sent!',
+        })
       })
       .catch((error) => {
         // Show error alert message
         setFormAlert({
-          type: "error",
+          type: 'error',
           message: error.message,
-        });
+        })
       })
       .finally(() => {
         // Hide pending indicator
-        setPending(false);
-      });
-  };
+        setPending(false)
+      })
+  }
 
   return (
     <>
@@ -62,7 +62,7 @@ function Contact(props) {
                 helperText={errors.name && errors.name.message}
                 fullWidth={true}
                 inputRef={register({
-                  required: "Please enter your name",
+                  required: 'Please enter your name',
                 })}
               />
             </Grid>
@@ -78,7 +78,7 @@ function Contact(props) {
               helperText={errors.email && errors.email.message}
               fullWidth={true}
               inputRef={register({
-                required: "Please enter your email",
+                required: 'Please enter your email',
               })}
             />
           </Grid>
@@ -94,7 +94,7 @@ function Contact(props) {
               helperText={errors.message && errors.message.message}
               fullWidth={true}
               inputRef={register({
-                required: "Please enter a message",
+                required: 'Please enter a message',
               })}
             />
           </Grid>
@@ -114,7 +114,7 @@ function Contact(props) {
         </Grid>
       </form>
     </>
-  );
+  )
 }
 
-export default Contact;
+export default Contact

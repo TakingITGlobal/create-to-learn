@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import { usePrevious } from "./../util/util";
-import { useAuth } from "./../util/auth";
+import { useEffect } from 'react'
+import { usePrevious } from './../util/util'
+import { useAuth } from './../util/auth'
 
 const config = {
   // Crisp website ID
@@ -9,12 +9,12 @@ const config = {
   populateUserInfo: true,
   // Reset conversation history on signout (better privacy on shared computers)
   resetOnSignOut: true,
-};
+}
 
 function Chat() {
   if (!config.crispWebsiteId) {
-    console.warn("Crisp chat is disabled because website ID is not specified");
-    return null;
+    console.warn('Crisp chat is disabled because website ID is not specified')
+    return null
   }
 
   return (
@@ -22,52 +22,52 @@ function Chat() {
       <CrispScript />
       <CrispUpdater />
     </>
-  );
+  )
 }
 
 function CrispScript() {
   useEffect(() => {
-    window.$crisp = [];
-    window.CRISP_WEBSITE_ID = config.crispWebsiteId;
-    (() => {
-      const d = document;
-      const s = d.createElement("script");
-      s.src = "https://client.crisp.chat/l.js";
-      s.async = 1;
-      d.getElementsByTagName("body")[0].appendChild(s);
-    })();
-  }, []);
+    window.$crisp = []
+    window.CRISP_WEBSITE_ID = config.crispWebsiteId
+    ;(() => {
+      const d = document
+      const s = d.createElement('script')
+      s.src = 'https://client.crisp.chat/l.js'
+      s.async = 1
+      d.getElementsByTagName('body')[0].appendChild(s)
+    })()
+  }, [])
 
-  return null;
+  return null
 }
 
 function CrispUpdater() {
-  const auth = useAuth();
+  const auth = useAuth()
 
   // Update Crisp when user data changes
   useEffect(() => {
     if (config.populateUserInfo && auth.user) {
       if (auth.user.email) {
-        window.$crisp.push(["set", "user:email", [auth.user.email]]);
+        window.$crisp.push(['set', 'user:email', [auth.user.email]])
       }
       if (auth.user.name) {
-        window.$crisp.push(["set", "user:nickname", [auth.user.name]]);
+        window.$crisp.push(['set', 'user:nickname', [auth.user.name]])
       }
     }
-  }, [auth.user]);
+  }, [auth.user])
 
   // Reset Crisp session when user signs out
-  const previousUser = usePrevious(auth.user);
+  const previousUser = usePrevious(auth.user)
   useEffect(() => {
     // We know the user just signed out if we had a `auth.user` and now we don't
-    const didSignOut = previousUser && !auth.user;
+    const didSignOut = previousUser && !auth.user
     if (config.resetOnSignOut && didSignOut) {
       // Reset Crisp session
-      window.$crisp.push(["do", "session:reset"]);
+      window.$crisp.push(['do', 'session:reset'])
     }
-  }, [previousUser, auth.user]);
+  }, [previousUser, auth.user])
 
-  return null;
+  return null
 }
 
-export default Chat;
+export default Chat

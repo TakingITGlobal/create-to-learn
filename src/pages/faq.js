@@ -1,6 +1,6 @@
-import React from "react";
-import Meta from "./../components/Meta";
-import FaqSection from "./../components/FaqSection";
+import React from 'react'
+import Meta from './../components/Meta'
+import FaqSection from './../components/FaqSection'
 
 function FaqPage(props) {
   return (
@@ -15,7 +15,7 @@ function FaqPage(props) {
         subtitle=""
       />
     </>
-  );
+  )
 }
 
-export default FaqPage;
+export default FaqPage

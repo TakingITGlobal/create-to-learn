@@ -1,10 +1,10 @@
-import React from "react";
-import Meta from "./../components/Meta";
-import HeroSection from "./../components/HeroSection";
-import ClientsSection from "./../components/ClientsSection";
-import FeaturesSection from "./../components/FeaturesSection";
-import TestimonialsSection from "./../components/TestimonialsSection";
-import NewsletterSection from "./../components/NewsletterSection";
+import React from 'react'
+import Meta from './../components/Meta'
+import HeroSection from './../components/HeroSection'
+import ClientsSection from './../components/ClientsSection'
+import FeaturesSection from './../components/FeaturesSection'
+import TestimonialsSection from './../components/TestimonialsSection'
+import NewsletterSection from './../components/NewsletterSection'
 
 function IndexPage(props) {
   return (
@@ -18,7 +18,6 @@ function IndexPage(props) {
         title="Create To Learn"
         subtitle="The Landing Page for Create To Learn."
         image="https://heynova.io/static/heynova-logo-new-08b74087a45ee7096b2ed1491d51e44a.png"
-        
       />
       {/* <ClientsSection
         bgColor="light"
@@ -57,7 +56,7 @@ function IndexPage(props) {
         subscribedMessage="You are now subscribed!"
       /> */}
     </>
-  );
+  )
 }
 
-export default IndexPage;
+export default IndexPage

@@ -1,35 +1,35 @@
-import React from "react";
-import { Helmet } from "react-helmet";
-import { useRouter } from "./../util/router.js";
+import React from 'react'
+import { Helmet } from 'react-helmet'
+import { useRouter } from './../util/router.js'
 
 function Meta(props) {
-  const { children, ...customPageMeta } = props;
-  const router = useRouter();
+  const { children, ...customPageMeta } = props
+  const router = useRouter()
 
   // Meta values that are the same across all pages
   const globalMeta = {
     // Site name
-    siteName: "Create To Learn",
+    siteName: 'Create To Learn',
     // Your production domain (example: https://myapp.com)
-    domain: "",
+    domain: '',
     // Your Twitter handle (example: @divjoy)
-    twitterHandle: "",
-  };
+    twitterHandle: '',
+  }
 
   // Default meta values for current page (override with props)
   const defaultPageMeta = {
     // Page title
-    title: "Create To Learn",
+    title: 'Create To Learn',
     // Page description
-    description: "Create To Learn",
+    description: 'Create To Learn',
     // Social share image (create this file in /public/images/)
-    image: "/images/social.png",
+    image: '/images/social.png',
     // Page type (see https://ogp.me/#types)
-    type: "website",
-  };
+    type: 'website',
+  }
 
   // Construct meta object from global, default, and custom meta
-  const meta = { ...globalMeta, ...defaultPageMeta, ...customPageMeta };
+  const meta = { ...globalMeta, ...defaultPageMeta, ...customPageMeta }
 
   // Note: Each tag should have a unique `key` so that they are de-deduped if other
   // `Meta` components are rendered on the same page or within nested components.
@@ -58,4 +58,4 @@ function Meta(props) {
   );
 }
 
-export default Meta;
+export default Meta

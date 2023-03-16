@@ -1,4 +1,4 @@
-const { verifyAccessToken } = require("./_auth0.js");
+const { verifyAccessToken } = require('./_auth0.js')
 
 // Middleware for requiring authentication and getting user
 const requireAuth = (fn) => async (event, context, callback) => {
@@ -7,37 +7,37 @@ const requireAuth = (fn) => async (event, context, callback) => {
     return callback(null, {
       statusCode: 401,
       body: JSON.stringify({
-        status: "error",
-        message: "You must be signed in to call this endpoint",
+        status: 'error',
+        message: 'You must be signed in to call this endpoint',
       }),
-    });
+    })
   }
 
   // Get access token from authorization header ("Bearer: xxxxxxx")
-  const accessToken = event.headers.authorization.split(" ")[1];
+  const accessToken = event.headers.authorization.split(' ')[1]
 
   try {
     // Get user from token and add to `event` object
-    event.user = await verifyAccessToken(accessToken);
+    event.user = await verifyAccessToken(accessToken)
     // Set uid value from sub
-    event.user.uid = event.user.sub;
+    event.user.uid = event.user.sub
 
     // Call route function passed into this middleware
-    return fn(event, context, callback);
+    return fn(event, context, callback)
   } catch (error) {
-    console.log("_require-auth error", error);
+    console.log('_require-auth error', error)
 
     // If there's an error assume token is expired and return
     // auth/invalid-user-token error (handled by apiRequest in util.js)
     callback(null, {
       statusCode: 401,
       body: JSON.stringify({
-        status: "error",
-        code: "auth/invalid-user-token",
-        message: "Your login has expired. Please login again.",
+        status: 'error',
+        code: 'auth/invalid-user-token',
+        message: 'Your login has expired. Please login again.',
       }),
-    });
+    })
   }
-};
+}
 
-module.exports = requireAuth;
+module.exports = requireAuth

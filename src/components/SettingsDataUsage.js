@@ -1,7 +1,7 @@
-import React from "react";
-import Box from "@material-ui/core/Box";
-import Container from "@material-ui/core/Container";
-import Section from "./Section";
+import React from 'react'
+import Box from '@material-ui/core/Box'
+import Container from '@material-ui/core/Container'
+import Section from './Section'
 
 function SettingsDataUsage(props) {
   return (
@@ -15,7 +15,7 @@ function SettingsDataUsage(props) {
         <Container>Data Usage</Container>
       </Box>
     </Section>
-  );
+  )
 }
 
-export default SettingsDataUsage;
+export default SettingsDataUsage

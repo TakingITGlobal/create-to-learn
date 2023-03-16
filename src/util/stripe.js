@@ -6,12 +6,12 @@
       Otherwise, you can search your codebase for the function names you see below, remove all related code, then delete this file.
     */
 
-const errorMessage = `Stripe payments is disabled. See src/util/stripe.js for more details.`;
+const errorMessage = `Stripe payments is disabled. See src/util/stripe.js for more details.`
 
 export async function redirectToCheckout(planId) {
-  throw new Error(errorMessage);
+  throw new Error(errorMessage)
 }
 
 export async function redirectToBilling() {
-  throw new Error(errorMessage);
+  throw new Error(errorMessage)
 }

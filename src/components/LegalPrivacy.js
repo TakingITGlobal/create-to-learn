@@ -1,5 +1,5 @@
-import React from "react";
-import LongContent from "./LongContent";
+import React from 'react'
+import LongContent from './LongContent'
 
 function LegalPrivacy(props) {
   return (
@@ -14,7 +14,7 @@ function LegalPrivacy(props) {
         ,&nbsp;
         <a href="https://getterms.io" target="_blank" rel="noreferrer">
           getterms.io
-        </a>{" "}
+        </a>{' '}
         or&nbsp;
         <a href="https://termly.io" target="_blank" rel="noreferrer">
           termly.io
@@ -51,7 +51,7 @@ function LegalPrivacy(props) {
       <h2>Another main header</h2>
       <p>Another paragraph of text</p>
     </LongContent>
-  );
+  )
 }
 
-export default LegalPrivacy;
+export default LegalPrivacy

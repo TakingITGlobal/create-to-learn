@@ -1,9 +1,9 @@
-import React from "react";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import Section from "./Section";
-import SectionHeader from "./SectionHeader";
-import Newsletter from "./Newsletter";
+import React from 'react'
+import Container from '@material-ui/core/Container'
+import Grid from '@material-ui/core/Grid'
+import Section from './Section'
+import SectionHeader from './SectionHeader'
+import Newsletter from './Newsletter'
 
 function NewsletterSection(props) {
   return (
@@ -38,7 +38,7 @@ function NewsletterSection(props) {
         </Grid>
       </Container>
     </Section>
-  );
+  )
 }
 
-export default NewsletterSection;
+export default NewsletterSection

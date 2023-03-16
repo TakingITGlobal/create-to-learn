@@ -1,5 +1,5 @@
-import React from "react";
-import LongContent from "./LongContent";
+import React from 'react'
+import LongContent from './LongContent'
 
 function LegalTerms(props) {
   return (
@@ -14,7 +14,7 @@ function LegalTerms(props) {
         ,&nbsp;
         <a href="https://getterms.io" target="_blank" rel="noreferrer">
           getterms.io
-        </a>{" "}
+        </a>{' '}
         or&nbsp;
         <a href="https://termly.io" target="_blank" rel="noreferrer">
           termly.io
@@ -57,7 +57,7 @@ function LegalTerms(props) {
       <h2>Another header</h2>
       <p>Another paragraph of text</p>
     </LongContent>
-  );
+  )
 }
 
-export default LegalTerms;
+export default LegalTerms

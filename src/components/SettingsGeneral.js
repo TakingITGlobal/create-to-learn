@@ -1,50 +1,50 @@
-import React, { useState } from "react";
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { useForm } from "react-hook-form";
-import { useAuth } from "./../util/auth";
+import React, { useState } from 'react'
+import Grid from '@material-ui/core/Grid'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { useForm } from 'react-hook-form'
+import { useAuth } from './../util/auth'
 
 function SettingsGeneral(props) {
-  const auth = useAuth();
-  const [pending, setPending] = useState(false);
+  const auth = useAuth()
+  const [pending, setPending] = useState(false)
 
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors } = useForm()
 
   const onSubmit = (data) => {
     // Show pending indicator
-    setPending(true);
+    setPending(true)
 
     return auth
       .updateProfile(data)
       .then(() => {
         // Set success status
         props.onStatus({
-          type: "success",
-          message: "Your profile has been updated",
-        });
+          type: 'success',
+          message: 'Your profile has been updated',
+        })
       })
       .catch((error) => {
-        if (error.code === "auth/requires-recent-login") {
+        if (error.code === 'auth/requires-recent-login') {
           props.onStatus({
-            type: "requires-recent-login",
+            type: 'requires-recent-login',
             // Resubmit after reauth flow
             callback: () => onSubmit(data),
-          });
+          })
         } else {
           // Set error status
           props.onStatus({
-            type: "error",
+            type: 'error',
             message: error.message,
-          });
+          })
         }
       })
       .finally(() => {
         // Hide pending indicator
-        setPending(false);
-      });
-  };
+        setPending(false)
+      })
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -61,7 +61,7 @@ function SettingsGeneral(props) {
             helperText={errors.name && errors.name.message}
             fullWidth={true}
             inputRef={register({
-              required: "Please enter your name",
+              required: 'Please enter your name',
             })}
           />
         </Grid>
@@ -77,7 +77,7 @@ function SettingsGeneral(props) {
             helperText={errors.email && errors.email.message}
             fullWidth={true}
             inputRef={register({
-              required: "Please enter your email",
+              required: 'Please enter your email',
             })}
           />
         </Grid>
@@ -97,7 +97,7 @@ function SettingsGeneral(props) {
         </Grid>
       </Grid>
     </form>
-  );
+  )
 }
 
-export default SettingsGeneral;
+export default SettingsGeneral

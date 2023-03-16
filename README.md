@@ -1,29 +1,38 @@
-
 ## 👉 Get Started
+
 Install dependencies
+
 ```
 npm install
 ```
+
 Update your `.env` file with values for each environment variable
+
 ```
 API_KEY=AIzaSyBkkFF0XhNZeWuDmOfEhsgdfX1VBG7WTas
 etc ...
 ```
 
 Install the Netlify CLI
+
 ```
 npm install netlify-cli -g
 ```
+
 Run the development server
+
 ```
 netlify dev
 ```
+
 When the above command completes you'll be able to view your website at `http://localhost:8888`
 
 _Note: You can run just the front-end with `npm run start`, but `netlify dev` also handles running your API endpoints (located in the `/api` directory)._
 
 ## 🥞 Stack
+
 This project uses the following libraries and services:
+
 - Framework - [Create React App](https://create-react-app.dev) with React Router
 - UI Kit - [Material UI](https://material-ui.com)
 - Authentication - [Auth0](https://auth0.com)
@@ -33,10 +42,7 @@ This project uses the following libraries and services:
 - Analytics - [Google Analytics](https://googleanalytics.com)
 - Hosting - [Netlify](https://netlify.com)
 
-
 ## 📚 Guide
-
-
 
 <details>
 <summary><b>Routing</b></summary>
@@ -44,27 +50,28 @@ This project uses the following libraries and services:
   This project uses <a target="_blank" href="https://reacttraining.com/react-router/web/guides/quick-start">React Router</a> and includes a convenient <code>useRouter</code> hook (located in <code><a href="src/util/router.js">src/util/router.js</a></code>) that wraps React Router and gives all the route methods and data you need.
 
 ```js
-import { Link, useRouter } from "./../util/router.js";
+import { Link, useRouter } from './../util/router.js'
 
 function MyComponent() {
   // Get the router object
-  const router = useRouter();
+  const router = useRouter()
 
   // Get value from query string (?postId=123) or route param (/:postId)
-  console.log(router.query.postId);
+  console.log(router.query.postId)
 
   // Get current pathname
-  console.log(router.pathname);
+  console.log(router.pathname)
 
   // Navigate with the <Link> component or with router.push()
   return (
     <div>
       <Link to="/about">About</Link>
-      <button onClick={(e) => router.push("/about")}>About</button>
+      <button onClick={(e) => router.push('/about')}>About</button>
     </div>
-  );
+  )
 }
 ```
+
 </p>
 </details>
 
@@ -74,11 +81,11 @@ function MyComponent() {
   This project uses <a href="https://auth0.com">Auth0</a> and includes a convenient <code>useAuth</code> hook (located in <code><a href="src/util/auth.js">src/util/auth.js</a></code>) that wraps Auth0 and gives you common authentication methods. Depending on your needs you may want to edit this file and expose more Auth0 functionality.
 
 ```js
-import { useAuth } from "./../util/auth.js";
+import { useAuth } from './../util/auth.js'
 
 function MyComponent() {
   // Get the auth object in any component
-  const auth = useAuth();
+  const auth = useAuth()
 
   // Depending on auth state show signin or signout button
   // auth.user will either be an object, null when loading, or false if signed out
@@ -87,12 +94,15 @@ function MyComponent() {
       {auth.user ? (
         <button onClick={(e) => auth.signout()}>Signout</button>
       ) : (
-        <button onClick={(e) => auth.signin("hello@divjoy.com", "yolo")}>Signin</button>
+        <button onClick={(e) => auth.signin('hello@divjoy.com', 'yolo')}>
+          Signin
+        </button>
       )}
     </div>
-  );
+  )
 }
 ```
+
 </p>
 </details>
 
@@ -127,6 +137,7 @@ function ItemsPage(){
   );
 }
 ```
+
 </p>
 </details>
 
@@ -158,11 +169,13 @@ npm run build
 ```
 
 Then run this command to deploy to Netlify
+
 ```
 netlify deploy
 ```
 
 See the <a target="_blank" href="https://docs.netlify.com/cli/get-started/#manual-deploys">Netlify docs</a> for more details.
+
 </p>
 </details>
 
@@ -172,4 +185,3 @@ See the <a target="_blank" href="https://docs.netlify.com/cli/get-started/#manua
   This project was created using <a href="https://divjoy.com?ref=readme_other">Divjoy</a>, the React codebase generator. You can find more info in the <a href="https://docs.divjoy.com">Divjoy Docs</a>.
 </p>
 </details>
-  

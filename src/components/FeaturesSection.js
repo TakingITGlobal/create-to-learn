@@ -1,11 +1,11 @@
-import React from "react";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Section from "./Section";
-import SectionHeader from "./SectionHeader";
+import React from 'react'
+import Container from '@material-ui/core/Container'
+import Grid from '@material-ui/core/Grid'
+import Box from '@material-ui/core/Box'
+import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/core/styles'
+import Section from './Section'
+import SectionHeader from './SectionHeader'
 
 const useStyles = makeStyles((theme) => ({
   itemsContainer: {
@@ -13,54 +13,54 @@ const useStyles = makeStyles((theme) => ({
   },
   row: {
     // Reverse every other row
-    "&:nth-of-type(even)": {
-      flexDirection: "row-reverse",
+    '&:nth-of-type(even)': {
+      flexDirection: 'row-reverse',
     },
 
     // Spacing between rows
-    "&:not(:last-child)": {
+    '&:not(:last-child)': {
       marginBottom: `${theme.spacing(3)}px`,
     },
   },
   figure: {
     maxWidth: 300,
-    margin: "30px auto",
+    margin: '30px auto',
   },
   image: {
-    height: "auto",
-    maxWidth: "100%",
+    height: 'auto',
+    maxWidth: '100%',
   },
-}));
+}))
 
 function FeaturesSection(props) {
-  const classes = useStyles();
+  const classes = useStyles()
 
   const items = [
     {
-      title: "Explore",
+      title: 'Explore',
       description:
-        "Integer ornare neque mauris, ac vulputate lacus venenatis et. Pellentesque ut ultrices purus.",
-      image: "https://uploads.divjoy.com/undraw-mind_map_cwng.svg",
+        'Integer ornare neque mauris, ac vulputate lacus venenatis et. Pellentesque ut ultrices purus.',
+      image: 'https://uploads.divjoy.com/undraw-mind_map_cwng.svg',
     },
     {
-      title: "Explore",
+      title: 'Explore',
       description:
-        "Integer ornare neque mauris, ac vulputate lacus venenatis et. Pellentesque ut ultrices purus.",
-      image: "https://uploads.divjoy.com/undraw-personal_settings_kihd.svg",
+        'Integer ornare neque mauris, ac vulputate lacus venenatis et. Pellentesque ut ultrices purus.',
+      image: 'https://uploads.divjoy.com/undraw-personal_settings_kihd.svg',
     },
     {
-      title: "Explore",
+      title: 'Explore',
       description:
-        "Integer ornare neque mauris, ac vulputate lacus venenatis et. Pellentesque ut ultrices purus.",
-      image: "https://uploads.divjoy.com/undraw-having_fun_iais.svg",
+        'Integer ornare neque mauris, ac vulputate lacus venenatis et. Pellentesque ut ultrices purus.',
+      image: 'https://uploads.divjoy.com/undraw-having_fun_iais.svg',
     },
     {
-      title: "Explore",
+      title: 'Explore',
       description:
-        "Integer ornare neque mauris, ac vulputate lacus venenatis et. Pellentesque ut ultrices purus.",
-      image: "https://uploads.divjoy.com/undraw-balloons_vxx5.svg",
+        'Integer ornare neque mauris, ac vulputate lacus venenatis et. Pellentesque ut ultrices purus.',
+      image: 'https://uploads.divjoy.com/undraw-balloons_vxx5.svg',
     },
-  ];
+  ]
 
   return (
     <Section
@@ -93,8 +93,8 @@ function FeaturesSection(props) {
               <Grid item={true} xs={12} md={6}>
                 <Box
                   textAlign={{
-                    xs: "center",
-                    md: "left",
+                    xs: 'center',
+                    md: 'left',
                   }}
                 >
                   <Typography variant="h5" gutterBottom={true}>
@@ -119,7 +119,7 @@ function FeaturesSection(props) {
         </Container>
       </Container>
     </Section>
-  );
+  )
 }
 
-export default FeaturesSection;
+export default FeaturesSection

@@ -1,55 +1,55 @@
-import React, { useState } from "react";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import Box from "@material-ui/core/Box";
-import Alert from "@material-ui/lab/Alert";
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { useForm } from "react-hook-form";
-import { makeStyles } from "@material-ui/core/styles";
-import AuthSocial from "./AuthSocial";
-import { useAuth } from "./../util/auth";
+import React, { useState } from 'react'
+import Dialog from '@material-ui/core/Dialog'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import DialogContent from '@material-ui/core/DialogContent'
+import Box from '@material-ui/core/Box'
+import Alert from '@material-ui/lab/Alert'
+import Grid from '@material-ui/core/Grid'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { useForm } from 'react-hook-form'
+import { makeStyles } from '@material-ui/core/styles'
+import AuthSocial from './AuthSocial'
+import { useAuth } from './../util/auth'
 
 const useStyles = makeStyles((theme) => ({
   content: {
     paddingBottom: 24,
   },
-}));
+}))
 
 function ReauthModal(props) {
-  const classes = useStyles();
+  const classes = useStyles()
 
-  const auth = useAuth();
-  const [pending, setPending] = useState(false);
-  const [formAlert, setFormAlert] = useState(null);
+  const auth = useAuth()
+  const [pending, setPending] = useState(false)
+  const [formAlert, setFormAlert] = useState(null)
 
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors } = useForm()
 
   const onSubmit = (data) => {
-    const { pass } = data;
-    setPending(true);
+    const { pass } = data
+    setPending(true)
 
     auth
       .signin(auth.user.email, pass)
       .then(() => {
         // Call failed action that originally required reauth
-        props.callback();
+        props.callback()
         // Let parent know we're done so they can hide modal
-        props.onDone();
+        props.onDone()
       })
       .catch((error) => {
         // Hide pending indicator
-        setPending(false);
+        setPending(false)
         // Show error alert message
         setFormAlert({
-          type: "error",
+          type: 'error',
           message: error.message,
-        });
-      });
-  };
+        })
+      })
+  }
 
   return (
     <Dialog open={true} onClose={props.onDone}>
@@ -61,7 +61,7 @@ function ReauthModal(props) {
           </Box>
         )}
 
-        {props.provider === "password" && (
+        {props.provider === 'password' && (
           <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container={true} spacing={2}>
               <Grid item={true} xs={12}>
@@ -75,7 +75,7 @@ function ReauthModal(props) {
                   fullWidth={true}
                   autoFocus={true}
                   inputRef={register({
-                    required: "Please enter your password",
+                    required: 'Please enter your password',
                   })}
                 />
               </Grid>
@@ -97,27 +97,27 @@ function ReauthModal(props) {
           </form>
         )}
 
-        {props.provider !== "password" && (
+        {props.provider !== 'password' && (
           <AuthSocial
             type="signin"
             buttonText="Sign in"
             providers={[props.provider]}
             showLastUsed={false}
             onAuth={() => {
-              props.callback();
-              props.onDone();
+              props.callback()
+              props.onDone()
             }}
             onError={(message) => {
               setFormAlert({
-                type: "error",
+                type: 'error',
                 message: message,
-              });
+              })
             }}
           />
         )}
       </DialogContent>
     </Dialog>
-  );
+  )
 }
 
-export default ReauthModal;
+export default ReauthModal

@@ -1,24 +1,24 @@
-import React, { useState } from "react";
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
-import { useForm } from "react-hook-form";
-import newsletter from "./../util/newsletter";
+import React, { useState } from 'react'
+import Grid from '@material-ui/core/Grid'
+import TextField from '@material-ui/core/TextField'
+import Box from '@material-ui/core/Box'
+import Button from '@material-ui/core/Button'
+import { useForm } from 'react-hook-form'
+import newsletter from './../util/newsletter'
 
 function Newsletter(props) {
-  const [subscribed, setSubscribed] = useState(false);
+  const [subscribed, setSubscribed] = useState(false)
 
-  const { handleSubmit, register, errors } = useForm();
+  const { handleSubmit, register, errors } = useForm()
 
   const onSubmit = ({ email }) => {
-    setSubscribed(true);
+    setSubscribed(true)
     // Parent component can optionally
     // find out when subscribed.
-    props.onSubscribed && props.onSubscribed();
+    props.onSubscribed && props.onSubscribed()
     // Subscribe them
-    newsletter.subscribe({ email });
-  };
+    newsletter.subscribe({ email })
+  }
 
   return (
     <>
@@ -35,7 +35,7 @@ function Newsletter(props) {
                 helperText={errors.email && errors.email.message}
                 fullWidth={true}
                 inputRef={register({
-                  required: "Please enter an email address",
+                  required: 'Please enter an email address',
                 })}
               />
             </Grid>
@@ -57,7 +57,7 @@ function Newsletter(props) {
 
       {subscribed === true && <div>{props.subscribedMessage}</div>}
     </>
-  );
+  )
 }
 
-export default Newsletter;
+export default Newsletter

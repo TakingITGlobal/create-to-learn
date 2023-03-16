@@ -1,33 +1,33 @@
-import React from "react";
-import Container from "@material-ui/core/Container";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Section from "./Section";
-import SectionHeader from "./SectionHeader";
+import React from 'react'
+import Container from '@material-ui/core/Container'
+import Box from '@material-ui/core/Box'
+import Grid from '@material-ui/core/Grid'
+import Section from './Section'
+import SectionHeader from './SectionHeader'
 
 function ClientsSection(props) {
   const items = [
     {
-      name: "Instagram",
-      image: "https://uploads.divjoy.com/logo-instagram.svg",
-      width: "150px",
+      name: 'Instagram',
+      image: 'https://uploads.divjoy.com/logo-instagram.svg',
+      width: '150px',
     },
     {
-      name: "Slack",
-      image: "https://uploads.divjoy.com/logo-slack.svg",
-      width: "135px",
+      name: 'Slack',
+      image: 'https://uploads.divjoy.com/logo-slack.svg',
+      width: '135px',
     },
     {
-      name: "Tinder",
-      image: "https://uploads.divjoy.com/logo-tinder.svg",
-      width: "90px",
+      name: 'Tinder',
+      image: 'https://uploads.divjoy.com/logo-tinder.svg',
+      width: '90px',
     },
     {
-      name: "Spotify",
-      image: "https://uploads.divjoy.com/logo-spotify.svg",
-      width: "135px",
+      name: 'Spotify',
+      image: 'https://uploads.divjoy.com/logo-spotify.svg',
+      width: '135px',
     },
-  ];
+  ]
 
   return (
     <Section
@@ -56,7 +56,7 @@ function ClientsSection(props) {
         </Box>
       </Container>
     </Section>
-  );
+  )
 }
 
-export default ClientsSection;
+export default ClientsSection

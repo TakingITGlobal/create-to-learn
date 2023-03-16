@@ -1,10 +1,10 @@
-import React from "react";
-import Meta from "./../components/Meta";
-import LegalSection from "./../components/LegalSection";
-import { useRouter } from "./../util/router";
+import React from 'react'
+import Meta from './../components/Meta'
+import LegalSection from './../components/LegalSection'
+import { useRouter } from './../util/router'
 
 function LegalPage(props) {
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <>
@@ -18,7 +18,7 @@ function LegalPage(props) {
         key={router.query.section}
       />
     </>
-  );
+  )
 }
 
-export default LegalPage;
+export default LegalPage

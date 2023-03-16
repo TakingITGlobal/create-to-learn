@@ -1,5 +1,5 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React from 'react'
+import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
   // Style nested HTML elements so that
@@ -7,32 +7,32 @@ const useStyles = makeStyles((theme) => ({
   // components to match MUI style
   root: {
     ...theme.typography.body1,
-    "& h1": {
+    '& h1': {
       ...theme.typography.h4,
       fontWeight: 600,
     },
-    "& h2": {
+    '& h2': {
       ...theme.typography.h5,
       fontWeight: 600,
     },
-    "& h3": {
+    '& h3': {
       ...theme.typography.h6,
       fontWeight: 600,
     },
-    "& a": {
+    '& a': {
       color: theme.palette.primary.main,
-      textDecoration: "none",
-      "&:hover": {
-        textDecoration: "underline",
+      textDecoration: 'none',
+      '&:hover': {
+        textDecoration: 'underline',
       },
     },
   },
-}));
+}))
 
 function LongContent(props) {
-  const classes = useStyles();
+  const classes = useStyles()
 
-  return <div className={classes.root}>{props.children}</div>;
+  return <div className={classes.root}>{props.children}</div>
 }
 
-export default LongContent;
+export default LongContent

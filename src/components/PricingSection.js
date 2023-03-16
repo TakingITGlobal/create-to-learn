@@ -1,37 +1,37 @@
-import React from "react";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import CheckIcon from "@material-ui/icons/Check";
-import ListItemText from "@material-ui/core/ListItemText";
-import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
-import Section from "./Section";
-import SectionHeader from "./SectionHeader";
-import { Link } from "./../util/router";
-import { useAuth } from "./../util/auth";
+import React from 'react'
+import Container from '@material-ui/core/Container'
+import Grid from '@material-ui/core/Grid'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Typography from '@material-ui/core/Typography'
+import Box from '@material-ui/core/Box'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import CheckIcon from '@material-ui/icons/Check'
+import ListItemText from '@material-ui/core/ListItemText'
+import Button from '@material-ui/core/Button'
+import { makeStyles } from '@material-ui/core/styles'
+import Section from './Section'
+import SectionHeader from './SectionHeader'
+import { Link } from './../util/router'
+import { useAuth } from './../util/auth'
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    display: "flex",
-    flexDirection: "column",
-    height: "100%",
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
   },
   cardContent: {
-    display: "flex",
-    flexDirection: "column",
-    height: "100%",
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
     padding: theme.spacing(3),
   },
   price: {
-    display: "flex",
-    alignItems: "baseline",
+    display: 'flex',
+    alignItems: 'baseline',
   },
   listItem: {
     paddingTop: 2,
@@ -41,51 +41,51 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 34,
     color: theme.palette.success.main,
   },
-}));
+}))
 
 function PricingSection(props) {
-  const classes = useStyles();
+  const classes = useStyles()
 
-  const auth = useAuth();
+  const auth = useAuth()
 
   const plans = [
     {
-      id: "starter",
-      name: "Starter",
-      price: "10",
+      id: 'starter',
+      name: 'Starter',
+      price: '10',
       perks: [
-        "Lorem ipsum dolor sit amet",
-        "Consectetur adipiscing elit",
-        "Integer molestie lorem at massa",
+        'Lorem ipsum dolor sit amet',
+        'Consectetur adipiscing elit',
+        'Integer molestie lorem at massa',
       ],
     },
     {
-      id: "pro",
-      name: "Pro",
-      price: "20",
+      id: 'pro',
+      name: 'Pro',
+      price: '20',
       perks: [
-        "Lorem ipsum dolor sit amet",
-        "Consectetur adipiscing elit",
-        "Integer molestie lorem at massa",
-        "Faucibus porta lacus fringilla vel",
-        "Aenean sit amet erat nunc",
+        'Lorem ipsum dolor sit amet',
+        'Consectetur adipiscing elit',
+        'Integer molestie lorem at massa',
+        'Faucibus porta lacus fringilla vel',
+        'Aenean sit amet erat nunc',
       ],
     },
     {
-      id: "business",
-      name: "Business",
-      price: "50",
+      id: 'business',
+      name: 'Business',
+      price: '50',
       perks: [
-        "Lorem ipsum dolor sit amet",
-        "Consectetur adipiscing elit",
-        "Integer molestie lorem at massa",
-        "Faucibus porta lacus fringilla vel",
-        "Aenean sit amet erat nunc",
-        "Lorem ipsum dolor sit amet",
-        "Consectetur adipiscing elit",
+        'Lorem ipsum dolor sit amet',
+        'Consectetur adipiscing elit',
+        'Integer molestie lorem at massa',
+        'Faucibus porta lacus fringilla vel',
+        'Aenean sit amet erat nunc',
+        'Lorem ipsum dolor sit amet',
+        'Consectetur adipiscing elit',
       ],
     },
-  ];
+  ]
 
   return (
     <Section
@@ -166,7 +166,7 @@ function PricingSection(props) {
         </Grid>
       </Container>
     </Section>
-  );
+  )
 }
 
-export default PricingSection;
+export default PricingSection

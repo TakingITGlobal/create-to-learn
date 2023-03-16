@@ -1,6 +1,6 @@
-import React from "react";
-import Meta from "./../components/Meta";
-import ContactSection from "./../components/ContactSection";
+import React from 'react'
+import Meta from './../components/Meta'
+import ContactSection from './../components/ContactSection'
 
 function ContactPage(props) {
   return (
@@ -18,7 +18,7 @@ function ContactPage(props) {
         showNameField={true}
       />
     </>
-  );
+  )
 }
 
-export default ContactPage;
+export default ContactPage

@@ -1,13 +1,13 @@
-import React from "react";
-import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import React from 'react'
+import Box from '@material-ui/core/Box'
+import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     // Add bottom margin if element below
-    "&:not(:last-child)": {
-      marginBottom: "2rem",
+    '&:not(:last-child)': {
+      marginBottom: '2rem',
     },
   },
   subtitle: {
@@ -16,24 +16,24 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 700,
     // So we can have max-width but still
     // have alignment controlled by text-align.
-    display: "inline-block",
+    display: 'inline-block',
   },
-}));
+}))
 
 function SectionHeader(props) {
-  const classes = useStyles();
+  const classes = useStyles()
 
-  const { subtitle, title, size, className, ...otherProps } = props;
+  const { subtitle, title, size, className, ...otherProps } = props
 
   // Render nothing if no title or subtitle
   if (!title && !subtitle) {
-    return null;
+    return null
   }
 
   return (
     <Box
       component="header"
-      className={classes.root + (props.className ? ` ${props.className}` : "")}
+      className={classes.root + (props.className ? ` ${props.className}` : '')}
       {...otherProps}
     >
       {title && (
@@ -51,7 +51,7 @@ function SectionHeader(props) {
         </Typography>
       )}
     </Box>
-  );
+  )
 }
 
-export default SectionHeader;
+export default SectionHeader

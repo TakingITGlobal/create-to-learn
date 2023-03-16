@@ -1,10 +1,10 @@
-import React from "react";
-import Meta from "./../components/Meta";
-import AuthSection from "./../components/AuthSection";
-import { useRouter } from "./../util/router";
+import React from 'react'
+import Meta from './../components/Meta'
+import AuthSection from './../components/AuthSection'
+import { useRouter } from './../util/router'
 
 function AuthPage(props) {
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <>
@@ -15,11 +15,11 @@ function AuthPage(props) {
         bgImage=""
         bgImageOpacity={1}
         type={router.query.type}
-        providers={["google", "facebook"]}
-        afterAuthPath={router.query.next || "/dashboard"}
+        providers={['google', 'facebook']}
+        afterAuthPath={router.query.next || '/dashboard'}
       />
     </>
-  );
+  )
 }
 
-export default AuthPage;
+export default AuthPage

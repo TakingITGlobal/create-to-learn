@@ -1,11 +1,11 @@
-import React from "react";
-import Container from "@material-ui/core/Container";
-import Box from "@material-ui/core/Box";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Section from "./Section";
+import React from 'react'
+import Container from '@material-ui/core/Container'
+import Box from '@material-ui/core/Box'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Section from './Section'
 
 function PageLoader(props) {
-  const { height = 350 } = props;
+  const { height = 350 } = props
 
   return (
     <Section bgColor="default">
@@ -22,7 +22,7 @@ function PageLoader(props) {
         </Box>
       </Container>
     </Section>
-  );
+  )
 }
 
-export default PageLoader;
+export default PageLoader

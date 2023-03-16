@@ -1,7 +1,7 @@
-import React from "react";
-import Box from "@material-ui/core/Box";
-import Container from "@material-ui/core/Container";
-import Section from "./Section";
+import React from 'react'
+import Box from '@material-ui/core/Box'
+import Container from '@material-ui/core/Container'
+import Section from './Section'
 
 function SettingsLegal(props) {
   return (
@@ -15,7 +15,7 @@ function SettingsLegal(props) {
         <Container>Legal And About</Container>
       </Box>
     </Section>
-  );
+  )
 }
 
-export default SettingsLegal;
+export default SettingsLegal
