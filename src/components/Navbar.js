@@ -140,7 +140,7 @@ function Navbar(props) {
                     <MenuItem component={Link} to="/dashboard">
                       Dashboard
                     </MenuItem>
-                    <MenuItem component={Link} to="/settings/myaccount">
+                    <MenuItem component={Link} to="/settings/profile">
                       Settings
                     </MenuItem>
                     <Divider />

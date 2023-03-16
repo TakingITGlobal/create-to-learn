@@ -1,60 +1,83 @@
 import React from 'react'
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
-import { Link } from './../util/router'
+import List from '@material-ui/core/List'
+import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
+import Collapse from '@material-ui/core/Collapse'
+import ChevronRightIcon from '@material-ui/icons/ChevronRight'
+import { Link } from '../util/router'
 
-function SettingsNav(props) {
+function SettingsNav() {
+  const [open, setOpen] = React.useState(true)
+
+  const handleClick = () => {
+    setOpen(!open)
+  }
+
+  function generate(element) {
+    return [0, 1, 2].map((value) =>
+      React.cloneElement(element, {
+        key: value,
+      }),
+    )
+  }
   return (
-    <Tabs
-      value={props.activeKey}
-      indicatorColor="primary"
-      textColor="primary"
-      centered={true}
+    <List
+      sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+      component="nav"
+      aria-labelledby="nested-list-subheader"
     >
-      <Tab
-        component={Link}
-        to="/settings/myaccount"
-        label="My Account"
-        value="myaccount"
-      />
+      <ListItem>
+        <Button component={Link} to="/settings/my-account">
+          <ListItemText>My Account</ListItemText>
+        </Button>
 
-      <Tab
-        component={Link}
-        to="/settings/password"
-        label="Password"
-        value="password"
-      />
-      <Tab
-        component={Link}
-        to="/settings/notifications"
-        label="Notifications"
-        value="notifications"
-      />
-      <Tab
-        component={Link}
-        to="/settings/data-usage"
-        label="Data Usage"
-        value="data-usage"
-      />
-      <Tab
-        component={Link}
-        to="/settings/legal-and-about"
-        label="Legal and About"
-        value="legal-and-about"
-      />
-      {/* <Tab
-        component={Link}
-        to="/settings/general"
-        label="General"
-        value="general"
-      /> */}
-      {/* <Tab
-        component={Link}
-        to="/settings/billing"
-        label="Billing"
-        value="billing"
-      /> */}
-    </Tabs>
+        <ListItemSecondaryAction>
+          <IconButton>
+            <ChevronRightIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
+      </ListItem>
+
+      <ListItem>
+        <Button>
+          <ListItemText>Notifications</ListItemText>
+        </Button>
+
+        <ListItemSecondaryAction>
+          <IconButton>
+            <ChevronRightIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
+      </ListItem>
+
+      <ListItem>
+        <Button>
+          <ListItemText>Data Usage</ListItemText>
+        </Button>
+
+        <ListItemSecondaryAction>
+          <IconButton>
+            <ChevronRightIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
+      </ListItem>
+
+      <ListItem>
+        <Button>
+          <ListItemText>Legal and About</ListItemText>
+        </Button>
+
+        <ListItemSecondaryAction>
+          <IconButton>
+            <ChevronRightIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
+      </ListItem>
+    </List>
   )
 }
 

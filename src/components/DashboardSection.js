@@ -1,30 +1,30 @@
-import React from "react";
-import Container from "@material-ui/core/Container";
-import Box from "@material-ui/core/Box";
-import Alert from "@material-ui/lab/Alert";
-import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import LinkMui from "@material-ui/core/Link";
-import { makeStyles } from "@material-ui/core/styles";
-import Section from "./Section";
-import SectionHeader from "./SectionHeader";
-import DashboardItems from "./DashboardItems";
-import { Link, useRouter } from "./../util/router";
-import { useAuth } from "./../util/auth";
+import React from 'react'
+import Container from '@material-ui/core/Container'
+import Box from '@material-ui/core/Box'
+import Alert from '@material-ui/lab/Alert'
+import Grid from '@material-ui/core/Grid'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Typography from '@material-ui/core/Typography'
+import LinkMui from '@material-ui/core/Link'
+import { makeStyles } from '@material-ui/core/styles'
+import Section from './Section'
+import SectionHeader from './SectionHeader'
+import DashboardItems from './DashboardItems'
+import { Link, useRouter } from './../util/router'
+import { useAuth } from './../util/auth'
 
 const useStyles = makeStyles((theme) => ({
   cardContent: {
     padding: theme.spacing(3),
   },
-}));
+}))
 
 function DashboardSection(props) {
-  const classes = useStyles();
+  const classes = useStyles()
 
-  const auth = useAuth();
-  const router = useRouter();
+  const auth = useAuth()
+  const router = useRouter()
 
   return (
     <Section
@@ -48,7 +48,7 @@ function DashboardSection(props) {
               <span
                 role="img"
                 aria-label="party"
-                style={{ marginLeft: "10px" }}
+                style={{ marginLeft: '10px' }}
               >
                 🥳
               </span>
@@ -97,11 +97,11 @@ function DashboardSection(props) {
                       {auth.user.stripeSubscriptionId && (
                         <>
                           <div>
-                            You are subscribed to the{" "}
+                            You are subscribed to the{' '}
                             <strong>{auth.user.planId} plan</strong>.
                           </div>
                           <div>
-                            Your plan status is{" "}
+                            Your plan status is{' '}
                             <strong>
                               {auth.user.stripeSubscriptionStatus}
                             </strong>
@@ -114,7 +114,7 @@ function DashboardSection(props) {
                         You can change your account info{` `}
                         {auth.user.stripeSubscriptionId && <>and plan{` `}</>}
                         in{` `}
-                        <LinkMui component={Link} to="/settings/myaccount">
+                        <LinkMui component={Link} to="/settings/my-account">
                           <strong>settings</strong>
                         </LinkMui>
                         .
@@ -122,7 +122,7 @@ function DashboardSection(props) {
 
                       {!auth.user.stripeSubscriptionId && (
                         <div>
-                          You can signup for a plan in{" "}
+                          You can signup for a plan in{' '}
                           <LinkMui component={Link} to="/pricing">
                             <strong>pricing</strong>
                           </LinkMui>
@@ -138,7 +138,7 @@ function DashboardSection(props) {
         </Grid>
       </Container>
     </Section>
-  );
+  )
 }
 
-export default DashboardSection;
+export default DashboardSection

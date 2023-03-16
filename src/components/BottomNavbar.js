@@ -47,7 +47,7 @@ export default function BottomNavbar() {
       />
       <BottomNavigationAction
         component={Link}
-        to="/settings/myaccount"
+        to="/settings/profile"
         label="Profile"
         icon={<AccountIcon />}
       />

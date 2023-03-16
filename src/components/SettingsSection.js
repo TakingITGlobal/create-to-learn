@@ -4,7 +4,8 @@ import Container from '@material-ui/core/Container'
 import Alert from '@material-ui/lab/Alert'
 import Section from './Section'
 import ReauthModal from './ReauthModal'
-import SettingsNav from './SettingsNav'
+// import SettingsNav from './SettingsNav'
+import SettingsProfile from './SettingsProfile'
 import SettingsMyAccount from './SettingsMyAccount'
 import SettingsPassword from './SettingsPassword'
 import SettingsNotifications from './SettingsNotifications'
@@ -26,6 +27,7 @@ function SettingsSection(props) {
   })
 
   const validSections = {
+    profile: true,
     'my-account': true,
     password: true,
     notifications: true,
@@ -35,7 +37,7 @@ function SettingsSection(props) {
     // billing: true,
   }
 
-  const section = validSections[props.section] ? props.section : 'myaccount'
+  const section = validSections[props.section] ? props.section : 'my-account'
 
   // Handle status of type "success", "error", or "requires-recent-login"
   // We don't treat "requires-recent-login" as an error as we handle it
@@ -74,7 +76,7 @@ function SettingsSection(props) {
         />
       )}
 
-      <SettingsNav activeKey={section} />
+      {/* <SettingsNav activeKey={section} /> */}
       <Box mt={5}>
         <Container maxWidth="xs">
           {formAlert && (
@@ -83,7 +85,8 @@ function SettingsSection(props) {
             </Box>
           )}
 
-          {section === 'myaccount' && (
+          {section === 'profile' && <SettingsProfile onStatus={handleStatus} />}
+          {section === 'my-account' && (
             <SettingsMyAccount onStatus={handleStatus} />
           )}
 
