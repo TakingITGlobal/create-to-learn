@@ -34,7 +34,7 @@ function SettingsMyAccount(props) {
       <List
         sx={{ width: '100%', maxWidth: 400 }}
         component="nav"
-        aria-labelledby="settings-profile"
+        aria-labelledby="settings-my-account"
       >
         {myAccountLinks.map((accLink) => (
           <ListItem

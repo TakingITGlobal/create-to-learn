@@ -10,6 +10,7 @@ import SettingsMyAccount from './SettingsMyAccount'
 import SettingsPassword from './SettingsPassword'
 import SettingsNotifications from './SettingsNotifications'
 import SettingsDataUsage from './SettingsDataUsage'
+import SettingsSupport from './SettingsSupport'
 import SettingsLegal from './SettingsLegal'
 import SettingsBilling from './SettingsBilling'
 import SettingsGeneral from './SettingsGeneral'
@@ -32,6 +33,7 @@ function SettingsSection(props) {
     password: true,
     notifications: true,
     'data-usage': true,
+    'help-and-support': true,
     'legal-and-about': true,
     // general: true,
     // billing: true,
@@ -100,6 +102,9 @@ function SettingsSection(props) {
 
           {section === 'data-usage' && (
             <SettingsDataUsage onStatus={handleStatus} />
+          )}
+          {section === 'help-and-support' && (
+            <SettingsSupport onStatus={handleStatus} />
           )}
 
           {section === 'legal-and-about' && (

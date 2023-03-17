@@ -22,6 +22,8 @@ function SettingsProfile() {
     { title: 'My Account', link: '/settings/my-account' },
     { title: 'Notifications', link: '/settings/notifications' },
     { title: 'Data Usage', link: '/settings/data-usage' },
+    { title: 'Help and Support', link: '/settings/help-and-support' },
+
     { title: 'Legal And About', link: '/settings/legal-and-about' },
   ]
 
