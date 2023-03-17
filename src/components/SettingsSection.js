@@ -79,7 +79,7 @@ function SettingsSection(props) {
       )}
 
       {/* <SettingsNav activeKey={section} /> */}
-      <Box mt={5}>
+      <Box mt={5} sx={{ paddingBottom: 15 }}>
         <Container maxWidth="xs">
           {formAlert && (
             <Box mb={4}>

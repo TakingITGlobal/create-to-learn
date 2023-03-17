@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
+import IconButton from '@material-ui/core/IconButton'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom'
 
@@ -24,7 +25,7 @@ function SettingsProfile() {
     { title: 'Data Usage', link: '/settings/data-usage' },
     { title: 'Help and Support', link: '/settings/help-and-support' },
 
-    { title: 'Legal And About', link: '/settings/legal-and-about' },
+    { title: 'Legal and About', link: '/settings/legal-and-about' },
   ]
 
   return (
@@ -44,7 +45,9 @@ function SettingsProfile() {
               <ListItem button component={Link} to={link} key={title}>
                 <ListItemText>{title}</ListItemText>
                 <ListItemSecondaryAction>
-                  <ChevronRightIcon />
+                  <IconButton component={Link} to={link}>
+                    <ChevronRightIcon />
+                  </IconButton>
                 </ListItemSecondaryAction>
               </ListItem>
             ),

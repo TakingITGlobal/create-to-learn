@@ -9,7 +9,9 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import DeleteIcon from '@material-ui/icons/Delete'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
-
+import IconButton from '@material-ui/core/IconButton'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import { Link } from './../util/router'
 import { useAuth } from './../util/auth'
 import { requireAuth } from './../util/auth'
 
@@ -22,7 +24,7 @@ function SettingsMyAccount(props) {
       userInfo: auth.user.name,
       link: '',
     },
-    { title: 'Notifications', userInfo: auth.user.email, link: '' },
+    { title: 'Email', userInfo: auth.user.email, link: '' },
     { title: 'School', link: '' },
     { title: 'Interests', link: '' },
     { title: 'Language', link: '' },
@@ -30,33 +32,40 @@ function SettingsMyAccount(props) {
   ]
 
   return (
-    <Container>
-      <List
-        sx={{ width: '100%', maxWidth: 400 }}
-        component="nav"
-        aria-labelledby="settings-my-account"
-      >
-        {myAccountLinks.map((accLink) => (
-          <ListItem
-            button
-            // sx={{ display: 'flex', justifyContent: 'space-between' }}
-            key={accLink.title}
-          >
-            <ListItemText>{accLink.title}</ListItemText>
-            {accLink.userInfo && <Typography> {accLink.userInfo}</Typography>}
-
-            <ListItemSecondaryAction edge="end">
-              <ChevronRightIcon />
-            </ListItemSecondaryAction>
-          </ListItem>
-        ))}
-      </List>
-      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Button variant="outlined" startIcon={<DeleteIcon />}>
-          Delete Account
-        </Button>
+    <>
+      <Box sx={{ paddingBottom: 15 }}>
+        <IconButton component={Link} to="/settings/profile">
+          <ArrowBackIcon />
+        </IconButton>
       </Box>
-    </Container>
+      <Container>
+        <List
+          sx={{ width: '100%', maxWidth: 400 }}
+          component="nav"
+          aria-labelledby="settings-my-account"
+        >
+          {myAccountLinks.map((accLink) => (
+            <ListItem
+              button
+              // sx={{ display: 'flex', justifyContent: 'space-between' }}
+              key={accLink.title}
+            >
+              <ListItemText>{accLink.title}</ListItemText>
+              {accLink.userInfo && <Typography> {accLink.userInfo}</Typography>}
+
+              <ListItemSecondaryAction edge="end">
+                <ChevronRightIcon />
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))}
+        </List>
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Button variant="outlined" startIcon={<DeleteIcon />}>
+            Delete Account
+          </Button>
+        </Box>
+      </Container>
+    </>
   )
 }
 
