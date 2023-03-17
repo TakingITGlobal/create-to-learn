@@ -13,17 +13,6 @@ import { Link } from '../util/router'
 function SettingsNav() {
   const [open, setOpen] = React.useState(true)
 
-  const handleClick = () => {
-    setOpen(!open)
-  }
-
-  function generate(element) {
-    return [0, 1, 2].map((value) =>
-      React.cloneElement(element, {
-        key: value,
-      }),
-    )
-  }
   return (
     <List
       sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}

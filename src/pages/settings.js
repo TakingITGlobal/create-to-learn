@@ -2,7 +2,6 @@ import React from 'react'
 import Meta from './../components/Meta'
 import SettingsSection from './../components/SettingsSection'
 import { useRouter } from './../util/router'
-import { requireAuth } from './../util/auth'
 
 function SettingsPage(props) {
   const router = useRouter()
@@ -22,4 +21,4 @@ function SettingsPage(props) {
   )
 }
 
-export default requireAuth(SettingsPage)
+export default SettingsPage

@@ -16,7 +16,7 @@ import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
-import Typography from '@material-ui/core/Typography'
+
 import { makeStyles } from '@material-ui/core/styles'
 import Section from './Section'
 import { Link } from './../util/router'
@@ -143,14 +143,6 @@ function Navbar(props) {
                     <MenuItem component={Link} to="/settings/profile">
                       Settings
                     </MenuItem>
-                    <Divider />
-                    <MenuItem
-                      onClick={(event) => {
-                        auth.signout()
-                      }}
-                    >
-                      Signout
-                    </MenuItem>
                   </Menu>
                 </>
               )}
@@ -190,15 +182,6 @@ function Navbar(props) {
               </ListItem>
               <ListItem component={Link} to="/settings/general" button={true}>
                 <ListItemText>Settings</ListItemText>
-              </ListItem>
-              <Divider />
-              <ListItem
-                button={true}
-                onClick={(event) => {
-                  auth.signout()
-                }}
-              >
-                <ListItemText>Sign out</ListItemText>
               </ListItem>
             </>
           )}
