@@ -10,28 +10,26 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import IconButton from '@material-ui/core/IconButton'
+import TextField from '@material-ui/core/TextField'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { Link } from './../util/router'
 import { useAuth } from './../util/auth'
 import { requireAuth } from './../util/auth'
+import { DialerSip } from '@material-ui/icons'
 
 function SettingsMyAccount(props) {
+  const auth = useAuth()
+
   const [showComponent, setShowComponent] = useState('nav')
 
   return (
     <Container>
       {showComponent === 'displayName' && (
-        <>
-          <Arrowback setShowComponent={setShowComponent} />
-          <div>Change Display Name</div>
-        </>
+        <DisplayName auth={auth} setShowComponent={setShowComponent} />
       )}
 
       {showComponent === 'email' && (
-        <>
-          <Arrowback setShowComponent={setShowComponent} />
-          <div>Change email</div>
-        </>
+        <Email auth={auth} setShowComponent={setShowComponent} />
       )}
 
       {showComponent === 'school' && (
@@ -62,7 +60,7 @@ function SettingsMyAccount(props) {
         </>
       )}
       {showComponent === 'nav' && (
-        <SettingsNav setShowComponent={setShowComponent} />
+        <SettingsNav auth={auth} setShowComponent={setShowComponent} />
       )}
     </Container>
   )
@@ -70,9 +68,7 @@ function SettingsMyAccount(props) {
 
 export default requireAuth(SettingsMyAccount)
 
-function SettingsNav({ setShowComponent }) {
-  const auth = useAuth()
-
+function SettingsNav({ setShowComponent, auth }) {
   const myAccountLinks = [
     {
       id: 'displayName',
@@ -136,5 +132,79 @@ function Arrowback({ setShowComponent }) {
         <ArrowBackIcon />
       </IconButton>
     </Box>
+  )
+}
+
+function DisplayName({ setShowComponent, auth }) {
+  const [name, setName] = useState(auth.user.name)
+  return (
+    <>
+      <Arrowback setShowComponent={setShowComponent} />
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        <Box sx={{ padding: '1.5rem 0' }}>
+          <Typography variant="h6">Change Display Name</Typography>
+        </Box>
+        <TextField
+          id="displayName"
+          label="DisplayName"
+          variant="outlined"
+          defaultValue={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <Box sx={{ padding: '1.5rem 0' }}>
+          <Button
+            fullWidth
+            variant="outlined"
+            onChange={() => auth.updateProfile({ name: name })}
+          >
+            Update
+          </Button>
+        </Box>
+      </Box>
+    </>
+  )
+}
+
+function Email({ setShowComponent, auth }) {
+  const [email, setEmail] = useState('auth.user.email')
+  return (
+    <>
+      <Arrowback setShowComponent={setShowComponent} />
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        <Box sx={{ padding: '1.5rem 0' }}>
+          <Typography variant="h6">Change Email</Typography>
+        </Box>
+        <TextField
+          id="Email"
+          label="Email"
+          variant="outlined"
+          defaultValue={auth.user.email}
+          onChange={(e) => setEmail(e.targetValue)}
+        />
+        <Box
+          sx={{
+            padding: '1.5rem 0',
+          }}
+        >
+          <Button
+            variant="outlined"
+            fullWidth
+            onChange={() => auth.updateProfile({ email: email })}
+          >
+            Update
+          </Button>
+        </Box>
+      </Box>
+    </>
   )
 }
