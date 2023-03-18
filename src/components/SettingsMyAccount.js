@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import Container from '@material-ui/core/Container'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
@@ -16,19 +16,74 @@ import { useAuth } from './../util/auth'
 import { requireAuth } from './../util/auth'
 
 function SettingsMyAccount(props) {
+  const [showComponent, setShowComponent] = useState('nav')
+
+  return (
+    <Container>
+      {showComponent === 'displayName' && (
+        <>
+          <Arrowback setShowComponent={setShowComponent} />
+          <div>Change Display Name</div>
+        </>
+      )}
+
+      {showComponent === 'email' && (
+        <>
+          <Arrowback setShowComponent={setShowComponent} />
+          <div>Change email</div>
+        </>
+      )}
+
+      {showComponent === 'school' && (
+        <>
+          <Arrowback setShowComponent={setShowComponent} />
+          <div>I'm attending</div>
+        </>
+      )}
+
+      {showComponent === 'interests' && (
+        <>
+          <Arrowback setShowComponent={setShowComponent} />
+          <div>I'm interested in...</div>
+        </>
+      )}
+
+      {showComponent === 'language' && (
+        <>
+          <Arrowback setShowComponent={setShowComponent} />
+          <div>My language is...</div>
+        </>
+      )}
+
+      {showComponent === 'communities' && (
+        <>
+          <Arrowback setShowComponent={setShowComponent} />
+          <div>I am ...</div>
+        </>
+      )}
+      {showComponent === 'nav' && (
+        <SettingsNav setShowComponent={setShowComponent} />
+      )}
+    </Container>
+  )
+}
+
+export default requireAuth(SettingsMyAccount)
+
+function SettingsNav({ setShowComponent }) {
   const auth = useAuth()
 
   const myAccountLinks = [
     {
+      id: 'displayName',
       title: 'Display Name',
       userInfo: auth.user.name,
-      link: '',
     },
-    { title: 'Email', userInfo: auth.user.email, link: '' },
-    { title: 'School', link: '' },
-    { title: 'Interests', link: '' },
-    { title: 'Language', link: '' },
-    { title: 'Communities', link: '' },
+    { id: 'email', title: 'Email', userInfo: auth.user.email },
+    { id: 'school', title: 'School' },
+    { id: 'interests', title: 'Interests' },
+    { id: 'language', title: 'Language' },
+    { id: 'communities', title: 'Communities' },
   ]
 
   return (
@@ -47,7 +102,9 @@ function SettingsMyAccount(props) {
           {myAccountLinks.map((accLink) => (
             <ListItem
               button
-              // sx={{ display: 'flex', justifyContent: 'space-between' }}
+              onClick={() => {
+                setShowComponent(accLink.id)
+              }}
               key={accLink.title}
             >
               <ListItemText>{accLink.title}</ListItemText>
@@ -69,4 +126,15 @@ function SettingsMyAccount(props) {
   )
 }
 
-export default requireAuth(SettingsMyAccount)
+function Arrowback({ setShowComponent }) {
+  const handleArrowClick = useCallback(() => {
+    setShowComponent('nav')
+  }, [])
+  return (
+    <Box sx={{ paddingBottom: 15 }}>
+      <IconButton onClick={handleArrowClick}>
+        <ArrowBackIcon />
+      </IconButton>
+    </Box>
+  )
+}

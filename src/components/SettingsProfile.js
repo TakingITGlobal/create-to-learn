@@ -24,14 +24,13 @@ function SettingsProfile() {
     { title: 'Notifications', link: '/settings/notifications' },
     { title: 'Data Usage', link: '/settings/data-usage' },
     { title: 'Help and Support', link: '/settings/help-and-support' },
-
     { title: 'Legal and About', link: '/settings/legal-and-about' },
   ]
 
   return (
     <Container>
       <Typography variant="h5">
-        {auth?.user ? auth.user.name : 'My Profile'}
+        {auth.user ? auth.user.name : 'My Profile'}
       </Typography>
       {auth.user ? <Stats /> : <SignUp />}
       <List
@@ -100,19 +99,19 @@ function Stats() {
           <Grid item xs={4}>
             <Box align="center">
               <Typography variant="h5">10</Typography>
-              <Typography variant="p">Courses taken</Typography>
+              <Typography variant="body2">Courses taken</Typography>
             </Box>
           </Grid>
           <Grid item xs={4}>
             <Box align="center">
               <Typography variant="h5">1053</Typography>
-              <Typography variant="p">Minutes watched</Typography>
+              <Typography variant="body2">Minutes watched</Typography>
             </Box>
           </Grid>
           <Grid item xs={4}>
             <Box align="center">
               <Typography variant="h5">5</Typography>
-              <Typography variant="p">Videos completed</Typography>
+              <Typography variant="body2">Videos completed</Typography>
             </Box>
           </Grid>
         </Grid>
