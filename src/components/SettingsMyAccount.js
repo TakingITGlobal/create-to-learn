@@ -12,10 +12,10 @@ import Box from '@material-ui/core/Box'
 import IconButton from '@material-ui/core/IconButton'
 import TextField from '@material-ui/core/TextField'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import ArrowBack from './ArrowBack'
 import { Link } from './../util/router'
 import { useAuth } from './../util/auth'
 import { requireAuth } from './../util/auth'
-import { DialerSip } from '@material-ui/icons'
 
 function SettingsMyAccount(props) {
   const auth = useAuth()
@@ -34,33 +34,33 @@ function SettingsMyAccount(props) {
 
       {showComponent === 'school' && (
         <>
-          <Arrowback setShowComponent={setShowComponent} />
-          <div>I'm attending</div>
+          <ArrowBack setShowComponent={setShowComponent} />
+          <div>I'm attending...</div>
         </>
       )}
 
       {showComponent === 'interests' && (
         <>
-          <Arrowback setShowComponent={setShowComponent} />
+          <ArrowBack setShowComponent={setShowComponent} />
           <div>I'm interested in...</div>
         </>
       )}
 
       {showComponent === 'language' && (
         <>
-          <Arrowback setShowComponent={setShowComponent} />
+          <ArrowBack setShowComponent={setShowComponent} />
           <div>My language is...</div>
         </>
       )}
 
       {showComponent === 'communities' && (
         <>
-          <Arrowback setShowComponent={setShowComponent} />
+          <ArrowBack setShowComponent={setShowComponent} />
           <div>I am ...</div>
         </>
       )}
       {showComponent === 'nav' && (
-        <SettingsNav auth={auth} setShowComponent={setShowComponent} />
+        <MyAccountNav auth={auth} setShowComponent={setShowComponent} />
       )}
     </Container>
   )
@@ -68,7 +68,7 @@ function SettingsMyAccount(props) {
 
 export default requireAuth(SettingsMyAccount)
 
-function SettingsNav({ setShowComponent, auth }) {
+function MyAccountNav({ setShowComponent, auth }) {
   const myAccountLinks = [
     {
       id: 'displayName',
@@ -122,24 +122,11 @@ function SettingsNav({ setShowComponent, auth }) {
   )
 }
 
-function Arrowback({ setShowComponent }) {
-  const handleArrowClick = useCallback(() => {
-    setShowComponent('nav')
-  }, [])
-  return (
-    <Box sx={{ paddingBottom: 15 }}>
-      <IconButton onClick={handleArrowClick}>
-        <ArrowBackIcon />
-      </IconButton>
-    </Box>
-  )
-}
-
 function DisplayName({ setShowComponent, auth }) {
   const [name, setName] = useState(auth.user.name)
   return (
     <>
-      <Arrowback setShowComponent={setShowComponent} />
+      <ArrowBack setShowComponent={setShowComponent} />
       <Box
         sx={{
           display: 'flex',
@@ -174,7 +161,7 @@ function Email({ setShowComponent, auth }) {
   const [email, setEmail] = useState('auth.user.email')
   return (
     <>
-      <Arrowback setShowComponent={setShowComponent} />
+      <ArrowBack setShowComponent={setShowComponent} />
       <Box
         sx={{
           display: 'flex',
