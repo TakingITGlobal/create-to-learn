@@ -1,17 +1,21 @@
 import React, { useState } from 'react'
 import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container'
-import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import Button from '@material-ui/core/Button'
 import ArrowBack from './ArrowBack'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
+import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt'
+import BugReportIcon from '@material-ui/icons/BugReport'
+import EmailIcon from '@material-ui/icons/Email'
+import ForumIcon from '@material-ui/icons/Forum'
+import LinkComp from '@material-ui/core/Link'
+
 import { useAuth } from './../util/auth'
-import { Link } from './../util/router'
 
 function SettingsSupport(props) {
   const auth = useAuth()
@@ -56,9 +60,12 @@ function SupportNav({ setShowComponent }) {
         <Typography variant="h6">Common Questions</Typography>
       </Box>
       <List
-        sx={{ width: '100%', maxWidth: 400 }}
+        sx={{
+          width: '100%',
+          maxWidth: 400,
+        }}
         component="nav"
-        aria-labelledby="settings-my-account"
+        aria-labelledby="settings-support"
       >
         {myAccountLinks.map((accLink) => (
           <ListItem
@@ -75,7 +82,32 @@ function SupportNav({ setShowComponent }) {
             </ListItemSecondaryAction>
           </ListItem>
         ))}
+        <ListItem>
+          <LinkComp>See all FAQs </LinkComp>
+        </ListItem>
       </List>
+      <Box sx={{ padding: '.5rem 1rem' }}>
+        <Typography variant="h6">Support</Typography>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          gap: '10px',
+          padding: '0 1rem',
+        }}
+      >
+        <Button variant="outlined" startIcon={<BugReportIcon />}>
+          Report a Bug
+        </Button>
+        <Button variant="outlined" startIcon={<EmailIcon />}>
+          Provide Feedback
+        </Button>
+        <Button variant="outlined" startIcon={<ForumIcon />}>
+          Chat Support
+        </Button>
+      </Box>
     </>
   )
 }
