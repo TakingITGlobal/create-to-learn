@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 function WelcomeSection(props) {
   const classes = useStyles()
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <Section
       bgColor={props.bgColor}
@@ -38,7 +38,7 @@ function WelcomeSection(props) {
         >
           <SectionHeader
             title={props.title}
-            subtitle={t("hello")}
+            subtitle={props.subtitle}
             size={4}
             textAlign="center"
           />
@@ -59,18 +59,18 @@ function WelcomeSection(props) {
             md={6}
           >
             <Grid container item direction="column" alignItems='stretch'>
-              <Button variant="contained" component={Link} to='./dashboard'>
-                Get Started
+              <Button variant="contained" component={Link} to='./sign-up'>
+                {t('get-started')}
               </Button>
             </Grid>
             <Grid container item direction="column" alignItems='stretch'>
               <Button variant="outlined" component={Link} to="/auth/signin">
-                Sign in
+                {t('sign-in')}
               </Button>
             </Grid>
             <Grid container item direction="column" alignItems='stretch'>
               <Button variant="text" component={Link} to='./dashboard'>
-                Let me browse
+                {t('let-me-browse')}
               </Button>
             </Grid>  
           </Grid>

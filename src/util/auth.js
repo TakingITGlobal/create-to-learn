@@ -68,7 +68,7 @@ function useAuthProvider() {
 
     // Create the user in the database if they are new
     if (isNewUser) {
-      await createUser(user.sub, { email: user.email, community: [], displayName: null, greeting: null, interests: [], language: null, userProgress: [] })
+      await createUser(user.sub, { email: user.email, community: [], displayName: null, greeting: null, school: null, interests: [], language: null, userProgress: [] })
     }
 
     // Update user in state

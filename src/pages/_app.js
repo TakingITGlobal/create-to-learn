@@ -23,6 +23,7 @@ import { QueryClientProvider } from './../util/db'
 import BottomNavbar from '../components/BottomNavbar'
 import Hidden from '@material-ui/core/Hidden'
 import { useTheme } from '@material-ui/core/styles'
+import { Box } from '@material-ui/core'
 import SignUpPage from './signUp'
 
 function App(props) {
@@ -90,6 +91,7 @@ function App(props) {
               </Hidden>
               <Hidden mdUp>
                 <BottomNavbar />
+                <Box sx={{width:'100%',height:56}}/>
               </Hidden>
             </>
           </Router>

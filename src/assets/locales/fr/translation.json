@@ -1,3 +1,22 @@
 {
-  "hello": "Bonjour"
+  "hello": "Hello",
+  "create-to-learn": "Create To Learn",
+  "get-started": "Get Started",
+  "sign-in": "Sign In",
+  "let-me-browse": "Let Me Browse",
+  "btn": {
+    "prev": "Prev",
+    "next": "Next",
+    "continue": "Continue"
+  },
+  "onboarding": {
+    "screen-1": "A space where you can learn by making, creating, and taking part.",
+    "screen-2": "Learn from a community of creatives.",
+    "screen-3": "Try different skills like website building, starting a business, and beading",
+    "community": {
+      "subtitle": "Tell us more about you, so we can personalize your experience",
+      "header": "I am..",
+      "skip-btn": "Prefer not to say"
+    }
+  }
 }
