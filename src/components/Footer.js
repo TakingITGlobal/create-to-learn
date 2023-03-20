@@ -8,7 +8,7 @@ import InstagramIcon from '@material-ui/icons/Instagram'
 import { makeStyles } from '@material-ui/core/styles'
 import Section from './Section'
 import { Link } from './../util/router'
-import { useDarkMode } from './../util/theme'
+// import { useDarkMode } from './../util/theme'
 
 const useStyles = makeStyles((theme) => ({
   sticky: {
@@ -83,11 +83,11 @@ const useStyles = makeStyles((theme) => ({
 function Footer(props) {
   const classes = useStyles()
 
-  const darkMode = useDarkMode()
+  // const darkMode = useDarkMode()
   // Use inverted logo if specified
   // and we are in dark mode
-  const logo =
-    props.logoInverted && darkMode.value ? props.logoInverted : props.logo
+  // const logo =
+  //   props.logoInverted && darkMode.value ? props.logoInverted : props.logo
 
   return (
     <Section

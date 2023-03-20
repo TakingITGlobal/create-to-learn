@@ -12,8 +12,8 @@ import SettingsNotifications from './SettingsNotifications'
 import SettingsDataUsage from './SettingsDataUsage'
 import SettingsSupport from './SettingsSupport'
 import SettingsLegal from './SettingsLegal'
-import SettingsBilling from './SettingsBilling'
-import SettingsGeneral from './SettingsGeneral'
+// import SettingsBilling from './SettingsBilling'
+// import SettingsGeneral from './SettingsGeneral'
 
 import { useAuth } from './../util/auth'
 

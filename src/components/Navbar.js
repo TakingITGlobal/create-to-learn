@@ -9,19 +9,18 @@ import Button from '@material-ui/core/Button'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import Divider from '@material-ui/core/Divider'
-import NightsStayIcon from '@material-ui/icons/NightsStay'
-import WbSunnyIcon from '@material-ui/icons/WbSunny'
+// import Divider from '@material-ui/core/Divider'
+// import NightsStayIcon from '@material-ui/icons/NightsStay'
+// import WbSunnyIcon from '@material-ui/icons/WbSunny'
 import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
-
 import { makeStyles } from '@material-ui/core/styles'
 import Section from './Section'
 import { Link } from './../util/router'
 import { useAuth } from './../util/auth'
-import { useDarkMode } from './../util/theme'
+// import { useDarkMode } from './../util/theme'
 
 const useStyles = makeStyles((theme) => ({
   logo: {
@@ -47,14 +46,14 @@ function Navbar(props) {
   const classes = useStyles()
 
   const auth = useAuth()
-  const darkMode = useDarkMode()
+  // const darkMode = useDarkMode()
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [menuState, setMenuState] = useState(null)
 
   // Use inverted logo if specified
   // and we are in dark mode
-  const logo =
-    props.logoInverted && darkMode.value ? props.logoInverted : props.logo
+  // const logo =
+  //   props.logoInverted && darkMode.value ? props.logoInverted : props.logo
 
   const handleOpenMenu = (event, id) => {
     // Store clicked element (to anchor the menu to)
