@@ -1,7 +1,7 @@
-import React, { useState,useEffect,useCallback } from 'react'
+import React, { useState,useEffect } from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
-import { Container, Grid, MobileStepper, Button, Box } from '@material-ui/core';
+import { Grid, MobileStepper, Button, Box } from '@material-ui/core';
 import { ArrowBack } from '@material-ui/icons';
 
 import SwipeableViews from 'react-swipeable-views'
@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
-
   },
   progressWrap: {
     height: 48,
@@ -64,19 +63,16 @@ const PageCarousel = ({children,split,state}) => {
   const handleNext = () => {
     setActive((active) => active + 1);
   };
-  const checkActive = useCallback(() => {
+  useEffect(() => (
     wLength > active ?
       setWActive(active)
     :
       setIActive(Math.max(active - wLength, 0))
-  })
-  useEffect(() => (
-    checkActive()
-  ),[active])
+  ),[active,wLength])
   return (
     <>
-      <Container className={classes.container}>
-        <Container maxWidth="md">
+      <Grid className={classes.container}>
+        <Grid >
           <Grid className={classes.progressWrap}>
           {active >= wLength ? (
             <MobileStepper
@@ -100,7 +96,7 @@ const PageCarousel = ({children,split,state}) => {
             
           )}
           </Grid>
-        </Container>            
+        </Grid>            
 
         <BindKeyboardSwipeableViews
           index={active}
@@ -108,9 +104,9 @@ const PageCarousel = ({children,split,state}) => {
           onChangeIndex={(i) => setActive(i)}
           style={{flex: 1}}
         >
-            {children.slice(0,curLength)} 
+            {children.slice( 0,curLength)} 
         </BindKeyboardSwipeableViews>
-        <Container maxWidth="md">
+        <Grid>
           {active < wLength && (
             <MobileStepper
               variant="dots"
@@ -130,8 +126,8 @@ const PageCarousel = ({children,split,state}) => {
               }
             />
           )}
-        </Container>
-      </Container>
+        </Grid>
+      </Grid>
     </>
   )
 }

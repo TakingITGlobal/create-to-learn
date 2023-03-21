@@ -7,14 +7,45 @@
   "btn": {
     "prev": "Prev",
     "next": "Next",
-    "continue": "Continue"
+    "continue": "Continue",
+    "missing": "My {{value}} isn't here"
   },
   "onboarding": {
     "screen-1": "A space where you can learn by making, creating, and taking part.",
     "screen-2": "Learn from a community of creatives.",
     "screen-3": "Try different skills like website building, starting a business, and beading",
-    "community": {
-      "subtitle": "Tell us more about you, so we can personalize your experience",
+    "fnmi": {
+      "subheader": "Tell us more about you, so we can personalize your experience",
+      "header": "I am..",
+      "skip-btn": "Prefer not to say"
+    },
+    "language": {
+      "subheader": "[Reason for asking]",
+      "header": "I am..",
+      "skip-btn": "My language is not here"
+    },
+    "greeting": {
+      "subheader": "My greeting",
+      "header": "Say your preferred greeting!",
+      "skip-btn": "Maybe later"
+    },
+    "school": {
+      "subheader": "Tell us more about you, so we can personalize your experience",
+      "header": "I am..",
+      "skip-btn": "Prefer not to say"
+    },
+    "interests": {
+      "subheader": "Tell us more about you, so we can personalize your experience",
+      "header": "I am..",
+      "skip-btn": "Prefer not to say"
+    },
+    "email": {
+      "subheader": "Tell us more about you, so we can personalize your experience",
+      "header": "I am..",
+      "skip-btn": "Prefer not to say"
+    },
+    "displayName": {
+      "subheader": "Tell us more about you, so we can personalize your experience",
       "header": "I am..",
       "skip-btn": "Prefer not to say"
     }
