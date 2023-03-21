@@ -8,10 +8,8 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import ArrowBack from './ArrowBack'
 import LinkComp from '@material-ui/core/Link'
-import { Link } from './../util/router'
 import { useAuth } from './../util/auth'
 
 function SettingsLegal(props) {
@@ -44,6 +42,9 @@ function SettingsLegal(props) {
         {showComponent === 'nav' && (
           <LegalNav auth={auth} setShowComponent={setShowComponent} />
         )}
+        <Box sx={{ fontWeight: 300, color: 'grey' }}>
+          <Typography>Version 5.5.0</Typography>
+        </Box>
       </Container>
     </>
   )

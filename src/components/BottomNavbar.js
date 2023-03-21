@@ -7,7 +7,6 @@ import PublicIcon from '@material-ui/icons/Public'
 import LibraryIcon from '@material-ui/icons/LocalLibrary'
 import AccountIcon from '@material-ui/icons/AccountCircle'
 import { Link } from './../util/router'
-import { useAuth } from './../util/auth'
 
 const useStyles = makeStyles({
   root: {
