@@ -23,6 +23,8 @@ import { QueryClientProvider } from './../util/db'
 import BottomNavbar from '../components/BottomNavbar'
 import Hidden from '@material-ui/core/Hidden'
 import { useTheme } from '@material-ui/core/styles'
+import { Box } from '@material-ui/core'
+import SignUpPage from './signUp'
 
 function App(props) {
   //Default to dark theme for now
@@ -34,7 +36,7 @@ function App(props) {
           <Chat />
           <Router>
             <>
-              <Hidden smDown={true}>
+              <Hidden smDown>
                 <Navbar
                   color="default"
                   logo="https://uploads.divjoy.com/logo.svg"
@@ -59,6 +61,8 @@ function App(props) {
                 <Route exact path="/browse" component={BrowsePage} />
 
                 <Route exact path="/my-courses" component={MyCoursesPage} />
+
+                <Route exact path="/sign-up" component={SignUpPage} />
 
                 <Route
                   exact
@@ -85,8 +89,9 @@ function App(props) {
                   sticky={true}
                 />
               </Hidden>
-              <Hidden smUp>
+              <Hidden mdUp>
                 <BottomNavbar />
+                <Box sx={{width:'100%',height:56}}/>
               </Hidden>
             </>
           </Router>

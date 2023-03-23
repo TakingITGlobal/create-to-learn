@@ -11,6 +11,10 @@ import { Link } from './../util/router'
 const useStyles = makeStyles({
   root: {
     gap: 10,
+    position: 'fixed',
+    bottom: 0,
+    left:0,
+    right:0,
   },
 })
 
