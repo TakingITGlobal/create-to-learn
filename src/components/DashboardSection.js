@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Container from '@material-ui/core/Container'
 import Box from '@material-ui/core/Box'
 import Alert from '@material-ui/lab/Alert'
@@ -18,6 +18,7 @@ import SectionHeader from './SectionHeader'
 import DashboardItems from './DashboardItems'
 import { Link, useRouter } from './../util/router'
 import { useAuth } from './../util/auth'
+import { useLearningPaths } from '../util/db'
 
 const useStyles = makeStyles((theme) => ({
   cardContent: {
@@ -28,22 +29,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-function Item(props) {
-  return (
-    <Paper>
-      <h2>{props.item.name}</h2>
-      <p>{props.item.description}</p>
-
-      <Button className="CheckButton">Check it out!</Button>
-    </Paper>
-  )
-}
-
 function DashboardSection(props) {
   const classes = useStyles()
+  const [learningPaths, setLearningPaths] = useState([])
 
   const auth = useAuth()
   const router = useRouter()
+  const { data } = useLearningPaths()
+
+  useEffect(() => {
+    setLearningPaths(data)
+  }, [data])
 
   return (
     <Section
@@ -156,7 +152,7 @@ function DashboardSection(props) {
           </Grid>
         </Grid> */}
 
-        <LearningPath />
+        {learningPaths && <LearningPath learningPaths={learningPaths} />}
         <TopCourses />
       </Container>
     </Section>
@@ -165,32 +161,20 @@ function DashboardSection(props) {
 
 export default DashboardSection
 
-function LearningPath() {
-  var items = [
-    {
-      name: 'Photography Filming and Acting',
-      description:
-        'Throughout this unit, student will learn the basics of photography and filming',
-      time: '5 lessons, 1 hr 30 minutes',
-    },
-    {
-      name: 'Web development and design',
-      description:
-        'Throughout this unit, student will learn the basics of web development',
-      time: '7 lessons, 2 hr 30 minutes',
-    },
-  ]
+function LearningPath({ learningPaths }) {
   return (
     <>
       <Box>
         <Typography>Learning paths for students</Typography>
       </Box>
       <Carousel animation="slide" interval={null} swipe>
-        {items.map((item, i) => (
+        {learningPaths.map((item, i) => (
           <Paper key={i} sx={{ padding: 2.5 }}>
             <h2>{item.name}</h2>
-            <p>{item.description}</p>
-            <p>{item.time}</p>
+            <p>Throughout this unit ...</p>
+            {item.seriesInPath.length > 0 && (
+              <p> Time Series: {item.seriesInPath.join()}</p>
+            )}
 
             <Box>
               <Button color="primary" fullWidth variant="contained">
@@ -257,7 +241,7 @@ function TopCourses() {
       </Box>
       <MultiCarousel
         ssr
-        partialVisbile
+        partialVisible
         responsive={responsive}
         swipeable
         itemClass={classes.carouselItem}
