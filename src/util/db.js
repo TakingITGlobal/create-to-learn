@@ -71,6 +71,13 @@ export function useItem(id) {
   )
 }
 
+export function useLearningPaths() {
+  return useQuery(
+    ['/LearningPaths'],
+    createQuery(() => query(collection(db, '/LearningPaths'))),
+  )
+}
+
 // Fetch item data once
 export function useItemOnce(id) {
   return useQuery(

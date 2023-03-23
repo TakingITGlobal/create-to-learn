@@ -19,4 +19,4 @@ function DashboardPage(props) {
   )
 }
 
-export default requireAuth(DashboardPage)
+export default DashboardPage
