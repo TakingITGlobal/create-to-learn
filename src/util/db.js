@@ -18,6 +18,7 @@ import {
   addDoc,
   deleteDoc,
   serverTimestamp,
+  limit,
 } from 'firebase/firestore'
 import { firebaseApp } from './firebase'
 
@@ -75,6 +76,19 @@ export function useLearningPaths() {
   return useQuery(
     ['/LearningPaths'],
     createQuery(() => query(collection(db, '/LearningPaths'))),
+  )
+}
+
+export function useCourses(category) {
+  return useQuery(
+    ['/Series', { category }],
+    createQuery(() =>
+      query(
+        collection(db, '/Series'),
+        where('category', 'array-contains', category),
+        limit(5),
+      ),
+    ),
   )
 }
 
