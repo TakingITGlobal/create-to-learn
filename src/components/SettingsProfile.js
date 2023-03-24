@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import List from '@material-ui/core/List'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItem from '@material-ui/core/ListItem'
@@ -12,6 +12,7 @@ import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom'
+import SignUp from './SignUp'
 
 import { useAuth } from './../util/auth'
 import { Link } from './../util/router'
@@ -72,24 +73,24 @@ function SettingsProfile() {
 
 export default SettingsProfile
 
-function SignUp() {
-  return (
-    <Box align="center" sx={{ padding: '30px 10px 10px 10px' }}>
-      <Box sx={{ padding: 5 }}>
-        <Typography variant="h6">Sign up or Sign in</Typography>
-      </Box>
-      <Box sx={{ padding: 10 }}>
-        <Typography>
-          It helps us know you better, show you things you like, and track your
-          progress
-        </Typography>
-      </Box>
-      <Button variant="outlined" component={Link} to="/auth/signin">
-        Start Now
-      </Button>
-    </Box>
-  )
-}
+// function SignUp() {
+//   return (
+//     <Box align="center" sx={{ padding: '30px 10px 10px 10px' }}>
+//       <Box sx={{ padding: 5 }}>
+//         <Typography variant="h6">Sign up or Sign in</Typography>
+//       </Box>
+//       <Box sx={{ padding: 10 }}>
+//         <Typography>
+//           It helps us know you better, show you things you like, and track your
+//           progress
+//         </Typography>
+//       </Box>
+//       <Button variant="outlined" component={Link} to="/auth/signin">
+//         Start Now
+//       </Button>
+//     </Box>
+//   )
+// }
 
 function Stats() {
   return (

@@ -16,9 +16,11 @@ import { makeStyles } from '@material-ui/core/styles'
 import Section from './Section'
 import SectionHeader from './SectionHeader'
 import DashboardItems from './DashboardItems'
+import SignUp from './SignUp'
+
 import { Link, useRouter } from './../util/router'
 import { useAuth } from './../util/auth'
-import { useLearningPaths } from '../util/db'
+import { useLearningPaths, useCourses } from '../util/db'
 
 const useStyles = makeStyles((theme) => ({
   cardContent: {
@@ -26,20 +28,30 @@ const useStyles = makeStyles((theme) => ({
   },
   carouselItem: {
     padding: '10px',
+    height: '300px',
   },
 }))
 
 function DashboardSection(props) {
   const classes = useStyles()
   const [learningPaths, setLearningPaths] = useState([])
+  //This should be in local storage
+  const [dismissSignUp, setDismissSignUp] = useState(false)
+  const [courses, setCourses] = useState([])
 
   const auth = useAuth()
   const router = useRouter()
   const { data } = useLearningPaths()
+  const { data: courseData } = useCourses('Video & Film')
 
   useEffect(() => {
-    setLearningPaths(data)
-  }, [data])
+    if (courseData?.length) {
+      setCourses(courseData)
+    }
+    if (data?.length) {
+      setLearningPaths(data)
+    }
+  }, [data, courseData])
 
   return (
     <Section
@@ -55,7 +67,9 @@ function DashboardSection(props) {
           size={4}
           textAlign="center"
         />
-
+        {!dismissSignUp && (
+          <SignUp setDismissed={setDismissSignUp} showDismissButton={true} />
+        )}
         {/* {router.query.paid && auth.user.planIsActive && (
           <Box mx="auto" mb={4} maxWidth={400}>
             <Alert severity="success">
@@ -152,8 +166,8 @@ function DashboardSection(props) {
           </Grid>
         </Grid> */}
 
-        {learningPaths && <LearningPath learningPaths={learningPaths} />}
-        <TopCourses />
+        {learningPaths.length && <LearningPath learningPaths={learningPaths} />}
+        {courses.length && <TopCourses courses={courses} />}
       </Container>
     </Section>
   )
@@ -162,20 +176,55 @@ function DashboardSection(props) {
 export default DashboardSection
 
 function LearningPath({ learningPaths }) {
+  const classes = useStyles()
+
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+      paritialVisibilityGutter: 60,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      paritialVisibilityGutter: 50,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      paritialVisibilityGutter: 40,
+    },
+  }
   return (
     <>
-      <Box>
+      <Box sx={{ paddingBottom: 5 }}>
         <Typography>Learning paths for students</Typography>
       </Box>
-      <Carousel animation="slide" interval={null} swipe>
+      <MultiCarousel
+        ssr
+        partialVisible
+        responsive={responsive}
+        swipeable
+        itemClass={classes.carouselItem}
+      >
         {learningPaths.map((item, i) => (
-          <Paper key={i} sx={{ padding: 2.5 }}>
-            <h2>{item.name}</h2>
-            <p>Throughout this unit ...</p>
-            {item.seriesInPath.length > 0 && (
-              <p> Time Series: {item.seriesInPath.join()}</p>
-            )}
-
+          <Paper
+            key={i}
+            sx={{
+              padding: 2.5,
+              height: '250px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Box>
+              <h2>{item.name}</h2>
+              <p>Throughout this unit ...</p>
+              {item.seriesInPath.length > 0 && (
+                <p> Time Series: {item.seriesInPath.join()}</p>
+              )}
+            </Box>
             <Box>
               <Button color="primary" fullWidth variant="contained">
                 See details
@@ -183,12 +232,12 @@ function LearningPath({ learningPaths }) {
             </Box>
           </Paper>
         ))}
-      </Carousel>
+      </MultiCarousel>
     </>
   )
 }
 
-function TopCourses() {
+function TopCourses({ courses }) {
   const classes = useStyles()
 
   const responsive = {
@@ -246,13 +295,31 @@ function TopCourses() {
         swipeable
         itemClass={classes.carouselItem}
       >
-        {items.map((item, i) => {
+        {courses.map((item, i) => {
+          var regExp = /\(([^)]+)\)/
           return (
             <Paper key={i} sx={{ padding: 2.5 }}>
-              <h2>{item.name}</h2>
-              <p>{item.description}</p>
-              <p>{item.time}</p>
-
+              <img src={regExp.exec(item.thumbnail)} />
+              <h2>{item.seriesName}</h2>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  paddingBottom: 5,
+                }}
+              >
+                <>
+                  <Typography>{item.creator}</Typography>
+                  <Typography>
+                    {item.videos.length}{' '}
+                    {item.videos.length == 1 ? 'Video' : 'Videos'}
+                  </Typography>
+                </>
+              </Box>
+              <Box>
+                <Typography>Materials</Typography>
+              </Box>
               <Box>
                 <Button color="primary" fullWidth variant="contained">
                   See details
