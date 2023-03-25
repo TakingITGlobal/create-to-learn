@@ -1,16 +1,21 @@
 import React, {useState} from 'react'
-import { Grid, Button, Box, TextField} from '@material-ui/core'
+import { Grid, Button, Box, TextField, Container} from '@material-ui/core'
 import { useTranslation } from 'react-i18next'
 import { makeStyles } from '@material-ui/core/styles'
-
+import { FixedSizeList as List } from 'react-window'
 
 const useStyles = makeStyles((theme) => ({
+  container: {
+    margin: '0 auto', 
+    height: '100%',
+  },
   page: {
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'stretch',
     height: '100%',
-    padding: '0 20px',
+    margin: '0 auto',
   },
   imageWrap: {
     margin: 'auto 0',
@@ -66,6 +71,7 @@ function InputView(props){
   const { t } = useTranslation()
   const classes = useStyles()
   const { data, value, state } = props
+  const required = props.required ? props.required : false
   const { setCurLength, setActive} = state
   const setLocal = (id,val) => {
     localStorage.setItem(id,val)
@@ -74,19 +80,13 @@ function InputView(props){
   }
 
   return (
-    <Grid className={classes.page}>
-      <Grid
-        container
-        direction="column"
-        alignItems="stretch"
-        alignContent="stretch"
-        md={6}
-        item
-      >
+    <Container maxWidth="md" className={classes.container}>
+      <Grid className={classes.page}>
         <Grid 
           container 
           item 
           className={classes.gridColumn}
+          md={6}
         >
           <Grid item>
             <p>{t(`onboarding.${props.value}.subheader`)}</p>
@@ -105,12 +105,17 @@ function InputView(props){
           <Button variant="contained" onClick={() => setLocal(value,data)} disabled={!data.length > 0}>
             {t("btn.continue")}
           </Button>
-          <Button variant="text" onClick={() => setLocal(value,"")}>
-            {t(`onboarding.${value}.skip-btn`)}
-          </Button>
+          {!required ? (
+            <Button variant="text" onClick={() => setLocal(value,"")}>
+              {t(`onboarding.${value}.skip-btn`)}
+            </Button>
+          ) : (
+            <Box style={{height: 36.5}}/>
+          )
+        }
         </Grid>
       </Grid>
-    </Grid>
+    </Container>
   )
 }
 
@@ -118,22 +123,23 @@ export function WindowView(props) {
   const classes = useStyles()
   
   return (
-    <Grid
-      container
-      direction="column"
-      alignItems="center"
-      style={{textAlign: 'center', padding: '0 20px'}}
-      item
-      sm={4}
-    >
-      <Grid item className={classes.imageWrap} >
-        <Box as="div" className={classes.imageCover}/>
-        <img src={props.image} alt=""/>
+    <Container maxWidth="md" className={classes.container}>
+      <Grid
+        container
+        className={classes.page}
+        style={{textAlign: 'center', padding: '0 20px', justifyContent: 'flex-end'}}
+        item
+        sm={4}
+      >
+        <Grid item className={classes.imageWrap} >
+          <Box className={classes.imageCover}/>
+          <img src={props.image} alt=""/>
+        </Grid>
+        <Grid item >
+          <p>{props.text}</p>
+        </Grid>
       </Grid>
-      <Grid item>
-        <p>{props.text}</p>
-      </Grid>
-    </Grid>
+    </Container>
   )
 }
 
@@ -142,7 +148,8 @@ export function InputSelectView(props) {
     multi,
     value,
     options,
-    state
+    state,
+    required,
   } = props
 
   const cols = props.cols ? props.cols : 1
@@ -159,7 +166,7 @@ export function InputSelectView(props) {
   }
 
   return (
-    <InputView value={value} data={data} state={state}>
+    <InputView value={value} data={data} state={state} required={required}>
       {multi ? (
           <Grid container style={{gap: `${gap}`, justifyContent: 'space-between'}}>
             {options?.map((val,i) => (
@@ -184,27 +191,26 @@ export function InputSelectView(props) {
             ))} 
           </Grid>
         ) : (
-          <Grid container style={{gap: 8}}>
+          <Grid container style={{gap: `${gap}`, justifyContent: 'space-between'}}>
             {options?.map((val,i) => (
-              <Box as="div" key={i} className={classes.btnInput}>
+              <Box as="div" key={i} className={classes.btnInput} sx={{flex: `0 1 calc(calc(100% / ${cols}) - (${gap}px * ${cols - 1}))`}}>
                 <input
                   onChange={onChange} 
                   type="radio" 
                   value={val} 
                   name={value} 
-                  id={val} 
-                  hidden  
+                  id={val} hidden  
                 />
-                <Button 
+                <Button
                   variant='outlined' 
                   component="label" 
-                  htmlFor={val}
                   fullWidth
+                  htmlFor={val}
                   size="small"
                 >
                   {val}
-                </Button>
-              </Box>   
+                </Button>  
+              </Box>
             ))} 
           </Grid>
         )}  
@@ -245,10 +251,32 @@ export function InputSearchView(props) {
   const classes = useStyles()
   const { t } = useTranslation()
   const [inputValue, setInputValue] = useState("")
+  const filtered = options.filter(x => x.toLowerCase().includes(inputValue.toLowerCase()))
+
   const [ data, setData] = useState("")
   function onInputChange(e) {setInputValue(e.target.value)}
   function onChange(e) {setData(e.target.value)}
-  
+  const Row = ({ data, index, style }) => (
+    <span className={classes.btnInput} style={style}>
+      <input 
+        onChange={onChange}
+        type="radio" 
+        value={data[index]} 
+        name={value} 
+        id={data[index]}
+        hidden
+      />
+      <Button 
+        variant='outlined' 
+        component="label" 
+        htmlFor={data[index]}
+        size="small"
+        fullWidth
+      >
+        {data[index]}
+      </Button>   
+    </span>  
+  )
   return (
     <InputView value={value} data={data} state={state}>
 
@@ -266,7 +294,7 @@ export function InputSearchView(props) {
       <TextField variant="outlined" onChange={onInputChange} fullWidth/>
       
       <Grid container item className={classes.gridColumn} >
-        <Grid className={classes.scrollBox}>
+        <Grid >
           <span className={classes.btnInput}>
             <input type="radio" value="other" id="other" name={value} hidden onChange={onChange}/>
             <Button 
@@ -279,27 +307,15 @@ export function InputSearchView(props) {
               {t("btn.missing", {value: value})}
             </Button>
           </span>
-          {options.filter(x => x.toLowerCase().includes(inputValue.toLowerCase()))?.map((val,i) => (
-            <span className={classes.btnInput} key={i}>
-              <input 
-                onChange={onChange}
-                type="radio" 
-                value={val} 
-                name={value} 
-                id={val}
-                hidden
-              />
-              <Button 
-                variant='outlined' 
-                component="label" 
-                htmlFor={val}
-                size="small"
-                fullWidth
-              >
-                {val}
-              </Button>   
-            </span>  
-          ))}
+          <List
+            itemData={filtered}
+            itemCount={filtered.length}
+            height={400}
+            itemSize={30.5}
+            width='100%'
+          >
+            {Row}
+          </List>
         </Grid>
       </Grid>
     </InputView>

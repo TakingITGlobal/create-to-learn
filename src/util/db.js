@@ -13,11 +13,13 @@ import {
   where,
   orderBy,
   getDoc,
+  getDocs,
   setDoc,
   updateDoc,
   addDoc,
   deleteDoc,
   serverTimestamp,
+  limit,
 } from 'firebase/firestore'
 import { firebaseApp } from './firebase'
 
@@ -58,7 +60,18 @@ export function createUser(uid, data) {
 export function updateUser(uid, data) {
   return updateDoc(doc(db, 'users', uid), data)
 }
-
+/**** Collections ****/
+export function useSchools() {
+  return useQuery(
+    ['/Schools'],
+    createQuery(() => 
+      query(
+        collection(db, '/Schools'),
+        orderBy('school', 'asc')
+      ),
+    ),
+  )
+}
 /**** ITEMS ****/
 /* Example query functions (modify to your needs) */
 
@@ -75,6 +88,19 @@ export function useLearningPaths() {
   return useQuery(
     ['/LearningPaths'],
     createQuery(() => query(collection(db, '/LearningPaths'))),
+  )
+}
+
+export function useCourses(category) {
+  return useQuery(
+    ['/Series', { category }],
+    createQuery(() =>
+      query(
+        collection(db, '/Series'),
+        where('category', 'array-contains', category),
+        limit(5),
+      ),
+    ),
   )
 }
 
