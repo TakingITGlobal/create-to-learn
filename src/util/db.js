@@ -92,6 +92,13 @@ export function useCourses(category) {
   )
 }
 
+export function useCreators() {
+  return useQuery(
+    ['/Artists'],
+    createQuery(() => query(collection(db, '/Artists'), limit(5))),
+  )
+}
+
 // Fetch item data once
 export function useItemOnce(id) {
   return useQuery(

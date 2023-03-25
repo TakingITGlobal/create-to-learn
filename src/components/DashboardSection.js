@@ -20,7 +20,7 @@ import SignUp from './SignUp'
 
 import { Link, useRouter } from './../util/router'
 import { useAuth } from './../util/auth'
-import { useLearningPaths, useCourses } from '../util/db'
+import { useLearningPaths, useCourses, useCreators } from '../util/db'
 
 const useStyles = makeStyles((theme) => ({
   cardContent: {
@@ -31,6 +31,24 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: '20px',
   },
 }))
+
+const responsive = {
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3,
+    paritialVisibilityGutter: 60,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2,
+    paritialVisibilityGutter: 50,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+    paritialVisibilityGutter: 40,
+  },
+}
 
 function DashboardSection(props) {
   const classes = useStyles()
@@ -44,6 +62,7 @@ function DashboardSection(props) {
     'Game Design',
     'Cultural Teachings',
   ]
+
   return (
     <Section
       bgColor={props.bgColor}
@@ -156,7 +175,7 @@ function DashboardSection(props) {
             </Card>
           </Grid>
         </Grid> */}
-
+        <CreatorSpotlight />
         <LearningPath />
         {categoryInterests.map((interest, index) => (
           <TopCourses key={index} category={interest} />
@@ -167,6 +186,91 @@ function DashboardSection(props) {
 }
 
 export default DashboardSection
+
+function CreatorSpotlight() {
+  const classes = useStyles()
+  const [creators, setCreators] = useState([])
+
+  const { data } = useCreators()
+
+  useEffect(() => {
+    if (data?.length) {
+      setCreators(data)
+    }
+  }, [data])
+
+  return (
+    <>
+      <Box sx={{ paddingBottom: 5 }}>
+        <Typography>Creator Spotlight</Typography>
+      </Box>
+      <MultiCarousel
+        ssr
+        partialVisible
+        responsive={responsive}
+        swipeable
+        itemClass={classes.carouselItem}
+      >
+        {creators.map((item, i) => {
+          var regExp = /\(([^)]+)\)/
+          return (
+            <Paper key={i} sx={{ padding: 2.5, height: '400px' }}>
+              {/* Images are not working at this time */}
+              {/* <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  width: '100%',
+                  height: '200px',
+                  overflow: 'hidden',
+                }}
+              >
+                <img
+                  src={regExp.exec(item.image)[1]}
+                  style={{
+                    top: 0,
+                    width: '100%',
+                    height: 'auto',
+                    objectFit: 'cover',
+                  }}
+                />
+              </Box> */}
+
+              <h2>{item.seriesName}</h2>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  paddingBottom: 5,
+                }}
+              >
+                <Typography>{item.name}</Typography>
+              </Box>
+              <Box sx={{ paddingBottom: 5 }}>
+                <Typography>
+                  {
+                    item.pleaseIncludeAShort23SentenceBioThatWeCanUseWhenPromotingYourContent
+                  }
+                </Typography>
+              </Box>
+              {/* <Box>
+                <Button
+                  color="primary"
+                  fullWidth
+                  variant="contained"
+                  href={item.webUrl}
+                >
+                  See details
+                </Button>
+              </Box> */}
+            </Paper>
+          )
+        })}
+      </MultiCarousel>
+    </>
+  )
+}
 
 function LearningPath() {
   const classes = useStyles()
@@ -180,23 +284,6 @@ function LearningPath() {
     }
   }, [data])
 
-  const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-      paritialVisibilityGutter: 60,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-      paritialVisibilityGutter: 50,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-      paritialVisibilityGutter: 40,
-    },
-  }
   return (
     <>
       <Box sx={{ paddingBottom: 5 }}>
@@ -250,24 +337,6 @@ function TopCourses({ category }) {
       setCourses(courseData)
     }
   }, [courseData])
-
-  const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-      paritialVisibilityGutter: 60,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-      paritialVisibilityGutter: 50,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-      paritialVisibilityGutter: 40,
-    },
-  }
 
   return (
     <>
