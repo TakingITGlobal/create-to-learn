@@ -12,7 +12,10 @@ function CourseSection(props) {
       bgImage={props.bgImage}
       bgImageOpacity={props.bgImageOpacity}
     >
-      <h2>Test {props.data?.seriesName}</h2>
+      <Container>
+        <h1>{props.data?.seriesName}</h1>
+      </Container>
+      
     </Section>
   )
 }
