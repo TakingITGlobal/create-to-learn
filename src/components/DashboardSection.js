@@ -284,8 +284,26 @@ function TopCourses({ category }) {
         {courses.map((item, i) => {
           var regExp = /\(([^)]+)\)/
           return (
-            <Paper key={i} sx={{ padding: 2.5 }}>
-              <img src={regExp.exec(item.thumbnail)} />
+            <Paper key={i} sx={{ padding: 2.5, height: '450px' }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  width: '100%',
+                  height: '200px',
+                  overflow: 'hidden',
+                }}
+              >
+                <img
+                  src={regExp.exec(item.creatorPhoto)[1]}
+                  style={{
+                    top: 0,
+                    width: '100%',
+                    height: 'auto',
+                    objectFit: 'cover',
+                  }}
+                />
+              </Box>
               <h2>{item.seriesName}</h2>
               <Box
                 sx={{
