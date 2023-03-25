@@ -11,7 +11,8 @@ import Carousel from 'react-material-ui-carousel'
 import MultiCarousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 
-import { Paper, Button } from '@mui/material'
+
+import { Button,Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Section from './Section'
 import SectionHeader from './SectionHeader'

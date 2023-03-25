@@ -30,13 +30,13 @@
       "skip-btn": "Maybe later"
     },
     "school": {
-      "subheader": "Tell us more about you, so we can personalize your experience",
-      "header": "I am..",
-      "skip-btn": "Prefer not to say"
+      "subheader": "Find your school",
+      "header": "I'm attending...",
+      "skip-btn": "I'm not attending school"
     },
     "interests": {
-      "subheader": "Tell us more about you, so we can personalize your experience",
-      "header": "I am..",
+      "subheader": "Pick three topics you're interested in",
+      "header": "I'm interested in...",
       "skip-btn": "Prefer not to say"
     },
     "email": {

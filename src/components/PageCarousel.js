@@ -1,14 +1,12 @@
 import React, { useState,useEffect } from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
-import { Grid, MobileStepper, Button, Box } from '@material-ui/core';
+import { Grid, MobileStepper, Button, Box, Container } from '@material-ui/core';
 import { ArrowBack } from '@material-ui/icons';
 
-import SwipeableViews from 'react-swipeable-views'
-import { bindKeyboard } from 'react-swipeable-views-utils';
 import { useTranslation } from 'react-i18next';
+import Carousel from 'react-material-ui-carousel'
 
-const BindKeyboardSwipeableViews = bindKeyboard(SwipeableViews)
 
 const useStyles = makeStyles((theme) => ({ 
   container: {
@@ -16,6 +14,24 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
+  },
+  carousel: {
+    flex: 1, 
+    display: 'flex', 
+    alignItems: 'stretch',
+    '& > .CarouselItem': {
+      width: '100%',
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      padding: '20px 0',
+      '& > div': {
+        width: '100%',
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+      },
+    },
   },
   progressWrap: {
     height: 48,
@@ -72,7 +88,7 @@ const PageCarousel = ({children,split,state}) => {
   return (
     <>
       <Grid className={classes.container}>
-        <Grid >
+        <Container>
           <Grid className={classes.progressWrap}>
           {active >= wLength ? (
             <MobileStepper
@@ -89,24 +105,30 @@ const PageCarousel = ({children,split,state}) => {
             />
           ) : (
             <Box className={classes.btnWrap}>
-              <Button>
+              <Button size="small" onClick={handleBack} disabled={active === 0}>
                 <ArrowBack/>
               </Button>
             </Box>
             
           )}
           </Grid>
-        </Grid>            
+        </Container>            
 
-        <BindKeyboardSwipeableViews
+        <Carousel
           index={active}
           enableMouseEvents
-          onChangeIndex={(i) => setActive(i)}
-          style={{flex: 1}}
+          onChange={(i) => setActive(i)}
+          swipe
+          navButtonsAlwaysInvisible={true}
+          autoPlay={false}
+          animation="slide"
+          indicators={false}
+          className={classes.carousel}
         >
             {children.slice( 0,curLength)} 
-        </BindKeyboardSwipeableViews>
-        <Grid>
+        </Carousel>
+
+        <Container>
           {active < wLength && (
             <MobileStepper
               variant="dots"
@@ -126,7 +148,7 @@ const PageCarousel = ({children,split,state}) => {
               }
             />
           )}
-        </Grid>
+        </Container>
       </Grid>
     </>
   )
