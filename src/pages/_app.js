@@ -25,6 +25,7 @@ import Hidden from '@material-ui/core/Hidden'
 import { useTheme } from '@material-ui/core/styles'
 import { Box } from '@material-ui/core'
 import SignUpPage from './signUp'
+import CoursePage from './course'
 
 function App(props) {
   //Default to dark theme for now
@@ -63,6 +64,8 @@ function App(props) {
                 <Route exact path="/my-courses" component={MyCoursesPage} />
 
                 <Route exact path="/sign-up" component={SignUpPage} />
+
+                <Route exact path="/course/:courseId" component={CoursePage}/>
 
                 <Route
                   exact
