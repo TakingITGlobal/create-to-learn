@@ -354,6 +354,7 @@ function TopCourses({ category }) {
           var regExp = /\(([^)]+)\)/
           return (
             <Paper key={i} sx={{ padding: 2.5, height: '450px' }}>
+              {/* Use the course photo instead of the creator photo once we have a valid url */}
               <Box
                 sx={{
                   display: 'flex',
