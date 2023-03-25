@@ -50,6 +50,9 @@ export function useUser(uid) {
 export function getUser(uid) {
   return getDoc(doc(db, 'users', uid)).then(format)
 }
+export function getCourse(uid) {
+  return getDoc(doc(db, 'Series', uid)).then(format)
+}
 
 // Create a new user
 export function createUser(uid, data) {
@@ -60,18 +63,7 @@ export function createUser(uid, data) {
 export function updateUser(uid, data) {
   return updateDoc(doc(db, 'users', uid), data)
 }
-/**** Collections ****/
-export function useSchools() {
-  return useQuery(
-    ['/Schools'],
-    createQuery(() => 
-      query(
-        collection(db, '/Schools'),
-        orderBy('school', 'asc')
-      ),
-    ),
-  )
-}
+
 /**** ITEMS ****/
 /* Example query functions (modify to your needs) */
 
@@ -90,7 +82,28 @@ export function useLearningPaths() {
     createQuery(() => query(collection(db, '/LearningPaths'))),
   )
 }
-
+export function useCourseByName(seriesName) {
+  return useQuery(
+    ['/Series', { seriesName }],
+    createQuery(() =>
+      query(
+        collection(db, '/Series'),
+        where('seriesName', '==', seriesName),
+        limit(1),
+      ),
+    ),
+  )
+}
+export function useAllCourses() {
+  return useQuery(
+    ['/Series'],
+    createQuery(() =>
+      query(
+        collection(db, '/Series'),
+      ),
+    ),
+  )
+}
 export function useCourses(category) {
   return useQuery(
     ['/Series', { category }],
