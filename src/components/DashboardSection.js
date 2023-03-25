@@ -27,32 +27,23 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
   carouselItem: {
-    padding: '10px',
-    height: '300px',
+    paddingRight: '20px',
+    paddingBottom: '20px',
   },
 }))
 
 function DashboardSection(props) {
   const classes = useStyles()
-  const [learningPaths, setLearningPaths] = useState([])
   //This should be in local storage
   const [dismissSignUp, setDismissSignUp] = useState(false)
-  const [courses, setCourses] = useState([])
 
   const auth = useAuth()
-  const router = useRouter()
-  const { data } = useLearningPaths()
-  const { data: courseData } = useCourses('Video & Film')
 
-  useEffect(() => {
-    if (courseData?.length) {
-      setCourses(courseData)
-    }
-    if (data?.length) {
-      setLearningPaths(data)
-    }
-  }, [data, courseData])
-
+  const categoryInterests = [
+    'Video & Film',
+    'Game Design',
+    'Cultural Teachings',
+  ]
   return (
     <Section
       bgColor={props.bgColor}
@@ -67,7 +58,7 @@ function DashboardSection(props) {
           size={4}
           textAlign="center"
         />
-        {!dismissSignUp && (
+        {!dismissSignUp && !auth.user && (
           <SignUp setDismissed={setDismissSignUp} showDismissButton={true} />
         )}
         {/* {router.query.paid && auth.user.planIsActive && (
@@ -166,8 +157,10 @@ function DashboardSection(props) {
           </Grid>
         </Grid> */}
 
-        {learningPaths.length && <LearningPath learningPaths={learningPaths} />}
-        {courses.length && <TopCourses courses={courses} />}
+        <LearningPath />
+        {categoryInterests.map((interest, index) => (
+          <TopCourses key={index} category={interest} />
+        ))}
       </Container>
     </Section>
   )
@@ -175,8 +168,17 @@ function DashboardSection(props) {
 
 export default DashboardSection
 
-function LearningPath({ learningPaths }) {
+function LearningPath() {
   const classes = useStyles()
+  const [learningPaths, setLearningPaths] = useState([])
+
+  const { data } = useLearningPaths()
+
+  useEffect(() => {
+    if (data?.length) {
+      setLearningPaths(data)
+    }
+  }, [data])
 
   const responsive = {
     desktop: {
@@ -237,8 +239,17 @@ function LearningPath({ learningPaths }) {
   )
 }
 
-function TopCourses({ courses }) {
+function TopCourses({ category }) {
   const classes = useStyles()
+  const [courses, setCourses] = useState([])
+
+  const { data: courseData } = useCourses(category)
+
+  useEffect(() => {
+    if (courseData?.length) {
+      setCourses(courseData)
+    }
+  }, [courseData])
 
   const responsive = {
     desktop: {
@@ -257,36 +268,11 @@ function TopCourses({ courses }) {
       paritialVisibilityGutter: 40,
     },
   }
-  var items = [
-    {
-      name: 'Photography Filming and Acting',
-      description:
-        'Throughout this unit, student will learn the basics of photography and filming',
-      time: '5 lessons, 1 hr 30 minutes',
-    },
-    {
-      name: 'Web development; coding and design',
-      description:
-        'Throughout this unit, student will learn the basics of web development',
-      time: '7 lessons, 2 hr 30 minutes',
-    },
-    {
-      name: 'Photography Filming and Acting',
-      description:
-        'Throughout this unit, student will learn the basics of photography and filming',
-      time: '5 lessons, 1 hr 30 minutes',
-    },
-    {
-      name: 'Web development; coding and design',
-      description:
-        'Throughout this unit, student will learn the basics of web development',
-      time: '7 lessons, 2 hr 30 minutes',
-    },
-  ]
+
   return (
     <>
-      <Box>
-        <Typography>Top Courses in Video & Film</Typography>
+      <Box sx={{ paddingBottom: 5 }}>
+        <Typography>Top Courses in {category}</Typography>
       </Box>
       <MultiCarousel
         ssr
@@ -317,11 +303,16 @@ function TopCourses({ courses }) {
                   </Typography>
                 </>
               </Box>
-              <Box>
-                <Typography>Materials</Typography>
+              <Box sx={{ paddingBottom: 5 }}>
+                <Typography>Materials: </Typography>
               </Box>
               <Box>
-                <Button color="primary" fullWidth variant="contained">
+                <Button
+                  color="primary"
+                  fullWidth
+                  variant="contained"
+                  href={item.webUrl}
+                >
                   See details
                 </Button>
               </Box>
