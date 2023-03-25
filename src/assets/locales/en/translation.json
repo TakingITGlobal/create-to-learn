@@ -4,6 +4,8 @@
   "get-started": "Get Started",
   "sign-in": "Sign In",
   "let-me-browse": "Let Me Browse",
+  "courses": "Courses",
+  "creators": "Creators",
   "btn": {
     "prev": "Prev",
     "next": "Next",
@@ -49,5 +51,8 @@
       "header": "I am..",
       "skip-btn": "Prefer not to say"
     }
+  },
+  "browse": {
+    "search-by": "Search courses or creators..."
   }
 }
