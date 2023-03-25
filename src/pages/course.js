@@ -3,20 +3,19 @@ import Meta from './../components/Meta'
 import CourseSection from './../components/CourseSection'
 import { Link } from './../util/router'
 import { useRouter } from './../util/router'
-import { getCourse } from '../util/db'
+import { useCourseByUID } from '../util/db'
 function CoursePage(props) {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState()
   const { courseId } = router.params
+  const {data: courseData} = useCourseByUID(courseId)
 
   useEffect(() => {
-    (async () => {
-      const courseData = await getCourse(courseId)
-      setData(courseData)
-    })()
-  },[courseId])
-
+    if(courseData?.length){
+      setData(courseData[0])  
+    }
+  },[courseData])
   useEffect(() => {
     setLoading(false)
   },[data])

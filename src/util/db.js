@@ -82,6 +82,18 @@ export function useLearningPaths() {
     createQuery(() => query(collection(db, '/LearningPaths'))),
   )
 }
+export function useCourseByUID(uid) {
+  return useQuery(
+    ['/Series', { uid }],
+    createQuery(() =>
+      query(
+        collection(db, '/Series'),
+        where('uid', '==', uid),
+        limit(1),
+      ),
+    ),
+  )
+}
 export function useCourseByName(seriesName) {
   return useQuery(
     ['/Series', { seriesName }],
