@@ -11,8 +11,7 @@ import Carousel from 'react-material-ui-carousel'
 import MultiCarousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 
-
-import { Button,Paper } from '@material-ui/core'
+import { Button, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Section from './Section'
 import SectionHeader from './SectionHeader'
@@ -236,26 +235,26 @@ function CreatorSpotlight() {
                   }}
                 />
               </Box> */}
-
-              <h2>{item.seriesName}</h2>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingBottom: 5,
-                }}
-              >
-                <Typography>{item.name}</Typography>
-              </Box>
-              <Box sx={{ paddingBottom: 5 }}>
-                <Typography>
-                  {
-                    item.pleaseIncludeAShort23SentenceBioThatWeCanUseWhenPromotingYourContent
-                  }
-                </Typography>
-              </Box>
-              {/* <Box>
+              <Box sx={{ padding: 10 }}>
+                <h2>{item.seriesName}</h2>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    paddingBottom: 5,
+                  }}
+                >
+                  <Typography>{item.name}</Typography>
+                </Box>
+                <Box sx={{ paddingBottom: 5 }}>
+                  <Typography>
+                    {
+                      item.pleaseIncludeAShort23SentenceBioThatWeCanUseWhenPromotingYourContent
+                    }
+                  </Typography>
+                </Box>
+                {/* <Box>
                 <Button
                   color="primary"
                   fullWidth
@@ -265,6 +264,7 @@ function CreatorSpotlight() {
                   See details
                 </Button>
               </Box> */}
+              </Box>
             </Paper>
           )
         })}
@@ -301,24 +301,26 @@ function LearningPath() {
           <Paper
             key={i}
             sx={{
-              padding: 2.5,
+              padding: 10,
               height: '250px',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
             }}
           >
-            <Box>
-              <h2>{item.name}</h2>
-              <p>Throughout this unit ...</p>
-              {item.seriesInPath.length > 0 && (
-                <p> Time Series: {item.seriesInPath.join()}</p>
-              )}
-            </Box>
-            <Box>
-              <Button color="primary" fullWidth variant="contained">
-                See details
-              </Button>
+            <Box sx={{ padding: 10 }}>
+              <Box>
+                <h2>{item.name}</h2>
+                <p>Throughout this unit ...</p>
+                {item.seriesInPath.length > 0 && (
+                  <p> Time Series: {item.seriesInPath.join()}</p>
+                )}
+              </Box>
+              <Box>
+                <Button color="primary" fullWidth variant="contained">
+                  See details
+                </Button>
+              </Box>
             </Box>
           </Paper>
         ))}
@@ -355,55 +357,57 @@ function TopCourses({ category }) {
           var regExp = /\(([^)]+)\)/
           return (
             <Paper key={i} sx={{ padding: 2.5, height: '450px' }}>
-              {/* Use the course photo instead of the creator photo once we have a valid url */}
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  width: '100%',
-                  height: '200px',
-                  overflow: 'hidden',
-                }}
-              >
-                <img
-                  src={regExp.exec(item.creatorPhoto)[1]}
-                  style={{
-                    top: 0,
+              <Box sx={{ padding: 10 }}>
+                {/* Use the course photo instead of the creator photo once we have a valid url */}
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
                     width: '100%',
-                    height: 'auto',
-                    objectFit: 'cover',
+                    height: '200px',
+                    overflow: 'hidden',
                   }}
-                />
-              </Box>
-              <h2>{item.seriesName}</h2>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingBottom: 5,
-                }}
-              >
-                <>
-                  <Typography>{item.creator}</Typography>
-                  <Typography>
-                    {item.videos.length}{' '}
-                    {item.videos.length == 1 ? 'Video' : 'Videos'}
-                  </Typography>
-                </>
-              </Box>
-              <Box sx={{ paddingBottom: 5 }}>
-                <Typography>Materials: </Typography>
-              </Box>
-              <Box>
-                <Button
-                  color="primary"
-                  fullWidth
-                  variant="contained"
-                  href={item.webUrl}
                 >
-                  See details
-                </Button>
+                  <img
+                    src={regExp.exec(item.creatorPhoto)[1]}
+                    style={{
+                      top: 0,
+                      width: '100%',
+                      height: 'auto',
+                      objectFit: 'cover',
+                    }}
+                  />
+                </Box>
+                <h2>{item.seriesName}</h2>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    paddingBottom: 5,
+                  }}
+                >
+                  <>
+                    <Typography>{item.creator}</Typography>
+                    <Typography>
+                      {item.videos.length}{' '}
+                      {item.videos.length == 1 ? 'Video' : 'Videos'}
+                    </Typography>
+                  </>
+                </Box>
+                <Box sx={{ paddingBottom: 5 }}>
+                  <Typography>Materials: </Typography>
+                </Box>
+                <Box>
+                  <Button
+                    color="primary"
+                    fullWidth
+                    variant="contained"
+                    href={item.webUrl}
+                  >
+                    See details
+                  </Button>
+                </Box>
               </Box>
             </Paper>
           )
