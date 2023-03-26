@@ -122,6 +122,13 @@ export function useCreatorsAll() {
   )
 }
 
+export function useCategories() {
+  return useQuery(
+    ['/Categories'],
+    createQuery(() => query(collection(db, '/Categories'))),
+  )
+}
+
 // Fetch item data once
 export function useItemOnce(id) {
   return useQuery(
