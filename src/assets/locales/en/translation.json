@@ -6,6 +6,11 @@
   "let-me-browse": "Let Me Browse",
   "courses": "Courses",
   "creators": "Creators",
+  "topics": "Topics",
+  "featured": "Featured",
+  "duration": "Duration",
+  "videos": "videos",
+  "video": "video",
   "btn": {
     "prev": "Prev",
     "next": "Next",
@@ -53,6 +58,10 @@
     }
   },
   "browse": {
-    "search-by": "Search courses or creators..."
+    "search-by": "Search courses or creators...",
+    "show-filters": "Show all filters",
+    "apply-filters": "Apply filters",
+    "clear-filters": "Clear filters",
+    "close-drawer": "Close"
   }
 }

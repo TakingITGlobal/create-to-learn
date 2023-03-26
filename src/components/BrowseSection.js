@@ -4,9 +4,6 @@ import Container from '@material-ui/core/Container'
 import Section from './Section'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
-import SearchIcon from '@material-ui/icons/Search'
-import CloseIcon from '@material-ui/icons/Close'
-
 import OutlinedInput from '@material-ui/core/OutlinedInput'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import Tabs from '@mui/material/Tabs'
@@ -17,11 +14,15 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import Chip from '@material-ui/core/Chip'
 import Stack from '@mui/material/Stack'
 import CircularProgress from '@mui/material/CircularProgress'
+import SearchIcon from '@material-ui/icons/Search'
+import CloseIcon from '@material-ui/icons/Close'
+import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 
 import { useCreatorsAll, useCategories, useCoursePerCategory } from '../util/db'
 import { useTranslation } from 'react-i18next'
 
 function BrowseSection(props) {
+  const { t } = useTranslation()
   const [showSearchBar, setShowSearchBar] = useState(false)
   const [categories, setCategories] = useState([])
   const { isLoading, data: dataCategories } = useCategories()
@@ -75,7 +76,7 @@ function BrowseSection(props) {
             </Box>
           </Box>
 
-          {isLoading ? (
+          {isLoading || !categories.length ? (
             <CircularProgress />
           ) : (
             <BrowseTabs categories={categories} />
@@ -141,16 +142,16 @@ function a11yProps(index) {
 }
 
 function BrowseTabs({ categories }) {
+  const { t } = useTranslation()
   const [value, setValue] = React.useState(0)
   const [courses, setCourses] = useState([])
   const [creators, setCreators] = useState([])
   const [openDrawer, setOpenDrawer] = useState(false)
-  const [categoryFilter, setCategoryFilter] = useState(categories)
-
-  const { t } = useTranslation()
+  const [categoryFilter, setCategoryFilter] = useState([])
+  const [allCourses, setAllCourses] = useState([])
   // const { isLoading: loadingCourses, data: dataCourses } = useCourses()
   const { isLoading: loadingCreators, data: dataCreators } = useCreatorsAll()
-  const { isLoading: loadingCourses, data: coursesFiltered } =
+  const { isLoading: loadingCourses, data: dataCourses } =
     useCoursePerCategory(categories)
 
   const handleChange = (event, newValue) => {
@@ -159,12 +160,15 @@ function BrowseTabs({ categories }) {
 
   useEffect(() => {
     if (!loadingCourses) {
-      setCourses(coursesFiltered)
+      setAllCourses(dataCourses)
+    }
+    if (!loadingCourses) {
+      setCourses(dataCourses)
     }
     if (dataCreators && dataCreators.length) {
       setCreators(dataCreators)
     }
-  }, [coursesFiltered, dataCreators])
+  }, [dataCourses, dataCreators])
 
   const toggleDrawer = (event, open) => {
     if (
@@ -177,7 +181,6 @@ function BrowseTabs({ categories }) {
     setOpenDrawer(open)
   }
 
-  //To do: Fix fix fix!
   const handleCategoryFilterArr = (category) => {
     const catIndex = categoryFilter.indexOf(category)
     if (catIndex !== -1) {
@@ -187,8 +190,20 @@ function BrowseTabs({ categories }) {
     }
   }
 
+  useEffect(() => {
+    if (categoryFilter.length) {
+      const coursesFilteredByCat = allCourses.filter((course) =>
+        course.category.some((cat) => categoryFilter.includes(cat)),
+      )
+      setCourses(coursesFilteredByCat)
+    }
+  }, [categoryFilter])
+
   const handleFilterCourses = () => {
-    setCourses(coursesFiltered)
+    // const coursesFilteredByCat = courses.filter((course) =>
+    //   course.category.some((cat) => categoryFilter.includes(cat)),
+    // )
+    // setCourses(coursesFilteredByCat)
     setOpenDrawer(false)
   }
 
@@ -215,7 +230,7 @@ function BrowseTabs({ categories }) {
           ) : (
             <>
               <Button variant="outlined" onClick={() => setOpenDrawer(true)}>
-                Show all filters
+                {t('browse.show-filters')}
               </Button>
 
               <Box>
@@ -261,7 +276,7 @@ function BrowseTabs({ categories }) {
           </Box>
           <Box mt={2}>
             <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-              Featured
+              {t('featured')}
             </Typography>
             <Stack direction="row" spacing={1}>
               <Chip label="Featured" clickable variant="outlined" />
@@ -270,7 +285,7 @@ function BrowseTabs({ categories }) {
           </Box>
           <Box mt={2}>
             <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-              Duration
+              {t('duration')}
             </Typography>
             <Stack
               direction="row"
@@ -308,7 +323,7 @@ function BrowseTabs({ categories }) {
           </Box>
           <Box mt={2}>
             <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-              Categories
+              {t('topics')}
             </Typography>
             <Stack
               direction="row"
@@ -332,15 +347,25 @@ function BrowseTabs({ categories }) {
               ))}
             </Stack>
           </Box>
-          <Box sx={{ padding: '30px' }}>
+          <Stack direction="row" spacing={1} sx={{ paddingTop: '60px' }}>
             <Button
-              fullWidth
               variant="outlined"
-              onClick={() => handleFilterCourses()}
+              onClick={() => {
+                setCategoryFilter([])
+                setCourses(allCourses)
+                setOpenDrawer(false)
+              }}
             >
-              Apply Filters
+              {t('browse.clear-filters')}
             </Button>
-          </Box>
+            <Button
+              variant="outlined"
+              endIcon={<ChevronRightIcon />}
+              onClick={() => setOpenDrawer(false)}
+            >
+              {t('browse.close-drawer')}
+            </Button>
+          </Stack>
         </Box>
       </SwipeableDrawer>
     </>
@@ -348,6 +373,8 @@ function BrowseTabs({ categories }) {
 }
 
 function CourseCard({ course }) {
+  const { t } = useTranslation()
+
   return (
     <Box sx={{ padding: '10px 0' }}>
       <Paper sx={{ padding: 2.5, height: '200px' }}>
@@ -367,7 +394,7 @@ function CourseCard({ course }) {
               <Typography>{course.creator}</Typography>
               <Typography>
                 {course.videos && course.videos.length}{' '}
-                {course.videos.length == 1 ? 'Video' : 'Videos'}
+                {course.videos.length == 1 ? t('video') : t('videos')}
               </Typography>
             </>
           </Box>
@@ -388,6 +415,7 @@ function CourseCard({ course }) {
 }
 
 function CreatorCard({ creator }) {
+  const { t } = useTranslation()
   return (
     <Box sx={{ padding: '10px 0' }}>
       <Paper sx={{ padding: 2.5, height: '200px' }}>
@@ -406,7 +434,7 @@ function CreatorCard({ creator }) {
             <>
               <Typography>{creator.seriesName}</Typography>
               <Typography>
-                {creator.videos} {creator.videos == 1 ? 'Video' : 'Videos'}
+                {creator.videos == 1 ? t('video') : t('videos')}
               </Typography>
             </>
           </Box>

@@ -100,11 +100,13 @@ export function useCourses() {
 export function useCoursePerCategory(categories) {
   return useQuery(
     ['/Series', { categories }],
-    createQuery(() =>
-      query(
-        collection(db, '/Series'),
-        where('category', 'array-contains-any', categories),
-      ),
+    createQuery(
+      () =>
+        query(
+          collection(db, '/Series'),
+          where('category', 'array-contains-any', categories),
+        ),
+      { staleTime: 'Infinity' },
     ),
   )
 }
