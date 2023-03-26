@@ -16,12 +16,21 @@ import Button from '@material-ui/core/Button'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import Chip from '@material-ui/core/Chip'
 import Stack from '@mui/material/Stack'
+import CircularProgress from '@mui/material/CircularProgress'
 
-import { useCourses, useCreatorsAll, useCategories } from '../util/db'
+import { useCreatorsAll, useCategories, useCoursePerCategory } from '../util/db'
 import { useTranslation } from 'react-i18next'
 
 function BrowseSection(props) {
   const [showSearchBar, setShowSearchBar] = useState(false)
+  const [categories, setCategories] = useState([])
+  const { isLoading, data: dataCategories } = useCategories()
+
+  useEffect(() => {
+    if (!isLoading) {
+      setCategories(dataCategories.map(({ name }) => name))
+    }
+  }, [dataCategories])
 
   return (
     <Section
@@ -66,7 +75,11 @@ function BrowseSection(props) {
             </Box>
           </Box>
 
-          <BasicTabs />
+          {isLoading ? (
+            <CircularProgress />
+          ) : (
+            <BrowseTabs categories={categories} />
+          )}
         </Container>
       </Box>
     </Section>
@@ -127,34 +140,31 @@ function a11yProps(index) {
   }
 }
 
-function BasicTabs() {
+function BrowseTabs({ categories }) {
   const [value, setValue] = React.useState(0)
   const [courses, setCourses] = useState([])
   const [creators, setCreators] = useState([])
-  const [categories, setCategories] = useState([])
   const [openDrawer, setOpenDrawer] = useState(false)
-  const [categoryFilter, setCategoryFilter] = useState([])
+  const [categoryFilter, setCategoryFilter] = useState(categories)
 
   const { t } = useTranslation()
-  const { data: dataCourses } = useCourses()
-  const { data: dataCreators } = useCreatorsAll()
-  const { data: dataCategories } = useCategories()
+  // const { isLoading: loadingCourses, data: dataCourses } = useCourses()
+  const { isLoading: loadingCreators, data: dataCreators } = useCreatorsAll()
+  const { isLoading: loadingCourses, data: coursesFiltered } =
+    useCoursePerCategory(categories)
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
 
   useEffect(() => {
-    if (dataCourses && dataCourses.length) {
-      setCourses(dataCourses)
+    if (!loadingCourses) {
+      setCourses(coursesFiltered)
     }
     if (dataCreators && dataCreators.length) {
       setCreators(dataCreators)
     }
-    if (dataCategories && dataCategories.length) {
-      setCategories(dataCategories)
-    }
-  }, [dataCourses, dataCreators, dataCategories])
+  }, [coursesFiltered, dataCreators])
 
   const toggleDrawer = (event, open) => {
     if (
@@ -167,6 +177,7 @@ function BasicTabs() {
     setOpenDrawer(open)
   }
 
+  //To do: Fix fix fix!
   const handleCategoryFilterArr = (category) => {
     const catIndex = categoryFilter.indexOf(category)
     if (catIndex !== -1) {
@@ -176,15 +187,16 @@ function BasicTabs() {
     }
   }
 
+  const handleFilterCourses = () => {
+    setCourses(coursesFiltered)
+    setOpenDrawer(false)
+  }
+
   return (
     <>
       <Box sx={{ width: '100%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            aria-label="basic tabs example"
-          >
+          <Tabs value={value} onChange={handleChange} aria-label="browse tabs">
             <Tab
               label={t('courses')}
               {...a11yProps(0)}
@@ -198,22 +210,35 @@ function BasicTabs() {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          <Button variant="outlined" onClick={() => setOpenDrawer(true)}>
-            Show all filters
-          </Button>
-          <Box>
-            {courses.map((course, index) => (
-              <CourseCard key={index} course={course} />
-            ))}
-          </Box>
+          {loadingCourses ? (
+            <CircularProgress />
+          ) : (
+            <>
+              <Button variant="outlined" onClick={() => setOpenDrawer(true)}>
+                Show all filters
+              </Button>
+
+              <Box>
+                {courses.map((course, index) => (
+                  <CourseCard key={index} course={course} />
+                ))}
+              </Box>
+            </>
+          )}
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <Button variant="outlined">Show all filters</Button>
-          <Box>
-            {creators.map((creator, index) => (
-              <CreatorCard key={index} creator={creator} />
-            ))}
-          </Box>
+          {loadingCreators ? (
+            <CircularProgress />
+          ) : (
+            <>
+              <Button variant="outlined">Show all filters</Button>
+              <Box>
+                {creators.map((creator, index) => (
+                  <CreatorCard key={index} creator={creator} />
+                ))}
+              </Box>
+            </>
+          )}
         </TabPanel>
       </Box>
       <SwipeableDrawer
@@ -296,21 +321,23 @@ function BasicTabs() {
               {categories.map((category, index) => (
                 <Chip
                   key={index}
-                  label={category.name}
+                  label={category}
                   clickable
-                  onClick={() => handleCategoryFilterArr(category.name)}
+                  onClick={() => handleCategoryFilterArr(category)}
                   style={{ marginLeft: 0 }}
                   variant={
-                    categoryFilter.includes(category.name)
-                      ? 'default'
-                      : 'outlined'
+                    categoryFilter.includes(category) ? 'default' : 'outlined'
                   }
                 />
               ))}
             </Stack>
           </Box>
           <Box sx={{ padding: '30px' }}>
-            <Button fullWidth variant="outlined">
+            <Button
+              fullWidth
+              variant="outlined"
+              onClick={() => handleFilterCourses()}
+            >
               Apply Filters
             </Button>
           </Box>

@@ -333,7 +333,7 @@ function TopCourses({ category }) {
   const classes = useStyles()
   const [courses, setCourses] = useState([])
 
-  const { data: courseData } = useCoursePerCategory(category)
+  const { data: courseData } = useCoursePerCategory([category])
 
   useEffect(() => {
     if (courseData?.length) {

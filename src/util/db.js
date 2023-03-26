@@ -91,18 +91,19 @@ export function useLearningPaths() {
 export function useCourses() {
   return useQuery(
     ['/Series'],
-    createQuery(() => query(collection(db, '/Series'))),
+    // When fetching once there is no need to use `createQuery` to setup a subscription
+    // Just fetch normally using `getDoc` so that we return a promise
+    () => getDocs(collection(db, '/Series')).then(format),
   )
 }
 
-export function useCoursePerCategory(category) {
+export function useCoursePerCategory(categories) {
   return useQuery(
-    ['/Series', { category }],
+    ['/Series', { categories }],
     createQuery(() =>
       query(
         collection(db, '/Series'),
-        where('category', 'array-contains', category),
-        limit(5),
+        where('category', 'array-contains-any', categories),
       ),
     ),
   )
