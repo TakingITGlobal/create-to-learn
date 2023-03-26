@@ -20,7 +20,7 @@ import SignUp from './SignUp'
 
 import { Link, useRouter } from './../util/router'
 import { useAuth } from './../util/auth'
-import { useLearningPaths, useCourses, useCreators } from '../util/db'
+import { useLearningPaths, useCoursePerCategory, useCreators } from '../util/db'
 
 const useStyles = makeStyles((theme) => ({
   cardContent: {
@@ -333,7 +333,7 @@ function TopCourses({ category }) {
   const classes = useStyles()
   const [courses, setCourses] = useState([])
 
-  const { data: courseData } = useCourses(category)
+  const { data: courseData } = useCoursePerCategory(category)
 
   useEffect(() => {
     if (courseData?.length) {

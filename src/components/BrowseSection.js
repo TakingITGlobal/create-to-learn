@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container'
 import Section from './Section'
@@ -11,7 +11,9 @@ import OutlinedInput from '@material-ui/core/OutlinedInput'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
-import Paper from '@mui/material/Paper'
+import Paper from '@material-ui/core/Paper'
+import Button from '@material-ui/core/Button'
+import { useCourses, useCreatorsAll } from '../util/db'
 import { useTranslation } from 'react-i18next'
 
 function BrowseSection(props) {
@@ -123,11 +125,25 @@ function a11yProps(index) {
 
 function BasicTabs() {
   const [value, setValue] = React.useState(0)
+  const [courses, setCourses] = useState([])
+  const [creators, setCreators] = useState([])
+
   const { t } = useTranslation()
+  const { data: dataCourses } = useCourses()
+  const { data: dataCreators } = useCreatorsAll()
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
+
+  useEffect(() => {
+    if (dataCourses && dataCourses.length) {
+      setCourses(dataCourses)
+    }
+    if (dataCreators && dataCreators.length) {
+      setCreators(dataCreators)
+    }
+  }, [dataCourses, dataCreators])
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -146,11 +162,89 @@ function BasicTabs() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        {t('courses')}
+        <Box>
+          {courses.map((course, index) => (
+            <CourseCard key={index} course={course} />
+          ))}
+        </Box>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        {t('creators')}
+        <Box>
+          {creators.map((creator, index) => (
+            <CreatorCard key={index} creator={creator} />
+          ))}
+        </Box>
       </TabPanel>
+    </Box>
+  )
+}
+
+function CourseCard({ course }) {
+  return (
+    <Box sx={{ padding: '10px 0' }}>
+      <Paper sx={{ padding: 2.5, height: '200px' }}>
+        <Box sx={{ padding: 10 }}>
+          <h2>{course.seriesName}</h2>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              paddingBottom: 5,
+            }}
+          >
+            <>
+              <Typography>{course.creator}</Typography>
+              <Typography>
+                {course.videos && course.videos.length}{' '}
+                {course.videos.length == 1 ? 'Video' : 'Videos'}
+              </Typography>
+            </>
+          </Box>
+          <Box>
+            <Button
+              color="primary"
+              fullWidth
+              variant="contained"
+              href={course.webUrl}
+            >
+              Go to course page
+            </Button>
+          </Box>
+        </Box>
+      </Paper>
+    </Box>
+  )
+}
+
+function CreatorCard({ creator }) {
+  return (
+    <Box sx={{ padding: '10px 0' }}>
+      <Paper sx={{ padding: 2.5, height: '200px' }}>
+        <Box sx={{ padding: 10 }}>
+          <h2>{creator.name}</h2>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              paddingBottom: 5,
+            }}
+          >
+            <>
+              <Typography>{creator.seriesName}</Typography>
+              <Typography>
+                {creator.videos} {creator.videos == 1 ? 'Video' : 'Videos'}
+              </Typography>
+            </>
+          </Box>
+          <Box>
+            <Button color="primary" fullWidth variant="contained">
+              Go to course page
+            </Button>
+          </Box>
+        </Box>
+      </Paper>
     </Box>
   )
 }

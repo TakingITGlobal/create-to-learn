@@ -64,11 +64,8 @@ export function updateUser(uid, data) {
 export function useSchools() {
   return useQuery(
     ['/Schools'],
-    createQuery(() => 
-      query(
-        collection(db, '/Schools'),
-        orderBy('school', 'asc')
-      ),
+    createQuery(() =>
+      query(collection(db, '/Schools'), orderBy('school', 'asc')),
     ),
   )
 }
@@ -91,7 +88,14 @@ export function useLearningPaths() {
   )
 }
 
-export function useCourses(category) {
+export function useCourses() {
+  return useQuery(
+    ['/Series'],
+    createQuery(() => query(collection(db, '/Series'))),
+  )
+}
+
+export function useCoursePerCategory(category) {
   return useQuery(
     ['/Series', { category }],
     createQuery(() =>
@@ -108,6 +112,13 @@ export function useCreators() {
   return useQuery(
     ['/Artists'],
     createQuery(() => query(collection(db, '/Artists'), limit(5))),
+  )
+}
+
+export function useCreatorsAll() {
+  return useQuery(
+    ['/Artists'],
+    createQuery(() => query(collection(db, '/Artists'))),
   )
 }
 
