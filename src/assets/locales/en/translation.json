@@ -11,6 +11,7 @@
   "duration": "Duration",
   "videos": "videos",
   "video": "video",
+  "close": "Close",
   "btn": {
     "prev": "Prev",
     "next": "Next",
@@ -61,7 +62,6 @@
     "search-by": "Search courses or creators...",
     "show-filters": "Show all filters",
     "apply-filters": "Apply filters",
-    "clear-filters": "Clear filters",
-    "close-drawer": "Close"
+    "clear-filters": "Clear filters"
   }
 }
