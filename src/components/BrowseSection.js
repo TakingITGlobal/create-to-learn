@@ -77,7 +77,7 @@ function BrowseSection(props) {
           </Box>
 
           {isLoading || !categories.length ? (
-            <CircularProgress />
+            <CircularProgress color="primary" />
           ) : (
             <BrowseTabs categories={categories} />
           )}
@@ -148,14 +148,14 @@ function BrowseTabs({ categories }) {
   const [creators, setCreators] = useState([])
   const [openDrawer, setOpenDrawer] = useState(false)
   const [categoryFilter, setCategoryFilter] = useState([])
+  const [durationFilter, setDurationFilter] = useState([])
   const [allCourses, setAllCourses] = useState([])
-  // const { isLoading: loadingCourses, data: dataCourses } = useCourses()
   const { isLoading: loadingCreators, data: dataCreators } = useCreatorsAll()
   const { isLoading: loadingCourses, data: dataCourses } =
     useCoursePerCategory(categories)
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue)
+  const handleChangeTab = (event, newTab) => {
+    setValue(newTab)
   }
 
   useEffect(() => {
@@ -191,27 +191,73 @@ function BrowseTabs({ categories }) {
   }
 
   useEffect(() => {
-    if (categoryFilter.length) {
-      const coursesFilteredByCat = allCourses.filter((course) =>
-        course.category.some((cat) => categoryFilter.includes(cat)),
-      )
-      setCourses(coursesFilteredByCat)
-    }
-  }, [categoryFilter])
+    //Use filters if some have been chosen. Otherwise, assume all filters are chosen.
+    const categoriesToFilter = categoryFilter.length
+      ? categoryFilter
+      : categories
+    const durationsToFilter = durationFilter.length ? durationFilter : durations
 
-  const handleFilterCourses = () => {
-    // const coursesFilteredByCat = courses.filter((course) =>
-    //   course.category.some((cat) => categoryFilter.includes(cat)),
-    // )
-    // setCourses(coursesFilteredByCat)
-    setOpenDrawer(false)
+    const filteredCourses = allCourses.filter(
+      (course) =>
+        course.category.some((cat) => categoriesToFilter.includes(cat)) &&
+        durationsToFilter.some(
+          (duration) =>
+            course.totalLength >= duration.lowerValue &&
+            course.totalLength < duration.upperValue,
+        ),
+    )
+    setCourses(filteredCourses)
+  }, [categoryFilter, durationFilter])
+
+  const durations = [
+    {
+      id: 'less-20',
+      label: 'Less than 20 min',
+      lowerValue: 0,
+      upperValue: 20 * 60,
+    },
+    {
+      id: '20-45',
+      label: '20-45 min',
+      lowerValue: 20 * 60,
+      upperValue: 45 * 60,
+    },
+    {
+      id: '45-60',
+      label: ' 45 min to 1 hour',
+      lowerValue: 45 * 60,
+      upperValue: 60 * 60,
+    },
+    {
+      id: 'more-60',
+      label: 'More than 1 hour',
+      lowerValue: 60 * 60,
+      upperValue: 100000,
+    },
+  ]
+
+  const handleDurationFilterArr = (duration) => {
+    const isInFilter = durationFilter.some((dur) => dur.id === duration.id)
+    if (isInFilter) {
+      setDurationFilter(
+        durationFilter.filter((item) => item.id !== duration.id),
+      )
+    } else {
+      setDurationFilter([...durationFilter, duration])
+    }
   }
 
   return (
     <>
       <Box sx={{ width: '100%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={value} onChange={handleChange} aria-label="browse tabs">
+          <Tabs
+            value={value}
+            textColor="secondary"
+            indicatorColor="secondary" 
+            onChange={handleChangeTab}
+            aria-label="browse tabs"
+          >
             <Tab
               label={t('courses')}
               {...a11yProps(0)}
@@ -226,7 +272,7 @@ function BrowseTabs({ categories }) {
         </Box>
         <TabPanel value={value} index={0}>
           {loadingCourses ? (
-            <CircularProgress />
+            <CircularProgress color="primary" />
           ) : (
             <>
               <Button variant="outlined" onClick={() => setOpenDrawer(true)}>
@@ -243,7 +289,7 @@ function BrowseTabs({ categories }) {
         </TabPanel>
         <TabPanel value={value} index={1}>
           {loadingCreators ? (
-            <CircularProgress />
+            <CircularProgress color="primary" />
           ) : (
             <>
               <Button variant="outlined">Show all filters</Button>
@@ -295,30 +341,20 @@ function BrowseTabs({ categories }) {
                 gap: 2,
               }}
             >
-              <Chip
-                label="Less than 20 min"
-                variant="outlined"
-                clickable
-                style={{ marginLeft: 0 }}
-              />
-              <Chip
-                label="20-45 min"
-                clickable
-                variant="outlined"
-                style={{ marginLeft: 0 }}
-              />
-              <Chip
-                label="45 min - 1 hour"
-                variant="outlined"
-                clickable
-                style={{ marginLeft: 0 }}
-              />
-              <Chip
-                label="More than 1 hour"
-                variant="outlined"
-                clickable
-                style={{ marginLeft: 0 }}
-              />
+              {durations.map((duration, index) => (
+                <Chip
+                  key={index}
+                  label={duration.label}
+                  clickable
+                  style={{ marginLeft: 0 }}
+                  onClick={() => handleDurationFilterArr(duration)}
+                  variant={
+                    durationFilter.some((dur) => dur.id === duration.id)
+                      ? 'default'
+                      : 'outlined'
+                  }
+                />
+              ))}
             </Stack>
           </Box>
           <Box mt={2}>
@@ -352,8 +388,8 @@ function BrowseTabs({ categories }) {
               variant="outlined"
               onClick={() => {
                 setCategoryFilter([])
+                setDurationFilter([])
                 setCourses(allCourses)
-                setOpenDrawer(false)
               }}
             >
               {t('browse.clear-filters')}
@@ -363,7 +399,7 @@ function BrowseTabs({ categories }) {
               endIcon={<ChevronRightIcon />}
               onClick={() => setOpenDrawer(false)}
             >
-              {t('browse.close-drawer')}
+              {t('close')}
             </Button>
           </Stack>
         </Box>
@@ -378,6 +414,26 @@ function CourseCard({ course }) {
   return (
     <Box sx={{ padding: '10px 0' }}>
       <Paper sx={{ padding: 2.5, height: '200px' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            width: '100%',
+            height: '200px',
+            overflow: 'hidden',
+          }}
+        >
+          <img
+            src={course.thumbnail[0]?.downloadURL}
+            loading="lazy"
+            style={{
+              top: 0,
+              width: '100%',
+              height: 'auto',
+              objectFit: 'cover',
+            }}
+          />
+        </Box>
         <Box sx={{ padding: 10 }}>
           <Box>
             <Typography variant="h6">{course.seriesName} </Typography>
@@ -403,7 +459,7 @@ function CourseCard({ course }) {
               color="primary"
               fullWidth
               variant="contained"
-              href={course.webUrl}
+              href={course.uid}
             >
               Go to course page
             </Button>
@@ -416,9 +472,35 @@ function CourseCard({ course }) {
 
 function CreatorCard({ creator }) {
   const { t } = useTranslation()
+
   return (
     <Box sx={{ padding: '10px 0' }}>
       <Paper sx={{ padding: 2.5, height: '200px' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            width: '100%',
+            height: '200px',
+            overflow: 'hidden',
+          }}
+        >
+          <Box
+            src=""
+            component="img"
+            alt=""
+            loading="lazy"
+            height="200px"
+            style={{
+              top: 0,
+              width: '100%',
+              height: 'auto',
+              objectFit: 'cover',
+              maxHeight: { xs: 233, md: 167 },
+              maxWidth: { xs: 350, md: 250 },
+            }}>
+          </Box>
+        </Box>
         <Box sx={{ padding: 10 }}>
           <Box>
             <Typography variant="h6">{creator.name} </Typography>

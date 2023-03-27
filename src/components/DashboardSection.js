@@ -226,7 +226,7 @@ function CreatorSpotlight() {
                 }}
               >
                 <img
-                  src={item.image[0].downloadURL}
+                  src={item?.image[0]?.downloadURL}
                   style={{
                     top: 0,
                     width: '100%',
