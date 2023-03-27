@@ -77,7 +77,7 @@ function BrowseSection(props) {
           </Box>
 
           {isLoading || !categories.length ? (
-            <CircularProgress />
+            <CircularProgress color="primary" />
           ) : (
             <BrowseTabs categories={categories} />
           )}
@@ -272,7 +272,7 @@ function BrowseTabs({ categories }) {
         </Box>
         <TabPanel value={value} index={0}>
           {loadingCourses ? (
-            <CircularProgress />
+            <CircularProgress color="primary" />
           ) : (
             <>
               <Button variant="outlined" onClick={() => setOpenDrawer(true)}>
@@ -289,7 +289,7 @@ function BrowseTabs({ categories }) {
         </TabPanel>
         <TabPanel value={value} index={1}>
           {loadingCreators ? (
-            <CircularProgress />
+            <CircularProgress color="primary" />
           ) : (
             <>
               <Button variant="outlined">Show all filters</Button>
@@ -414,6 +414,26 @@ function CourseCard({ course }) {
   return (
     <Box sx={{ padding: '10px 0' }}>
       <Paper sx={{ padding: 2.5, height: '200px' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            width: '100%',
+            height: '200px',
+            overflow: 'hidden',
+          }}
+        >
+          <img
+            src={course.thumbnail[0]?.downloadURL}
+            loading="lazy"
+            style={{
+              top: 0,
+              width: '100%',
+              height: 'auto',
+              objectFit: 'cover',
+            }}
+          />
+        </Box>
         <Box sx={{ padding: 10 }}>
           <Box>
             <Typography variant="h6">{course.seriesName} </Typography>
@@ -439,7 +459,7 @@ function CourseCard({ course }) {
               color="primary"
               fullWidth
               variant="contained"
-              href={course.webUrl}
+              href={course.uid}
             >
               Go to course page
             </Button>
@@ -452,9 +472,35 @@ function CourseCard({ course }) {
 
 function CreatorCard({ creator }) {
   const { t } = useTranslation()
+
   return (
     <Box sx={{ padding: '10px 0' }}>
       <Paper sx={{ padding: 2.5, height: '200px' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            width: '100%',
+            height: '200px',
+            overflow: 'hidden',
+          }}
+        >
+          <Box
+            src=""
+            component="img"
+            alt=""
+            loading="lazy"
+            height="200px"
+            style={{
+              top: 0,
+              width: '100%',
+              height: 'auto',
+              objectFit: 'cover',
+              maxHeight: { xs: 233, md: 167 },
+              maxWidth: { xs: 350, md: 250 },
+            }}>
+          </Box>
+        </Box>
         <Box sx={{ padding: 10 }}>
           <Box>
             <Typography variant="h6">{creator.name} </Typography>

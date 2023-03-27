@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
     paddingTop: 0,
     fontFamily: 'Bebas Neue,sans-serif',
-    color: '#130b2c',
+    color: theme.primary,
     fontSize: 30,
     fontWeight: 700,
     whiteSpace: 'nowrap',
