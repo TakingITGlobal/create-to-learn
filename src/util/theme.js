@@ -44,53 +44,53 @@ const themeConfig = {
       primary: {
         // Same as in light but we could
         // adjust color hue if needed
-        main: '#5539ed',
+        main: '#5c2ef9',
       },
       secondary: {
-        main: '#9647e7',
+        main: '#a33af1',
       },
       background: {
         default: '#0c0914',
         paper: '#1c1925',
       },
     },
-    components: {
-      // Name of the component
-      MuiButton: {
-        variants: [
-          {
-            props: {
-              variant: 'contained',
-            },
-            style: {
-              background: '#5539ed',
-              color: '#fff',
-              borderRadius: '25px'
-            },
-          },
-          {
-            props: {
-              variant: 'text',
-            },
-            style: {
-              textDecoration: 'underline',
-              fontWeight: 500,
-            },
-          },
-        ],
-      },
-    },
   },
-
 
   // Values for both themes
   common: {
     typography: {
-      fontSize: 14,
-      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+      fontSize: 16,
+      fontFamily: '"Manrope", "Helvetica", "Arial", sans-serif',
       // Uncomment to make button lowercase
       button: { 
         textTransform: "none",
+      },
+      h1: {
+        fontWeight: '700',
+        fontSize: '3rem',
+      },
+      h2: {
+        fontWeight: '700'
+      },
+      h3: {
+        fontWeight: '700'
+      },
+      h4: {
+        fontWeight: '700'
+      },
+      defaultProps: {
+        variantMapping: {
+          h1: 'h2',
+          h2: 'h2',
+          h3: 'h2',
+          h4: 'h2',
+          h5: 'h2',
+          h6: 'h2',
+          subtitle1: 'h2',
+          subtitle2: 'h3',
+          body1: 'p',
+          body2: 'span',
+        },
       },
     },
     breakpoints: {

@@ -211,7 +211,7 @@ function BrowseTabs({ categories }) {
     <>
       <Box sx={{ width: '100%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={value} onChange={handleChange} aria-label="browse tabs">
+          <Tabs value={value} onChange={handleChange} textColor="secondary" indicatorColor="secondary" aria-label="browse tabs">
             <Tab
               label={t('courses')}
               {...a11yProps(0)}
