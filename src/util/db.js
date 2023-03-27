@@ -64,6 +64,16 @@ export function updateUser(uid, data) {
   return updateDoc(doc(db, 'users', uid), data)
 }
 
+/**** Collections ****/
+export function useSchools() {
+  return useQuery(
+    ['/Schools'],
+    createQuery(() =>
+      query(collection(db, '/Schools'), orderBy('school', 'asc')),
+    ),
+  )
+}
+
 /**** ITEMS ****/
 /* Example query functions (modify to your needs) */
 
