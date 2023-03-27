@@ -437,7 +437,7 @@ function CourseCard({ course }) {
               color="primary"
               fullWidth
               variant="contained"
-              href={course.webUrl}
+              href={'/course/' + course.uid}
             >
               Go to course page
             </Button>
