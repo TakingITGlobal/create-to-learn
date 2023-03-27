@@ -50,9 +50,6 @@ export function useUser(uid) {
 export function getUser(uid) {
   return getDoc(doc(db, 'users', uid)).then(format)
 }
-export function getCourse(uid) {
-  return getDoc(doc(db, 'Series', uid)).then(format)
-}
 
 // Create a new user
 export function createUser(uid, data) {
@@ -63,7 +60,6 @@ export function createUser(uid, data) {
 export function updateUser(uid, data) {
   return updateDoc(doc(db, 'users', uid), data)
 }
-
 /**** Collections ****/
 export function useSchools() {
   return useQuery(
@@ -73,7 +69,6 @@ export function useSchools() {
     ),
   )
 }
-
 /**** ITEMS ****/
 /* Example query functions (modify to your needs) */
 
@@ -92,6 +87,7 @@ export function useLearningPaths() {
     createQuery(() => query(collection(db, '/LearningPaths'))),
   )
 }
+
 export function useCourseByUID(uid) {
   return useQuery(
     ['/Series', { uid }],
@@ -104,38 +100,48 @@ export function useCourseByUID(uid) {
     ),
   )
 }
-export function useCourseByName(seriesName) {
-  return useQuery(
-    ['/Series', { seriesName }],
-    createQuery(() =>
-      query(
-        collection(db, '/Series'),
-        where('seriesName', '==', seriesName),
-        limit(1),
-      ),
-    ),
-  )
-}
-export function useAllCourses() {
+
+export function useCourses() {
   return useQuery(
     ['/Series'],
-    createQuery(() =>
-      query(
-        collection(db, '/Series'),
-      ),
+    // When fetching once there is no need to use `createQuery` to setup a subscription
+    // Just fetch normally using `getDoc` so that we return a promise
+    () => getDocs(collection(db, '/Series')).then(format),
+  )
+}
+
+export function useCoursePerCategory(categories) {
+  return useQuery(
+    ['/Series', { categories }],
+    createQuery(
+      () =>
+        query(
+          collection(db, '/Series'),
+          where('category', 'array-contains-any', categories),
+        ),
+      { staleTime: 'Infinity' },
     ),
   )
 }
-export function useCourses(category) {
+
+export function useCreators() {
   return useQuery(
-    ['/Series', { category }],
-    createQuery(() =>
-      query(
-        collection(db, '/Series'),
-        where('category', 'array-contains', category),
-        limit(5),
-      ),
-    ),
+    ['/Artists'],
+    createQuery(() => query(collection(db, '/Artists'), limit(5))),
+  )
+}
+
+export function useCreatorsAll() {
+  return useQuery(
+    ['/Artists'],
+    createQuery(() => query(collection(db, '/Artists'))),
+  )
+}
+
+export function useCategories() {
+  return useQuery(
+    ['/Categories'],
+    createQuery(() => query(collection(db, '/Categories'))),
   )
 }
 
