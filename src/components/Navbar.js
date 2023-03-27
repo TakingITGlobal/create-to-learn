@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
     paddingTop: 0,
     fontFamily: 'Bebas Neue,sans-serif',
-    color: '#130b2c',
+    color: theme.primary,
     fontSize: 30,
     fontWeight: 700,
     whiteSpace: 'nowrap',
@@ -39,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
   },
   spacer: {
     flexGrow: 1,
+  },
+  toolbar: {
+    zIndex: 100,
   },
 }))
 
@@ -69,7 +72,7 @@ function Navbar(props) {
     <Section bgColor={props.color} size="auto">
       <AppBar position="static" color="transparent" elevation={0}>
         <Container disableGutters={true}>
-          <Toolbar>
+          <Toolbar className={classes.toolbar}>
             <Link to="/" style={{ textDecoration: 'none' }}>
               {/* <img src={logo} alt="Logo" className={classes.logo} /> */}
               <span className={classes.logo}>CREATE TO LEARN</span>

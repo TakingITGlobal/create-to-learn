@@ -16,7 +16,7 @@ const themeConfig = {
       type: 'light',
       primary: {
         // Use hue from colors or hex
-        main: colors.indigo['500'],
+        main: '#0c0914',
         // Uncomment to specify light/dark
         // shades instead of automatically
         // calculating from above value.
@@ -44,14 +44,14 @@ const themeConfig = {
       primary: {
         // Same as in light but we could
         // adjust color hue if needed
-        main: colors.indigo['500'],
+        main: '#5c2ef9',
       },
       secondary: {
-        main: colors.pink['500'],
+        main: '#a33af1',
       },
       background: {
-        default: colors.grey['900'],
-        paper: colors.grey['800'],
+        default: '#0c0914',
+        paper: '#1c1925',
       },
     },
   },
@@ -59,10 +59,39 @@ const themeConfig = {
   // Values for both themes
   common: {
     typography: {
-      fontSize: 14,
-      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+      fontSize: 16,
+      fontFamily: '"Manrope", "Helvetica", "Arial", sans-serif',
       // Uncomment to make button lowercase
-      // button: { textTransform: "none" },
+      button: { 
+        textTransform: "none",
+      },
+      h1: {
+        fontWeight: '700',
+        fontSize: '3rem',
+      },
+      h2: {
+        fontWeight: '700'
+      },
+      h3: {
+        fontWeight: '700'
+      },
+      h4: {
+        fontWeight: '700'
+      },
+      defaultProps: {
+        variantMapping: {
+          h1: 'h2',
+          h2: 'h2',
+          h3: 'h2',
+          h4: 'h2',
+          h5: 'h2',
+          h6: 'h2',
+          subtitle1: 'h2',
+          subtitle2: 'h3',
+          body1: 'p',
+          body2: 'span',
+        },
+      },
     },
     breakpoints: {
       values: {
@@ -73,6 +102,7 @@ const themeConfig = {
         xl: 1920,
       },
     },
+
     // Override component styles
     overrides: {
       // Global styles
@@ -95,7 +125,7 @@ const themeConfig = {
             },
           },
         },
-      },
+      }
     },
   },
 }

@@ -11,8 +11,7 @@ import Carousel from 'react-material-ui-carousel'
 import MultiCarousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 
-
-import { Button,Paper } from '@material-ui/core'
+import { Button, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Section from './Section'
 import SectionHeader from './SectionHeader'
@@ -21,38 +20,48 @@ import SignUp from './SignUp'
 
 import { Link, useRouter } from './../util/router'
 import { useAuth } from './../util/auth'
-import { useLearningPaths, useCourses } from '../util/db'
+import { useLearningPaths, useCoursePerCategory, useCreators } from '../util/db'
 
 const useStyles = makeStyles((theme) => ({
   cardContent: {
     padding: theme.spacing(3),
   },
   carouselItem: {
-    padding: '10px',
-    height: '300px',
+    paddingRight: '20px',
+    paddingBottom: '20px',
   },
 }))
 
+const responsive = {
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3,
+    paritialVisibilityGutter: 60,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2,
+    paritialVisibilityGutter: 50,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+    paritialVisibilityGutter: 40,
+  },
+}
+
 function DashboardSection(props) {
   const classes = useStyles()
-  const [learningPaths, setLearningPaths] = useState([])
   //This should be in local storage
   const [dismissSignUp, setDismissSignUp] = useState(false)
-  const [courses, setCourses] = useState([])
 
   const auth = useAuth()
-  const router = useRouter()
-  const { data } = useLearningPaths()
-  const { data: courseData } = useCourses('Video & Film')
 
-  useEffect(() => {
-    if (courseData?.length) {
-      setCourses(courseData)
-    }
-    if (data?.length) {
-      setLearningPaths(data)
-    }
-  }, [data, courseData])
+  const categoryInterests = [
+    'Video & Film',
+    'Game Design',
+    'Cultural Teachings',
+  ]
 
   return (
     <Section
@@ -68,7 +77,7 @@ function DashboardSection(props) {
           size={4}
           textAlign="center"
         />
-        {!dismissSignUp && (
+        {!dismissSignUp && !auth.user && (
           <SignUp setDismissed={setDismissSignUp} showDismissButton={true} />
         )}
         {/* {router.query.paid && auth.user.planIsActive && (
@@ -166,9 +175,11 @@ function DashboardSection(props) {
             </Card>
           </Grid>
         </Grid> */}
-
-        {learningPaths.length && <LearningPath learningPaths={learningPaths} />}
-        {courses.length && <TopCourses courses={courses} />}
+        <CreatorSpotlight />
+        <LearningPath />
+        {categoryInterests.map((interest, index) => (
+          <TopCourses key={index} category={interest} />
+        ))}
       </Container>
     </Section>
   )
@@ -176,26 +187,104 @@ function DashboardSection(props) {
 
 export default DashboardSection
 
-function LearningPath({ learningPaths }) {
+function CreatorSpotlight() {
   const classes = useStyles()
+  const [creators, setCreators] = useState([])
 
-  const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-      paritialVisibilityGutter: 60,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-      paritialVisibilityGutter: 50,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-      paritialVisibilityGutter: 40,
-    },
-  }
+  const { data } = useCreators()
+
+  useEffect(() => {
+    if (data?.length) {
+      setCreators(data)
+    }
+  }, [data])
+
+  return (
+    <>
+      <Box sx={{ paddingBottom: 5 }}>
+        <Typography>Creator Spotlight</Typography>
+      </Box>
+      <MultiCarousel
+        ssr
+        partialVisible
+        responsive={responsive}
+        swipeable
+        itemClass={classes.carouselItem}
+      >
+        {creators.map((item, i) => {
+
+          return (
+            <Paper key={i} sx={{ padding: 2.5, height: '400px' }}>
+              {/* Images are not working at this time */}
+               <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  width: '100%',
+                  height: '200px',
+                  overflow: 'hidden',
+                }}
+              >
+                <img
+                  src={item?.image[0]?.downloadURL}
+                  style={{
+                    top: 0,
+                    width: '100%',
+                    height: 'auto',
+                    objectFit: 'cover',
+                  }}
+                />
+              </Box>
+              <Box sx={{ padding: 10 }}>
+                <h2>{item.seriesName}</h2>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    paddingBottom: 5,
+                  }}
+                >
+                  <Typography>{item.name}</Typography>
+                </Box>
+                <Box sx={{ paddingBottom: 5 }}>
+                  <Typography>
+                    {
+                      item.pleaseIncludeAShort23SentenceBioThatWeCanUseWhenPromotingYourContent
+                    }
+                  </Typography>
+                </Box>
+                {/* <Box>
+                <Button
+                  color="primary"
+                  fullWidth
+                  variant="contained"
+                  href={item.webUrl}
+                >
+                  See details
+                </Button>
+              </Box> */}
+              </Box>
+            </Paper>
+          )
+        })}
+      </MultiCarousel>
+    </>
+  )
+}
+
+function LearningPath() {
+  const classes = useStyles()
+  const [learningPaths, setLearningPaths] = useState([])
+
+  const { data } = useLearningPaths()
+
+  useEffect(() => {
+    if (data?.length) {
+      setLearningPaths(data)
+    }
+  }, [data])
+
   return (
     <>
       <Box sx={{ paddingBottom: 5 }}>
@@ -212,24 +301,26 @@ function LearningPath({ learningPaths }) {
           <Paper
             key={i}
             sx={{
-              padding: 2.5,
+              padding: 10,
               height: '250px',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
             }}
           >
-            <Box>
-              <h2>{item.name}</h2>
-              <p>Throughout this unit ...</p>
-              {item.seriesInPath.length > 0 && (
-                <p> Time Series: {item.seriesInPath.join()}</p>
-              )}
-            </Box>
-            <Box>
-              <Button color="primary" fullWidth variant="contained">
-                See details
-              </Button>
+            <Box sx={{ padding: 10 }}>
+              <Box>
+                <h2>{item.name}</h2>
+                <p>Throughout this unit ...</p>
+                {item.seriesInPath.length > 0 && (
+                  <p> Time Series: {item.seriesInPath.join()}</p>
+                )}
+              </Box>
+              <Box>
+                <Button color="primary" fullWidth variant="contained">
+                  See details
+                </Button>
+              </Box>
             </Box>
           </Paper>
         ))}
@@ -238,56 +329,22 @@ function LearningPath({ learningPaths }) {
   )
 }
 
-function TopCourses({ courses }) {
+function TopCourses({ category }) {
   const classes = useStyles()
+  const [courses, setCourses] = useState([])
 
-  const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-      paritialVisibilityGutter: 60,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-      paritialVisibilityGutter: 50,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-      paritialVisibilityGutter: 40,
-    },
-  }
-  var items = [
-    {
-      name: 'Photography Filming and Acting',
-      description:
-        'Throughout this unit, student will learn the basics of photography and filming',
-      time: '5 lessons, 1 hr 30 minutes',
-    },
-    {
-      name: 'Web development; coding and design',
-      description:
-        'Throughout this unit, student will learn the basics of web development',
-      time: '7 lessons, 2 hr 30 minutes',
-    },
-    {
-      name: 'Photography Filming and Acting',
-      description:
-        'Throughout this unit, student will learn the basics of photography and filming',
-      time: '5 lessons, 1 hr 30 minutes',
-    },
-    {
-      name: 'Web development; coding and design',
-      description:
-        'Throughout this unit, student will learn the basics of web development',
-      time: '7 lessons, 2 hr 30 minutes',
-    },
-  ]
+  const { data: courseData } = useCoursePerCategory([category])
+
+  useEffect(() => {
+    if (courseData?.length) {
+      setCourses(courseData)
+    }
+  }, [courseData])
+
   return (
     <>
-      <Box>
-        <Typography>Top Courses in Video & Film</Typography>
+      <Box sx={{ paddingBottom: 5 }}>
+        <Typography>Top Courses in {category}</Typography>
       </Box>
       <MultiCarousel
         ssr
@@ -297,34 +354,60 @@ function TopCourses({ courses }) {
         itemClass={classes.carouselItem}
       >
         {courses.map((item, i) => {
-          var regExp = /\(([^)]+)\)/
+ 
           return (
-            <Paper key={i} sx={{ padding: 2.5 }}>
-              <img src={regExp.exec(item.thumbnail)} />
-              <h2>{item.seriesName}</h2>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingBottom: 5,
-                }}
-              >
-                <>
-                  <Typography>{item.creator}</Typography>
-                  <Typography>
-                    {item.videos.length}{' '}
-                    {item.videos.length == 1 ? 'Video' : 'Videos'}
-                  </Typography>
-                </>
-              </Box>
-              <Box>
-                <Typography>Materials</Typography>
-              </Box>
-              <Box>
-                <Button color="primary" fullWidth variant="contained">
-                  See details
-                </Button>
+            <Paper key={i} sx={{ padding: 2.5, height: '450px' }}>
+              <Box sx={{ padding: 10 }}>
+                {/* Use the course photo instead of the creator photo once we have a valid url */}
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    width: '100%',
+                    height: '200px',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <img
+                    src={item.thumbnail[0]?.downloadURL}
+                    style={{
+                      top: 0,
+                      width: '100%',
+                      height: 'auto',
+                      objectFit: 'cover',
+                    }}
+                  />
+                </Box>
+                <h2>{item.seriesName}</h2>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    paddingBottom: 5,
+                  }}
+                >
+                  <>
+                    <Typography>{item.creator}</Typography>
+                    <Typography>
+                      {item.videos.length}{' '}
+                      {item.videos.length == 1 ? 'Video' : 'Videos'}
+                    </Typography>
+                  </>
+                </Box>
+                <Box sx={{ paddingBottom: 5 }}>
+                  <Typography>Materials: </Typography>
+                </Box>
+                <Box>
+                  <Button
+                    color="primary"
+                    fullWidth
+                    variant="contained"
+                    href={"/course/" + item.uid}
+                  >
+                    See details
+                  </Button>
+                </Box>
               </Box>
             </Paper>
           )
