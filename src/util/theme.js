@@ -16,7 +16,7 @@ const themeConfig = {
       type: 'light',
       primary: {
         // Use hue from colors or hex
-        main: colors.indigo['500'],
+        main: '#0c0914',
         // Uncomment to specify light/dark
         // shades instead of automatically
         // calculating from above value.
@@ -44,17 +44,44 @@ const themeConfig = {
       primary: {
         // Same as in light but we could
         // adjust color hue if needed
-        main: colors.indigo['500'],
+        main: '#5539ed',
       },
       secondary: {
-        main: colors.pink['500'],
+        main: '#9647e7',
       },
       background: {
-        default: colors.grey['900'],
-        paper: colors.grey['800'],
+        default: '#0c0914',
+        paper: '#1c1925',
+      },
+    },
+    components: {
+      // Name of the component
+      MuiButton: {
+        variants: [
+          {
+            props: {
+              variant: 'contained',
+            },
+            style: {
+              background: '#5539ed',
+              color: '#fff',
+              borderRadius: '25px'
+            },
+          },
+          {
+            props: {
+              variant: 'text',
+            },
+            style: {
+              textDecoration: 'underline',
+              fontWeight: 500,
+            },
+          },
+        ],
       },
     },
   },
+
 
   // Values for both themes
   common: {
@@ -62,7 +89,9 @@ const themeConfig = {
       fontSize: 14,
       fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
       // Uncomment to make button lowercase
-      // button: { textTransform: "none" },
+      button: { 
+        textTransform: "none",
+      },
     },
     breakpoints: {
       values: {
@@ -73,6 +102,7 @@ const themeConfig = {
         xl: 1920,
       },
     },
+
     // Override component styles
     overrides: {
       // Global styles
@@ -95,7 +125,7 @@ const themeConfig = {
             },
           },
         },
-      },
+      }
     },
   },
 }
