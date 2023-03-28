@@ -38,7 +38,7 @@ function SectionHeader(props) {
     >
       {title && (
         <Typography
-          variant={`h${size}`}
+          variant="h1"
           gutterBottom={props.subtitle ? true : false}
         >
           {title}
