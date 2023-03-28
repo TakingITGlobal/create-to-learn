@@ -1,33 +1,41 @@
 ## 👉 Get Started
 
-Install dependencies
+### 1. Setup local engines
+
+- Node >= v18.15.0
+- NPM >= v9.5.0
+
+[Node Version Manager](https://github.com/nvm-sh/nvm) (`nvm`) is recommended for managing multiple versions of Node, including the latest stable.
+
+```
+nvm install --lts
+nvm use --lts
+```
+
+### 2. Install dependencies
 
 ```
 npm install
 ```
 
-Update your `.env` file with values for each environment variable
+### 3. Add environment config
+
+Update your `.env` file with values for each environment variable. This file should be provided to you securely.
 
 ```
 API_KEY=AIzaSyBkkFF0XhNZeWuDmOfEhsgdfX1VBG7WTas
 etc ...
 ```
 
-Install the Netlify CLI
+### 4. Run local development
 
 ```
-npm install netlify-cli -g
-```
-
-Run the development server
-
-```
-netlify dev
+npm start
 ```
 
 When the above command completes you'll be able to view your website at `http://localhost:8888`
 
-_Note: You can run just the front-end with `npm run start`, but `netlify dev` also handles running your API endpoints (located in the `/api` directory)._
+_Note: You can run just the front-end with `npm run start:react`, but `npm start` also handles running your API endpoints (located in the `/api` directory)._
 
 ## 🥞 Stack
 
