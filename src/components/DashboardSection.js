@@ -192,7 +192,10 @@ export default DashboardSection
 
 function CreatorSpotlight() {
 
+  const [creators, setCreators] = useState([])
+  const classes = useClasses(styles)
   const { isLoading, data } = useCreators()
+
 
   useEffect(() => {
     if (!isLoading) {
@@ -280,6 +283,8 @@ function CreatorSpotlight() {
 
 function LearningPath() {
 
+  const [learningPaths, setLearningPaths] = useState([])
+  const classes = useClasses(styles)
   const { isLoading, data } = useLearningPaths()
 
   useEffect(() => {
