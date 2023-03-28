@@ -24,6 +24,8 @@ import { useTranslation } from 'react-i18next'
 function BrowseSection(props) {
   const [showSearchBar, setShowSearchBar] = useState(false)
   const [categories, setCategories] = useState([])
+  const [search, setSearch] = useState('')
+
   const { isLoading, data: dataCategories } = useCategories()
 
   useEffect(() => {
@@ -57,7 +59,7 @@ function BrowseSection(props) {
                 width: '100%',
               }}
             >
-              <SearchBar />
+              <SearchBar setSearch={setSearch} />
             </Box>
             <Box
               sx={{
@@ -65,7 +67,11 @@ function BrowseSection(props) {
                 justifyContent: 'flex-end',
               }}
             >
-              <IconButton onClick={() => setShowSearchBar(!showSearchBar)}>
+              <IconButton
+                onClick={() => {
+                  setShowSearchBar(!showSearchBar)
+                }}
+              >
                 {showSearchBar ? (
                   <CloseIcon fontSize="large" />
                 ) : (
@@ -78,7 +84,7 @@ function BrowseSection(props) {
           {isLoading || !categories.length ? (
             <CircularProgress color="primary" />
           ) : (
-            <BrowseTabs categories={categories} />
+            <BrowseTabs categories={categories} search={search} />
           )}
         </Container>
       </Box>
@@ -88,14 +94,14 @@ function BrowseSection(props) {
 
 export default BrowseSection
 
-function SearchBar({ setSearchQuery }) {
+function SearchBar({ setSearch }) {
   const { t } = useTranslation()
 
   return (
     <OutlinedInput
       id="search-bar"
       onInput={(e) => {
-        setSearchQuery(e.target.tabIndex)
+        setSearch(e.target.value)
       }}
       variant="outlined"
       placeholder={t('browse.search-by')}
@@ -140,17 +146,17 @@ function a11yProps(index) {
   }
 }
 
-function BrowseTabs({ categories }) {
+function BrowseTabs({ categories, search }) {
   const { t } = useTranslation()
   const [tabIndex, setTabIndex] = useState(0)
   const [courses, setCourses] = useState([])
+  const [allCourses, setAllCourses] = useState([])
   const [creators, setCreators] = useState([])
   const [allCreators, setAllCreators] = useState([])
   const [openDrawer, setOpenDrawer] = useState(false)
   const [categoryFilter, setCategoryFilter] = useState([])
   const [durationFilter, setDurationFilter] = useState([])
   const [culturalGroupFilter, setCulturalGroupFilter] = useState([])
-  const [allCourses, setAllCourses] = useState([])
   const { isLoading: loadingCreators, data: dataCreators } = useCreatorsAll()
   const { isLoading: loadingCourses, data: dataCourses } =
     useCoursePerCategory(categories)
@@ -210,17 +216,20 @@ function BrowseTabs({ categories }) {
       : categories
     const durationsToFilter = durationFilter.length ? durationFilter : durations
 
-    const filteredCourses = allCourses.filter(
-      (course) =>
+    const filteredCourses = allCourses.filter((course) => {
+      const courseTitle = course.seriesName.toLowerCase()
+      return (
         course.category.some((cat) => categoriesToFilter.includes(cat)) &&
         durationsToFilter.some(
           (duration) =>
             course.totalLength >= duration.lowerValue &&
             course.totalLength < duration.upperValue,
-        ),
-    )
+        ) &&
+        courseTitle.search(search) !== -1
+      )
+    })
     setCourses(filteredCourses)
-  }, [categoryFilter, durationFilter, allCourses])
+  }, [categoryFilter, durationFilter, allCourses, search])
 
   useEffect(() => {
     const culturalGroupsToFilter = culturalGroupFilter.length
@@ -229,10 +238,15 @@ function BrowseTabs({ categories }) {
 
     const filteredCreators = allCreators.filter((creator) => {
       const creatorFNMI = creator.fnmi ? creator.fnmi : ['']
-      return creatorFNMI.some((grp) => culturalGroupsToFilter.includes(grp))
+      const creatorName = creator.name ? creator.name.toLowerCase() : ''
+      return creatorFNMI.some(
+        (grp) =>
+          culturalGroupsToFilter.includes(grp) &&
+          creatorName.search(search) !== -1,
+      )
     })
     setCreators(filteredCreators)
-  }, [culturalGroupFilter, allCreators])
+  }, [culturalGroupFilter, allCreators, search])
 
   const handleCategoryFilterArr = (category) => {
     if (categoryFilter.includes(category)) {
@@ -268,6 +282,11 @@ function BrowseTabs({ categories }) {
       setCategoryFilter([])
       setDurationFilter([])
       setCourses(allCourses)
+    }
+
+    if (tabIndex === 1) {
+      setCulturalGroupFilter([])
+      setCreators(allCreators)
     }
   }
 
