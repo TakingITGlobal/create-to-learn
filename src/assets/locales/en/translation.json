@@ -12,6 +12,7 @@
   "videos": "videos",
   "video": "video",
   "close": "Close",
+  "course-page": "Go to course page",
   "btn": {
     "prev": "Prev",
     "next": "Next",
@@ -59,7 +60,7 @@
     }
   },
   "browse": {
-    "search-by": "Search courses or creators...",
+    "search-by": "Search courses and creators...",
     "show-filters": "Show all filters",
     "apply-filters": "Apply filters",
     "clear-filters": "Clear filters"

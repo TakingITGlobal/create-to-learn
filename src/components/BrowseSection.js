@@ -22,7 +22,6 @@ import { useCreatorsAll, useCategories, useCoursePerCategory } from '../util/db'
 import { useTranslation } from 'react-i18next'
 
 function BrowseSection(props) {
-  const { t } = useTranslation()
   const [showSearchBar, setShowSearchBar] = useState(false)
   const [categories, setCategories] = useState([])
   const { isLoading, data: dataCategories } = useCategories()
@@ -136,8 +135,8 @@ function TabPanel(props) {
 
 function a11yProps(index) {
   return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    id: `browse-tab-${index}`,
+    'aria-controls': `browse-tabpanel-${index}`,
   }
 }
 
@@ -146,57 +145,15 @@ function BrowseTabs({ categories }) {
   const [tabIndex, setTabIndex] = useState(0)
   const [courses, setCourses] = useState([])
   const [creators, setCreators] = useState([])
+  const [allCreators, setAllCreators] = useState([])
   const [openDrawer, setOpenDrawer] = useState(false)
   const [categoryFilter, setCategoryFilter] = useState([])
   const [durationFilter, setDurationFilter] = useState([])
+  const [culturalGroupFilter, setCulturalGroupFilter] = useState([])
   const [allCourses, setAllCourses] = useState([])
   const { isLoading: loadingCreators, data: dataCreators } = useCreatorsAll()
   const { isLoading: loadingCourses, data: dataCourses } =
     useCoursePerCategory(categories)
-
-  const handleChangeTab = (event, newTab) => {
-    setTabIndex(newTab)
-  }
-
-  useEffect(() => {
-    if (!loadingCourses) {
-      setAllCourses(dataCourses)
-    }
-    if (!loadingCourses) {
-      setCourses(dataCourses)
-    }
-    if (dataCreators && dataCreators.length) {
-      setCreators(dataCreators)
-    }
-  }, [dataCourses, dataCreators])
-
-  const handleCategoryFilterArr = (category) => {
-    const catIndex = categoryFilter.indexOf(category)
-    if (catIndex !== -1) {
-      setCategoryFilter(categoryFilter.filter((item) => item !== category))
-    } else {
-      setCategoryFilter([...categoryFilter, category])
-    }
-  }
-
-  useEffect(() => {
-    //Use filters if some have been chosen. Otherwise, assume all filters are chosen.
-    const categoriesToFilter = categoryFilter.length
-      ? categoryFilter
-      : categories
-    const durationsToFilter = durationFilter.length ? durationFilter : durations
-
-    const filteredCourses = allCourses.filter(
-      (course) =>
-        course.category.some((cat) => categoriesToFilter.includes(cat)) &&
-        durationsToFilter.some(
-          (duration) =>
-            course.totalLength >= duration.lowerValue &&
-            course.totalLength < duration.upperValue,
-        ),
-    )
-    setCourses(filteredCourses)
-  }, [categoryFilter, durationFilter])
 
   const durations = [
     {
@@ -225,6 +182,66 @@ function BrowseTabs({ categories }) {
     },
   ]
 
+  const culturalGroups = ['Inuit', 'Métis', 'First Nations']
+
+  const handleChangeTab = (event, newTab) => {
+    setTabIndex(newTab)
+  }
+
+  useEffect(() => {
+    if (!loadingCourses) {
+      setAllCourses(dataCourses)
+    }
+    if (!loadingCourses) {
+      setCourses(dataCourses)
+    }
+    if (!loadingCreators) {
+      setAllCreators(dataCreators)
+    }
+    if (!loadingCreators) {
+      setCreators(dataCreators)
+    }
+  }, [dataCourses, dataCreators])
+
+  useEffect(() => {
+    //Use filters if some have been chosen. Otherwise, assume all filters are chosen.
+    const categoriesToFilter = categoryFilter.length
+      ? categoryFilter
+      : categories
+    const durationsToFilter = durationFilter.length ? durationFilter : durations
+
+    const filteredCourses = allCourses.filter(
+      (course) =>
+        course.category.some((cat) => categoriesToFilter.includes(cat)) &&
+        durationsToFilter.some(
+          (duration) =>
+            course.totalLength >= duration.lowerValue &&
+            course.totalLength < duration.upperValue,
+        ),
+    )
+    setCourses(filteredCourses)
+  }, [categoryFilter, durationFilter])
+
+  useEffect(() => {
+    const culturalGroupsToFilter = culturalGroupFilter.length
+      ? culturalGroupFilter
+      : culturalGroups + ['']
+
+    const filteredCreators = allCreators.filter((creator) => {
+      const creatorFNMI = creator.fnmi ? creator.fnmi : ['']
+      return creatorFNMI.some((grp) => culturalGroupsToFilter.includes(grp))
+    })
+    setCreators(filteredCreators)
+  }, [culturalGroupFilter])
+
+  const handleCategoryFilterArr = (category) => {
+    if (categoryFilter.includes(category)) {
+      setCategoryFilter(categoryFilter.filter((item) => item !== category))
+    } else {
+      setCategoryFilter([...categoryFilter, category])
+    }
+  }
+
   const handleDurationFilterArr = (duration) => {
     const isInFilter = durationFilter.some((dur) => dur.id === duration.id)
     if (isInFilter) {
@@ -236,8 +253,18 @@ function BrowseTabs({ categories }) {
     }
   }
 
+  const handleCulturalGroupFilterArr = (group) => {
+    if (culturalGroupFilter.includes(group)) {
+      setCulturalGroupFilter(
+        culturalGroupFilter.filter((item) => item !== group),
+      )
+    } else {
+      setCulturalGroupFilter([...culturalGroupFilter, group])
+    }
+  }
+
   const handleClearFilter = () => {
-    if (tabIndex == 0) {
+    if (tabIndex === 0) {
       setCategoryFilter([])
       setDurationFilter([])
       setCourses(allCourses)
@@ -306,7 +333,7 @@ function BrowseTabs({ categories }) {
         handleClearFilter={handleClearFilter}
         openDrawer={openDrawer}
       >
-        {tabIndex == 0 ? (
+        {tabIndex === 0 ? (
           <CourseDrawerContent
             categories={categories}
             handleDurationFilterArr={handleDurationFilterArr}
@@ -316,7 +343,11 @@ function BrowseTabs({ categories }) {
             durations={durations}
           />
         ) : (
-          <div>Creator filter content</div>
+          <CreatorDrawerContent
+            culturalGroupFilter={culturalGroupFilter}
+            handleCulturalGroupFilterArr={handleCulturalGroupFilterArr}
+            culturalGroups={culturalGroups}
+          />
         )}
       </Drawer>
     </>
@@ -365,7 +396,7 @@ const CourseCard = ({ course }) => {
               <Typography>{course.creator}</Typography>
               <Typography>
                 {course.videos && course.videos.length}{' '}
-                {course.videos.length == 1 ? t('video') : t('videos')}
+                {course.videos.length === 1 ? t('video') : t('videos')}
               </Typography>
             </>
           </Box>
@@ -376,7 +407,7 @@ const CourseCard = ({ course }) => {
               variant="contained"
               href={course.uid}
             >
-              Go to course page
+              {t('course-page')}
             </Button>
           </Box>
         </Box>
@@ -403,7 +434,7 @@ const CreatorCard = ({ creator }) => {
           <Box
             src={creator.image && creator.image[0].downloadURL}
             component="img"
-            alt=""
+            alt={creator.name}
             loading="lazy"
             height="200px"
             style={{
@@ -431,13 +462,13 @@ const CreatorCard = ({ creator }) => {
             <>
               <Typography>{creator.seriesName}</Typography>
               <Typography>
-                {creator.videos == 1 ? t('video') : t('videos')}
+                {creator.videos === 1 ? t('video') : t('videos')}
               </Typography>
             </>
           </Box>
           <Box>
             <Button color="primary" fullWidth variant="contained">
-              Go to course page
+              {t('course-page')}
             </Button>
           </Box>
         </Box>
@@ -566,6 +597,56 @@ const CourseDrawerContent = ({
               style={{ marginLeft: 0 }}
               variant={
                 categoryFilter.includes(category) ? 'default' : 'outlined'
+              }
+            />
+          ))}
+        </Stack>
+      </Box>
+    </>
+  )
+}
+
+const CreatorDrawerContent = ({
+  handleCulturalGroupFilterArr,
+  culturalGroupFilter,
+  culturalGroups,
+}) => {
+  const { t } = useTranslation()
+
+  return (
+    <>
+      <Box mt={2}>
+        <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+          {t('featured')}
+        </Typography>
+        <Stack direction="row" spacing={1}>
+          <Chip label="Featured" clickable variant="outlined" />
+          <Chip label="New" clickable variant="outlined" />
+        </Stack>
+      </Box>
+      <Box mt={2}>
+        <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+          Cultural group
+        </Typography>
+        <Stack
+          direction="row"
+          spacing={1}
+          sx={{
+            flexWrap: 'wrap',
+            gap: 2,
+          }}
+        >
+          {culturalGroups.map((group, index) => (
+            <Chip
+              key={index}
+              label={group}
+              clickable
+              style={{ marginLeft: 0 }}
+              onClick={() => handleCulturalGroupFilterArr(group)}
+              variant={
+                culturalGroupFilter.some((grp) => grp === group)
+                  ? 'default'
+                  : 'outlined'
               }
             />
           ))}
