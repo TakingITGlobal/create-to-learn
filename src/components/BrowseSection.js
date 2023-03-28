@@ -30,7 +30,7 @@ function BrowseSection(props) {
     if (!isLoading) {
       setCategories(dataCategories.map(({ name }) => name))
     }
-  }, [dataCategories])
+  }, [dataCategories, isLoading])
 
   return (
     <Section
@@ -201,7 +201,7 @@ function BrowseTabs({ categories }) {
     if (!loadingCreators) {
       setCreators(dataCreators)
     }
-  }, [dataCourses, dataCreators])
+  }, [dataCourses, dataCreators, loadingCourses, loadingCreators])
 
   useEffect(() => {
     //Use filters if some have been chosen. Otherwise, assume all filters are chosen.
@@ -220,7 +220,7 @@ function BrowseTabs({ categories }) {
         ),
     )
     setCourses(filteredCourses)
-  }, [categoryFilter, durationFilter])
+  }, [categoryFilter, durationFilter, allCourses])
 
   useEffect(() => {
     const culturalGroupsToFilter = culturalGroupFilter.length
@@ -232,7 +232,7 @@ function BrowseTabs({ categories }) {
       return creatorFNMI.some((grp) => culturalGroupsToFilter.includes(grp))
     })
     setCreators(filteredCreators)
-  }, [culturalGroupFilter])
+  }, [culturalGroupFilter, allCreators])
 
   const handleCategoryFilterArr = (category) => {
     if (categoryFilter.includes(category)) {
@@ -369,9 +369,11 @@ const CourseCard = ({ course }) => {
             overflow: 'hidden',
           }}
         >
-          <img
+          <Box
+            component="img"
             src={course.thumbnail[0]?.downloadURL}
             loading="lazy"
+            alt={course.seriesName}
             style={{
               top: 0,
               width: '100%',
@@ -432,7 +434,7 @@ const CreatorCard = ({ creator }) => {
           }}
         >
           <Box
-            src={creator.image && creator.image[0].downloadURL}
+            src={creator.image && creator.image[0]?.downloadURL}
             component="img"
             alt={creator.name}
             loading="lazy"
