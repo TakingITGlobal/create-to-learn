@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import Container from '@material-ui/core/Container'
-import Box from '@material-ui/core/Box'
-import Alert from '@material-ui/lab/Alert'
-import Grid from '@material-ui/core/Grid'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import Typography from '@material-ui/core/Typography'
-import LinkMui from '@material-ui/core/Link'
+import useClasses from '../hooks/useClasses'
+import Container from '@mui/material/Container'
+import Box from '@mui/material/Box'
+import Alert from '@mui/material/Alert'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
+import LinkMui from '@mui/material/Link'
 import Carousel from 'react-material-ui-carousel'
 import MultiCarousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 
-import { Button, Paper } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Button, Paper } from '@mui/material'
 import Section from './Section'
 import SectionHeader from './SectionHeader'
 import DashboardItems from './DashboardItems'
@@ -22,15 +22,17 @@ import { Link, useRouter } from './../util/router'
 import { useAuth } from './../util/auth'
 import { useLearningPaths, useCoursePerCategory, useCreators } from '../util/db'
 
-const useStyles = makeStyles((theme) => ({
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const styles = theme => ({
   cardContent: {
     padding: theme.spacing(3),
   },
+
   carouselItem: {
     paddingRight: '20px',
     paddingBottom: '20px',
-  },
-}))
+  }
+});
 
 const responsive = {
   desktop: {
@@ -51,12 +53,12 @@ const responsive = {
 }
 
 function DashboardSection(props) {
-  const classes = useStyles()
+
   //This should be in local storage
   const [dismissSignUp, setDismissSignUp] = useState(false)
 
   const auth = useAuth()
-
+  const classes = useClasses(styles)
   const categoryInterests = [
     'Video & Film',
     'Game Design',
@@ -188,9 +190,9 @@ function DashboardSection(props) {
 export default DashboardSection
 
 function CreatorSpotlight() {
-  const classes = useStyles()
-  const [creators, setCreators] = useState([])
 
+  const [creators, setCreators] = useState([])
+  const classes = useClasses(styles)
   const { data } = useCreators()
 
   useEffect(() => {
@@ -201,7 +203,7 @@ function CreatorSpotlight() {
 
   return (
     <>
-      <Box sx={{ paddingBottom: 5 }}>
+      <Box sx={{ paddingBottom: '5px' }}>
         <Typography>Creator Spotlight</Typography>
       </Box>
       <MultiCarousel
@@ -214,7 +216,7 @@ function CreatorSpotlight() {
         {creators.map((item, i) => {
 
           return (
-            <Paper key={i} sx={{ padding: 2.5, height: '400px' }}>
+            <Paper key={i} sx={{ padding: '2.5px' }}>
               {/* Images are not working at this time */}
                <Box
                 sx={{
@@ -235,19 +237,19 @@ function CreatorSpotlight() {
                   }}
                 />
               </Box>
-              <Box sx={{ padding: 10 }}>
+              <Box sx={{ padding: '10px' }}>
                 <h2>{item.seriesName}</h2>
                 <Box
                   sx={{
                     display: 'flex',
                     flexDirection: 'row',
                     justifyContent: 'space-between',
-                    paddingBottom: 5,
+                    paddingBottom: '5px',
                   }}
                 >
                   <Typography>{item.name}</Typography>
                 </Box>
-                <Box sx={{ paddingBottom: 5 }}>
+                <Box sx={{ paddingBottom: '5px' }}>
                   <Typography>
                     {
                       item.pleaseIncludeAShort23SentenceBioThatWeCanUseWhenPromotingYourContent
@@ -274,9 +276,9 @@ function CreatorSpotlight() {
 }
 
 function LearningPath() {
-  const classes = useStyles()
-  const [learningPaths, setLearningPaths] = useState([])
 
+  const [learningPaths, setLearningPaths] = useState([])
+  const classes = useClasses(styles)
   const { data } = useLearningPaths()
 
   useEffect(() => {
@@ -287,7 +289,7 @@ function LearningPath() {
 
   return (
     <>
-      <Box sx={{ paddingBottom: 5 }}>
+      <Box sx={{ paddingBottom: '5px' }}>
         <Typography>Learning paths for students</Typography>
       </Box>
       <MultiCarousel
@@ -301,14 +303,13 @@ function LearningPath() {
           <Paper
             key={i}
             sx={{
-              padding: 10,
-              height: '250px',
+              padding: '10px',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
             }}
           >
-            <Box sx={{ padding: 10 }}>
+            <Box sx={{ padding: '10px' }}>
               <Box>
                 <h2>{item.name}</h2>
                 <p>Throughout this unit ...</p>
@@ -330,9 +331,9 @@ function LearningPath() {
 }
 
 function TopCourses({ category }) {
-  const classes = useStyles()
-  const [courses, setCourses] = useState([])
 
+  const [courses, setCourses] = useState([])
+  const classes = useClasses(styles)
   const { data: courseData } = useCoursePerCategory([category])
 
   useEffect(() => {
@@ -343,7 +344,7 @@ function TopCourses({ category }) {
 
   return (
     <>
-      <Box sx={{ paddingBottom: 5 }}>
+      <Box sx={{ paddingBottom: '5px' }}>
         <Typography>Top Courses in {category}</Typography>
       </Box>
       <MultiCarousel
@@ -356,8 +357,8 @@ function TopCourses({ category }) {
         {courses.map((item, i) => {
  
           return (
-            <Paper key={i} sx={{ padding: 2.5, height: '450px' }}>
-              <Box sx={{ padding: 10 }}>
+            <Paper key={i} sx={{ padding: '2.5px'}}>
+              <Box sx={{ padding: '10px' }}>
                 {/* Use the course photo instead of the creator photo once we have a valid url */}
                 <Box
                   sx={{
@@ -384,7 +385,7 @@ function TopCourses({ category }) {
                     display: 'flex',
                     flexDirection: 'row',
                     justifyContent: 'space-between',
-                    paddingBottom: 5,
+                    paddingBottom:'5px',
                   }}
                 >
                   <>
@@ -395,7 +396,7 @@ function TopCourses({ category }) {
                     </Typography>
                   </>
                 </Box>
-                <Box sx={{ paddingBottom: 5 }}>
+                <Box sx={{ paddingBottom: '5px' }}>
                   <Typography>Materials: </Typography>
                 </Box>
                 <Box>

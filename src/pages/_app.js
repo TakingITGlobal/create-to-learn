@@ -18,12 +18,13 @@ import Footer from './../components/Footer'
 import './../util/analytics'
 import Chat from './../components/Chat'
 import { AuthProvider } from './../util/auth'
-import { ThemeProvider } from './../util/theme'
+import { ThemeProvider } from './../util/theme';
+import { StyledEngineProvider } from '@mui/material/styles'
 import { QueryClientProvider } from './../util/db'
 import BottomNavbar from '../components/BottomNavbar'
-import Hidden from '@material-ui/core/Hidden'
-import { useTheme } from '@material-ui/core/styles'
-import { Box } from '@material-ui/core'
+import Hidden from '@mui/material/Hidden'
+import { useTheme } from '@mui/material/styles'
+import { Box } from '@mui/material'
 import SignUpPage from './signUp'
 import CoursePage from './course'
 
@@ -32,76 +33,78 @@ function App(props) {
   const theme = useTheme()
   return (
     <QueryClientProvider>
-      <ThemeProvider theme={theme.dark}>
-        <AuthProvider>
-          <Chat />
-          <Router>
-            <>
-              <Hidden smDown>
-                <Navbar
-                  color="default"
-                  logo="https://uploads.divjoy.com/logo.svg"
-                  logoInverted="https://uploads.divjoy.com/logo-white.svg"
-                />
-              </Hidden>
-              <Switch>
-                <Route exact path="/" component={IndexPage} />
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme.dark}>
+          <AuthProvider>
+            <Chat />
+            <Router>
+              <>
+                <Hidden mdDown>
+                  <Navbar
+                    color="default"
+                    logo="https://uploads.divjoy.com/logo.svg"
+                    logoInverted="https://uploads.divjoy.com/logo-white.svg"
+                  />
+                </Hidden>
+                <Switch>
+                  <Route exact path="/" component={IndexPage} />
 
-                <Route exact path="/about" component={AboutPage} />
+                  <Route exact path="/about" component={AboutPage} />
 
-                <Route exact path="/faq" component={FaqPage} />
+                  <Route exact path="/faq" component={FaqPage} />
 
-                <Route exact path="/contact" component={ContactPage} />
+                  <Route exact path="/contact" component={ContactPage} />
 
-                <Route exact path="/pricing" component={PricingPage} />
+                  <Route exact path="/pricing" component={PricingPage} />
 
-                <Route exact path="/dashboard" component={DashboardPage} />
+                  <Route exact path="/dashboard" component={DashboardPage} />
 
-                <Route exact path="/auth/:type" component={AuthPage} />
+                  <Route exact path="/auth/:type" component={AuthPage} />
 
-                <Route exact path="/browse" component={BrowsePage} />
+                  <Route exact path="/browse" component={BrowsePage} />
 
-                <Route exact path="/my-courses" component={MyCoursesPage} />
+                  <Route exact path="/my-courses" component={MyCoursesPage} />
 
-                <Route exact path="/sign-up" component={SignUpPage} />
+                  <Route exact path="/sign-up" component={SignUpPage} />
 
-                <Route exact path="/course/:courseId" component={CoursePage}/>
+                  <Route exact path="/course/:courseId" component={CoursePage}/>
 
-                <Route
-                  exact
-                  path="/settings/:section"
-                  component={SettingsPage}
-                />
+                  <Route
+                    exact
+                    path="/settings/:section"
+                    component={SettingsPage}
+                  />
 
-                <Route exact path="/legal/:section" component={LegalPage} />
+                  <Route exact path="/legal/:section" component={LegalPage} />
 
-                <Route exact path="/auth0-callback" component={Auth0Callback} />
+                  <Route exact path="/auth0-callback" component={Auth0Callback} />
 
-                <Route component={NotFoundPage} />
-              </Switch>
-              <Hidden smDown>
-                <Footer
-                  bgColor="light"
-                  size="normal"
-                  bgImage=""
-                  bgImageOpacity={1}
-                  description="A short description of what you do here"
-                  copyright={`© ${new Date().getFullYear()} Company`}
-                  logo="https://uploads.divjoy.com/logo.svg"
-                  logoInverted="https://uploads.divjoy.com/logo-white.svg"
-                  sticky={true}
-                />
-              </Hidden>
-              <Hidden mdUp>
-                <BottomNavbar />
-                <Box sx={{width:'100%',height:56}}/>
-              </Hidden>
-            </>
-          </Router>
-        </AuthProvider>
-      </ThemeProvider>
+                  <Route component={NotFoundPage} />
+                </Switch>
+                <Hidden mdDown>
+                  <Footer
+                    bgColor="light"
+                    size="normal"
+                    bgImage=""
+                    bgImageOpacity={1}
+                    description="A short description of what you do here"
+                    copyright={`© ${new Date().getFullYear()} Company`}
+                    logo="https://uploads.divjoy.com/logo.svg"
+                    logoInverted="https://uploads.divjoy.com/logo-white.svg"
+                    sticky={true}
+                  />
+                </Hidden>
+                <Hidden mdUp>
+                  <BottomNavbar />
+                  <Box sx={{width:'100%',height:56}}/>
+                </Hidden>
+              </>
+            </Router>
+          </AuthProvider>
+        </ThemeProvider>
+      </StyledEngineProvider>
     </QueryClientProvider>
-  )
+  );
 }
 
 export default App

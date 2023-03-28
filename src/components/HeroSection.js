@@ -1,30 +1,32 @@
 import React from 'react'
-import Container from '@material-ui/core/Container'
-import Grid from '@material-ui/core/Grid'
-import Box from '@material-ui/core/Box'
-import { makeStyles } from '@material-ui/core/styles'
+import useClasses from '../hooks/useClasses'
+import Container from '@mui/material/Container'
+import Grid from '@mui/material/Grid'
+import Box from '@mui/material/Box'
 import Section from './Section'
 import SectionHeader from './SectionHeader'
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
+
   // Increase <Container> padding so it's
   // at least half of <Grid> spacing to
   // avoid horizontal scroll on mobile.
   // See https://material-ui.com/components/grid/#negative-margin
   container: {
-    padding: `0 ${theme.spacing(3)}px`,
+    padding: `0 ${theme.spacing(3)}`,
   },
+
   image: {
     margin: '0 auto',
     maxWidth: 570,
     display: 'block',
     height: 'auto',
     width: '100%',
-  },
-}))
+  }
+});
 
 function HeroSection(props) {
-  const classes = useStyles()
+  const classes = useClasses(styles)
 
   return (
     <Section
@@ -65,7 +67,7 @@ function HeroSection(props) {
         </Grid>
       </Container>
     </Section>
-  )
+  );
 }
 
 export default HeroSection

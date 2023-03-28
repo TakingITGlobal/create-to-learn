@@ -3,10 +3,11 @@ import {
   useTheme,
   createTheme,
   ThemeProvider as MuiThemeProvider,
-} from '@material-ui/core/styles'
-import * as colors from '@material-ui/core/colors'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+} from '@mui/material/styles'
+import { ThemeProvider as EmotionThemeProvider } from '@emotion/react'
+import * as colors from '@mui/material/colors'
+import CssBaseline from '@mui/material/CssBaseline'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import { createLocalStorageStateHook } from 'use-local-storage-state'
 
 const themeConfig = {
@@ -41,6 +42,9 @@ const themeConfig = {
   dark: {
     palette: {
       type: 'dark',
+      text: {
+        primary: '#ffffff',
+      },
       primary: {
         // Same as in light but we could
         // adjust color hue if needed
@@ -60,6 +64,7 @@ const themeConfig = {
   common: {
     typography: {
       fontSize: 16,
+      color: '#fff',
       fontFamily: '"Manrope", "Helvetica", "Arial", sans-serif',
       // Uncomment to make button lowercase
       button: { 
@@ -90,6 +95,11 @@ const themeConfig = {
           subtitle2: 'h3',
           body1: 'p',
           body2: 'span',
+        },
+      },
+      Paper: {
+        text: {
+          primary: '#fff',
         },
       },
     },
@@ -169,9 +179,11 @@ export const ThemeProvider = (props) => {
 
   return (
     <MuiThemeProvider theme={props?.theme ? props.theme : theme}>
+      <EmotionThemeProvider theme={props?.theme ? props.theme : theme}>
       {/* Set global MUI styles */}
       <CssBaseline />
       {props.children}
+      </EmotionThemeProvider>
     </MuiThemeProvider>
   )
 }

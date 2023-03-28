@@ -1,27 +1,28 @@
 import React from 'react'
-import Container from '@material-ui/core/Container'
+import useClasses from '../hooks/useClasses'
+import Container from '@mui/material/Container'
 import Section from './Section'
 import SectionHeader from './SectionHeader'
-import { Grid, Button } from '@material-ui/core'
+import { Grid, Button } from '@mui/material'
 import { Link } from 'react-router-dom'
-import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   container: {
-    padding: `0 ${theme.spacing(3)}px`,
+    padding: `0 ${theme.spacing(2)}`,
   },
+
   image: {
     margin: '0 auto',
-    maxWidth: 570,
+    maxWidth: '570px',
     display: 'block',
     height: 'auto',
     width: '100%',
-  },
-}))
+  }
+});
 
 function WelcomeSection(props) {
-  const classes = useStyles()
+  const classes = useClasses(styles)
   const { t } = useTranslation()
   return (
     <Section
@@ -77,7 +78,7 @@ function WelcomeSection(props) {
         </Grid>
       </Container>
     </Section>
-  )
+  );
 }
 
 export default WelcomeSection

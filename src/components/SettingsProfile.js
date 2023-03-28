@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
-import List from '@material-ui/core/List'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListItem from '@material-ui/core/ListItem'
-import Container from '@material-ui/core/Container'
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
-import Box from '@material-ui/core/Box'
-import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
-import Paper from '@material-ui/core/Paper'
-import Grid from '@material-ui/core/Grid'
-import IconButton from '@material-ui/core/IconButton'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import MeetingRoomIcon from '@material-ui/icons/MeetingRoom'
+import List from '@mui/material/List'
+import ListItemText from '@mui/material/ListItemText'
+import ListItem from '@mui/material/ListItem'
+import Container from '@mui/material/Container'
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
+import Grid from '@mui/material/Grid'
+import IconButton from '@mui/material/IconButton'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import MeetingRoomIcon from '@mui/icons-material/MeetingRoom'
 import SignUp from './SignUp'
 
 import { useAuth } from './../util/auth'
@@ -45,7 +45,7 @@ function SettingsProfile() {
               <ListItem button component={Link} to={link} key={title}>
                 <ListItemText>{title}</ListItemText>
                 <ListItemSecondaryAction>
-                  <IconButton component={Link} to={link}>
+                  <IconButton component={Link} to={link} size="large">
                     <ChevronRightIcon />
                   </IconButton>
                 </ListItemSecondaryAction>
@@ -68,7 +68,7 @@ function SettingsProfile() {
         </Box>
       )}
     </Container>
-  )
+  );
 }
 
 export default SettingsProfile

@@ -1,11 +1,11 @@
 import React from 'react'
-import Box from '@material-ui/core/Box'
-import { makeStyles } from '@material-ui/core/styles'
-import { emphasize } from '@material-ui/core/styles/colorManipulator'
-import capitalize from '@material-ui/core/utils/capitalize'
+import useClasses from '../hooks/useClasses'
+import Box from '@mui/material/Box'
+import { emphasize } from '@mui/material/styles'
 import BackgroundImage from './BackgroundImage'
+import { capitalize } from '@mui/material/utils'
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   root: {
     position: 'relative',
     // Ensure child <Container> is above background
@@ -18,26 +18,26 @@ const useStyles = makeStyles((theme) => ({
   // Create color classes that set background color and determine
   // text color and dividing border automatically based on background color.
   // Adds the keys colorDefault, colorLight, etc
-  ...[
-    ['default', theme.palette.background.default],
-    ['light', emphasize(theme.palette.background.default, 0.03)],
-    ['primary', theme.palette.primary.main],
-    ['secondary', theme.palette.secondary.main],
-  ].reduce((acc, [name, value]) => {
-    acc[`color${capitalize(name)}`] = {
-      backgroundColor: value,
-      // Ensure text is legible on background
-      color: theme.palette.getContrastText(value),
-      // Sibling selector that adds a top border if section above
-      // has the same color class.
-      // We use emphasize to compute border based on background color
-      // and make sure it's always lightly visible.
-      [`& + &`]: {
-        borderTop: `1px solid ${emphasize(value, 0.09)}`,
-      },
-    }
-    return acc
-  }, {}),
+  // ...[
+  //   ['default', theme.palette.background.default],
+  //   ['light', emphasize(theme.palette.background.default, 0.03)],
+  //   ['primary', theme.palette.primary.main],
+  //   ['secondary', theme.palette.secondary.main],
+  // ].reduce((acc, [str, value]) => {
+  //   acc[`color${capitalize(str) = {
+  //     backgroundColor: value,
+  //     // Ensure text is legible on background
+  //     color: theme.palette.getContrastText(value),
+  //     // Sibling selector that adds a top border if section above
+  //     // has the same color class.
+  //     // We use emphasize to compute border based on background color
+  //     // and make sure it's always lightly visible.
+  //     [`& + &`]: {
+  //       borderTop: `1px solid ${emphasize(value, 0.09)}`,
+  //     },
+  //   }
+  //   return acc
+  // }, {}),
 
   colorInherit: {
     color: 'inherit',
@@ -46,12 +46,12 @@ const useStyles = makeStyles((theme) => ({
   colorTransparent: {
     backgroundColor: 'transparent',
     color: 'inherit',
-  },
-}))
+  }
+});
 
 function Section(props) {
-  const classes = useStyles()
 
+  const classes = useClasses(styles)
   const {
     bgColor = 'default',
     bgImage,
@@ -77,7 +77,6 @@ function Section(props) {
       py={verticalPadding}
       className={
         classes.root +
-        ` ${classes[`color${capitalize(bgColor)}`]}` +
         (className ? ` ${className}` : '')
       }
       {...otherProps}
@@ -86,7 +85,7 @@ function Section(props) {
 
       {props.children}
     </Box>
-  )
+  );
 }
 
 export default Section

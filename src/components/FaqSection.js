@@ -1,15 +1,15 @@
 import React from 'react'
-import Container from '@material-ui/core/Container'
-import Accordion from '@material-ui/core/Accordion'
-import AccordionSummary from '@material-ui/core/AccordionSummary'
-import Typography from '@material-ui/core/Typography'
-import AccordionDetails from '@material-ui/core/AccordionDetails'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import { makeStyles } from '@material-ui/core/styles'
+import useClasses from '../hooks/useClasses'
+import Container from '@mui/material/Container'
+import Accordion from '@mui/material/Accordion'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import Typography from '@mui/material/Typography'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import Section from './Section'
 import SectionHeader from './SectionHeader'
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   accordion: {
     // Remove shadow
     boxShadow: 'none',
@@ -22,20 +22,22 @@ const useStyles = makeStyles((theme) => ({
       borderBottom: `1px solid ${theme.palette.divider}`,
     },
   },
+
   expanded: {
     margin: `0 !important`,
   },
+
   summary: {
     minHeight: 78,
   },
+
   summaryContent: {
     margin: '0 !important',
-  },
-}))
+  }
+});
 
 function FaqSection(props) {
-  const classes = useStyles()
-
+  const classes = useClasses(styles)
   const items = [
     {
       question: 'Integer ornare neque mauris?',
@@ -104,7 +106,7 @@ function FaqSection(props) {
         ))}
       </Container>
     </Section>
-  )
+  );
 }
 
 export default FaqSection

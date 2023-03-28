@@ -1,15 +1,16 @@
 import React from 'react'
-import Box from '@material-ui/core/Box'
-import Typography from '@material-ui/core/Typography'
-import { makeStyles } from '@material-ui/core/styles'
+import useClasses from '../hooks/useClasses'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   root: {
     // Add bottom margin if element below
     '&:not(:last-child)': {
       marginBottom: '2rem',
     },
   },
+
   subtitle: {
     // Subtitle text generally isn't very long
     // so usually looks better to limit width.
@@ -17,12 +18,12 @@ const useStyles = makeStyles((theme) => ({
     // So we can have max-width but still
     // have alignment controlled by text-align.
     display: 'inline-block',
-  },
-}))
+  }
+});
 
 function SectionHeader(props) {
-  const classes = useStyles()
 
+  const classes = useClasses(styles)
   const { subtitle, title, size, className, ...otherProps } = props
 
   // Render nothing if no title or subtitle
@@ -51,7 +52,7 @@ function SectionHeader(props) {
         </Typography>
       )}
     </Box>
-  )
+  );
 }
 
 export default SectionHeader

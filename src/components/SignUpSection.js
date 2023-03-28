@@ -1,12 +1,12 @@
 import React,{useState, useEffect} from 'react'
+import useClasses from '../hooks/useClasses'
 import Section from './Section'
-import { makeStyles } from '@material-ui/core/styles'
 import PageCarousel from './PageCarousel'
 import { useTranslation } from 'react-i18next'
 import { InputSearchView, InputSelectView, InputTextView, WindowView } from './OnboardingView'
 import schoolData from '../assets/options/schools.json'
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   container: {
     maxHeight: '100%',
     position:'relative',
@@ -14,14 +14,14 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
   }
-}))
+});
 
 function SignUpSection(props) {
   const { t } = useTranslation()
-  const classes = useStyles()
+
   const welcomeViews = 3
   
-
+  const classes = useClasses(styles)
   const [active,setActive] = useState(0)
   const [curLength,setCurLength] = useState(welcomeViews+1)
 
@@ -81,7 +81,7 @@ function SignUpSection(props) {
           />
         </PageCarousel>
     </Section>
-  )
+  );
 }
 
 export default SignUpSection

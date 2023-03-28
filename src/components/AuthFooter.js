@@ -1,10 +1,10 @@
 import React from 'react'
-import Box from '@material-ui/core/Box'
-import LinkMui from '@material-ui/core/Link'
-import { makeStyles } from '@material-ui/core/styles'
+import Box from '@mui/material/Box'
+import LinkMui from '@mui/material/Link'
+import useClasses from '../hooks/useClasses'
 import { Link } from './../util/router'
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   root: {
     fontSize: '0.9rem',
     textAlign: 'center',
@@ -20,10 +20,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'inline-block',
     width: theme.spacing(2),
   },
-}))
+})
 
 function AuthFooter(props) {
-  const classes = useStyles()
+  const classes = useClasses(styles)
 
   return (
     <div className={classes.root}>

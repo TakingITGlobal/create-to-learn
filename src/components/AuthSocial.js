@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import Button from '@material-ui/core/Button'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import { makeStyles } from '@material-ui/core/styles'
+import Button from '@mui/material/Button'
+import CircularProgress from '@mui/material/CircularProgress'
 import { useAuth } from './../util/auth'
+import useClasses from '../hooks/useClasses'
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   button: {
     position: 'relative',
     '&:not(:last-child)': {
       marginBottom: theme.spacing(1),
     },
   },
+
   icon: {
     position: 'absolute',
     alignItems: 'center',
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
     },
   },
+
   lastUsedIndicator: {
     position: 'absolute',
     top: '-6px',
@@ -36,12 +38,12 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
     backgroundColor: theme.palette.warning.main,
     opacity: 0.8,
-  },
-}))
+  }
+});
 
 function AuthSocial(props) {
-  const classes = useStyles()
 
+  const classes = useClasses(styles)
   const auth = useAuth()
   const [pending, setPending] = useState(null)
   const [lastUsed, setLastUsed] = useState(null)
@@ -78,7 +80,7 @@ function AuthSocial(props) {
   }, [props.showLastUsed])
 
   return (
-    <div>
+    <>
       {props.providers.map((provider) => (
         <Button
           className={classes.button}
@@ -112,8 +114,8 @@ function AuthSocial(props) {
           )}
         </Button>
       ))}
-    </div>
-  )
+    </>
+  );
 }
 
 export default AuthSocial

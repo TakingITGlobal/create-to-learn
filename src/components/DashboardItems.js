@@ -1,40 +1,41 @@
 import React, { useState } from 'react'
-import Box from '@material-ui/core/Box'
-import Alert from '@material-ui/lab/Alert'
-import Paper from '@material-ui/core/Paper'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
-import Divider from '@material-ui/core/Divider'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
-import IconButton from '@material-ui/core/IconButton'
-import StarIcon from '@material-ui/icons/Star'
-import EditIcon from '@material-ui/icons/Edit'
-import DeleteIcon from '@material-ui/icons/Delete'
-import { makeStyles } from '@material-ui/core/styles'
+import useClasses from '../hooks/useClasses'
+import Box from '@mui/material/Box'
+import Alert from '@mui/material/Alert'
+import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
+import Divider from '@mui/material/Divider'
+import CircularProgress from '@mui/material/CircularProgress'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemText from '@mui/material/ListItemText'
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction'
+import IconButton from '@mui/material/IconButton'
+import StarIcon from '@mui/icons-material/Star'
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteIcon from '@mui/icons-material/Delete'
 import EditItemModal from './EditItemModal'
 import { useAuth } from './../util/auth'
 import { updateItem, deleteItem, useItemsByOwner } from './../util/db'
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   paperItems: {
     minHeight: '300px',
   },
+
   featured: {
     backgroundColor:
-      theme.palette.type === 'dark' ? theme.palette.action.selected : '#fdf8c2',
+      theme.palette.mode === 'dark' ? theme.palette.action.selected : '#fdf8c2',
   },
+
   starFeatured: {
     color: theme.palette.warning.main,
-  },
-}))
+  }
+});
 
 function DashboardItems(props) {
-  const classes = useStyles()
-
+  const classes = useClasses(styles)
   const auth = useAuth()
 
   const {
@@ -68,7 +69,6 @@ function DashboardItems(props) {
           <Alert severity="error">{itemsError.message}</Alert>
         </Box>
       )}
-
       <Paper className={classes.paperItems}>
         <Box
           display="flex"
@@ -113,21 +113,21 @@ function DashboardItems(props) {
                     aria-label="star"
                     onClick={() => handleStarItem(item)}
                     className={item.featured ? classes.starFeatured : ''}
-                  >
+                    size="large">
                     <StarIcon />
                   </IconButton>
                   <IconButton
                     edge="end"
                     aria-label="update"
                     onClick={() => setUpdatingItemId(item.id)}
-                  >
+                    size="large">
                     <EditIcon />
                   </IconButton>
                   <IconButton
                     edge="end"
                     aria-label="delete"
                     onClick={() => deleteItem(item.id)}
-                  >
+                    size="large">
                     <DeleteIcon />
                   </IconButton>
                 </ListItemSecondaryAction>
@@ -136,9 +136,7 @@ function DashboardItems(props) {
           </List>
         )}
       </Paper>
-
       {creatingItem && <EditItemModal onDone={() => setCreatingItem(false)} />}
-
       {updatingItemId && (
         <EditItemModal
           id={updatingItemId}
@@ -146,7 +144,7 @@ function DashboardItems(props) {
         />
       )}
     </>
-  )
+  );
 }
 
 export default DashboardItems

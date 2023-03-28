@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react'
-import Box from '@material-ui/core/Box'
-import Container from '@material-ui/core/Container'
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
 import Section from './Section'
-import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
-import OutlinedInput from '@material-ui/core/OutlinedInput'
-import InputAdornment from '@material-ui/core/InputAdornment'
+import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
+import OutlinedInput from '@mui/material/OutlinedInput'
+import InputAdornment from '@mui/material/InputAdornment'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
-import Paper from '@material-ui/core/Paper'
-import Button from '@material-ui/core/Button'
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
-import Chip from '@material-ui/core/Chip'
+import Paper from '@mui/material/Paper'
+import Button from '@mui/material/Button'
+import SwipeableDrawer from '@mui/material/SwipeableDrawer'
+import Chip from '@mui/material/Chip'
 import Stack from '@mui/material/Stack'
 import CircularProgress from '@mui/material/CircularProgress'
-import SearchIcon from '@material-ui/icons/Search'
-import CloseIcon from '@material-ui/icons/Close'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight'
+import SearchIcon from '@mui/icons-material/Search'
+import CloseIcon from '@mui/icons-material/Close'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 
 import { useCreatorsAll, useCategories, useCoursePerCategory } from '../util/db'
 import { useTranslation } from 'react-i18next'
@@ -42,7 +42,7 @@ function BrowseSection(props) {
     >
       <Box mt={2}>
         <Container>
-          <Box sx={{ paddingBottom: 7 }}>
+          <Box sx={{ paddingBottom: '7px' }}>
             <Typography variant="h4">Browse</Typography>
           </Box>
           <Box
@@ -66,7 +66,7 @@ function BrowseSection(props) {
                 justifyContent: 'flex-end',
               }}
             >
-              <IconButton onClick={() => setShowSearchBar(!showSearchBar)}>
+              <IconButton onClick={() => setShowSearchBar(!showSearchBar)} size="large">
                 {showSearchBar ? (
                   <CloseIcon fontSize="large" />
                 ) : (
@@ -84,7 +84,7 @@ function BrowseSection(props) {
         </Container>
       </Box>
     </Section>
-  )
+  );
 }
 
 export default BrowseSection
@@ -413,7 +413,7 @@ function CourseCard({ course }) {
 
   return (
     <Box sx={{ padding: '10px 0' }}>
-      <Paper sx={{ padding: 2.5, height: '200px' }}>
+      <Paper sx={{ padding: '2.5px', height: '200px' }}>
         <Box
           sx={{
             display: 'flex',
@@ -434,7 +434,7 @@ function CourseCard({ course }) {
             }}
           />
         </Box>
-        <Box sx={{ padding: 10 }}>
+        <Box sx={{ padding: '10px' }}>
           <Box>
             <Typography variant="h6">{course.seriesName} </Typography>
           </Box>
@@ -443,7 +443,7 @@ function CourseCard({ course }) {
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'space-between',
-              paddingBottom: 5,
+              paddingBottom: '5px',
             }}
           >
             <>
@@ -475,7 +475,7 @@ function CreatorCard({ creator }) {
 
   return (
     <Box sx={{ padding: '10px 0' }}>
-      <Paper sx={{ padding: 2.5, height: '200px' }}>
+      <Paper sx={{ padding: '2.5px', height: '200px' }}>
         <Box
           sx={{
             display: 'flex',
@@ -501,7 +501,7 @@ function CreatorCard({ creator }) {
             }}>
           </Box>
         </Box>
-        <Box sx={{ padding: 10 }}>
+        <Box sx={{ padding: '10px' }}>
           <Box>
             <Typography variant="h6">{creator.name} </Typography>
           </Box>
@@ -510,7 +510,7 @@ function CreatorCard({ creator }) {
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'space-between',
-              paddingBottom: 5,
+              paddingBottom: '5px',
             }}
           >
             <>

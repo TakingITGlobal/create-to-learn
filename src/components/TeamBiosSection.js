@@ -1,34 +1,36 @@
 import React from 'react'
-import Container from '@material-ui/core/Container'
-import Grid from '@material-ui/core/Grid'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import Box from '@material-ui/core/Box'
-import Avatar from '@material-ui/core/Avatar'
-import Typography from '@material-ui/core/Typography'
-import { makeStyles } from '@material-ui/core/styles'
+import useClasses from '../hooks/useClasses'
+import Container from '@mui/material/Container'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Box from '@mui/material/Box'
+import Avatar from '@mui/material/Avatar'
+import Typography from '@mui/material/Typography'
 import Section from './Section'
 import SectionHeader from './SectionHeader'
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   card: {
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
   },
+
   avatarWrapper: {
     display: 'flex',
     justifyContent: 'center',
   },
+
   avatar: {
     width: theme.spacing(15),
     height: theme.spacing(15),
-  },
-}))
+  }
+});
 
 function TeamBiosSection(props) {
-  const classes = useStyles()
 
+  const classes = useClasses(styles)
   const items = [
     {
       avatar: 'https://uploads.divjoy.com/pravatar-150x-68.jpeg',
@@ -100,7 +102,7 @@ function TeamBiosSection(props) {
         </Grid>
       </Container>
     </Section>
-  )
+  );
 }
 
 export default TeamBiosSection

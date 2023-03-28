@@ -1,14 +1,15 @@
 import React, {useState} from 'react'
-import { Grid, Button, Box, TextField, Container} from '@material-ui/core'
+import useClasses from '../hooks/useClasses'
+import { Grid, Button, Box, TextField, Container} from '@mui/material'
 import { useTranslation } from 'react-i18next'
-import { makeStyles } from '@material-ui/core/styles'
 import { FixedSizeList as List } from 'react-window'
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   container: {
     margin: '0 auto', 
     height: '100%',
   },
+
   page: {
     display: 'flex',
     flexDirection: 'column',
@@ -17,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     margin: '0 auto',
   },
+
   imageWrap: {
     margin: 'auto 0',
     maxWidth: '100%',
@@ -30,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
       userDrag: 'none',
     },
   },
+
   imageCover: {
     position: 'absolute',
     width: '100%',
@@ -37,12 +40,14 @@ const useStyles = makeStyles((theme) => ({
     top: 0, left:0,right:0,bottom:0,
     zIndex: 2,
   },
+
   gridColumn: {
     flexDirection: 'column',
     alignItems: 'stretch',
     alignContent: 'stretch',
     gap: 8,
   },
+
   btnInput: {
     display: 'flex',
     '& > label': {
@@ -54,22 +59,24 @@ const useStyles = makeStyles((theme) => ({
       background: '#555555',
     },
   },
+
   btnNavWrap: {
     marginTop: 'auto',
     alignItems: 'stretch',
     flexDirection: 'column',
   },
+
   scrollBox: {
     overflowY: 'scroll', 
     height: '40vh', 
     textAlign: 'left', 
     gap: 8
-  },
-}))
+  }
+});
 
 function InputView(props){
   const { t } = useTranslation()
-  const classes = useStyles()
+  const classes = useClasses(styles)
   const { data, value, state } = props
   const required = props.required ? props.required : false
   const { setCurLength, setActive} = state
@@ -120,7 +127,7 @@ function InputView(props){
 }
 
 export function WindowView(props) {
-  const classes = useStyles()
+  const classes = useClasses(styles)
   
   return (
     <Container maxWidth="md" className={classes.container}>
@@ -151,11 +158,11 @@ export function InputSelectView(props) {
     state,
     required,
   } = props
-
+  const classes = useClasses(styles)
   const cols = props.cols ? props.cols : 1
   const gap = 10
 
-  const classes = useStyles()
+
   const [ data, setData] = useState(multi ? [] : "");
   function onChange(e) {
     multi ? 
@@ -215,7 +222,7 @@ export function InputSelectView(props) {
           </Grid>
         )}  
     </InputView>
-  )
+  );
 }
 
 export function InputTextView(props) {
@@ -224,7 +231,7 @@ export function InputTextView(props) {
     state
   } = props
 
-  const classes = useStyles()
+  const classes = useClasses(styles)
   const [ data, setData] = useState("")
   function onChange(e) {setData(e.target.value) }
   
@@ -248,7 +255,7 @@ export function InputSearchView(props) {
     options
   } = props
 
-  const classes = useStyles()
+  const classes = useClasses(styles)
   const { t } = useTranslation()
   const [inputValue, setInputValue] = useState("")
   const filtered = options.filter(x => x.toLowerCase().includes(inputValue.toLowerCase()))

@@ -1,13 +1,13 @@
 import React from 'react'
-import List from '@material-ui/core/List'
-import Button from '@material-ui/core/Button'
-import IconButton from '@material-ui/core/IconButton'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
-import Collapse from '@material-ui/core/Collapse'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight'
+import List from '@mui/material/List'
+import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
+import ListItem from '@mui/material/ListItem'
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction'
+import Collapse from '@mui/material/Collapse'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { Link } from '../util/router'
 
 function SettingsNav() {
@@ -25,7 +25,7 @@ function SettingsNav() {
         </Button>
 
         <ListItemSecondaryAction>
-          <IconButton>
+          <IconButton size="large">
             <ChevronRightIcon />
           </IconButton>
         </ListItemSecondaryAction>
@@ -37,7 +37,7 @@ function SettingsNav() {
         </Button>
 
         <ListItemSecondaryAction>
-          <IconButton>
+          <IconButton size="large">
             <ChevronRightIcon />
           </IconButton>
         </ListItemSecondaryAction>
@@ -49,7 +49,7 @@ function SettingsNav() {
         </Button>
 
         <ListItemSecondaryAction>
-          <IconButton>
+          <IconButton size="large">
             <ChevronRightIcon />
           </IconButton>
         </ListItemSecondaryAction>
@@ -61,13 +61,13 @@ function SettingsNav() {
         </Button>
 
         <ListItemSecondaryAction>
-          <IconButton>
+          <IconButton size="large">
             <ChevronRightIcon />
           </IconButton>
         </ListItemSecondaryAction>
       </ListItem>
     </List>
-  )
+  );
 }
 
 export default SettingsNav
