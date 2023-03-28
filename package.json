@@ -29,6 +29,7 @@
     "jsonwebtoken": "8.5.1",
     "jwks-rsa": "2.0.4",
     "mailchimp-api-v3": "1.14.0",
+    "netlify-cli": "^13.2.1",
     "query-string": "6.13.8",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -40,14 +41,21 @@
     "react-query": "3.32.1",
     "react-router-dom": "5.2.0",
     "react-scripts": "5.0.1",
+    "react-swipeable-views": "^0.14.0",
+    "react-swipeable-views-utils": "^0.14.0",
     "react-window": "^1.8.8",
     "use-local-storage-state": "9.0.2"
   },
+  "engines" : { 
+    "node": ">=18.15.0",
+    "npm": ">=9.5.0" 
+  },
   "scripts": {
-    "start": "react-scripts start",
+    "start:react": "react-scripts start",
+    "start:netlify": "netlify dev",
+    "start": "npm run start:netlify",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": "react-app"
