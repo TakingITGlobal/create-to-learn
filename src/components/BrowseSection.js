@@ -401,7 +401,7 @@ const CreatorCard = ({ creator }) => {
           }}
         >
           <Box
-            src=""
+            src={creator.image && creator.image[0].downloadURL}
             component="img"
             alt=""
             loading="lazy"
