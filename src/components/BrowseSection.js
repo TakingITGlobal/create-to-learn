@@ -426,7 +426,7 @@ const CourseCard = ({ course }) => {
               color="primary"
               fullWidth
               variant="contained"
-              href={course.uid}
+              href={'/course/' + course.uid}
             >
               {t('course-page')}
             </Button>
