@@ -59,7 +59,7 @@ function BrowseSection(props) {
                 width: '100%',
               }}
             >
-              <SearchBar setSearch={setSearch} />
+              <SearchBar setSearch={setSearch} search={search} />
             </Box>
             <Box
               sx={{
@@ -69,6 +69,9 @@ function BrowseSection(props) {
             >
               <IconButton
                 onClick={() => {
+                  if (showSearchBar) {
+                    setSearch('')
+                  }
                   setShowSearchBar(!showSearchBar)
                 }}
               >
@@ -94,15 +97,16 @@ function BrowseSection(props) {
 
 export default BrowseSection
 
-function SearchBar({ setSearch }) {
+function SearchBar({ setSearch, search }) {
   const { t } = useTranslation()
 
   return (
     <OutlinedInput
       id="search-bar"
       onInput={(e) => {
-        setSearch(e.target.value)
+        setSearch(e.target.value.toLowerCase())
       }}
+      value={search}
       variant="outlined"
       placeholder={t('browse.search-by')}
       size="small"
