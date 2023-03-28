@@ -22,16 +22,17 @@ import { useCreatorsAll, useCategories, useCoursePerCategory } from '../util/db'
 import { useTranslation } from 'react-i18next'
 
 function BrowseSection(props) {
-  const { t } = useTranslation()
   const [showSearchBar, setShowSearchBar] = useState(false)
   const [categories, setCategories] = useState([])
+  const [search, setSearch] = useState('')
+
   const { isLoading, data: dataCategories } = useCategories()
 
   useEffect(() => {
     if (!isLoading) {
       setCategories(dataCategories.map(({ name }) => name))
     }
-  }, [dataCategories])
+  }, [dataCategories, isLoading])
 
   return (
     <Section
@@ -58,7 +59,7 @@ function BrowseSection(props) {
                 width: '100%',
               }}
             >
-              <SearchBar />
+              <SearchBar setSearch={setSearch} search={search} />
             </Box>
             <Box
               sx={{
@@ -66,7 +67,16 @@ function BrowseSection(props) {
                 justifyContent: 'flex-end',
               }}
             >
-              <IconButton onClick={() => setShowSearchBar(!showSearchBar)} size="large">
+
+              <IconButton
+                onClick={() => {
+                  if (showSearchBar) {
+                    setSearch('')
+                  }
+                  setShowSearchBar(!showSearchBar)
+                }}
+              >
+
                 {showSearchBar ? (
                   <CloseIcon fontSize="large" />
                 ) : (
@@ -79,7 +89,7 @@ function BrowseSection(props) {
           {isLoading || !categories.length ? (
             <CircularProgress color="primary" />
           ) : (
-            <BrowseTabs categories={categories} />
+            <BrowseTabs categories={categories} search={search} />
           )}
         </Container>
       </Box>
@@ -89,15 +99,16 @@ function BrowseSection(props) {
 
 export default BrowseSection
 
-function SearchBar({ setSearchQuery }) {
+function SearchBar({ setSearch, search }) {
   const { t } = useTranslation()
 
   return (
     <OutlinedInput
       id="search-bar"
       onInput={(e) => {
-        setSearchQuery(e.target.value)
+        setSearch(e.target.value.toLowerCase())
       }}
+      value={search}
       variant="outlined"
       placeholder={t('browse.search-by')}
       size="small"
@@ -115,17 +126,17 @@ function SearchBar({ setSearchQuery }) {
 }
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props
+  const { children, tabIndex, index, ...other } = props
 
   return (
     <div
       role="tabpanel"
-      hidden={value !== index}
+      hidden={tabIndex !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
+      {tabIndex === index && (
         <Box sx={{ p: 3 }}>
           <Typography>{children}</Typography>
         </Box>
@@ -136,78 +147,25 @@ function TabPanel(props) {
 
 function a11yProps(index) {
   return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    id: `browse-tab-${index}`,
+    'aria-controls': `browse-tabpanel-${index}`,
   }
 }
 
-function BrowseTabs({ categories }) {
+function BrowseTabs({ categories, search }) {
   const { t } = useTranslation()
-  const [value, setValue] = React.useState(0)
+  const [tabIndex, setTabIndex] = useState(0)
   const [courses, setCourses] = useState([])
+  const [allCourses, setAllCourses] = useState([])
   const [creators, setCreators] = useState([])
+  const [allCreators, setAllCreators] = useState([])
   const [openDrawer, setOpenDrawer] = useState(false)
   const [categoryFilter, setCategoryFilter] = useState([])
   const [durationFilter, setDurationFilter] = useState([])
-  const [allCourses, setAllCourses] = useState([])
+  const [culturalGroupFilter, setCulturalGroupFilter] = useState([])
   const { isLoading: loadingCreators, data: dataCreators } = useCreatorsAll()
   const { isLoading: loadingCourses, data: dataCourses } =
     useCoursePerCategory(categories)
-
-  const handleChangeTab = (event, newTab) => {
-    setValue(newTab)
-  }
-
-  useEffect(() => {
-    if (!loadingCourses) {
-      setAllCourses(dataCourses)
-    }
-    if (!loadingCourses) {
-      setCourses(dataCourses)
-    }
-    if (dataCreators && dataCreators.length) {
-      setCreators(dataCreators)
-    }
-  }, [dataCourses, dataCreators])
-
-  const toggleDrawer = (event, open) => {
-    if (
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
-    ) {
-      return
-    }
-
-    setOpenDrawer(open)
-  }
-
-  const handleCategoryFilterArr = (category) => {
-    const catIndex = categoryFilter.indexOf(category)
-    if (catIndex !== -1) {
-      setCategoryFilter(categoryFilter.filter((item) => item !== category))
-    } else {
-      setCategoryFilter([...categoryFilter, category])
-    }
-  }
-
-  useEffect(() => {
-    //Use filters if some have been chosen. Otherwise, assume all filters are chosen.
-    const categoriesToFilter = categoryFilter.length
-      ? categoryFilter
-      : categories
-    const durationsToFilter = durationFilter.length ? durationFilter : durations
-
-    const filteredCourses = allCourses.filter(
-      (course) =>
-        course.category.some((cat) => categoriesToFilter.includes(cat)) &&
-        durationsToFilter.some(
-          (duration) =>
-            course.totalLength >= duration.lowerValue &&
-            course.totalLength < duration.upperValue,
-        ),
-    )
-    setCourses(filteredCourses)
-  }, [categoryFilter, durationFilter])
 
   const durations = [
     {
@@ -236,6 +194,74 @@ function BrowseTabs({ categories }) {
     },
   ]
 
+  const culturalGroups = ['Inuit', 'Métis', 'First Nations']
+
+  const handleChangeTab = (event, newTab) => {
+    setTabIndex(newTab)
+  }
+
+  useEffect(() => {
+    if (!loadingCourses) {
+      setAllCourses(dataCourses)
+    }
+    if (!loadingCourses) {
+      setCourses(dataCourses)
+    }
+    if (!loadingCreators) {
+      setAllCreators(dataCreators)
+    }
+    if (!loadingCreators) {
+      setCreators(dataCreators)
+    }
+  }, [dataCourses, dataCreators, loadingCourses, loadingCreators])
+
+  useEffect(() => {
+    //Use filters if some have been chosen. Otherwise, assume all filters are chosen.
+    const categoriesToFilter = categoryFilter.length
+      ? categoryFilter
+      : categories
+    const durationsToFilter = durationFilter.length ? durationFilter : durations
+
+    const filteredCourses = allCourses.filter((course) => {
+      const courseTitle = course.seriesName.toLowerCase()
+      return (
+        course.category.some((cat) => categoriesToFilter.includes(cat)) &&
+        durationsToFilter.some(
+          (duration) =>
+            course.totalLength >= duration.lowerValue &&
+            course.totalLength < duration.upperValue,
+        ) &&
+        courseTitle.search(search) !== -1
+      )
+    })
+    setCourses(filteredCourses)
+  }, [categoryFilter, durationFilter, allCourses, search])
+
+  useEffect(() => {
+    const culturalGroupsToFilter = culturalGroupFilter.length
+      ? culturalGroupFilter
+      : culturalGroups + ['']
+
+    const filteredCreators = allCreators.filter((creator) => {
+      const creatorFNMI = creator.fnmi ? creator.fnmi : ['']
+      const creatorName = creator.name ? creator.name.toLowerCase() : ''
+      return creatorFNMI.some(
+        (grp) =>
+          culturalGroupsToFilter.includes(grp) &&
+          creatorName.search(search) !== -1,
+      )
+    })
+    setCreators(filteredCreators)
+  }, [culturalGroupFilter, allCreators, search])
+
+  const handleCategoryFilterArr = (category) => {
+    if (categoryFilter.includes(category)) {
+      setCategoryFilter(categoryFilter.filter((item) => item !== category))
+    } else {
+      setCategoryFilter([...categoryFilter, category])
+    }
+  }
+
   const handleDurationFilterArr = (duration) => {
     const isInFilter = durationFilter.some((dur) => dur.id === duration.id)
     if (isInFilter) {
@@ -247,14 +273,37 @@ function BrowseTabs({ categories }) {
     }
   }
 
+  const handleCulturalGroupFilterArr = (group) => {
+    if (culturalGroupFilter.includes(group)) {
+      setCulturalGroupFilter(
+        culturalGroupFilter.filter((item) => item !== group),
+      )
+    } else {
+      setCulturalGroupFilter([...culturalGroupFilter, group])
+    }
+  }
+
+  const handleClearFilter = () => {
+    if (tabIndex === 0) {
+      setCategoryFilter([])
+      setDurationFilter([])
+      setCourses(allCourses)
+    }
+
+    if (tabIndex === 1) {
+      setCulturalGroupFilter([])
+      setCreators(allCreators)
+    }
+  }
+
   return (
     <>
       <Box sx={{ width: '100%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs
-            value={value}
+            value={tabIndex}
             textColor="secondary"
-            indicatorColor="secondary" 
+            indicatorColor="secondary"
             onChange={handleChangeTab}
             aria-label="browse tabs"
           >
@@ -270,7 +319,7 @@ function BrowseTabs({ categories }) {
             />
           </Tabs>
         </Box>
-        <TabPanel value={value} index={0}>
+        <TabPanel tabIndex={tabIndex} index={0}>
           {loadingCourses ? (
             <CircularProgress color="primary" />
           ) : (
@@ -279,136 +328,66 @@ function BrowseTabs({ categories }) {
                 {t('browse.show-filters')}
               </Button>
 
-              <Box>
-                {courses.map((course, index) => (
-                  <CourseCard key={index} course={course} />
-                ))}
-              </Box>
+              {courses.length ? (
+                <Box>
+                  {courses.map((course, index) => (
+                    <CourseCard key={index} course={course} />
+                  ))}
+                </Box>
+              ) : (
+                <EmptyState search={search} />
+              )}
             </>
           )}
         </TabPanel>
-        <TabPanel value={value} index={1}>
+        <TabPanel tabIndex={tabIndex} index={1}>
           {loadingCreators ? (
             <CircularProgress color="primary" />
           ) : (
             <>
-              <Button variant="outlined">Show all filters</Button>
-              <Box>
-                {creators.map((creator, index) => (
-                  <CreatorCard key={index} creator={creator} />
-                ))}
-              </Box>
+              <Button variant="outlined" onClick={() => setOpenDrawer(true)}>
+                Show all filters
+              </Button>
+              {creators.length ? (
+                <Box>
+                  {creators.map((creator, index) => (
+                    <CreatorCard key={index} creator={creator} />
+                  ))}
+                </Box>
+              ) : (
+                <EmptyState search={search} />
+              )}
             </>
           )}
         </TabPanel>
       </Box>
-      <SwipeableDrawer
-        anchor="right"
-        open={openDrawer}
-        onOpen={(event) => toggleDrawer(event, true)}
-        onClose={(event) => toggleDrawer(event, false)}
+      <Drawer
+        setOpenDrawer={setOpenDrawer}
+        handleClearFilter={handleClearFilter}
+        openDrawer={openDrawer}
       >
-        <Box
-          mt={2}
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: '300px',
-            padding: '10px',
-          }}
-        >
-          <Box mt={2}>
-            <Typography variant="h5">Filters</Typography>
-          </Box>
-          <Box mt={2}>
-            <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-              {t('featured')}
-            </Typography>
-            <Stack direction="row" spacing={1}>
-              <Chip label="Featured" clickable variant="outlined" />
-              <Chip label="New" clickable variant="outlined" />
-            </Stack>
-          </Box>
-          <Box mt={2}>
-            <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-              {t('duration')}
-            </Typography>
-            <Stack
-              direction="row"
-              spacing={1}
-              sx={{
-                flexWrap: 'wrap',
-                gap: 2,
-              }}
-            >
-              {durations.map((duration, index) => (
-                <Chip
-                  key={index}
-                  label={duration.label}
-                  clickable
-                  style={{ marginLeft: 0 }}
-                  onClick={() => handleDurationFilterArr(duration)}
-                  variant={
-                    durationFilter.some((dur) => dur.id === duration.id)
-                      ? 'default'
-                      : 'outlined'
-                  }
-                />
-              ))}
-            </Stack>
-          </Box>
-          <Box mt={2}>
-            <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-              {t('topics')}
-            </Typography>
-            <Stack
-              direction="row"
-              spacing={1}
-              sx={{
-                flexWrap: 'wrap',
-                gap: 2,
-              }}
-            >
-              {categories.map((category, index) => (
-                <Chip
-                  key={index}
-                  label={category}
-                  clickable
-                  onClick={() => handleCategoryFilterArr(category)}
-                  style={{ marginLeft: 0 }}
-                  variant={
-                    categoryFilter.includes(category) ? 'default' : 'outlined'
-                  }
-                />
-              ))}
-            </Stack>
-          </Box>
-          <Stack direction="row" spacing={1} sx={{ paddingTop: '60px' }}>
-            <Button
-              variant="outlined"
-              onClick={() => {
-                setCategoryFilter([])
-                setDurationFilter([])
-                setCourses(allCourses)
-              }}
-            >
-              {t('browse.clear-filters')}
-            </Button>
-            <Button
-              variant="outlined"
-              endIcon={<ChevronRightIcon />}
-              onClick={() => setOpenDrawer(false)}
-            >
-              {t('close')}
-            </Button>
-          </Stack>
-        </Box>
-      </SwipeableDrawer>
+        {tabIndex === 0 ? (
+          <CourseDrawerContent
+            categories={categories}
+            handleDurationFilterArr={handleDurationFilterArr}
+            handleCategoryFilterArr={handleCategoryFilterArr}
+            categoryFilter={categoryFilter}
+            durationFilter={durationFilter}
+            durations={durations}
+          />
+        ) : (
+          <CreatorDrawerContent
+            culturalGroupFilter={culturalGroupFilter}
+            handleCulturalGroupFilterArr={handleCulturalGroupFilterArr}
+            culturalGroups={culturalGroups}
+          />
+        )}
+      </Drawer>
     </>
   )
 }
 
-function CourseCard({ course }) {
+const CourseCard = ({ course }) => {
   const { t } = useTranslation()
 
   return (
@@ -423,9 +402,11 @@ function CourseCard({ course }) {
             overflow: 'hidden',
           }}
         >
-          <img
+          <Box
+            component="img"
             src={course.thumbnail[0]?.downloadURL}
             loading="lazy"
+            alt={course.seriesName}
             style={{
               top: 0,
               width: '100%',
@@ -450,7 +431,7 @@ function CourseCard({ course }) {
               <Typography>{course.creator}</Typography>
               <Typography>
                 {course.videos && course.videos.length}{' '}
-                {course.videos.length == 1 ? t('video') : t('videos')}
+                {course.videos.length === 1 ? t('video') : t('videos')}
               </Typography>
             </>
           </Box>
@@ -459,9 +440,9 @@ function CourseCard({ course }) {
               color="primary"
               fullWidth
               variant="contained"
-              href={course.uid}
+              href={'/course/' + course.uid}
             >
-              Go to course page
+              {t('course-page')}
             </Button>
           </Box>
         </Box>
@@ -470,7 +451,7 @@ function CourseCard({ course }) {
   )
 }
 
-function CreatorCard({ creator }) {
+const CreatorCard = ({ creator }) => {
   const { t } = useTranslation()
 
   return (
@@ -486,9 +467,9 @@ function CreatorCard({ creator }) {
           }}
         >
           <Box
-            src=""
+            src={creator.image && creator.image[0]?.downloadURL}
             component="img"
-            alt=""
+            alt={creator.name}
             loading="lazy"
             height="200px"
             style={{
@@ -498,8 +479,8 @@ function CreatorCard({ creator }) {
               objectFit: 'cover',
               maxHeight: { xs: 233, md: 167 },
               maxWidth: { xs: 350, md: 250 },
-            }}>
-          </Box>
+            }}
+          ></Box>
         </Box>
         <Box sx={{ padding: '10px' }}>
           <Box>
@@ -516,17 +497,214 @@ function CreatorCard({ creator }) {
             <>
               <Typography>{creator.seriesName}</Typography>
               <Typography>
-                {creator.videos == 1 ? t('video') : t('videos')}
+                {creator.videos === 1 ? t('video') : t('videos')}
               </Typography>
             </>
           </Box>
           <Box>
             <Button color="primary" fullWidth variant="contained">
-              Go to course page
+              {t('course-page')}
             </Button>
           </Box>
         </Box>
       </Paper>
+    </Box>
+  )
+}
+
+const Drawer = ({ children, setOpenDrawer, handleClearFilter, openDrawer }) => {
+  const { t } = useTranslation()
+
+  const toggleDrawer = (event, open) => {
+    if (
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return
+    }
+
+    setOpenDrawer(open)
+  }
+  return (
+    <SwipeableDrawer
+      anchor="right"
+      open={openDrawer}
+      onOpen={(event) => toggleDrawer(event, true)}
+      onClose={(event) => toggleDrawer(event, false)}
+    >
+      <Box
+        mt={2}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          width: '300px',
+          padding: '10px',
+        }}
+      >
+        <Box mt={2}>
+          <Typography variant="h5">Filters</Typography>
+        </Box>
+        {children}
+        <Stack direction="row" spacing={1} sx={{ paddingTop: '60px' }}>
+          <Button variant="outlined" onClick={() => handleClearFilter()}>
+            {t('browse.clear-filters')}
+          </Button>
+          <Button
+            variant="outlined"
+            endIcon={<ChevronRightIcon />}
+            onClick={() => setOpenDrawer(false)}
+          >
+            {t('close')}
+          </Button>
+        </Stack>
+      </Box>
+    </SwipeableDrawer>
+  )
+}
+
+const CourseDrawerContent = ({
+  categories,
+  handleDurationFilterArr,
+  handleCategoryFilterArr,
+  categoryFilter,
+  durationFilter,
+  durations,
+}) => {
+  const { t } = useTranslation()
+
+  return (
+    <>
+      <Box mt={2}>
+        <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+          {t('featured')}
+        </Typography>
+        <Stack direction="row" spacing={1}>
+          <Chip label="Featured" clickable variant="outlined" />
+          <Chip label="New" clickable variant="outlined" />
+        </Stack>
+      </Box>
+      <Box mt={2}>
+        <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+          {t('duration')}
+        </Typography>
+        <Stack
+          direction="row"
+          spacing={1}
+          sx={{
+            flexWrap: 'wrap',
+            gap: 2,
+          }}
+        >
+          {durations.map((duration, index) => (
+            <Chip
+              key={index}
+              label={duration.label}
+              clickable
+              style={{ marginLeft: 0 }}
+              onClick={() => handleDurationFilterArr(duration)}
+              variant={
+                durationFilter.some((dur) => dur.id === duration.id)
+                  ? 'default'
+                  : 'outlined'
+              }
+            />
+          ))}
+        </Stack>
+      </Box>
+      <Box mt={2}>
+        <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+          {t('topics')}
+        </Typography>
+        <Stack
+          direction="row"
+          spacing={1}
+          sx={{
+            flexWrap: 'wrap',
+            gap: 2,
+          }}
+        >
+          {categories.map((category, index) => (
+            <Chip
+              key={index}
+              label={category}
+              clickable
+              onClick={() => handleCategoryFilterArr(category)}
+              style={{ marginLeft: 0 }}
+              variant={
+                categoryFilter.includes(category) ? 'default' : 'outlined'
+              }
+            />
+          ))}
+        </Stack>
+      </Box>
+    </>
+  )
+}
+
+const CreatorDrawerContent = ({
+  handleCulturalGroupFilterArr,
+  culturalGroupFilter,
+  culturalGroups,
+}) => {
+  const { t } = useTranslation()
+
+  return (
+    <>
+      <Box mt={2}>
+        <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+          {t('featured')}
+        </Typography>
+        <Stack direction="row" spacing={1}>
+          <Chip label="Featured" clickable variant="outlined" />
+          <Chip label="New" clickable variant="outlined" />
+        </Stack>
+      </Box>
+      <Box mt={2}>
+        <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+          Cultural group
+        </Typography>
+        <Stack
+          direction="row"
+          spacing={1}
+          sx={{
+            flexWrap: 'wrap',
+            gap: 2,
+          }}
+        >
+          {culturalGroups.map((group, index) => (
+            <Chip
+              key={index}
+              label={group}
+              clickable
+              style={{ marginLeft: 0 }}
+              onClick={() => handleCulturalGroupFilterArr(group)}
+              variant={
+                culturalGroupFilter.some((grp) => grp === group)
+                  ? 'default'
+                  : 'outlined'
+              }
+            />
+          ))}
+        </Stack>
+      </Box>
+    </>
+  )
+}
+
+const EmptyState = (search) => {
+  return (
+    <Box mt={5}>
+      <Box>
+        <Typography variant="subtitle1">
+          Sorry we could find any matches for{' '}
+          {search !== '' ? `${search.search} and ` : ''} your chosen filters.
+        </Typography>
+      </Box>
+      <Box mt={3}>
+        <Typography variant="body2">
+          Please try searching with another term.
+        </Typography>
+      </Box>
     </Box>
   )
 }

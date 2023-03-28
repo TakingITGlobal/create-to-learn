@@ -17,6 +17,7 @@ import Section from './Section'
 import SectionHeader from './SectionHeader'
 import DashboardItems from './DashboardItems'
 import SignUp from './SignUp'
+import CircularProgress from '@mui/material/CircularProgress'
 
 import { Link, useRouter } from './../util/router'
 import { useAuth } from './../util/auth'
@@ -191,17 +192,17 @@ export default DashboardSection
 
 function CreatorSpotlight() {
 
-  const [creators, setCreators] = useState([])
-  const classes = useClasses(styles)
-  const { data } = useCreators()
+  const { isLoading, data } = useCreators()
 
   useEffect(() => {
-    if (data?.length) {
+    if (!isLoading) {
       setCreators(data)
     }
   }, [data])
 
-  return (
+  return isLoading ? (
+    <CircularProgress />
+  ) : (
     <>
       <Box sx={{ paddingBottom: '5px' }}>
         <Typography>Creator Spotlight</Typography>
@@ -214,11 +215,9 @@ function CreatorSpotlight() {
         itemClass={classes.carouselItem}
       >
         {creators.map((item, i) => {
-
           return (
-            <Paper key={i} sx={{ padding: '2.5px' }}>
-              {/* Images are not working at this time */}
-               <Box
+            <Paper key={i} sx={{ padding: 2.5, height: '400px' }}>
+              <Box
                 sx={{
                   display: 'flex',
                   alignItems: 'center',
@@ -228,7 +227,11 @@ function CreatorSpotlight() {
                 }}
               >
                 <img
-                  src={item?.image[0]?.downloadURL}
+                  src={
+                    item && item.image && item.image.length
+                      ? item.image[0].downloadURL
+                      : ''
+                  }
                   style={{
                     top: 0,
                     width: '100%',
@@ -277,17 +280,17 @@ function CreatorSpotlight() {
 
 function LearningPath() {
 
-  const [learningPaths, setLearningPaths] = useState([])
-  const classes = useClasses(styles)
-  const { data } = useLearningPaths()
+  const { isLoading, data } = useLearningPaths()
 
   useEffect(() => {
-    if (data?.length) {
+    if (!isLoading) {
       setLearningPaths(data)
     }
   }, [data])
 
-  return (
+  return isLoading ? (
+    <CircularProgress />
+  ) : (
     <>
       <Box sx={{ paddingBottom: '5px' }}>
         <Typography>Learning paths for students</Typography>
@@ -355,7 +358,6 @@ function TopCourses({ category }) {
         itemClass={classes.carouselItem}
       >
         {courses.map((item, i) => {
- 
           return (
             <Paper key={i} sx={{ padding: '2.5px'}}>
               <Box sx={{ padding: '10px' }}>
@@ -404,7 +406,7 @@ function TopCourses({ category }) {
                     color="primary"
                     fullWidth
                     variant="contained"
-                    href={"/course/" + item.uid}
+                    href={'/course/' + item.uid}
                   >
                     See details
                   </Button>
