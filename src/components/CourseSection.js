@@ -1,27 +1,30 @@
 import React from 'react'
-import SwipeableViews from 'react-swipeable-views';
+import SwipeableViews from 'react-swipeable-views'
 import Container from '@material-ui/core/Container'
 import Section from './Section'
 import Vimeo from '@u-wave/react-vimeo'
 import {
   AppBar,
   Box,
-  Typography,
-  Tabs,
-  Tab,
   Button,
+  Grid,
+  Typography,
   List,
   ListItem,
   ListItemText,
   ListItemIcon,
-  Select,
   MenuItem,
+  Paper,
+  Select,
+  styled,
+  Tab,
+  Tabs,
   useTheme,
 } from '@mui/material'
 import { ChevronRight, Check, BookmarkBorder } from '@material-ui/icons'
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index, ...other } = props
 
   return (
     <div
@@ -37,18 +40,18 @@ function TabPanel(props) {
         </Box>
       )}
     </div>
-  );
+  )
 }
 
 function a11yProps(index) {
   return {
     id: `full-width-tab-${index}`,
     'aria-controls': `full-width-tabpanel-${index}`,
-  };
+  }
 }
 
 function CourseSection(props) {
-  const theme = useTheme();
+  const theme = useTheme()
   const [tabValue, setTabValue] = React.useState(0)
   const [downloadOption, setDownloadOption] = React.useState('')
 
@@ -57,13 +60,20 @@ function CourseSection(props) {
   }
 
   const handleChangeIndex = (index) => {
-    setTabValue(index);
+    setTabValue(index)
   }
- 
+
   const handleDownloadChange = (event) => {
     setDownloadOption(event.target.value)
   }
 
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }))
 
   return (
     <Section
@@ -77,18 +87,23 @@ function CourseSection(props) {
         <h1>{props.data?.seriesName}</h1>
 
         {/* Vimeo embed */}
-        <Vimeo video="https://vimeo.com/76979871" width="100%" />
+        <Vimeo
+          video="https://vimeo.com/76979871"
+          responsive
+          width="100vw"
+          height="56.25vw" // This maintains a 16:9 aspect ratio
+        />
 
         {/* About and Lesson tabs */}
         <AppBar position="static" color="default">
-          <Tabs 
-            value={tabValue} 
-            onChange={handleTabChange} 
+          <Tabs
+            value={tabValue}
+            onChange={handleTabChange}
             indicatorColor="secondary"
             textColor="inherit"
             variant="fullWidth"
             aria-label="full width tabs example"
-            >
+          >
             <Tab label="About" {...a11yProps(0)} />
             <Tab label="Lessons" {...a11yProps(1)} />
           </Tabs>
@@ -120,17 +135,17 @@ function CourseSection(props) {
             </Typography>
 
             {/* Three text boxes */}
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-around',
-                marginBottom: 2,
-              }}
-            >
-              <Typography variant="body2"> Text Box 1</Typography>
-              <Typography variant="body2"> Text Box 2</Typography>
-              <Typography variant="body2"> Text Box 3</Typography>
-            </Box>
+            <Grid container spacing={2}>
+              <Grid xs={4}>
+                <Item>Text Box 1</Item>
+              </Grid>
+              <Grid xs={4}>
+                <Item>Text Box 2</Item>
+              </Grid>
+              <Grid xs={4}>
+                <Item>Text Box 3</Item>
+              </Grid>
+            </Grid>
 
             {/* Start Creating Button */}
             <Button variant="contained" size="large" fullWidth>
@@ -144,14 +159,12 @@ function CourseSection(props) {
             <Select
               value={downloadOption}
               onChange={handleDownloadChange}
-              displayEmpty
+              label="Download"
               sx={{ minWidth: 120, marginLeft: 2 }}
             >
-              <MenuItem value="Download">
-                Download
-              </MenuItem>
               <MenuItem value="option1">Option 1</MenuItem>
               <MenuItem value="option2">Option 2</MenuItem>
+              <MenuItem value="option3">Option 3</MenuItem>
             </Select>
 
             {/* Topic List */}
