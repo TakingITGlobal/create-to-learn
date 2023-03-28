@@ -326,11 +326,15 @@ function BrowseTabs({ categories, search }) {
                 {t('browse.show-filters')}
               </Button>
 
-              <Box>
-                {courses.map((course, index) => (
-                  <CourseCard key={index} course={course} />
-                ))}
-              </Box>
+              {courses.length ? (
+                <Box>
+                  {courses.map((course, index) => (
+                    <CourseCard key={index} course={course} />
+                  ))}
+                </Box>
+              ) : (
+                <EmptyState search={search} />
+              )}
             </>
           )}
         </TabPanel>
@@ -342,11 +346,15 @@ function BrowseTabs({ categories, search }) {
               <Button variant="outlined" onClick={() => setOpenDrawer(true)}>
                 Show all filters
               </Button>
-              <Box>
-                {creators.map((creator, index) => (
-                  <CreatorCard key={index} creator={creator} />
-                ))}
-              </Box>
+              {creators.length ? (
+                <Box>
+                  {creators.map((creator, index) => (
+                    <CreatorCard key={index} creator={creator} />
+                  ))}
+                </Box>
+              ) : (
+                <EmptyState search={search} />
+              )}
             </>
           )}
         </TabPanel>
@@ -678,5 +686,23 @@ const CreatorDrawerContent = ({
         </Stack>
       </Box>
     </>
+  )
+}
+
+const EmptyState = (search) => {
+  return (
+    <Box mt={5}>
+      <Box>
+        <Typography variant="subtitle1">
+          Sorry we could find any matches for{' '}
+          {search !== '' ? `${search.search} and ` : ''} your chosen filters.
+        </Typography>
+      </Box>
+      <Box mt={3}>
+        <Typography variant="body2">
+          Please try searching with another term.
+        </Typography>
+      </Box>
+    </Box>
   )
 }
