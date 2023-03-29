@@ -7,8 +7,10 @@ import {
   AppBar,
   Box,
   Button,
+  Card,
+  CardContent,
+  CardActions,
   Grid,
-  Typography,
   List,
   ListItem,
   ListItemText,
@@ -19,6 +21,7 @@ import {
   styled,
   Tab,
   Tabs,
+  Typography,
   useTheme,
 } from '@mui/material'
 import { ChevronRight, Check, BookmarkBorder } from '@material-ui/icons'
@@ -55,6 +58,7 @@ function CourseSection(props) {
   const [tabValue, setTabValue] = React.useState(0)
   const [downloadOption, setDownloadOption] = React.useState('')
 
+  console.log('props.data:', props.data)
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue)
   }
@@ -75,6 +79,13 @@ function CourseSection(props) {
     color: theme.palette.text.secondary,
   }))
 
+  const description = props.data.description
+  const creator = props.data.creator
+  const creatorPhoto = props.data.creator
+  const videoLinks = props.data.videoLinks
+  const topic = props.data.category[0]
+  const videoLinksArray = props.data.videoLinks.split(', ')
+
   return (
     <Section
       bgColor={props.bgColor}
@@ -88,10 +99,10 @@ function CourseSection(props) {
 
         {/* Vimeo embed */}
         <Vimeo
-          video="https://vimeo.com/76979871"
+          video={videoLinks.split(', ')[0]} // Assuming videoLinks is a comma-separated list of video URLs
           responsive
           width="100vw"
-          height="56.25vw" // This maintains a 16:9 aspect ratio
+          // height="56.25vw" // This maintains a 16:9 aspect ratio
         />
 
         {/* About and Lesson tabs */}
@@ -119,28 +130,34 @@ function CourseSection(props) {
               <ListItem button component="a" href="/artist-page">
                 <ListItemIcon>
                   <img
-                    src="https://via.placeholder.com/50"
-                    alt="Placeholder"
-                    style={{ borderRadius: '50%', backgroundColor: 'gray' }}
+                    src={creatorPhoto}
+                    alt={creator}
+                    style={{
+                      width: '50px',
+                      height: '50px',
+                      objectFit: 'cover',
+                      borderRadius: '50%',
+                      backgroundColor: 'gray',
+                    }}
                   />
                 </ListItemIcon>
-                <ListItemText primary="Artist - Name | Title" />
+                <ListItemText primary={creator} />
                 <ChevronRight />
               </ListItem>
             </List>
 
             {/* Regular paragraph */}
             <Typography variant="body1" sx={{ marginBottom: 2 }}>
-              Lorem ipsum dolor sit amet, consectetur adip non pro id el
+              {description}
             </Typography>
 
             {/* Three text boxes */}
             <Grid container spacing={2}>
               <Grid xs={4}>
-                <Item>Text Box 1</Item>
+                <Item>{props.data.videos.length} Videos</Item>
               </Grid>
               <Grid xs={4}>
-                <Item>Text Box 2</Item>
+                <Item>{props.data.totalLength} minutes</Item>
               </Grid>
               <Grid xs={4}>
                 <Item>Text Box 3</Item>
@@ -181,11 +198,11 @@ function CourseSection(props) {
                 <ListItemIcon>
                   <img
                     src="https://via.placeholder.com/50"
-                    alt="Placeholder"
+                    alt={topic}
                     style={{ borderRadius: '50%', backgroundColor: 'gray' }}
                   />
                 </ListItemIcon>
-                <ListItemText> Topic</ListItemText>
+                <ListItemText> {topic}</ListItemText>
                 <ChevronRight />
               </ListItem>
             </List>
@@ -221,7 +238,41 @@ function CourseSection(props) {
             </List>
           </TabPanel>
           <TabPanel value={tabValue} index={1} dir={theme.direction}>
-            This is the Lesson tab content.
+            {/* List of Lesson content */}
+            <Grid container spacing={2}>
+              {videoLinksArray.map((videoLink, index) => (
+                <Grid key={index} item xs={12} sm={6} md={4}>
+                  <Card>
+                    <CardContent>
+                      <Typography variant="h5" component="h2">
+                        Lesson {index + 1}
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      <Select
+                        value={downloadOption}
+                        onChange={handleDownloadChange}
+                        label="Download"
+                        sx={{ minWidth: 120, marginLeft: 2 }}
+                      >
+                        <MenuItem value="option1">Option 1</MenuItem>
+                        <MenuItem value="option2">Option 2</MenuItem>
+                        <MenuItem value="option3">Option 3</MenuItem>
+                      </Select>
+                      <Button
+                        href={videoLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        variant="contained"
+                        color="primary"
+                      >
+                        Start
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
           </TabPanel>
         </SwipeableViews>
       </Container>
