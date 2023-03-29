@@ -53,7 +53,7 @@ const responsive = {
   },
 }
 
-function DashboardCreatorSpotlight() {
+const DashboardCreatorSpotlight = () => {
   const classes = useStyles()
   const [creators, setCreators] = useState([])
 

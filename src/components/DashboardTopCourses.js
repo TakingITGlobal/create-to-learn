@@ -35,7 +35,7 @@ const responsive = {
   },
 }
 
-function DashboardTopCourses({ category }) {
+const DashboardTopCourses = ({ category }) => {
   const classes = useStyles()
   const [courses, setCourses] = useState([])
 
