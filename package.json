@@ -41,9 +41,9 @@
     "react-window": "^1.8.8",
     "use-local-storage-state": "9.0.2"
   },
-  "engines" : { 
+  "engines": {
     "node": ">=18.15.0",
-    "npm": ">=9.5.0" 
+    "npm": ">=9.5.0"
   },
   "scripts": {
     "start:react": "react-scripts start",
@@ -68,6 +68,11 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/dom": "^9.2.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/user-event": "^13.5.0",
+    "jest-axe": "^7.0.1",
     "prettier": "2.8.4"
   }
 }

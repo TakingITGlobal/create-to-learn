@@ -37,6 +37,18 @@ When the above command completes you'll be able to view your website at `http://
 
 _Note: You can run just the front-end with `npm run start:react`, but `npm start` also handles running your API endpoints (located in the `/api` directory)._
 
+## Testing
+
+Tests in this codebase render using [React Testing Library](https://testing-library.com/docs/) on Jest. We're also using [axe-core (via `jest-axe`)](https://www.npmjs.com/package/jest-axe) for basic accessibility testing.
+
+To start the test suite, run:
+
+```
+npm run test
+```
+
+The suite will automatically run in watch mode.
+
 ## 🥞 Stack
 
 This project uses the following libraries and services:
