@@ -1,28 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import Container from '@material-ui/core/Container'
 import Box from '@material-ui/core/Box'
-import Alert from '@material-ui/lab/Alert'
-import Grid from '@material-ui/core/Grid'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
-import LinkMui from '@material-ui/core/Link'
-import Carousel from 'react-material-ui-carousel'
 import MultiCarousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 
-import { Button, Paper } from '@material-ui/core'
+import { Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import Section from './Section'
-import SectionHeader from './SectionHeader'
-import DashboardItems from './DashboardItems'
-import SignUp from './SignUp'
 import CircularProgress from '@mui/material/CircularProgress'
-
-import DashboardTopCourses from './DashboardTopCourses'
-import DashboardLearningPaths from './DashboardLearningPaths'
-import { Link, useRouter } from './../util/router'
-import { useAuth } from './../util/auth'
 import { useCreators } from '../util/db'
 
 const useStyles = makeStyles((theme) => ({
@@ -63,7 +47,7 @@ const DashboardCreatorSpotlight = () => {
     if (!isLoading) {
       setCreators(data)
     }
-  }, [data])
+  }, [data, isLoading])
 
   return isLoading ? (
     <CircularProgress />
@@ -92,6 +76,7 @@ const DashboardCreatorSpotlight = () => {
                 }}
               >
                 <img
+                  alt={`creator-${item.name}`}
                   src={
                     item && item.image && item.image.length
                       ? item.image[0].downloadURL

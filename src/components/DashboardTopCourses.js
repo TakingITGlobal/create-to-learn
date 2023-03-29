@@ -74,6 +74,7 @@ const DashboardTopCourses = ({ category }) => {
                   }}
                 >
                   <img
+                    alt={`${item.seriesName}-course`}
                     src={item.thumbnail[0]?.downloadURL}
                     style={{
                       top: 0,
@@ -96,7 +97,7 @@ const DashboardTopCourses = ({ category }) => {
                     <Typography>{item.creator}</Typography>
                     <Typography>
                       {item.videos.length}{' '}
-                      {item.videos.length == 1 ? 'Video' : 'Videos'}
+                      {item.videos.length === 1 ? 'Video' : 'Videos'}
                     </Typography>
                   </>
                 </Box>

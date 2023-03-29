@@ -46,7 +46,7 @@ const DashboardLearningPaths = () => {
     if (!isLoading) {
       setLearningPaths(data)
     }
-  }, [data])
+  }, [data, isLoading])
 
   return isLoading ? (
     <CircularProgress />
