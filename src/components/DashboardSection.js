@@ -19,9 +19,11 @@ import DashboardItems from './DashboardItems'
 import SignUp from './SignUp'
 import CircularProgress from '@mui/material/CircularProgress'
 
+import DashboardTopCourses from './DashboardTopCourses'
+import DashboardLearningPaths from './DashboardLearningPaths'
+import DashboardCreatorSpotlight from './DashboardCreatorSpotlight'
 import { Link, useRouter } from './../util/router'
 import { useAuth } from './../util/auth'
-import { useLearningPaths, useCoursePerCategory, useCreators } from '../util/db'
 
 const useStyles = makeStyles((theme) => ({
   cardContent: {
@@ -176,10 +178,10 @@ function DashboardSection(props) {
             </Card>
           </Grid>
         </Grid> */}
-        <CreatorSpotlight />
-        <LearningPath />
+        <DashboardCreatorSpotlight />
+        <DashboardLearningPaths />
         {categoryInterests.map((interest, index) => (
-          <TopCourses key={index} category={interest} />
+          <DashboardTopCourses key={index} category={interest} />
         ))}
       </Container>
     </Section>
@@ -187,238 +189,3 @@ function DashboardSection(props) {
 }
 
 export default DashboardSection
-
-function CreatorSpotlight() {
-  const classes = useStyles()
-  const [creators, setCreators] = useState([])
-
-  const { isLoading, data } = useCreators()
-
-  useEffect(() => {
-    if (!isLoading) {
-      setCreators(data)
-    }
-  }, [data])
-
-  return isLoading ? (
-    <CircularProgress />
-  ) : (
-    <>
-      <Box sx={{ paddingBottom: 5 }}>
-        <Typography>Creator Spotlight</Typography>
-      </Box>
-      <MultiCarousel
-        ssr
-        partialVisible
-        responsive={responsive}
-        swipeable
-        itemClass={classes.carouselItem}
-      >
-        {creators.map((item, i) => {
-          return (
-            <Paper key={i} sx={{ padding: 2.5, height: '400px' }}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  width: '100%',
-                  height: '200px',
-                  overflow: 'hidden',
-                }}
-              >
-                <img
-                  src={
-                    item && item.image && item.image.length
-                      ? item.image[0].downloadURL
-                      : ''
-                  }
-                  style={{
-                    top: 0,
-                    width: '100%',
-                    height: 'auto',
-                    objectFit: 'cover',
-                  }}
-                />
-              </Box>
-              <Box sx={{ padding: 10 }}>
-                <h2>{item.seriesName}</h2>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    paddingBottom: 5,
-                  }}
-                >
-                  <Typography>{item.name}</Typography>
-                </Box>
-                <Box sx={{ paddingBottom: 5 }}>
-                  <Typography>
-                    {
-                      item.pleaseIncludeAShort23SentenceBioThatWeCanUseWhenPromotingYourContent
-                    }
-                  </Typography>
-                </Box>
-                {/* <Box>
-                <Button
-                  color="primary"
-                  fullWidth
-                  variant="contained"
-                  href={item.webUrl}
-                >
-                  See details
-                </Button>
-              </Box> */}
-              </Box>
-            </Paper>
-          )
-        })}
-      </MultiCarousel>
-    </>
-  )
-}
-
-function LearningPath() {
-  const classes = useStyles()
-  const [learningPaths, setLearningPaths] = useState([])
-
-  const { isLoading, data } = useLearningPaths()
-
-  useEffect(() => {
-    if (!isLoading) {
-      setLearningPaths(data)
-    }
-  }, [data])
-
-  return isLoading ? (
-    <CircularProgress />
-  ) : (
-    <>
-      <Box sx={{ paddingBottom: 5 }}>
-        <Typography>Learning paths for students</Typography>
-      </Box>
-      <MultiCarousel
-        ssr
-        partialVisible
-        responsive={responsive}
-        swipeable
-        itemClass={classes.carouselItem}
-      >
-        {learningPaths.map((item, i) => (
-          <Paper
-            key={i}
-            sx={{
-              padding: 10,
-              height: '250px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Box sx={{ padding: 10 }}>
-              <Box>
-                <h2>{item.name}</h2>
-                <p>Throughout this unit ...</p>
-                {item.seriesInPath.length > 0 && (
-                  <p> Time Series: {item.seriesInPath.join()}</p>
-                )}
-              </Box>
-              <Box>
-                <Button color="primary" fullWidth variant="contained">
-                  See details
-                </Button>
-              </Box>
-            </Box>
-          </Paper>
-        ))}
-      </MultiCarousel>
-    </>
-  )
-}
-
-function TopCourses({ category }) {
-  const classes = useStyles()
-  const [courses, setCourses] = useState([])
-
-  const { data: courseData } = useCoursePerCategory([category])
-
-  useEffect(() => {
-    if (courseData?.length) {
-      setCourses(courseData)
-    }
-  }, [courseData])
-
-  return (
-    <>
-      <Box sx={{ paddingBottom: 5 }}>
-        <Typography>Top Courses in {category}</Typography>
-      </Box>
-      <MultiCarousel
-        ssr
-        partialVisible
-        responsive={responsive}
-        swipeable
-        itemClass={classes.carouselItem}
-      >
-        {courses.map((item, i) => {
-          return (
-            <Paper key={i} sx={{ padding: 2.5, height: '450px' }}>
-              <Box sx={{ padding: 10 }}>
-                {/* Use the course photo instead of the creator photo once we have a valid url */}
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    width: '100%',
-                    height: '200px',
-                    overflow: 'hidden',
-                  }}
-                >
-                  <img
-                    src={item.thumbnail[0]?.downloadURL}
-                    style={{
-                      top: 0,
-                      width: '100%',
-                      height: 'auto',
-                      objectFit: 'cover',
-                    }}
-                  />
-                </Box>
-                <h2>{item.seriesName}</h2>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    paddingBottom: 5,
-                  }}
-                >
-                  <>
-                    <Typography>{item.creator}</Typography>
-                    <Typography>
-                      {item.videos.length}{' '}
-                      {item.videos.length == 1 ? 'Video' : 'Videos'}
-                    </Typography>
-                  </>
-                </Box>
-                <Box sx={{ paddingBottom: 5 }}>
-                  <Typography>Materials: </Typography>
-                </Box>
-                <Box>
-                  <Button
-                    color="primary"
-                    fullWidth
-                    variant="contained"
-                    href={'/course/' + item.uid}
-                  >
-                    See details
-                  </Button>
-                </Box>
-              </Box>
-            </Paper>
-          )
-        })}
-      </MultiCarousel>
-    </>
-  )
-}

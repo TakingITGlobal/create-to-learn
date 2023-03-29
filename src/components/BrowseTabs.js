@@ -24,8 +24,8 @@ const TabPanel = (props) => {
     <div
       role="tabpanel"
       hidden={tabIndex !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
+      id={`browse-tabpanel-${index}`}
+      aria-labelledby={`browse-tab-${index}`}
       {...other}
     >
       {tabIndex === index && (
@@ -132,7 +132,8 @@ const BrowseTabs = ({ categories, search }) => {
   useEffect(() => {
     const culturalGroupsToFilter = culturalGroupFilter.length
       ? culturalGroupFilter
-      : culturalGroups + ['']
+      : //some creators do not have a cultural group set
+        culturalGroups + ['']
 
     const filteredCreators = allCreators.filter((creator) => {
       const creatorFNMI = creator.fnmi ? creator.fnmi : ['']
