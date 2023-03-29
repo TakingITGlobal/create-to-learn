@@ -19,9 +19,11 @@ import DashboardItems from './DashboardItems'
 import SignUp from './SignUp'
 import CircularProgress from '@mui/material/CircularProgress'
 
+import DashboardTopCourses from './DashboardTopCourses'
+import DashboardLearningPaths from './DashboardLearningPaths'
+import DashboardCreatorSpotlight from './DashboardCreatorSpotlight'
 import { Link, useRouter } from './../util/router'
 import { useAuth } from './../util/auth'
-import { useLearningPaths, useCoursePerCategory, useCreators } from '../util/db'
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const styles = theme => ({
@@ -178,10 +180,10 @@ function DashboardSection(props) {
             </Card>
           </Grid>
         </Grid> */}
-        <CreatorSpotlight />
-        <LearningPath />
+        <DashboardCreatorSpotlight />
+        <DashboardLearningPaths />
         {categoryInterests.map((interest, index) => (
-          <TopCourses key={index} category={interest} />
+          <DashboardTopCourses key={index} category={interest} />
         ))}
       </Container>
     </Section>

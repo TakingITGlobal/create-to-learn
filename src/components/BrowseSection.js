@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Section from './Section'
+
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import OutlinedInput from '@mui/material/OutlinedInput'
@@ -18,8 +19,10 @@ import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 
-import { useCreatorsAll, useCategories, useCoursePerCategory } from '../util/db'
-import { useTranslation } from 'react-i18next'
+import BrowseSearchBar from './BrowseSearchBar'
+import BrowseTabs from './BrowseTabs'
+
+import { useCategories } from '../util/db'
 
 function BrowseSection(props) {
   const [showSearchBar, setShowSearchBar] = useState(false)
@@ -59,7 +62,7 @@ function BrowseSection(props) {
                 width: '100%',
               }}
             >
-              <SearchBar setSearch={setSearch} search={search} />
+              <BrowseSearchBar setSearch={setSearch} search={search} />
             </Box>
             <Box
               sx={{
