@@ -1,21 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Box from '@material-ui/core/Box'
 import Alert from '@material-ui/lab/Alert'
 import AuthForm from './AuthForm'
 import AuthSocial from './AuthSocial'
-import { useRouter } from './../util/router'
+import { useAuthForm } from '../hooks/use-auth-form.hook'
 
 function Auth(props) {
-  const router = useRouter()
-  const [formAlert, setFormAlert] = useState(null)
-
-  const handleAuth = (user) => {
-    router.push(props.afterAuthPath)
-  }
-
-  const handleFormAlert = (data) => {
-    setFormAlert(data)
-  }
+  const { formAlert, handleAuth, handleFormAlert } = useAuthForm()
 
   return (
     <>
@@ -28,7 +19,7 @@ function Auth(props) {
       <AuthForm
         type={props.type}
         buttonAction={props.buttonAction}
-        onAuth={handleAuth}
+        onAuth={() => handleAuth(props.afterAuthPath)}
         onFormAlert={handleFormAlert}
       />
 
@@ -43,7 +34,7 @@ function Auth(props) {
                 buttonAction={props.buttonAction}
                 providers={props.providers}
                 showLastUsed={true}
-                onAuth={handleAuth}
+                onAuth={() => handleAuth(props.afterAuthPath)}
                 onError={(message) => {
                   handleFormAlert({
                     type: 'error',
