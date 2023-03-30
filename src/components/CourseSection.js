@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SwipeableViews from 'react-swipeable-views'
 import Container from '@material-ui/core/Container'
 import Section from './Section'
@@ -10,7 +10,9 @@ import {
   Card,
   CardContent,
   CardActions,
+  FormControl,
   Grid,
+  InputLabel,
   List,
   ListItem,
   ListItemText,
@@ -55,10 +57,11 @@ function a11yProps(index) {
 
 function CourseSection(props) {
   const theme = useTheme()
-  const [tabValue, setTabValue] = React.useState(0)
-  const [downloadOption, setDownloadOption] = React.useState('')
+  const [tabValue, setTabValue] = useState(0)
+  const [downloadOption, setDownloadOption] = useState('')
 
   console.log('props.data:', props.data)
+
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue)
   }
@@ -79,13 +82,28 @@ function CourseSection(props) {
     color: theme.palette.text.secondary,
   }))
 
+  function extractImageUrl(imageString) {
+    const urlRegex = /https?:\/\/[^)]+/
+    const match = imageString.match(urlRegex)
+    return match ? match[0] : ''
+  }
+
+  
+  const handleStartButtonClick = (videoId) => {
+    setPlayingVideoId(videoId);
+  };
+  
+  
+  
   const description = props.data.description
   const creator = props.data.creator
-  const creatorPhoto = props.data.creator
+  const creatorPhoto = extractImageUrl(props.data.creatorPhoto)
   const videoLinks = props.data.videoLinks
   const topic = props.data.category[0]
   const videoLinksArray = props.data.videoLinks.split(', ')
-
+  
+  const [playingVideoId, setPlayingVideoId] = React.useState(videoLinksArray[0]);
+  
   return (
     <Section
       bgColor={props.bgColor}
@@ -98,12 +116,8 @@ function CourseSection(props) {
         <h1>{props.data?.seriesName}</h1>
 
         {/* Vimeo embed */}
-        <Vimeo
-          video={videoLinks.split(', ')[0]} // Assuming videoLinks is a comma-separated list of video URLs
-          responsive
-          width="100vw"
-          // height="56.25vw" // This maintains a 16:9 aspect ratio
-        />
+        <Vimeo video={playingVideoId} responsive width="100vw" />
+
 
         {/* About and Lesson tabs */}
         <AppBar position="static" color="default">
@@ -173,16 +187,19 @@ function CourseSection(props) {
             <Button variant="text" startIcon={<BookmarkBorder />}>
               Add to Watchlist
             </Button>
-            <Select
-              value={downloadOption}
-              onChange={handleDownloadChange}
-              label="Download"
-              sx={{ minWidth: 120, marginLeft: 2 }}
-            >
-              <MenuItem value="option1">Option 1</MenuItem>
-              <MenuItem value="option2">Option 2</MenuItem>
-              <MenuItem value="option3">Option 3</MenuItem>
-            </Select>
+            <FormControl sx={{ minWidth: 120, marginLeft: 2 }}>
+              <InputLabel id="download-label" sx={{color: 'white'}}>Download</InputLabel>
+              <Select
+                value={downloadOption}
+                onChange={handleDownloadChange}
+                labelId="download-label"
+                color="primary"
+              >
+                <MenuItem value="option1">Option 1</MenuItem>
+                <MenuItem value="option2">Option 2</MenuItem>
+                <MenuItem value="option3">Option 3</MenuItem>
+              </Select>
+            </FormControl>
 
             {/* Topic List */}
             <Typography variant="h3" sx={{ marginTop: 2 }}>
@@ -237,6 +254,7 @@ function CourseSection(props) {
               </ListItem>
             </List>
           </TabPanel>
+
           <TabPanel value={tabValue} index={1} dir={theme.direction}>
             {/* List of Lesson content */}
             <Grid container spacing={2}>
@@ -249,22 +267,23 @@ function CourseSection(props) {
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      <Select
-                        value={downloadOption}
-                        onChange={handleDownloadChange}
-                        label="Download"
-                        sx={{ minWidth: 120, marginLeft: 2 }}
-                      >
-                        <MenuItem value="option1">Option 1</MenuItem>
-                        <MenuItem value="option2">Option 2</MenuItem>
-                        <MenuItem value="option3">Option 3</MenuItem>
-                      </Select>
+                      <FormControl sx={{ minWidth: 120, marginLeft: 2 }}>
+                        <InputLabel id="download-label">Download</InputLabel>
+                        <Select
+                          value={downloadOption}
+                          onChange={handleDownloadChange}
+                          labelId="download-label"
+                        >
+                          <MenuItem value="option1">Option 1</MenuItem>
+                          <MenuItem value="option2">Option 2</MenuItem>
+                          <MenuItem value="option3">Option 3</MenuItem>
+                        </Select>
+                      </FormControl>
                       <Button
-                        href={videoLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        onClick={() => handleStartButtonClick(videoLink)}
                         variant="contained"
                         color="primary"
+                        size="large"
                       >
                         Start
                       </Button>
