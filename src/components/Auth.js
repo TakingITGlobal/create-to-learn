@@ -11,7 +11,7 @@ function Auth({ buttonAction, providers }) {
   return (
     <>
       {formAlert && (
-        <Box mb={3}>
+        <Box mb={3} data-testid="auth-form-alert">
           <Alert severity={formAlert.type}>{formAlert.message}</Alert>
         </Box>
       )}
