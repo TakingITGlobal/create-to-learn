@@ -1,23 +1,23 @@
 import React from 'react'
 
-import Box from '@mui/materialcore/Box'
+import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import Typography from '@mui/materialTypography'
+import Typography from '@mui/material/Typography'
 import { Link } from './../util/router'
 
 function SignUp({ setDismissed = null, showDismissButton = false }) {
   return (
     <Box align="center" sx={{ padding: '30px 10px 10px 10px' }}>
-      <Box sx={{ padding: 5 }}>
+      <Box sx={{ padding: 2 }}>
         <Typography variant="h6">Sign up or Sign in</Typography>
       </Box>
-      <Box sx={{ padding: 10 }}>
+      <Box sx={{ padding: 2 }}>
         <Typography>
           It helps us know you better, show you things you like, and track your
           progress
         </Typography>
       </Box>
-      <Box sx={{ padding: 5 }}>
+      <Box sx={{ padding: 2 }}>
         <Button
           variant="contained"
           color="primary"
@@ -27,7 +27,7 @@ function SignUp({ setDismissed = null, showDismissButton = false }) {
           Start Now
         </Button>
       </Box>
-      <Box sx={{ padding: 5 }}>
+      <Box sx={{ padding: 2 }}>
         {showDismissButton && (
           <Button
             variant="outlined"

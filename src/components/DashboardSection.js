@@ -57,6 +57,7 @@ function DashboardSection(props) {
         {categoryInterests.map((interest, index) => (
           <DashboardTopCourses
             key={index}
+            category={interest}
             title={`Top Courses in ${interest}`}
           />
         ))}

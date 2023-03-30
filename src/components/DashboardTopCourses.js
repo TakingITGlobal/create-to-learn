@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import MultiCarousel from 'react-multi-carousel'
-import Box from '@mui/material/Box'
+import Box from '@material-ui/core/Box'
 import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button'
-import Paper from '@mui/material/Paper'
+import { Button, Paper } from '@material-ui/core'
 
 import { makeStyles } from '@material-ui/core/styles'
 import { useCoursePerCategory } from '../util/db'

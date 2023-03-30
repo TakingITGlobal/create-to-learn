@@ -1,17 +1,17 @@
 import React from 'react'
-import List from '@mui/materialList'
-import ListItemText from '@mui/materialListItemText'
-import ListItem from '@mui/materialListItem'
-import Container from '@mui/materialContainer'
-import ListItemSecondaryAction from '@mui/materialListItemSecondaryAction'
-import Box from '@mui/materialBox'
-import Button from '@mui/materialButton'
-import Typography from '@mui/materialTypography'
-import Paper from '@mui/materialaper'
-import Grid from '@mui/materialGrid'
-import IconButton from '@mui/materialIconButton'
-import ChevronRightIcon from '@mui/materialChevronRight'
-import MeetingRoomIcon from '@mui/materialMeetingRoom'
+import List from '@mui/material/List'
+import ListItemText from '@mui/material/ListItemText'
+import ListItem from '@mui/material/ListItem'
+import Container from '@mui/material/Container'
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
+import Grid from '@mui/material/Grid'
+import IconButton from '@mui/material/IconButton'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import MeetingRoomIcon from '@mui/icons-material/MeetingRoom'
 import SignUp from './SignUp'
 
 import { useAuth } from './../util/auth'
@@ -42,13 +42,23 @@ function SettingsProfile() {
         {settingsLinks.map(
           ({ title, link }) =>
             (title !== 'My Account' || auth.user) && (
-              <ListItem button component={Link} to={link} key={title}>
-                <ListItemText>{title}</ListItemText>
-                <ListItemSecondaryAction>
-                  <IconButton component={Link} to={link}>
+              <ListItem
+                component={Link}
+                to={link}
+                key={title}
+                secondaryAction={
+                  <IconButton
+                    component={Link}
+                    to={link}
+                    color="inherit"
+                    edge="end"
+                    aria-label="chevron-right"
+                  >
                     <ChevronRightIcon />
                   </IconButton>
-                </ListItemSecondaryAction>
+                }
+              >
+                <ListItemText>{title}</ListItemText>
               </ListItem>
             ),
         )}
