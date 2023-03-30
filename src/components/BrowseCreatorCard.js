@@ -1,8 +1,8 @@
 import React from 'react'
-import Box from '@material-ui/core/Box'
-import Typography from '@material-ui/core/Typography'
-import Paper from '@material-ui/core/Paper'
-import Button from '@material-ui/core/Button'
+import Box from '@mui/material//Box'
+import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
+import Button from '@mui/material/Button'
 
 import { useTranslation } from 'react-i18next'
 

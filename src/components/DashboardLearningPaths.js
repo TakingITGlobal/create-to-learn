@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Box from '@material-ui/core/Box'
-import Typography from '@material-ui/core/Typography'
+import Typography from '@mui/material/Typography'
 import MultiCarousel from 'react-multi-carousel'
 import CircularProgress from '@mui/material/CircularProgress'
 import { Button, Paper } from '@material-ui/core'
