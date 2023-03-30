@@ -5,8 +5,8 @@ import AuthForm from './AuthForm'
 import AuthSocial from './AuthSocial'
 import { useAuthForm } from '../hooks/use-auth-form.hook'
 
-function Auth(props) {
-  const { formAlert, handleAuth, handleFormAlert } = useAuthForm()
+function Auth({ buttonAction, providers }) {
+  const { formAlert, handleAuth, handleFormAlert, type } = useAuthForm()
 
   return (
     <>
@@ -17,24 +17,24 @@ function Auth(props) {
       )}
 
       <AuthForm
-        type={props.type}
-        buttonAction={props.buttonAction}
-        onAuth={() => handleAuth(props.afterAuthPath)}
+        type={type}
+        buttonAction={buttonAction}
+        onAuth={handleAuth}
         onFormAlert={handleFormAlert}
       />
 
-      {['signup', 'signin'].includes(props.type) && (
+      {['signup', 'signin'].includes(type) && (
         <>
-          {props.providers && props.providers.length && (
+          {providers && providers.length && (
             <>
               <Box textAlign="center" fontSize={12} my={2}>
                 OR
               </Box>
               <AuthSocial
-                buttonAction={props.buttonAction}
-                providers={props.providers}
+                buttonAction={buttonAction}
+                providers={providers}
                 showLastUsed={true}
-                onAuth={() => handleAuth(props.afterAuthPath)}
+                onAuth={handleAuth}
                 onError={(message) => {
                   handleFormAlert({
                     type: 'error',

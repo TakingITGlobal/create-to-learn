@@ -5,7 +5,10 @@ export const useAuthForm = () => {
   const router = useRouter()
   const [formAlert, setFormAlert] = useState(null)
 
-  const handleAuth = (afterAuthPath) => {
+  const type = router.query.type
+  const afterAuthPath = router.query.next || '/dashboard'
+
+  const handleAuth = () => {
     router.push(afterAuthPath)
   }
 
@@ -13,5 +16,5 @@ export const useAuthForm = () => {
     setFormAlert(data)
   }
 
-  return { formAlert, handleAuth, handleFormAlert }
+  return { formAlert, handleAuth, handleFormAlert, type }
 }
