@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
-import Box from '@material-ui/core/Box'
-import Container from '@material-ui/core/Container'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
-import IconButton from '@material-ui/core/IconButton'
-import Typography from '@material-ui/core/Typography'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight'
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemText from '@mui/material/ListItemText'
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import ArrowBack from './ArrowBack'
-import LinkComp from '@material-ui/core/Link'
+import LinkComp from '@mui/material/Link'
 import { useAuth } from './../util/auth'
 
 function SettingsLegal(props) {
@@ -53,66 +53,64 @@ function SettingsLegal(props) {
 export default SettingsLegal
 
 function LegalNav({ setShowComponent }) {
-  return (
-    <>
-      <List>
-        <Typography variant="h6">Legal</Typography>
-        <ListItem
-          button
-          onClick={() => {
-            setShowComponent('privacyPolicy')
-          }}
-        >
-          <ListItemText>Privacy Policy</ListItemText>
-          <ListItemSecondaryAction>
-            <IconButton>
-              <ChevronRightIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
-        <ListItem
-          button
-          onClick={() => {
-            setShowComponent('termsOfService')
-          }}
-        >
-          <ListItemText>Terms of Service</ListItemText>
-          <ListItemSecondaryAction>
-            <IconButton>
-              <ChevronRightIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
-        <Typography variant="h6">About</Typography>
-        <ListItem
-          button
-          onClick={() => {
-            setShowComponent('aboutCreateToLearn')
-          }}
-        >
-          <ListItemText>About Create to Learn</ListItemText>
-          <ListItemSecondaryAction>
-            <IconButton>
-              <ChevronRightIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
-        <ListItem
-          button
-          onClick={() => {
-            setShowComponent('aboutOrganization')
-          }}
-        >
-          <ListItemText>About the Organization</ListItemText>
-          <ListItemSecondaryAction>
-            <IconButton>
-              <ChevronRightIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
-      </List>
-    </>
-  )
+  return <>
+    <List>
+      <Typography variant="h6">Legal</Typography>
+      <ListItem
+        button
+        onClick={() => {
+          setShowComponent('privacyPolicy')
+        }}
+      >
+        <ListItemText>Privacy Policy</ListItemText>
+        <ListItemSecondaryAction>
+          <IconButton size="large">
+            <ChevronRightIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
+      </ListItem>
+      <ListItem
+        button
+        onClick={() => {
+          setShowComponent('termsOfService')
+        }}
+      >
+        <ListItemText>Terms of Service</ListItemText>
+        <ListItemSecondaryAction>
+          <IconButton size="large">
+            <ChevronRightIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
+      </ListItem>
+      <Typography variant="h6">About</Typography>
+      <ListItem
+        button
+        onClick={() => {
+          setShowComponent('aboutCreateToLearn')
+        }}
+      >
+        <ListItemText>About Create to Learn</ListItemText>
+        <ListItemSecondaryAction>
+          <IconButton size="large">
+            <ChevronRightIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
+      </ListItem>
+      <ListItem
+        button
+        onClick={() => {
+          setShowComponent('aboutOrganization')
+        }}
+      >
+        <ListItemText>About the Organization</ListItemText>
+        <ListItemSecondaryAction>
+          <IconButton size="large">
+            <ChevronRightIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
+      </ListItem>
+    </List>
+  </>;
 }
 
 function AboutCreateToLearn({ setShowComponent }) {

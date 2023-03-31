@@ -1,20 +1,21 @@
 import React, { useState,useEffect } from 'react'
-
-import { makeStyles } from '@material-ui/core/styles'
-import { Grid, MobileStepper, Button, Box, Container } from '@material-ui/core';
-import { ArrowBack } from '@material-ui/icons';
+import useClasses from '../hooks/useClasses'
+import { Grid, MobileStepper, Button, Box, Container } from '@mui/material';
+import { ArrowBack } from '@mui/icons-material';
 
 import { useTranslation } from 'react-i18next';
 import Carousel from 'react-material-ui-carousel'
 
 
-const useStyles = makeStyles((theme) => ({ 
+const styles = theme => ({
+
   container: {
     width: '100%',
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
   },
+
   carousel: {
     flex: 1, 
     display: 'flex', 
@@ -33,9 +34,11 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+
   progressWrap: {
     height: 48,
   },
+
   btnWrap: {
     display: 'flex',
     alignItems: 'center',
@@ -44,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     padding: 8,
   },
+
   progress: {
     width: '100%',
     display: 'flex',
@@ -57,15 +61,13 @@ const useStyles = makeStyles((theme) => ({
       height: 5,
       borderRadius: 8,
     },
-  },
-}))
-export const active = () => {
+  }
+});
 
-}
 
 const PageCarousel = ({children,split,state}) => {
   const { t } = useTranslation();
-  const classes = useStyles()
+  const classes = useClasses(styles)
   const totalSlides = children.length;
   const { active, setActive,curLength } = state;
   const wLength = split;
@@ -86,7 +88,7 @@ const PageCarousel = ({children,split,state}) => {
       setIActive(Math.max(active - wLength, 0))
   ),[active,wLength])
   return (
-    <>
+    (<>
       <Grid className={classes.container}>
         <Container>
           <Grid className={classes.progressWrap}>
@@ -150,8 +152,8 @@ const PageCarousel = ({children,split,state}) => {
           )}
         </Container>
       </Grid>
-    </>
-  )
+    </>)
+  );
 }
 
 export default PageCarousel

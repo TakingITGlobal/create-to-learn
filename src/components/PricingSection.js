@@ -1,51 +1,55 @@
 import React from 'react'
-import Container from '@material-ui/core/Container'
-import Grid from '@material-ui/core/Grid'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import Typography from '@material-ui/core/Typography'
-import Box from '@material-ui/core/Box'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import CheckIcon from '@material-ui/icons/Check'
-import ListItemText from '@material-ui/core/ListItemText'
-import Button from '@material-ui/core/Button'
-import { makeStyles } from '@material-ui/core/styles'
+import useClasses from '../hooks/useClasses'
+import Container from '@mui/material/Container'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import CheckIcon from '@mui/icons-material/Check'
+import ListItemText from '@mui/material/ListItemText'
+import Button from '@mui/material/Button'
 import Section from './Section'
 import SectionHeader from './SectionHeader'
 import { Link } from './../util/router'
 import { useAuth } from './../util/auth'
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   card: {
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
   },
+
   cardContent: {
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
     padding: theme.spacing(3),
   },
+
   price: {
     display: 'flex',
     alignItems: 'baseline',
   },
+
   listItem: {
     paddingTop: 2,
     paddingBottom: 2,
   },
+
   perkIcon: {
     minWidth: 34,
     color: theme.palette.success.main,
-  },
-}))
+  }
+});
 
 function PricingSection(props) {
-  const classes = useStyles()
 
+  const classes = useClasses(styles)
   const auth = useAuth()
 
   const plans = [
@@ -166,7 +170,7 @@ function PricingSection(props) {
         </Grid>
       </Container>
     </Section>
-  )
+  );
 }
 
 export default PricingSection

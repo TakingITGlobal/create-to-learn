@@ -1,14 +1,14 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import BottomNavigation from '@material-ui/core/BottomNavigation'
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
-import HouseIcon from '@material-ui/icons/House'
-import PublicIcon from '@material-ui/icons/Public'
-import LibraryIcon from '@material-ui/icons/LocalLibrary'
-import AccountIcon from '@material-ui/icons/AccountCircle'
+import useClasses from '../hooks/useClasses'
+import BottomNavigation from '@mui/material/BottomNavigation'
+import BottomNavigationAction from '@mui/material/BottomNavigationAction'
+import HouseIcon from '@mui/icons-material/House'
+import PublicIcon from '@mui/icons-material/Public'
+import LibraryIcon from '@mui/icons-material/LocalLibrary'
+import AccountIcon from '@mui/icons-material/AccountCircle'
 import { Link } from './../util/router'
 
-const useStyles = makeStyles({
+const styles = theme => ({
   root: {
     gap: 10,
     position: 'fixed',
@@ -16,12 +16,13 @@ const useStyles = makeStyles({
     left:0,
     right:0,
   },
-})
+});
 
 export default function BottomNavbar() {
-  const classes = useStyles()
-  const [value, setValue] = React.useState(0)
 
+  const [value, setValue] = React.useState(0)
+  const classes = useClasses(styles)
+  
   return (
     <BottomNavigation
       value={value}
@@ -56,5 +57,5 @@ export default function BottomNavbar() {
         icon={<AccountIcon />}
       />
     </BottomNavigation>
-  )
+  );
 }

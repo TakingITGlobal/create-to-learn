@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import Box from '@material-ui/core/Box'
-import Alert from '@material-ui/lab/Alert'
+import Box from '@mui/material/Box'
+import Alert from '@mui/material/Alert'
 import AuthForm from './AuthForm'
 import AuthSocial from './AuthSocial'
 import { useRouter } from './../util/router'

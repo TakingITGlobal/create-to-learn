@@ -1,7 +1,8 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import useClasses from '../hooks/useClasses'
+const PREFIX = 'BackgroundImage';
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   root: {
     content: '',
     backgroundPosition: 'center center',
@@ -12,11 +13,11 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     position: 'absolute',
     zIndex: 0,
-  },
-}))
+  }
+});
 
 function BackgroundImage(props) {
-  const classes = useStyles()
+  const classes = useClasses(styles)
 
   const { image, opacity, ...otherProps } = props
 

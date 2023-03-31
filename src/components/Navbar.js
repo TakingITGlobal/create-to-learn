@@ -1,28 +1,27 @@
 import React, { useState } from 'react'
-import AppBar from '@material-ui/core/AppBar'
-import Container from '@material-ui/core/Container'
-import Toolbar from '@material-ui/core/Toolbar'
-import Hidden from '@material-ui/core/Hidden'
-import IconButton from '@material-ui/core/IconButton'
-import MenuIcon from '@material-ui/icons/Menu'
-import Button from '@material-ui/core/Button'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
-// import Divider from '@material-ui/core/Divider'
-// import NightsStayIcon from '@material-ui/icons/NightsStay'
-// import WbSunnyIcon from '@material-ui/icons/WbSunny'
-import Drawer from '@material-ui/core/Drawer'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import { makeStyles } from '@material-ui/core/styles'
+import useClasses from '../hooks/useClasses'
+import AppBar from '@mui/material/AppBar'
+import Container from '@mui/material/Container'
+import Toolbar from '@mui/material/Toolbar'
+import Hidden from '@mui/material/Hidden'
+import IconButton from '@mui/material/IconButton'
+import MenuIcon from '@mui/icons-material/Menu'
+import Button from '@mui/material/Button'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+// import Divider from '@mui/material/Divider'
+// import NightsStayIcon from '@mui/icons-material/NightsStay'
+// import WbSunnyIcon from '@mui/icons-material/WbSunny'
+import Drawer from '@mui/material/Drawer'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemText from '@mui/material/ListItemText'
 import Section from './Section'
 import { Link } from './../util/router'
 import { useAuth } from './../util/auth'
-// import { useDarkMode } from './../util/theme'
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   logo: {
     height: 28,
     marginRight: theme.spacing(2),
@@ -34,20 +33,23 @@ const useStyles = makeStyles((theme) => ({
     whiteSpace: 'nowrap',
     textDecoration: 'none',
   },
+
   drawerList: {
     width: 250,
   },
+
   spacer: {
     flexGrow: 1,
   },
+
   toolbar: {
     zIndex: 100,
-  },
-}))
+  }
+});
 
 function Navbar(props) {
-  const classes = useStyles()
 
+  const classes = useClasses(styles)
   const auth = useAuth()
   // const darkMode = useDarkMode()
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -93,11 +95,11 @@ function Navbar(props) {
                   setDrawerOpen(true)
                 }}
                 color="inherit"
-              >
+                size="large">
                 <MenuIcon />
               </IconButton>
             </Hidden>
-            <Hidden xsDown={true} implementation="css">
+            <Hidden smDown={true} implementation="css">
               {!auth.user && (
                 <Button component={Link} to="/auth/signin" color="inherit">
                   Sign in
@@ -202,7 +204,7 @@ function Navbar(props) {
         </List>
       </Drawer>
     </Section>
-  )
+  );
 }
 
 export default Navbar

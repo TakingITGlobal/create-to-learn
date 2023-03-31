@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import List from '@mui/material/List'
 import ListItemText from '@mui/material/ListItemText'
 import ListItem from '@mui/material/ListItem'
@@ -42,18 +42,10 @@ function SettingsProfile() {
         {settingsLinks.map(
           ({ title, link }) =>
             (title !== 'My Account' || auth.user) && (
-              <ListItem
-                component={Link}
-                to={link}
-                key={title}
-                secondaryAction={
-                  <IconButton
-                    component={Link}
-                    to={link}
-                    color="inherit"
-                    edge="end"
-                    aria-label="chevron-right"
-                  >
+              <ListItem button component={Link} to={link} key={title}>
+                <ListItemText>{title}</ListItemText>
+                <ListItemSecondaryAction>
+                  <IconButton component={Link} to={link} size="large">
                     <ChevronRightIcon />
                   </IconButton>
                 }
@@ -78,7 +70,7 @@ function SettingsProfile() {
         </Box>
       )}
     </Container>
-  )
+  );
 }
 
 export default SettingsProfile

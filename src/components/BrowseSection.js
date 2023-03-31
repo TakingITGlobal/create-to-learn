@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import Box from '@material-ui/core/Box'
-import Container from '@material-ui/core/Container'
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
 import Section from './Section'
-import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
+import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
 import CircularProgress from '@mui/material/CircularProgress'
-import SearchIcon from '@material-ui/icons/Search'
-import CloseIcon from '@material-ui/icons/Close'
+import SearchIcon from '@mui/icons-material/Search'
+import CloseIcon from '@mui/icons-material/Close'
 
 import BrowseSearchBar from './BrowseSearchBar'
 import BrowseTabs from './BrowseTabs'
@@ -35,7 +35,7 @@ function BrowseSection(props) {
     >
       <Box mt={2}>
         <Container>
-          <Box sx={{ paddingBottom: 7 }}>
+          <Box sx={{ paddingBottom: '7px' }}>
             <Typography variant="h4">Browse</Typography>
           </Box>
           <Box

@@ -3,10 +3,11 @@ import {
   useTheme,
   createTheme,
   ThemeProvider as MuiThemeProvider,
-} from '@material-ui/core/styles'
-import * as colors from '@material-ui/core/colors'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+} from '@mui/material/styles'
+import { ThemeProvider as EmotionThemeProvider } from '@emotion/react'
+import * as colors from '@mui/material/colors'
+import CssBaseline from '@mui/material/CssBaseline'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import { createLocalStorageStateHook } from 'use-local-storage-state'
 
 const themeConfig = {
@@ -41,6 +42,12 @@ const themeConfig = {
   dark: {
     palette: {
       type: 'dark',
+      text: {
+        primary: '#ffffff',
+      },
+      icon: {
+        primary: '#ffffff',
+      },
       primary: {
         // Same as in light but we could
         // adjust color hue if needed
@@ -53,44 +60,91 @@ const themeConfig = {
         default: '#0c0914',
         paper: '#1c1925',
       },
+      icon: {
+        color: '#fff',
+      },
+      Paper: {
+        icon: {
+          primary: '#fff',
+        },
+      },
     },
+    typography: {
+      fontSize: 16,
+      color: '#fff',
+      fontFamily: '"Manrope", "Helvetica", "Arial", sans-serif',
+      h1: {
+        fontSize: '2rem',
+        color: '#fff',
+        fontWeight: 700,
+      }
+    },
+
+    components: {
+      MuiCssBaseline: {
+        styleOverrides: {
+          h1: {
+            fontSize: '2rem',
+            color: '#fff',
+            fontWeight: 700,
+          }
+        }
+      },
+      MuiTypography: {
+        variants: [
+          {
+            props: {
+              variant: 'p',
+            },
+            style: {
+              fontSize: '1em',
+              color: '#fff',
+            },
+          },
+          {
+            props: {
+              variant: 'h1',
+            },
+            style: {
+              fontSize: '2rem',
+              color: '#fff',
+              fontWeight: 700,
+            },
+          },
+          {
+            props: {
+              variant: 'h2',
+            },
+            style: {
+              fontSize: '1.3rem',
+              color: '#fff',
+              fontWeight: 600,
+            },
+          },
+          {
+            props: {
+              variant: 'h3',
+            },
+            style: {
+              fontSize: '1.2rem',
+              color: '#fff',
+              fontWeight: 800,
+            },
+          }
+        ],
+      },
+    }
   },
 
   // Values for both themes
   common: {
     typography: {
       fontSize: 16,
+      color: '#fff',
       fontFamily: '"Manrope", "Helvetica", "Arial", sans-serif',
       // Uncomment to make button lowercase
       button: { 
         textTransform: "none",
-      },
-      h1: {
-        fontWeight: '700',
-        fontSize: '3rem',
-      },
-      h2: {
-        fontWeight: '700'
-      },
-      h3: {
-        fontWeight: '700'
-      },
-      h4: {
-        fontWeight: '700'
-      },
-      defaultProps: {
-        variantMapping: {
-          h1: 'h2',
-          h2: 'h2',
-          h3: 'h2',
-          h4: 'h2',
-          h5: 'h2',
-          h6: 'h2',
-          subtitle1: 'h2',
-          subtitle2: 'h3',
-          body1: 'p',
-          body2: 'span',
-        },
       },
     },
     breakpoints: {
@@ -169,9 +223,11 @@ export const ThemeProvider = (props) => {
 
   return (
     <MuiThemeProvider theme={props?.theme ? props.theme : theme}>
+      <EmotionThemeProvider theme={props?.theme ? props.theme : theme}>
       {/* Set global MUI styles */}
       <CssBaseline />
       {props.children}
+      </EmotionThemeProvider>
     </MuiThemeProvider>
   )
 }

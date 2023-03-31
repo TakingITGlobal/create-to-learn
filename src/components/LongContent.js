@@ -1,7 +1,7 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import useClasses from '../hooks/useClasses'
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   // Style nested HTML elements so that
   // long-form content doesn't have to use
   // components to match MUI style
@@ -26,13 +26,13 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: 'underline',
       },
     },
-  },
-}))
+  }
+});
 
 function LongContent(props) {
-  const classes = useStyles()
+  const classes = useClasses(styles)
 
-  return <div className={classes.root}>{props.children}</div>
+  return <div className={classes.root}>{props.children}</div>;
 }
 
 export default LongContent
