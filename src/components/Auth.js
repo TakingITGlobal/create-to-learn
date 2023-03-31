@@ -1,47 +1,38 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Box from '@material-ui/core/Box'
 import Alert from '@material-ui/lab/Alert'
 import AuthForm from './AuthForm'
 import AuthSocial from './AuthSocial'
-import { useRouter } from './../util/router'
+import { useAuthForm } from '../hooks/use-auth-form.hook'
 
-function Auth(props) {
-  const router = useRouter()
-  const [formAlert, setFormAlert] = useState(null)
-
-  const handleAuth = (user) => {
-    router.push(props.afterAuthPath)
-  }
-
-  const handleFormAlert = (data) => {
-    setFormAlert(data)
-  }
+function Auth({ buttonAction, providers }) {
+  const { formAlert, handleAuth, handleFormAlert, type } = useAuthForm()
 
   return (
     <>
       {formAlert && (
-        <Box mb={3}>
+        <Box mb={3} data-testid="auth-form-alert">
           <Alert severity={formAlert.type}>{formAlert.message}</Alert>
         </Box>
       )}
 
       <AuthForm
-        type={props.type}
-        buttonAction={props.buttonAction}
+        type={type}
+        buttonAction={buttonAction}
         onAuth={handleAuth}
         onFormAlert={handleFormAlert}
       />
 
-      {['signup', 'signin'].includes(props.type) && (
+      {['signup', 'signin'].includes(type) && (
         <>
-          {props.providers && props.providers.length && (
+          {providers && providers.length && (
             <>
               <Box textAlign="center" fontSize={12} my={2}>
                 OR
               </Box>
               <AuthSocial
-                buttonAction={props.buttonAction}
-                providers={props.providers}
+                buttonAction={buttonAction}
+                providers={providers}
                 showLastUsed={true}
                 onAuth={handleAuth}
                 onError={(message) => {
