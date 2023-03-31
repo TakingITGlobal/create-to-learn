@@ -235,7 +235,11 @@ const BrowseTabs = ({ categories, search }) => {
             <CircularProgress color="primary" />
           ) : (
             <>
-              <Button variant="outlined" onClick={() => setOpenDrawer(true)}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => setOpenDrawer(true)}
+              >
                 Show all filters
               </Button>
               {filteredCreators.length ? (
