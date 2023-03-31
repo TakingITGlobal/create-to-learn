@@ -1,32 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import useClasses from '../hooks/useClasses'
+import React, { useState } from 'react'
 import Container from '@mui/material/Container'
-import Box from '@mui/material/Box'
-import Alert from '@mui/material/Alert'
-import Grid from '@mui/material/Grid'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import Typography from '@mui/material/Typography'
-import LinkMui from '@mui/material/Link'
-import Carousel from 'react-material-ui-carousel'
-import MultiCarousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 
 import { Button, Paper } from '@mui/material'
 import Section from './Section'
 import SectionHeader from './SectionHeader'
-import DashboardItems from './DashboardItems'
 import SignUp from './SignUp'
-import CircularProgress from '@mui/material/CircularProgress'
-
 import DashboardTopCourses from './DashboardTopCourses'
 import DashboardLearningPaths from './DashboardLearningPaths'
 import DashboardCreatorSpotlight from './DashboardCreatorSpotlight'
-import { Link, useRouter } from './../util/router'
 import { useAuth } from './../util/auth'
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const styles = theme => ({
+const styles = (theme) => ({
   cardContent: {
     padding: theme.spacing(3),
   },
@@ -34,29 +20,10 @@ const styles = theme => ({
   carouselItem: {
     paddingRight: '20px',
     paddingBottom: '20px',
-  }
-});
-
-const responsive = {
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 3,
-    paritialVisibilityGutter: 60,
   },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 2,
-    paritialVisibilityGutter: 50,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-    paritialVisibilityGutter: 40,
-  },
-}
+})
 
 function DashboardSection(props) {
-
   //This should be in local storage
   const [dismissSignUp, setDismissSignUp] = useState(false)
 
@@ -179,7 +146,11 @@ function DashboardSection(props) {
         <DashboardCreatorSpotlight />
         <DashboardLearningPaths />
         {categoryInterests.map((interest, index) => (
-          <DashboardTopCourses key={index} category={interest} />
+          <DashboardTopCourses
+            key={index}
+            category={interest}
+            title={`Top Courses in ${interest}`}
+          />
         ))}
       </Container>
     </Section>

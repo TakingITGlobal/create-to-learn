@@ -4,7 +4,6 @@ import Container from '@mui/material/Container'
 import Alert from '@mui/material/Alert'
 import Section from './Section'
 import ReauthModal from './ReauthModal'
-// import SettingsNav from './SettingsNav'
 import SettingsProfile from './SettingsProfile'
 import SettingsMyAccount from './SettingsMyAccount'
 import SettingsPassword from './SettingsPassword'
@@ -12,8 +11,6 @@ import SettingsNotifications from './SettingsNotifications'
 import SettingsDataUsage from './SettingsDataUsage'
 import SettingsSupport from './SettingsSupport'
 import SettingsLegal from './SettingsLegal'
-// import SettingsBilling from './SettingsBilling'
-// import SettingsGeneral from './SettingsGeneral'
 
 import { useAuth } from './../util/auth'
 
@@ -35,8 +32,6 @@ function SettingsSection(props) {
     'data-usage': true,
     'help-and-support': true,
     'legal-and-about': true,
-    // general: true,
-    // billing: true,
   }
 
   const section = validSections[props.section] ? props.section : 'my-account'
@@ -78,7 +73,6 @@ function SettingsSection(props) {
         />
       )}
 
-      {/* <SettingsNav activeKey={section} /> */}
       <Box mt={5} sx={{ paddingBottom: 15 }}>
         <Container maxWidth="xs">
           {formAlert && (
@@ -110,10 +104,6 @@ function SettingsSection(props) {
           {section === 'legal-and-about' && (
             <SettingsLegal onStatus={handleStatus} />
           )}
-
-          {/* {section === "general" && <SettingsGeneral onStatus={handleStatus} />} */}
-
-          {/* {section === "billing" && <SettingsBilling onStatus={handleStatus} />} */}
         </Container>
       </Box>
     </Section>

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import MultiCarousel from 'react-multi-carousel'
 import Box from '@material-ui/core/Box'
-import Typography from '@material-ui/core/Typography'
+import Typography from '@mui/material/Typography'
 import { Button, Paper } from '@material-ui/core'
+
 import { makeStyles } from '@material-ui/core/styles'
 import { useCoursePerCategory } from '../util/db'
 import 'react-multi-carousel/lib/styles.css'
@@ -35,7 +36,7 @@ const responsive = {
   },
 }
 
-const DashboardTopCourses = ({ category }) => {
+const DashboardTopCourses = ({ category, title }) => {
   const classes = useStyles()
   const [courses, setCourses] = useState([])
 
@@ -50,7 +51,7 @@ const DashboardTopCourses = ({ category }) => {
   return (
     <>
       <Box sx={{ paddingBottom: 5 }}>
-        <Typography>Top Courses in {category}</Typography>
+        <Typography>{title}</Typography>
       </Box>
       <MultiCarousel
         ssr
@@ -74,6 +75,7 @@ const DashboardTopCourses = ({ category }) => {
                   }}
                 >
                   <img
+                    alt={`${item.seriesName}-course`}
                     src={item.thumbnail[0]?.downloadURL}
                     style={{
                       top: 0,
@@ -96,7 +98,7 @@ const DashboardTopCourses = ({ category }) => {
                     <Typography>{item.creator}</Typography>
                     <Typography>
                       {item.videos.length}{' '}
-                      {item.videos.length == 1 ? 'Video' : 'Videos'}
+                      {item.videos.length === 1 ? 'Video' : 'Videos'}
                     </Typography>
                   </>
                 </Box>
