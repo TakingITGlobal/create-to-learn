@@ -92,11 +92,7 @@ export function useCourseByUID(uid) {
   return useQuery(
     ['/Series', { uid }],
     createQuery(() =>
-      query(
-        collection(db, '/Series'),
-        where('uid', '==', uid),
-        limit(1),
-      ),
+      query(collection(db, '/Series'), where('uid', '==', uid), limit(1)),
     ),
   )
 }
@@ -194,7 +190,7 @@ export function deleteItem(id) {
 // Store Firestore unsubscribe functions
 const unsubs = {}
 
-function createQuery(getRef) {
+export function createQuery(getRef) {
   // Create a query function to pass to `useQuery`
   return async ({ queryKey }) => {
     let unsubscribe
@@ -252,7 +248,7 @@ client.queryCache.subscribe(({ type, query }) => {
 })
 
 // Format Firestore response
-function format(response) {
+export function format(response) {
   // Converts doc into object that contains data and `doc.id`
   const formatDoc = (doc) => ({ id: doc.id, ...doc.data() })
   if (response.docs) {

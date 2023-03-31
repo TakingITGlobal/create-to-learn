@@ -3,7 +3,6 @@ import List from '@mui/material/List'
 import ListItemText from '@mui/material/ListItemText'
 import ListItem from '@mui/material/ListItem'
 import Container from '@mui/material/Container'
-import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
@@ -42,9 +41,11 @@ function SettingsProfile() {
         {settingsLinks.map(
           ({ title, link }) =>
             (title !== 'My Account' || auth.user) && (
-              <ListItem button component={Link} to={link} key={title}>
-                <ListItemText>{title}</ListItemText>
-                <ListItemSecondaryAction>
+              <ListItem
+                component={Link}
+                to={link}
+                key={title}
+                secondaryAction={
                   <IconButton component={Link} to={link} size="large">
                     <ChevronRightIcon />
                   </IconButton>
@@ -70,7 +71,7 @@ function SettingsProfile() {
         </Box>
       )}
     </Container>
-  );
+  )
 }
 
 export default SettingsProfile
