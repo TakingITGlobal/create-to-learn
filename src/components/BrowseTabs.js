@@ -16,6 +16,9 @@ import BrowseEmptyState from './BrowseEmptyState'
 
 import { useTranslation } from 'react-i18next'
 import { dataContext } from '../util/dataProvider'
+import { useCoursesFilter } from '../hooks/useCoursesFilter'
+import { useCreatorsFilter } from '../hooks/useCreatorsFilter'
+import { durations, culturalGroups } from '../assets/options/filters'
 
 const TabPanel = (props) => {
   const { children, tabIndex, index, ...other } = props
@@ -46,9 +49,8 @@ const a11yProps = (index) => {
 
 const BrowseTabs = ({ categories, search }) => {
   const { t } = useTranslation()
+
   const [tabIndex, setTabIndex] = useState(0)
-  const [filteredCourses, setFilteredCourses] = useState([])
-  const [filteredCreators, setFilteredCreators] = useState([])
   const [openDrawer, setOpenDrawer] = useState(false)
   const [categoryFilter, setCategoryFilter] = useState([])
   const [durationFilter, setDurationFilter] = useState([])
@@ -57,90 +59,26 @@ const BrowseTabs = ({ categories, search }) => {
   const { allCourses, allCreators, loadingCourses, loadingCreators } =
     useContext(dataContext)
 
-  const durations = [
-    {
-      id: 'less-20',
-      label: 'Less than 20 min',
-      lowerValue: 0,
-      upperValue: 20 * 60,
-    },
-    {
-      id: '20-45',
-      label: '20-45 min',
-      lowerValue: 20 * 60,
-      upperValue: 45 * 60,
-    },
-    {
-      id: '45-60',
-      label: ' 45 min to 1 hour',
-      lowerValue: 45 * 60,
-      upperValue: 60 * 60,
-    },
-    {
-      id: 'more-60',
-      label: 'More than 1 hour',
-      lowerValue: 60 * 60,
-      upperValue: 100000,
-    },
-  ]
+  const { data: filteredCourses } = useCoursesFilter({
+    allCourses,
+    categoryFilter,
+    durationFilter,
+    search,
+    categories,
+    durations,
+  })
 
-  const culturalGroups = ['First Nations', 'Métis', 'Inuit']
+  const { data: filteredCreators } = useCreatorsFilter({
+    allCreators,
+    culturalGroupFilter,
+    search,
+  })
 
   const handleChangeTab = (event, newTab) => {
     setTabIndex(newTab)
   }
 
-  useEffect(() => {
-    if (!loadingCourses) {
-      setFilteredCourses(allCourses)
-    }
-
-    if (!loadingCreators) {
-      setFilteredCreators(allCreators)
-    }
-  }, [allCourses, allCreators, loadingCourses, loadingCreators])
-
-  useEffect(() => {
-    //Use filters if some have been chosen. Otherwise, assume all filters are chosen.
-    const categoriesToFilter = categoryFilter.length
-      ? categoryFilter
-      : categories
-    const durationsToFilter = durationFilter.length ? durationFilter : durations
-
-    const filtCourses = allCourses.filter((course) => {
-      const courseTitle = course.seriesName.toLowerCase()
-      return (
-        course.category.some((cat) => categoriesToFilter.includes(cat)) &&
-        durationsToFilter.some(
-          (duration) =>
-            course.totalLength >= duration.lowerValue &&
-            course.totalLength < duration.upperValue,
-        ) &&
-        courseTitle.search(search) !== -1
-      )
-    })
-    setFilteredCourses(filtCourses)
-  }, [categoryFilter, durationFilter, allCourses, search])
-
-  useEffect(() => {
-    const culturalGroupsToFilter = culturalGroupFilter.length
-      ? culturalGroupFilter
-      : //some creators do not have a cultural group set
-        culturalGroups + ['']
-
-    const filtCreators = allCreators.filter((creator) => {
-      const creatorFNMI = creator.fnmi ? creator.fnmi : ['']
-      const creatorName = creator.name ? creator.name.toLowerCase() : ''
-      return creatorFNMI.some(
-        (grp) =>
-          culturalGroupsToFilter.includes(grp) &&
-          creatorName.search(search) !== -1,
-      )
-    })
-    setFilteredCreators(filtCreators)
-  }, [culturalGroupFilter, allCreators, search])
-
-  const handleCategoryFilterArr = (category) => {
+  const handleCategoryFilter = (category) => {
     if (categoryFilter.includes(category)) {
       setCategoryFilter(categoryFilter.filter((item) => item !== category))
     } else {
@@ -148,7 +86,7 @@ const BrowseTabs = ({ categories, search }) => {
     }
   }
 
-  const handleDurationFilterArr = (duration) => {
+  const handleDurationFilter = (duration) => {
     const isInFilter = durationFilter.some((dur) => dur.id === duration.id)
     if (isInFilter) {
       setDurationFilter(
@@ -173,12 +111,10 @@ const BrowseTabs = ({ categories, search }) => {
     if (tabIndex === 0) {
       setCategoryFilter([])
       setDurationFilter([])
-      setFilteredCourses(allCourses)
     }
 
     if (tabIndex === 1) {
       setCulturalGroupFilter([])
-      setFilteredCreators(allCreators)
     }
   }
 
@@ -263,8 +199,8 @@ const BrowseTabs = ({ categories, search }) => {
         {tabIndex === 0 ? (
           <BrowseCourseDrawerContent
             categories={categories}
-            handleDurationFilterArr={handleDurationFilterArr}
-            handleCategoryFilterArr={handleCategoryFilterArr}
+            handleDurationFilterArr={handleDurationFilter}
+            handleCategoryFilterArr={handleCategoryFilter}
             categoryFilter={categoryFilter}
             durationFilter={durationFilter}
             durations={durations}

@@ -19,7 +19,7 @@ const styles = (theme) => ({
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 1,
+    items: 3,
     partialVisibilityGutter: 60,
   },
   tablet: {

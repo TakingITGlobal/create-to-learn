@@ -29,14 +29,7 @@ export function DataProvider({ children }) {
     if (!loadingLearningPaths) {
       setLearningPaths(dataLearningPaths)
     }
-  }, [
-    dataCourses,
-    dataCreators,
-    dataLearningPaths,
-    loadingCourses,
-    loadingCreators,
-    loadingLearningPaths,
-  ])
+  }, [loadingCourses, loadingCreators, loadingLearningPaths])
 
   return (
     <dataContext.Provider
