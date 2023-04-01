@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react'
 import Container from '@mui/material/Container'
 import 'react-multi-carousel/lib/styles.css'
-
 import Section from './Section'
-import SectionHeader from './SectionHeader'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
 import SignUp from './SignUp'
 import DashboardTopCourses from './DashboardTopCourses'
 import DashboardLearningPaths from './DashboardLearningPaths'
@@ -39,11 +39,14 @@ function DashboardSection(props) {
       bgImageOpacity={props.bgImageOpacity}
     >
       <Container>
-        <SectionHeader
+        {/* <SectionHeader
           title={props.title}
           subtitle={props.subtitle}
           textAlign="center"
-        />
+        /> */}
+        <Box sx={{ paddingBottom: '7px' }}>
+          <Typography variant="h4">Hello</Typography>
+        </Box>
         {!dismissSignUp && !auth.user && (
           <SignUp setDismissed={setDismissSignUp} showDismissButton={true} />
         )}
