@@ -3,8 +3,8 @@ import { ROUTE_TYPES } from '../constants/route-types'
 import { ROUTES } from '../constants/routing'
 
 // Options by auth type
-const optionsByType = {
-  signup: {
+export const optionsByType = {
+  [ROUTE_TYPES.SIGNUP]: {
     // Top Title
     title: 'Get yourself an account',
     // Button text
@@ -19,7 +19,7 @@ const optionsByType = {
     termsPath: ROUTES.TERMS,
     privacyPolicyPath: ROUTES.PRIVACY,
   },
-  signin: {
+  [ROUTE_TYPES.SIGNIN]: {
     title: 'Welcome back',
     buttonAction: 'Sign in',
     showFooter: true,
@@ -28,7 +28,7 @@ const optionsByType = {
     forgotPassAction: 'Forgot Password?',
     forgotPassPath: ROUTES.FORGOT,
   },
-  forgotpass: {
+  [ROUTE_TYPES.FORGOT]: {
     title: 'Get a new password',
     buttonAction: 'Reset password',
     showFooter: true,
@@ -36,7 +36,7 @@ const optionsByType = {
     signinAction: 'Sign in',
     signinPath: ROUTES.SIGNIN,
   },
-  changepass: {
+  [ROUTE_TYPES.CHANGE]: {
     title: 'Choose a new password',
     buttonAction: 'Change password',
   },
@@ -49,6 +49,6 @@ export const useAuthTypeOptions = () => {
 
   return {
     type: validAuthType,
-    options: optionsByType[type],
+    options: optionsByType[validAuthType],
   }
 }

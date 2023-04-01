@@ -4,6 +4,6 @@ export const useRouteType = () => {
   const { query } = useRouter()
 
   return {
-    type: query.type,
+    type: query?.type || '',
   }
 }
