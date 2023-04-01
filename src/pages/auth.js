@@ -1,11 +1,8 @@
 import React from 'react'
 import Meta from './../components/Meta'
 import AuthSection from './../components/AuthSection'
-import { useRouter } from './../util/router'
 
-function AuthPage(props) {
-  const router = useRouter()
-
+function AuthPage() {
   return (
     <>
       <Meta title="Auth" />
@@ -14,9 +11,6 @@ function AuthPage(props) {
         size="medium"
         bgImage=""
         bgImageOpacity={1}
-        type={router.query.type}
-        providers={['google', 'facebook']}
-        afterAuthPath={router.query.next || '/dashboard'}
       />
     </>
   )
