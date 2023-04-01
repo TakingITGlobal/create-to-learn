@@ -3,6 +3,9 @@ import Box from '@material-ui/core/Box'
 import LinkMui from '@material-ui/core/Link'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from './../util/router'
+import { useAuthTypeOptions } from '../hooks/use-auth-type-options.hook'
+import { ROUTE_TYPES } from '../constants/route-types'
+import { ROUTES } from '../constants/routing'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,58 +25,61 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-function AuthFooter(props) {
+function AuthFooter() {
   const classes = useStyles()
+  const { type, options } = useAuthTypeOptions()
+
+  if (!options.showFooter) return null
 
   return (
     <div className={classes.root}>
-      {props.type === 'signup' && (
+      {type === ROUTES.SIGNIN && (
         <>
-          {props.showAgreement && (
+          {options.showAgreement && (
             <Box mb={2}>
               By signing up, you are agreeing to our{' '}
-              <LinkMui component={Link} to={props.termsPath}>
+              <LinkMui component={Link} to={options.termsPath}>
                 Terms of Service
               </LinkMui>{' '}
               and{' '}
-              <LinkMui component={Link} to={props.privacyPolicyPath}>
+              <LinkMui component={Link} to={options.privacyPolicyPath}>
                 Privacy Policy
               </LinkMui>
               .
             </Box>
           )}
 
-          {props.signinText}
+          {options.signinText}
           <span className={classes.spacerSmall} />
-          <LinkMui component={Link} to={props.signinPath}>
-            {props.signinAction}
+          <LinkMui component={Link} to={options.signinPath}>
+            {options.signinAction}
           </LinkMui>
         </>
       )}
 
-      {props.type === 'signin' && (
+      {type === ROUTE_TYPES.SIGNIN && (
         <>
-          <LinkMui component={Link} to={props.signupPath}>
-            {props.signupAction}
+          <LinkMui component={Link} to={options.signupPath}>
+            {options.signupAction}
           </LinkMui>
 
-          {props.forgotPassAction && (
+          {options.forgotPassAction && (
             <>
               <span className={classes.spacerMedium} />
-              <LinkMui component={Link} to={props.forgotPassPath}>
-                {props.forgotPassAction}
+              <LinkMui component={Link} to={options.forgotPassPath}>
+                {options.forgotPassAction}
               </LinkMui>
             </>
           )}
         </>
       )}
 
-      {props.type === 'forgotpass' && (
+      {type === ROUTE_TYPES.FORGOT && (
         <>
-          {props.signinText}
+          {options.signinText}
           <span className={classes.spacerSmall} />
-          <LinkMui component={Link} to={props.signinPath}>
-            {props.signinAction}
+          <LinkMui component={Link} to={options.signinPath}>
+            {options.signinAction}
           </LinkMui>
         </>
       )}
