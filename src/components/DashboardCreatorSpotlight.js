@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import useClasses from '../hooks/useClasses'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import MultiCarousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 
 import { Paper } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import CircularProgress from '@mui/material/CircularProgress'
-import { useCreators } from '../util/db'
 
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
   cardContent: {
     padding: theme.spacing(3),
   },
@@ -17,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: '20px',
     paddingBottom: '20px',
   },
-}))
+})
 
 const responsive = {
   desktop: {
@@ -37,21 +35,10 @@ const responsive = {
   },
 }
 
-const DashboardCreatorSpotlight = () => {
-  const classes = useStyles()
-  const [creators, setCreators] = useState([])
+const DashboardCreatorSpotlight = ({ creators }) => {
+  const classes = useClasses(styles)
 
-  const { isLoading, data } = useCreators()
-
-  useEffect(() => {
-    if (!isLoading) {
-      setCreators(data)
-    }
-  }, [data, isLoading])
-
-  return isLoading ? (
-    <CircularProgress />
-  ) : (
+  return (
     <>
       <Box sx={{ paddingBottom: 5 }}>
         <Typography>Creator Spotlight</Typography>

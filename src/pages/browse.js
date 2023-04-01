@@ -1,15 +1,15 @@
 import React from 'react'
 import Meta from './../components/Meta'
 import BrowseSection from './../components/BrowseSection'
-import { CoursesAndCreatorsProvider } from '../util/coursesAndCreatorsProvider'
+import { DataProvider } from '../util/dataProvider'
 
 function BrowsePage(props) {
   return (
     <>
       <Meta title="Browse" />
-      <CoursesAndCreatorsProvider>
+      <DataProvider>
         <BrowseSection />
-      </CoursesAndCreatorsProvider>
+      </DataProvider>
     </>
   )
 }

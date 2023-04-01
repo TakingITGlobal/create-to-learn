@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import useClasses from '../hooks/useClasses'
 import MultiCarousel from 'react-multi-carousel'
 import Box from '@material-ui/core/Box'
 import Typography from '@mui/material/Typography'
 import { Button, Paper } from '@material-ui/core'
-
-import { makeStyles } from '@material-ui/core/styles'
-import { useCoursePerCategory } from '../util/db'
 import 'react-multi-carousel/lib/styles.css'
 
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
   cardContent: {
     padding: theme.spacing(3),
   },
@@ -16,37 +14,28 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: '20px',
     paddingBottom: '20px',
   },
-}))
+})
 
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 3,
-    paritialVisibilityGutter: 60,
+    items: 1,
+    partialVisibilityGutter: 60,
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
     items: 2,
-    paritialVisibilityGutter: 50,
+    partialVisibilityGutter: 50,
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
     items: 1,
-    paritialVisibilityGutter: 40,
+    partialVisibilityGutter: 40,
   },
 }
 
-const DashboardTopCourses = ({ category, title }) => {
-  const classes = useStyles()
-  const [courses, setCourses] = useState([])
-
-  const { data: courseData } = useCoursePerCategory([category])
-
-  useEffect(() => {
-    if (courseData?.length) {
-      setCourses(courseData)
-    }
-  }, [courseData])
+const DashboardTopCourses = ({ title, courses }) => {
+  const classes = useClasses(styles)
 
   return (
     <>
@@ -55,7 +44,7 @@ const DashboardTopCourses = ({ category, title }) => {
       </Box>
       <MultiCarousel
         ssr
-        partialVisible
+        partialVisible={true}
         responsive={responsive}
         swipeable
         itemClass={classes.carouselItem}

@@ -15,7 +15,7 @@ import BrowseCreatorDrawerContent from './BrowseCreatorDrawerContent'
 import BrowseEmptyState from './BrowseEmptyState'
 
 import { useTranslation } from 'react-i18next'
-import { coursesAndCreatorsContext } from '../util/coursesAndCreatorsProvider'
+import { dataContext } from '../util/dataProvider'
 
 const TabPanel = (props) => {
   const { children, tabIndex, index, ...other } = props
@@ -55,7 +55,7 @@ const BrowseTabs = ({ categories, search }) => {
   const [culturalGroupFilter, setCulturalGroupFilter] = useState([])
 
   const { allCourses, allCreators, loadingCourses, loadingCreators } =
-    useContext(coursesAndCreatorsContext)
+    useContext(dataContext)
 
   const durations = [
     {
