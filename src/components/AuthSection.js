@@ -7,7 +7,7 @@ import AuthFooter from './AuthFooter'
 import { useAuthTypeOptions } from '../hooks/use-auth-type-options.hook'
 
 function AuthSection({ bgColor, bgImage, bgImageOpacity, size }) {
-  const { options, type } = useAuthTypeOptions()
+  const { options } = useAuthTypeOptions()
 
   return (
     <Section
