@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import SignUp from './SignUp'
 import DashboardTopCourses from './DashboardTopCourses'
-import DashboardLearningPaths from './DashboardLearningPaths'
+// import DashboardLearningPaths from './DashboardLearningPaths'
 import DashboardCreatorSpotlight from './DashboardCreatorSpotlight'
 import { useAuth } from './../util/auth'
 import { dataContext } from '../util/dataProvider'
@@ -19,10 +19,10 @@ function DashboardSection(props) {
   const {
     allCourses,
     allCreators,
-    learningPaths,
+    // learningPaths,
     loadingCourses,
     loadingCreators,
-    loadingLearningPaths,
+    // loadingLearningPaths,
   } = useContext(dataContext)
 
   const defaultCategories = [
@@ -47,9 +47,11 @@ function DashboardSection(props) {
         <Box sx={{ paddingBottom: '7px' }}>
           <Typography variant="h4">Hello</Typography>
         </Box>
-        {!dismissSignUp && !auth.user && (
-          <SignUp setDismissed={setDismissSignUp} showDismissButton={true} />
-        )}
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          {!dismissSignUp && !auth.user && (
+            <SignUp setDismissed={setDismissSignUp} showDismissButton={true} />
+          )}
+        </Box>
         {!loadingCreators && (
           <DashboardCreatorSpotlight
             creators={allCreators
@@ -57,9 +59,9 @@ function DashboardSection(props) {
               .slice(0, 5)}
           />
         )}
-        {!loadingLearningPaths && (
+        {/* {!loadingLearningPaths && (
           <DashboardLearningPaths learningPaths={learningPaths} />
-        )}
+        )} */}
         {!loadingCourses &&
           defaultCategories.map((interest, index) => (
             <DashboardTopCourses

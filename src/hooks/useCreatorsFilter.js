@@ -9,7 +9,7 @@ export const useCreatorsFilter = ({
   const [filteredCreators, setFilteredCreators] = useState(allCreators)
 
   const isHavingFilters = useMemo(
-    () => search != '' || culturalGroupFilter.length,
+    () => search !== '' || culturalGroupFilter.length,
     [search, culturalGroupFilter],
   )
 

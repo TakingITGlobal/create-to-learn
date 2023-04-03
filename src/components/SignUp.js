@@ -15,7 +15,7 @@ const styles = (theme) => ({
     alignItems: 'flex-start',
     backgroundColor: '#413F4C',
     borderRadius: '12px',
-    width: '343px',
+    width: '100%',
     height: '192px',
   },
   title: {
@@ -51,7 +51,7 @@ function SignUp({ setDismissed = null, showDismissButton = false }) {
   return (
     <Box sx={styles.container} className={classes.container}>
       <Box>
-        <Typography variant="h6" className={classes.title}>
+        <Typography variant="h5" className={classes.title}>
           {t('sign-up')}
         </Typography>
       </Box>

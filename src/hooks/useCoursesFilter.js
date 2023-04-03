@@ -10,7 +10,7 @@ export const useCoursesFilter = ({
 }) => {
   const [filteredCourses, setFilteredCourses] = useState(allCourses)
   const isHavingFilters = useMemo(
-    () => search != '' || categoryFilter.length || durationFilter.length,
+    () => search !== '' || categoryFilter.length || durationFilter.length,
     [search, categoryFilter, durationFilter],
   )
   useEffect(() => {

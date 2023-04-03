@@ -3,7 +3,12 @@ import useClasses from '../hooks/useClasses'
 import MultiCarousel from 'react-multi-carousel'
 import Box from '@material-ui/core/Box'
 import Typography from '@mui/material/Typography'
-import { Button, Paper } from '@material-ui/core'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import Stack from '@mui/material/Stack'
+import VideocamIcon from '@mui/icons-material/Videocam'
+import { CardActionArea, CardActions } from '@mui/material'
 import 'react-multi-carousel/lib/styles.css'
 
 const styles = (theme) => ({
@@ -39,8 +44,26 @@ const DashboardTopCourses = ({ title, courses }) => {
 
   return (
     <>
-      <Box sx={{ paddingBottom: 5 }}>
-        <Typography>{title}</Typography>
+      <Box sx={{ padding: '20px 0', paddingBottom: '20px' }}>
+        <Stack direction="row" spacing={1}>
+          <Box>
+            <VideocamIcon
+              fontSize="large"
+              sx={{
+                backgroundColor: '#6956F1',
+                padding: '5px',
+                borderRadius: '30%',
+              }}
+            />
+          </Box>
+          <Box
+            sx={{
+              paddingTop: '7.5px',
+            }}
+          >
+            <Typography variant="h5">{title}</Typography>
+          </Box>
+        </Stack>
       </Box>
       <MultiCarousel
         ssr
@@ -51,50 +74,53 @@ const DashboardTopCourses = ({ title, courses }) => {
       >
         {courses.map((item, i) => {
           return (
-            <Paper key={i} sx={{ padding: 2.5, height: '450px' }}>
-              <Box sx={{ padding: 10 }}>
-                {/* Use the course photo instead of the creator photo once we have a valid url */}
-                <Box
+            <Card
+              key={i}
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                padding: '15px',
+                height: '375px',
+                backgroundColor: '#413F4C !important',
+                borderRadius: '6px',
+              }}
+            >
+              <CardActionArea
+                sx={{
+                  height: '100%',
+                }}
+                href={'/course/' + item.uid}
+              >
+                <CardMedia
+                  component="img"
+                  alt={`${item.seriesName}-course`}
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
                     width: '100%',
                     height: '200px',
                     overflow: 'hidden',
+                    borderRadius: '6px',
                   }}
-                >
-                  <img
-                    alt={`${item.seriesName}-course`}
-                    src={item.thumbnail[0]?.downloadURL}
-                    style={{
-                      top: 0,
-                      width: '100%',
-                      height: 'auto',
-                      objectFit: 'cover',
+                  image={item.thumbnail[0]?.downloadURL}
+                />
+                <CardActions>
+                  <CardContent
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      padding: '10px 0',
+                      color: 'white',
+                      justifyContent: 'flex-end',
                     }}
-                  />
-                </Box>
-                <h2>{item.seriesName}</h2>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    paddingBottom: 5,
-                  }}
-                >
-                  <>
-                    <Typography>{item.creator}</Typography>
-                    <Typography>
-                      {item.videos.length}{' '}
-                      {item.videos.length === 1 ? 'Video' : 'Videos'}
+                  >
+                    <Typography variant="h5">
+                      <b>{item.seriesName} </b>
                     </Typography>
-                  </>
-                </Box>
-                <Box sx={{ paddingBottom: 5 }}>
-                  <Typography>Materials: </Typography>
-                </Box>
-                <Box>
+
+                    <Typography variant="h5">{item.creator}</Typography>
+                    <Typography variant="h5">Materials Required</Typography>
+                    {/* <Box>
                   <Button
                     color="primary"
                     fullWidth
@@ -103,9 +129,11 @@ const DashboardTopCourses = ({ title, courses }) => {
                   >
                     See details
                   </Button>
-                </Box>
-              </Box>
-            </Paper>
+                </Box> */}
+                  </CardContent>
+                </CardActions>
+              </CardActionArea>
+            </Card>
           )
         })}
       </MultiCarousel>
