@@ -7,8 +7,8 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Stack from '@mui/material/Stack'
+import CardActionArea from '@mui/material/CardActionArea'
 import VideocamIcon from '@mui/icons-material/Videocam'
-import { CardActionArea, CardActions } from '@mui/material'
 import 'react-multi-carousel/lib/styles.css'
 
 const styles = (theme) => ({
@@ -104,23 +104,22 @@ const DashboardTopCourses = ({ title, courses }) => {
                   }}
                   image={item.thumbnail[0]?.downloadURL}
                 />
-                <CardActions>
-                  <CardContent
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      padding: '10px 0',
-                      color: 'white',
-                      justifyContent: 'flex-end',
-                    }}
-                  >
-                    <Typography variant="h5">
-                      <b>{item.seriesName} </b>
-                    </Typography>
+                <CardContent
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    padding: '10px 0',
+                    color: 'white',
+                    justifyContent: 'flex-end',
+                  }}
+                >
+                  <Typography variant="h5">
+                    <b>{item.seriesName} </b>
+                  </Typography>
 
-                    <Typography variant="h5">{item.creator}</Typography>
-                    <Typography variant="h5">Materials Required</Typography>
-                    {/* <Box>
+                  <Typography variant="h5">{item.creator}</Typography>
+                  <Typography variant="h5">Materials Required</Typography>
+                  {/* <Box>
                   <Button
                     color="primary"
                     fullWidth
@@ -130,8 +129,7 @@ const DashboardTopCourses = ({ title, courses }) => {
                     See details
                   </Button>
                 </Box> */}
-                  </CardContent>
-                </CardActions>
+                </CardContent>
               </CardActionArea>
             </Card>
           )

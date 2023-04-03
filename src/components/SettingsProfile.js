@@ -29,10 +29,12 @@ function SettingsProfile() {
 
   return (
     <Container>
-      <Typography variant="h5">
+      <Typography variant="h4">
         {auth.user ? auth.user.name : 'My Profile'}
       </Typography>
-      {auth.user ? <Stats /> : <SignUp />}
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        {auth.user ? <Stats /> : <SignUp />}
+      </Box>
       <List
         sx={{ width: '100%', maxWidth: 360 }}
         component="nav"

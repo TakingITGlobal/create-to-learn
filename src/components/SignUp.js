@@ -16,7 +16,7 @@ const styles = (theme) => ({
     backgroundColor: '#413F4C',
     borderRadius: '12px',
     width: '100%',
-    height: '192px',
+    height: '200px',
   },
   title: {
     paddingBottom: '20px',

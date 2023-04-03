@@ -1,13 +1,14 @@
 import React, { useState, useContext } from 'react'
 import Container from '@mui/material/Container'
 import 'react-multi-carousel/lib/styles.css'
-import Section from './Section'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
+import Section from './Section'
 import SignUp from './SignUp'
 import DashboardTopCourses from './DashboardTopCourses'
 // import DashboardLearningPaths from './DashboardLearningPaths'
 import DashboardCreatorSpotlight from './DashboardCreatorSpotlight'
+
 import { useAuth } from './../util/auth'
 import { dataContext } from '../util/dataProvider'
 
