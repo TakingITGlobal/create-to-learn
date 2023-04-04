@@ -8,7 +8,6 @@ import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Stack from '@mui/material/Stack'
 import CardActionArea from '@mui/material/CardActionArea'
-import VideocamIcon from '@mui/icons-material/Videocam'
 import 'react-multi-carousel/lib/styles.css'
 
 const styles = (theme) => ({
@@ -39,23 +38,14 @@ const responsive = {
   },
 }
 
-const DashboardTopCourses = ({ title, courses }) => {
+const DashboardTopCourses = ({ title, courses, icon }) => {
   const classes = useClasses(styles)
 
   return (
     <>
       <Box sx={{ padding: '20px 0', paddingBottom: '20px' }}>
         <Stack direction="row" spacing={1}>
-          <Box>
-            <VideocamIcon
-              fontSize="large"
-              sx={{
-                backgroundColor: '#6956F1',
-                padding: '5px',
-                borderRadius: '30%',
-              }}
-            />
-          </Box>
+          {icon}
           <Box
             sx={{
               paddingTop: '7.5px',
