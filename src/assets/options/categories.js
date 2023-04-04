@@ -1,13 +1,13 @@
 import VideocamIcon from '@mui/icons-material/Videocam'
 import PaletteIcon from '@mui/icons-material/Palette'
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports'
-import NightStayIcon from '@mui/icons-material/NightsStay'
 import MusicNoteIcon from '@mui/icons-material/MusicNote'
 import MonitorHeartIcon from '@mui/icons-material/MonitorHeart'
 import PriceChangeIcon from '@mui/icons-material/PriceChange'
 import FlightIcon from '@mui/icons-material/Flight'
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto'
 import NoteAltIcon from '@mui/icons-material/NoteAlt'
+import PublicIcon from '@mui/icons-material/Public'
 
 export const defaultCategories = [
   {
@@ -16,7 +16,7 @@ export const defaultCategories = [
       <VideocamIcon
         fontSize="large"
         sx={{
-          backgroundColor: '#6956F1',
+          backgroundColor: '#FBC6F3',
           padding: '5px',
           borderRadius: '30%',
         }}
@@ -39,10 +39,10 @@ export const defaultCategories = [
   {
     label: 'Cultural Teachings',
     icon: (
-      <NightStayIcon
+      <PublicIcon
         fontSize="large"
         sx={{
-          backgroundColor: '#6956F1',
+          backgroundColor: '#32313E',
           padding: '5px',
           borderRadius: '30%',
         }}
@@ -58,7 +58,7 @@ const categories = [
       <VideocamIcon
         fontSize="large"
         sx={{
-          backgroundColor: '#6956F1',
+          backgroundColor: '#FBC6F3',
           padding: '5px',
           borderRadius: '30%',
         }}
@@ -81,10 +81,10 @@ const categories = [
   {
     label: 'Cultural Teachings',
     icon: (
-      <NightStayIcon
+      <PublicIcon
         fontSize="large"
         sx={{
-          backgroundColor: '#6956F1',
+          backgroundColor: '#32313E',
           padding: '5px',
           borderRadius: '30%',
         }}

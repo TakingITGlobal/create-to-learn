@@ -1,5 +1,4 @@
 import React from 'react'
-import useClasses from '../hooks/useClasses'
 import MultiCarousel from 'react-multi-carousel'
 import Box from '@material-ui/core/Box'
 import Typography from '@mui/material/Typography'
@@ -8,6 +7,7 @@ import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Stack from '@mui/material/Stack'
 import CardActionArea from '@mui/material/CardActionArea'
+import useClasses from '../hooks/useClasses'
 import 'react-multi-carousel/lib/styles.css'
 
 const styles = (theme) => ({

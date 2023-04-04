@@ -15,7 +15,6 @@ const styles = (theme) => ({
   },
   carouselItem: {
     paddingRight: '20px',
-    paddingBottom: '20px',
   },
   title: {
     padding: '10px 0',

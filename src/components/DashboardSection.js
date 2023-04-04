@@ -1,16 +1,16 @@
 import React, { useState, useContext } from 'react'
+import 'react-multi-carousel/lib/styles.css'
 import Container from '@mui/material/Container'
 import 'react-multi-carousel/lib/styles.css'
-import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-import Stack from '@mui/material/Stack'
 import WhatshotIcon from '@mui/icons-material/Whatshot'
-import HandshakeIcon from '@mui/icons-material/Handshake'
 import Section from './Section'
 import SignUp from './SignUp'
 import DashboardTopCourses from './DashboardTopCourses'
 // import DashboardLearningPaths from './DashboardLearningPaths'
 import DashboardCreatorSpotlight from './DashboardCreatorSpotlight'
+import DashboardGreeting from './DashboardGreeting'
+import DashboardVideo from './DashboardVideo'
 import { useAuth } from './../util/auth'
 import { dataContext } from '../util/dataProvider'
 import { defaultCategories } from '../assets/options/categories'
@@ -37,31 +37,10 @@ function DashboardSection(props) {
       bgImageOpacity={props.bgImageOpacity}
     >
       <Container>
-        {/* <SectionHeader
-          title={props.title}
-          subtitle={props.subtitle}
-          textAlign="center"
-        /> */}
-        <Stack direction="row" spacing={1}>
-          <HandshakeIcon
-            fontSize="large"
-            sx={{
-              backgroundColor: '#6956F1',
-              padding: '5px',
-              borderRadius: '30%',
-            }}
-          />
-          <Box sx={{ paddingBottom: '7px' }}>
-            {auth.user ? (
-              <Box>
-                <Typography> Tân'si </Typography>{' '}
-                <Typography> {auth.user.name} </Typography>{' '}
-              </Box>
-            ) : (
-              <Typography variant="h4">Hello</Typography>
-            )}
-          </Box>
-        </Stack>
+        <DashboardGreeting />
+        {!loadingCourses && allCourses.length && (
+          <DashboardVideo course={allCourses[0]} />
+        )}
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           {!dismissSignUp && !auth.user && (
             <SignUp setDismissed={setDismissSignUp} showDismissButton={true} />
@@ -94,7 +73,7 @@ function DashboardSection(props) {
             <WhatshotIcon
               fontSize="large"
               sx={{
-                backgroundColor: '#6956F1',
+                backgroundColor: '#FFC455',
                 padding: '5px',
                 borderRadius: '30%',
               }}
