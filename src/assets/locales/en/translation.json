@@ -62,6 +62,9 @@
       "skip-btn": "Prefer not to say"
     }
   },
+  "dashboard": {
+    "creators-message": "A message from your creators"
+  },
   "browse": {
     "search-by": "Search courses and creators...",
     "show-filters": "Show all filters",

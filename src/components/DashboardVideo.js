@@ -37,10 +37,7 @@ function DashboardVideo({ course }) {
         }}
       >
         <Typography variant="h6"> {course.seriesName}</Typography>
-        <IconButton
-          sx={{ color: 'white' }}
-          href={'/course/' + 'creative-writing'}
-        >
+        <IconButton sx={{ color: 'white' }} href={'/course/creative-writing'}>
           <EastIcon />
         </IconButton>
       </Stack>

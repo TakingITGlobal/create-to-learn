@@ -3,10 +3,12 @@ import 'react-multi-carousel/lib/styles.css'
 import Container from '@mui/material/Container'
 import 'react-multi-carousel/lib/styles.css'
 import Box from '@mui/material/Box'
+import CircularProgress from '@mui/material/CircularProgress'
 import WhatshotIcon from '@mui/icons-material/Whatshot'
 import Section from './Section'
 import SignUp from './SignUp'
 import DashboardTopCourses from './DashboardTopCourses'
+import DashboardCreatorsMessage from './DashboardCreatorsMessage'
 // import DashboardLearningPaths from './DashboardLearningPaths'
 import DashboardCreatorSpotlight from './DashboardCreatorSpotlight'
 import DashboardGreeting from './DashboardGreeting'
@@ -36,28 +38,34 @@ function DashboardSection(props) {
       bgImage={props.bgImage}
       bgImageOpacity={props.bgImageOpacity}
     >
-      <Container>
-        <DashboardGreeting />
-        {!loadingCourses && allCourses.length && (
-          <DashboardVideo course={allCourses[0]} />
-        )}
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          {!dismissSignUp && !auth.user && (
-            <SignUp setDismissed={setDismissSignUp} showDismissButton={true} />
-          )}
-        </Box>
-        {!loadingCreators && (
+      {!loadingCourses && !loadingCreators ? (
+        <Container>
+          <DashboardGreeting />
+          {allCourses.length && <DashboardVideo course={allCourses[0]} />}
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            {!dismissSignUp && !auth.user && (
+              <SignUp
+                setDismissed={setDismissSignUp}
+                showDismissButton={true}
+              />
+            )}
+          </Box>
+          <DashboardCreatorsMessage
+            creators={allCreators.filter(
+              (creator) =>
+                creator.messageFromCreator && creator.messageFromCreator !== '',
+            )}
+          />
           <DashboardCreatorSpotlight
             creators={allCreators
               .filter((creator) => creator.featured === 'checked')
               .slice(0, 5)}
           />
-        )}
-        {/* {!loadingLearningPaths && (
+          )
+          {/* {!loadingLearningPaths && (
           <DashboardLearningPaths learningPaths={learningPaths} />
         )} */}
-        {!loadingCourses &&
-          defaultCategories.map((interest, index) => (
+          {defaultCategories.map((interest, index) => (
             <DashboardTopCourses
               key={index}
               title={`Top Courses in ${interest.label}`}
@@ -67,23 +75,36 @@ function DashboardSection(props) {
                 .slice(0, 5)}
             />
           ))}
-        <DashboardTopCourses
-          title="Students are also viewing"
-          icon={
-            <WhatshotIcon
-              fontSize="large"
-              sx={{
-                backgroundColor: '#FFC455',
-                padding: '5px',
-                borderRadius: '30%',
-              }}
-            />
-          }
-          courses={allCourses
-            .filter((course) => course.featured === 'checked')
-            .slice(0, 5)}
-        />
-      </Container>
+          <DashboardTopCourses
+            title="Students are also viewing"
+            icon={
+              <WhatshotIcon
+                fontSize="large"
+                sx={{
+                  backgroundColor: '#FFC455',
+                  padding: '5px',
+                  borderRadius: '30%',
+                }}
+              />
+            }
+            courses={allCourses
+              .filter((course) => course.featured === 'checked')
+              .slice(0, 5)}
+          />
+        </Container>
+      ) : (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '500px',
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      )}
     </Section>
   )
 }

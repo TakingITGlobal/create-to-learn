@@ -47,7 +47,7 @@ const a11yProps = (index) => {
   }
 }
 
-const BrowseTabs = ({ categories, search }) => {
+const BrowseTabs = ({ search }) => {
   const { t } = useTranslation()
 
   const [tabIndex, setTabIndex] = useState(0)
@@ -64,7 +64,6 @@ const BrowseTabs = ({ categories, search }) => {
     categoryFilter,
     durationFilter,
     search,
-    categories,
     durations,
   })
 
@@ -198,7 +197,6 @@ const BrowseTabs = ({ categories, search }) => {
       >
         {tabIndex === 0 ? (
           <BrowseCourseDrawerContent
-            categories={categories}
             handleDurationFilterArr={handleDurationFilter}
             handleCategoryFilterArr={handleCategoryFilter}
             categoryFilter={categoryFilter}

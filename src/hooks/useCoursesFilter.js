@@ -1,12 +1,12 @@
 import { useState, useEffect, useMemo } from 'react'
 import { durations } from '../assets/options/filters'
+import { categories } from '../assets/options/categories'
 
 export const useCoursesFilter = ({
   allCourses,
   categoryFilter = [],
   durationFilter = [],
   search = '',
-  categories,
 }) => {
   const [filteredCourses, setFilteredCourses] = useState(allCourses)
   const isHavingFilters = useMemo(
@@ -16,7 +16,9 @@ export const useCoursesFilter = ({
   useEffect(() => {
     //Use filters if some have been chosen. Otherwise, assume all filters are chosen.
     const categoriesToFilter =
-      categoryFilter && categoryFilter.length ? categoryFilter : categories
+      categoryFilter && categoryFilter.length
+        ? categoryFilter
+        : categories.map((category) => category.label)
     const durationsToFilter =
       durationFilter && durationFilter.length ? durationFilter : durations
 

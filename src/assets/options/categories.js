@@ -51,7 +51,7 @@ export const defaultCategories = [
   },
 ]
 
-const categories = [
+export const categories = [
   {
     label: 'Video & Film',
     icon: (

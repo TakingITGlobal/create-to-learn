@@ -34,7 +34,7 @@ const responsive = {
   mobile: {
     breakpoint: { max: 464, min: 0 },
     items: 1,
-    partialVisibilityGutter: 40,
+    partialVisibilityGutter: 100,
   },
 }
 
@@ -91,6 +91,7 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
                     height: '200px',
                     overflow: 'hidden',
                     borderRadius: '6px',
+                    objectFit: 'cover',
                   }}
                   image={item.thumbnail[0]?.downloadURL}
                 />
@@ -103,22 +104,12 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
                     justifyContent: 'flex-end',
                   }}
                 >
-                  <Typography variant="h5">
+                  <Typography variant="h6">
                     <b>{item.seriesName} </b>
                   </Typography>
 
-                  <Typography variant="h5">{item.creator}</Typography>
-                  <Typography variant="h5">Materials Required</Typography>
-                  {/* <Box>
-                  <Button
-                    color="primary"
-                    fullWidth
-                    variant="contained"
-                    href={'/course/' + item.uid}
-                  >
-                    See details
-                  </Button>
-                </Box> */}
+                  <Typography variant="h6">{item.creator}</Typography>
+                  <Typography variant="h6">Materials Required</Typography>
                 </CardContent>
               </CardActionArea>
             </Card>
