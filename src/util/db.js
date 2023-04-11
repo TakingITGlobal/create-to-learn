@@ -13,7 +13,6 @@ import {
   where,
   orderBy,
   getDoc,
-  getDocs,
   setDoc,
   updateDoc,
   addDoc,
@@ -81,56 +80,12 @@ export function useItem(id) {
   )
 }
 
-export function useLearningPaths() {
-  return useQuery(
-    ['/LearningPaths'],
-    createQuery(() => query(collection(db, '/LearningPaths'))),
-  )
-}
-
 export function useCourseByUID(uid) {
   return useQuery(
     ['/Series', { uid }],
     createQuery(() =>
       query(collection(db, '/Series'), where('uid', '==', uid), limit(1)),
     ),
-  )
-}
-
-export function useCourses() {
-  return useQuery(
-    ['/Series'],
-    // When fetching once there is no need to use `createQuery` to setup a subscription
-    // Just fetch normally using `getDoc` so that we return a promise
-    () => getDocs(collection(db, '/Series')).then(format),
-  )
-}
-
-export function useCoursePerCategory(categories) {
-  return useQuery(
-    ['/Series', { categories }],
-    createQuery(
-      () =>
-        query(
-          collection(db, '/Series'),
-          where('category', 'array-contains-any', categories),
-        ),
-      { staleTime: 'Infinity' },
-    ),
-  )
-}
-
-export function useCreators() {
-  return useQuery(
-    ['/Artists'],
-    createQuery(() => query(collection(db, '/Artists'), limit(5))),
-  )
-}
-
-export function useCreatorsAll() {
-  return useQuery(
-    ['/Artists'],
-    createQuery(() => query(collection(db, '/Artists'))),
   )
 }
 

@@ -1,60 +1,68 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import useClasses from '../hooks/useClasses'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
+import Stack from '@mui/material/Stack'
+import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined'
 import MultiCarousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 
 import { Paper } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import CircularProgress from '@mui/material/CircularProgress'
-import { useCreators } from '../util/db'
 
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
   cardContent: {
     padding: theme.spacing(3),
   },
   carouselItem: {
     paddingRight: '20px',
-    paddingBottom: '20px',
   },
-}))
+  title: {
+    padding: '10px 0',
+  },
+})
 
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
     items: 3,
-    paritialVisibilityGutter: 60,
+    partialVisibilityGutter: 60,
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
     items: 2,
-    paritialVisibilityGutter: 50,
+    partialVisibilityGutter: 50,
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
-    items: 1,
-    paritialVisibilityGutter: 40,
+    items: 2,
+    partialVisibilityGutter: 10,
   },
 }
 
-const DashboardCreatorSpotlight = () => {
-  const classes = useStyles()
-  const [creators, setCreators] = useState([])
+const DashboardCreatorSpotlight = ({ creators }) => {
+  const classes = useClasses(styles)
 
-  const { isLoading, data } = useCreators()
-
-  useEffect(() => {
-    if (!isLoading) {
-      setCreators(data)
-    }
-  }, [data, isLoading])
-
-  return isLoading ? (
-    <CircularProgress />
-  ) : (
+  return (
     <>
-      <Box sx={{ paddingBottom: 5 }}>
-        <Typography>Creator Spotlight</Typography>
+      <Box sx={{ padding: '20px 0', paddingBottom: '20px' }}>
+        <Stack direction="row" spacing={1}>
+          <EmojiObjectsOutlinedIcon
+            fontSize="large"
+            sx={{
+              backgroundColor: 'white',
+              color: 'yellow',
+              padding: '5px',
+              borderRadius: '30%',
+            }}
+          />
+          <Box
+            sx={{
+              paddingTop: '7.5px',
+            }}
+          >
+            <Typography variant="h5">Creator Spotlight</Typography>
+          </Box>
+        </Stack>
       </Box>
       <MultiCarousel
         ssr
@@ -65,16 +73,8 @@ const DashboardCreatorSpotlight = () => {
       >
         {creators.map((item, i) => {
           return (
-            <Paper key={i} sx={{ padding: 2.5, height: '400px' }}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  width: '100%',
-                  height: '200px',
-                  overflow: 'hidden',
-                }}
-              >
+            <Paper key={i} sx={{ height: '400px' }}>
+              <Box sx={{ height: '228px', objectFit: 'cover' }}>
                 <img
                   alt={`creator-${item.name}`}
                   src={
@@ -83,42 +83,27 @@ const DashboardCreatorSpotlight = () => {
                       : ''
                   }
                   style={{
-                    top: 0,
                     width: '100%',
-                    height: 'auto',
+                    height: '100%',
                     objectFit: 'cover',
                   }}
                 />
               </Box>
-              <Box sx={{ padding: 10 }}>
-                <h2>{item.seriesName}</h2>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    paddingBottom: 5,
-                  }}
-                >
-                  <Typography>{item.name}</Typography>
-                </Box>
-                <Box sx={{ paddingBottom: 5 }}>
-                  <Typography>
-                    {
-                      item.pleaseIncludeAShort23SentenceBioThatWeCanUseWhenPromotingYourContent
-                    }
-                  </Typography>
-                </Box>
-                {/* <Box>
-                  <Button
-                    color="primary"
-                    fullWidth
-                    variant="contained"
-                    href={item.webUrl}
-                  >
-                    See details
-                  </Button>
-                </Box> */}
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  paddingBottom: 5,
+                  paddingTop: 20,
+                  backgroundColor: '#0c0914',
+                  color: 'white',
+                  lineHeight: 'normal',
+                }}
+              >
+                <Typography variant="h6">
+                  <b> {item.name}</b>
+                </Typography>
+                <Typography variant="h6">{item.community}</Typography>
               </Box>
             </Paper>
           )

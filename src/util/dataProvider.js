@@ -8,13 +8,16 @@ const db = getFirestore(firebaseApp)
 
 export const useData = () => useContext(db)
 
-export const coursesAndCreatorsContext = createContext()
+export const dataContext = createContext()
 
-export function CoursesAndCreatorsProvider({ children }) {
+export function DataProvider({ children }) {
   const [creators, setCreators] = useState([])
   const [courses, setCourses] = useState([])
+  const [learningPaths, setLearningPaths] = useState([])
   const { data: dataCourses, isLoading: loadingCourses } = useCourses()
   const { data: dataCreators, isLoading: loadingCreators } = useCreators()
+  const { data: dataLearningPaths, isLoading: loadingLearningPaths } =
+    useLearningPaths()
 
   useEffect(() => {
     if (!loadingCourses) {
@@ -23,19 +26,24 @@ export function CoursesAndCreatorsProvider({ children }) {
     if (!loadingCreators) {
       setCreators(dataCreators)
     }
-  }, [dataCourses, dataCreators, loadingCourses, loadingCreators])
+    if (!loadingLearningPaths) {
+      setLearningPaths(dataLearningPaths)
+    }
+  }, [loadingCourses, loadingCreators, loadingLearningPaths])
 
   return (
-    <coursesAndCreatorsContext.Provider
+    <dataContext.Provider
       value={{
         allCourses: courses,
         allCreators: creators,
-        loadingCourses: loadingCourses,
-        loadingCreators: loadingCreators,
+        learningPaths,
+        loadingCourses,
+        loadingCreators,
+        loadingLearningPaths,
       }}
     >
       {children}
-    </coursesAndCreatorsContext.Provider>
+    </dataContext.Provider>
   )
 }
 
@@ -52,5 +60,12 @@ export function useCreators() {
   return useQuery(
     ['/Artists'],
     createQuery(() => query(collection(db, '/Artists'))),
+  )
+}
+
+export function useLearningPaths() {
+  return useQuery(
+    ['/LearningPaths'],
+    createQuery(() => query(collection(db, '/LearningPaths'))),
   )
 }

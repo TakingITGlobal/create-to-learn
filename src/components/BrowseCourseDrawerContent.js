@@ -3,11 +3,11 @@ import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import Chip from '@material-ui/core/Chip'
 import Stack from '@mui/material/Stack'
+import { categories } from '../assets/options/categories'
 
 import { useTranslation } from 'react-i18next'
 
 const BrowseCourseDrawerContent = ({
-  categories,
   handleDurationFilterArr,
   handleCategoryFilterArr,
   categoryFilter,
@@ -70,12 +70,12 @@ const BrowseCourseDrawerContent = ({
           {categories.map((category, index) => (
             <Chip
               key={index}
-              label={category}
+              label={category.label}
               clickable
-              onClick={() => handleCategoryFilterArr(category)}
+              onClick={() => handleCategoryFilterArr(category.label)}
               style={{ marginLeft: 0 }}
               variant={
-                categoryFilter.includes(category) ? 'default' : 'outlined'
+                categoryFilter.includes(category.label) ? 'default' : 'outlined'
               }
             />
           ))}

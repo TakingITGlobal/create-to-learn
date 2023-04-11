@@ -13,6 +13,9 @@
   "video": "video",
   "close": "Close",
   "course-page": "Go to course page",
+  "start": "Start",
+  "help-us-know-you": "It helps us know you better, show you things you like, and track your progress",
+  "sign-up": "Sign up or sign in",
   "btn": {
     "prev": "Prev",
     "next": "Next",
@@ -58,6 +61,9 @@
       "header": "I am..",
       "skip-btn": "Prefer not to say"
     }
+  },
+  "dashboard": {
+    "creators-message": "A message from your creators"
   },
   "browse": {
     "search-by": "Search courses and creators...",

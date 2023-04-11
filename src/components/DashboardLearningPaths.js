@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import useClasses from '../hooks/useClasses'
 import Box from '@material-ui/core/Box'
 import Typography from '@mui/material/Typography'
 import MultiCarousel from 'react-multi-carousel'
-import CircularProgress from '@mui/material/CircularProgress'
 import { Button, Paper } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { useLearningPaths } from '../util/db'
 import 'react-multi-carousel/lib/styles.css'
 
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
   cardContent: {
     padding: theme.spacing(3),
   },
@@ -16,48 +14,38 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: '20px',
     paddingBottom: '20px',
   },
-}))
+})
 
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
     items: 3,
-    paritialVisibilityGutter: 60,
+    partialVisibilityGutter: 60,
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
     items: 2,
-    paritialVisibilityGutter: 50,
+    partialVisibilityGutter: 50,
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
     items: 1,
-    paritialVisibilityGutter: 40,
+    partialVisibilityGutter: 40,
+    slidesToSlide: 1,
   },
 }
 
-const DashboardLearningPaths = () => {
-  const classes = useStyles()
-  const [learningPaths, setLearningPaths] = useState([])
+const DashboardLearningPaths = ({ learningPaths }) => {
+  const classes = useClasses(styles)
 
-  const { isLoading, data } = useLearningPaths()
-
-  useEffect(() => {
-    if (!isLoading) {
-      setLearningPaths(data)
-    }
-  }, [data, isLoading])
-
-  return isLoading ? (
-    <CircularProgress />
-  ) : (
+  return (
     <>
       <Box sx={{ paddingBottom: 5 }}>
         <Typography>Learning paths for students</Typography>
       </Box>
       <MultiCarousel
         ssr
-        partialVisible
+        partialVisible={true}
         responsive={responsive}
         swipeable
         itemClass={classes.carouselItem}

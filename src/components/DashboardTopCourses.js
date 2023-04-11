@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import MultiCarousel from 'react-multi-carousel'
 import Box from '@material-ui/core/Box'
 import Typography from '@mui/material/Typography'
-import { Button, Paper } from '@material-ui/core'
-
-import { makeStyles } from '@material-ui/core/styles'
-import { useCoursePerCategory } from '../util/db'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import Stack from '@mui/material/Stack'
+import CardActionArea from '@mui/material/CardActionArea'
+import useClasses from '../hooks/useClasses'
 import 'react-multi-carousel/lib/styles.css'
 
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
   cardContent: {
     padding: theme.spacing(3),
   },
@@ -16,107 +18,101 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: '20px',
     paddingBottom: '20px',
   },
-}))
+})
 
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
     items: 3,
-    paritialVisibilityGutter: 60,
+    partialVisibilityGutter: 60,
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
     items: 2,
-    paritialVisibilityGutter: 50,
+    partialVisibilityGutter: 50,
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
     items: 1,
-    paritialVisibilityGutter: 40,
+    partialVisibilityGutter: 100,
   },
 }
 
-const DashboardTopCourses = ({ category, title }) => {
-  const classes = useStyles()
-  const [courses, setCourses] = useState([])
-
-  const { data: courseData } = useCoursePerCategory([category])
-
-  useEffect(() => {
-    if (courseData?.length) {
-      setCourses(courseData)
-    }
-  }, [courseData])
+const DashboardTopCourses = ({ title, courses, icon }) => {
+  const classes = useClasses(styles)
 
   return (
     <>
-      <Box sx={{ paddingBottom: 5 }}>
-        <Typography>{title}</Typography>
+      <Box sx={{ padding: '20px 0', paddingBottom: '20px' }}>
+        <Stack direction="row" spacing={1}>
+          {icon}
+          <Box
+            sx={{
+              paddingTop: '7.5px',
+            }}
+          >
+            <Typography variant="h5">{title}</Typography>
+          </Box>
+        </Stack>
       </Box>
       <MultiCarousel
         ssr
-        partialVisible
+        partialVisible={true}
         responsive={responsive}
         swipeable
         itemClass={classes.carouselItem}
       >
         {courses.map((item, i) => {
           return (
-            <Paper key={i} sx={{ padding: 2.5, height: '450px' }}>
-              <Box sx={{ padding: 10 }}>
-                {/* Use the course photo instead of the creator photo once we have a valid url */}
-                <Box
+            <Card
+              key={i}
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                padding: '15px',
+                height: '375px',
+                backgroundColor: '#413F4C !important',
+                borderRadius: '6px',
+              }}
+            >
+              <CardActionArea
+                sx={{
+                  height: '100%',
+                }}
+                href={'/course/' + item.uid}
+              >
+                <CardMedia
+                  component="img"
+                  alt={`${item.seriesName}-course`}
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
                     width: '100%',
                     height: '200px',
                     overflow: 'hidden',
+                    borderRadius: '6px',
+                    objectFit: 'cover',
                   }}
-                >
-                  <img
-                    alt={`${item.seriesName}-course`}
-                    src={item.thumbnail[0]?.downloadURL}
-                    style={{
-                      top: 0,
-                      width: '100%',
-                      height: 'auto',
-                      objectFit: 'cover',
-                    }}
-                  />
-                </Box>
-                <h2>{item.seriesName}</h2>
-                <Box
+                  image={item.thumbnail[0]?.downloadURL}
+                />
+                <CardContent
                   sx={{
                     display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    paddingBottom: 5,
+                    flexDirection: 'column',
+                    padding: '10px 0',
+                    color: 'white',
+                    justifyContent: 'flex-end',
                   }}
                 >
-                  <>
-                    <Typography>{item.creator}</Typography>
-                    <Typography>
-                      {item.videos.length}{' '}
-                      {item.videos.length === 1 ? 'Video' : 'Videos'}
-                    </Typography>
-                  </>
-                </Box>
-                <Box sx={{ paddingBottom: 5 }}>
-                  <Typography>Materials: </Typography>
-                </Box>
-                <Box>
-                  <Button
-                    color="primary"
-                    fullWidth
-                    variant="contained"
-                    href={'/course/' + item.uid}
-                  >
-                    See details
-                  </Button>
-                </Box>
-              </Box>
-            </Paper>
+                  <Typography variant="h6">
+                    <b>{item.seriesName} </b>
+                  </Typography>
+
+                  <Typography variant="h6">{item.creator}</Typography>
+                  <Typography variant="h6">Materials Required</Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
           )
         })}
       </MultiCarousel>
