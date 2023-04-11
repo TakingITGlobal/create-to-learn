@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { useRouter } from '../util/router'
+import { useAfterAuthPath } from './use-after-auth-path.hook'
 
 export const useAuthForm = () => {
-  const router = useRouter()
+  const { push } = useRouter()
+  const { afterAuthPath } = useAfterAuthPath()
   const [formAlert, setFormAlert] = useState(null)
   console.log(formAlert, router)
 
-  const type = router.query.type
-  const afterAuthPath = router.query.next || '/dashboard'
 
   const handleAuth = () => {
     router.push(afterAuthPath)
@@ -19,4 +19,5 @@ export const useAuthForm = () => {
 
   console.log(formAlert)
   return { formAlert, handleAuth, handleFormAlert, type }
+
 }

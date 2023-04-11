@@ -16,13 +16,6 @@ const mockUseRouterReturn = {
 jest.mock('../util/router')
 
 describe('useAuthForm hook', () => {
-  it('returns type matching useRouter query.type', () => {
-    useRouter.mockImplementation(() => mockUseRouterReturn)
-    const { result } = renderHook(() => useAuthForm())
-
-    expect(result.current.type).toBe(mockQuery.type)
-  })
-
   it('returns null formAlert by default', () => {
     useRouter.mockImplementation(() => mockUseRouterReturn)
     const { result } = renderHook(() => useAuthForm())
