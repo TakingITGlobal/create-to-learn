@@ -98,7 +98,6 @@ function CourseSection(props) {
   const description = props.data.description
   const creator = props.data.creator
   const creatorPhoto = extractImageUrl(props.data.creatorPhoto)
-  const videoLinks = props.data.videoLinks
   const topic = props.data.category[0]
   const videoLinksArray = props.data.videoLinks.split(', ')
   
