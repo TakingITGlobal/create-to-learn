@@ -42,7 +42,7 @@ const responsive = {
 const DashboardCreatorSpotlight = ({ creators }) => {
   const classes = useClasses(styles)
 
-  return (
+  return creators.length ? (
     <>
       <Box sx={{ padding: '20px 0', paddingBottom: '20px' }}>
         <Stack direction="row" spacing={1}>
@@ -110,7 +110,7 @@ const DashboardCreatorSpotlight = ({ creators }) => {
         })}
       </MultiCarousel>
     </>
-  )
+  ) : null
 }
 
 export default DashboardCreatorSpotlight

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, createContext } from 'react'
+import React, { useState, useContext, createContext, useMemo } from 'react'
 import { useQuery } from 'react-query'
 import { getFirestore, collection, getDocs, query } from 'firebase/firestore'
 import { firebaseApp } from './firebase'
@@ -19,7 +19,7 @@ export function DataProvider({ children }) {
   const { data: dataLearningPaths, isLoading: loadingLearningPaths } =
     useLearningPaths()
 
-  useEffect(() => {
+  useMemo(() => {
     if (!loadingCourses) {
       setCourses(dataCourses)
     }
@@ -29,13 +29,13 @@ export function DataProvider({ children }) {
     if (!loadingLearningPaths) {
       setLearningPaths(dataLearningPaths)
     }
-  }, [loadingCourses, loadingCreators, loadingLearningPaths])
+  }, [dataCreators, dataCourses])
 
   return (
     <dataContext.Provider
       value={{
-        allCourses: courses,
-        allCreators: creators,
+        allCourses: courses || [],
+        allCreators: creators || [],
         learningPaths,
         loadingCourses,
         loadingCreators,
@@ -53,19 +53,27 @@ export function useCourses() {
     // When fetching once there is no need to use `createQuery` to setup a subscription
     // Just fetch normally using `getDoc` so that we return a promise
     () => getDocs(collection(db, '/Series')).then(format),
+    {
+      refetchOnWindowFocus: false,
+    },
   )
 }
 
-export function useCreators() {
+export const useCreators = () => {
   return useQuery(
     ['/Artists'],
     createQuery(() => query(collection(db, '/Artists'))),
+    {
+      refetchOnWindowFocus: false,
+    },
   )
 }
 
 export function useLearningPaths() {
   return useQuery(
     ['/LearningPaths'],
-    createQuery(() => query(collection(db, '/LearningPaths'))),
+    createQuery(() => query(collection(db, '/LearningPaths')), {
+      refetchOnWindowFocus: false,
+    }),
   )
 }

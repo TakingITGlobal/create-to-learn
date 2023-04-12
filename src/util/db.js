@@ -89,12 +89,12 @@ export function useCourseByUID(uid) {
   )
 }
 
-export function useCategories() {
-  return useQuery(
-    ['/Categories'],
-    createQuery(() => query(collection(db, '/Categories'))),
-  )
-}
+// export function useCategories() {
+//   return useQuery(
+//     ['/Categories'],
+//     createQuery(() => query(collection(db, '/Categories'))),
+//   )
+// }
 
 // Fetch item data once
 export function useItemOnce(id) {

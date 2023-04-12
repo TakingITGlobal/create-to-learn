@@ -63,7 +63,8 @@
     }
   },
   "dashboard": {
-    "creators-message": "A message from your creators"
+    "creators-message": "A message from your creators",
+    "students-also-viewing": "Students are also viewing"
   },
   "browse": {
     "search-by": "Search courses and creators...",

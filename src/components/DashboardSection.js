@@ -16,8 +16,10 @@ import DashboardVideo from './DashboardVideo'
 import { useAuth } from './../util/auth'
 import { dataContext } from '../util/dataProvider'
 import { defaultCategories } from '../assets/options/categories'
+import { useTranslation } from 'react-i18next'
 
 function DashboardSection(props) {
+  const { t } = useTranslation()
   //This should be in local storage
   const [dismissSignUp, setDismissSignUp] = useState(false)
 
@@ -31,6 +33,25 @@ function DashboardSection(props) {
     // loadingLearningPaths,
   } = useContext(dataContext)
 
+  const creatorsWithMessage = allCreators.length
+    ? allCreators.filter(
+        (creator) =>
+          creator.messageFromCreator && creator.messageFromCreator !== '',
+      )
+    : []
+
+  const featuredCourses = allCourses.length
+    ? allCourses.filter(({ featured }) => featured === 'checked').slice(0, 5)
+    : []
+
+  const coursesByCategory = (categoryLabel) => {
+    return allCourses
+      .filter((course) => course.category.includes(categoryLabel))
+      .slice(0, 5)
+  }
+
+  const dashboardCourseVideo = allCourses.length && allCourses[0]
+
   return (
     <Section
       bgColor={props.bgColor}
@@ -41,7 +62,7 @@ function DashboardSection(props) {
       {!loadingCourses && !loadingCreators ? (
         <Container>
           <DashboardGreeting />
-          {allCourses.length && <DashboardVideo course={allCourses[0]} />}
+          <DashboardVideo course={dashboardCourseVideo} />
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             {!dismissSignUp && !auth.user && (
               <SignUp
@@ -50,33 +71,28 @@ function DashboardSection(props) {
               />
             )}
           </Box>
-          <DashboardCreatorsMessage
-            creators={allCreators.filter(
-              (creator) =>
-                creator.messageFromCreator && creator.messageFromCreator !== '',
-            )}
-          />
+          <DashboardCreatorsMessage creators={creatorsWithMessage} />
           <DashboardCreatorSpotlight
             creators={allCreators
               .filter((creator) => creator.featured === 'checked')
               .slice(0, 5)}
           />
-          )
           {/* {!loadingLearningPaths && (
           <DashboardLearningPaths learningPaths={learningPaths} />
         )} */}
-          {defaultCategories.map((interest, index) => (
-            <DashboardTopCourses
-              key={index}
-              title={`Top Courses in ${interest.label}`}
-              icon={interest.icon}
-              courses={allCourses
-                .filter((course) => course.category.includes(interest.label))
-                .slice(0, 5)}
-            />
-          ))}
+          {defaultCategories.map((interest, index) => {
+            const courses = coursesByCategory(interest.label)
+            return (
+              <DashboardTopCourses
+                key={index}
+                title={`Top Courses in ${interest.label}`}
+                icon={interest.icon}
+                courses={courses}
+              />
+            )
+          })}
           <DashboardTopCourses
-            title="Students are also viewing"
+            title={t('students-also-viewing')}
             icon={
               <WhatshotIcon
                 fontSize="large"
@@ -87,9 +103,7 @@ function DashboardSection(props) {
                 }}
               />
             }
-            courses={allCourses
-              .filter((course) => course.featured === 'checked')
-              .slice(0, 5)}
+            courses={featuredCourses}
           />
         </Container>
       ) : (
