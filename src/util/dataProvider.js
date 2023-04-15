@@ -2,7 +2,7 @@ import React, { useState, useContext, createContext, useMemo } from 'react'
 import { useQuery } from 'react-query'
 import { getFirestore, collection, getDocs, query } from 'firebase/firestore'
 import { firebaseApp } from './firebase'
-import { format, createQuery } from './db'
+import { useCourses, useCreators, useLearningPaths } from './db'
 
 const db = getFirestore(firebaseApp)
 
@@ -14,8 +14,16 @@ export function DataProvider({ children }) {
   const [creators, setCreators] = useState([])
   const [courses, setCourses] = useState([])
   const [learningPaths, setLearningPaths] = useState([])
-  const { data: dataCourses, isLoading: loadingCourses } = useCourses()
-  const { data: dataCreators, isLoading: loadingCreators } = useCreators()
+  const {
+    data: dataCourses,
+    isLoading: loadingCourses,
+    error: errorLoadingCourses,
+  } = useCourses()
+  const {
+    data: dataCreators,
+    isLoading: loadingCreators,
+    error: errorLoadingCreators,
+  } = useCreators()
   const { data: dataLearningPaths, isLoading: loadingLearningPaths } =
     useLearningPaths()
 
@@ -40,40 +48,11 @@ export function DataProvider({ children }) {
         loadingCourses,
         loadingCreators,
         loadingLearningPaths,
+        errorLoadingCourses,
+        errorLoadingCreators,
       }}
     >
       {children}
     </dataContext.Provider>
-  )
-}
-
-export function useCourses() {
-  return useQuery(
-    ['/Series'],
-    // When fetching once there is no need to use `createQuery` to setup a subscription
-    // Just fetch normally using `getDoc` so that we return a promise
-    () => getDocs(collection(db, '/Series')).then(format),
-    {
-      refetchOnWindowFocus: false,
-    },
-  )
-}
-
-export const useCreators = () => {
-  return useQuery(
-    ['/Artists'],
-    createQuery(() => query(collection(db, '/Artists'))),
-    {
-      refetchOnWindowFocus: false,
-    },
-  )
-}
-
-export function useLearningPaths() {
-  return useQuery(
-    ['/LearningPaths'],
-    createQuery(() => query(collection(db, '/LearningPaths')), {
-      refetchOnWindowFocus: false,
-    }),
   )
 }
