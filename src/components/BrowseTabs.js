@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react'
-import Box from '@material-ui/core/Box'
-
+import Box from '@mui/material/Box'
 import Typography from '@material-ui/core/Typography'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
@@ -20,33 +19,6 @@ import { useCoursesFilter } from '../hooks/useCoursesFilter'
 import { useCreatorsFilter } from '../hooks/useCreatorsFilter'
 import { durations, culturalGroups } from '../assets/options/filters'
 
-const TabPanel = (props) => {
-  const { children, tabIndex, index, ...other } = props
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={tabIndex !== index}
-      id={`browse-tabpanel-${index}`}
-      aria-labelledby={`browse-tab-${index}`}
-      {...other}
-    >
-      {tabIndex === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  )
-}
-
-const a11yProps = (index) => {
-  return {
-    id: `browse-tab-${index}`,
-    'aria-controls': `browse-tabpanel-${index}`,
-  }
-}
-
 const BrowseTabs = ({ search }) => {
   const { t } = useTranslation()
 
@@ -64,7 +36,6 @@ const BrowseTabs = ({ search }) => {
     categoryFilter,
     durationFilter,
     search,
-    durations,
   })
 
   const { data: filteredCreators } = useCreatorsFilter({
@@ -216,3 +187,30 @@ const BrowseTabs = ({ search }) => {
 }
 
 export default BrowseTabs
+
+const TabPanel = (props) => {
+  const { children, tabIndex, index, ...other } = props
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={tabIndex !== index}
+      id={`browse-tabpanel-${index}`}
+      aria-labelledby={`browse-tab-${index}`}
+      {...other}
+    >
+      {tabIndex === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  )
+}
+
+const a11yProps = (index) => {
+  return {
+    id: `browse-tab-${index}`,
+    'aria-controls': `browse-tabpanel-${index}`,
+  }
+}

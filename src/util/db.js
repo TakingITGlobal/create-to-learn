@@ -66,6 +66,7 @@ export function createUser(uid, data) {
 export function updateUser(uid, data) {
   return updateDoc(doc(db, 'users', uid), data)
 }
+
 /**** Collections ****/
 export function useSchools() {
   return useQuery(
@@ -82,7 +83,7 @@ export function useCourses() {
     // When fetching once there is no need to use `createQuery` to setup a subscription
     // Just fetch normally using `getDoc` so that we return a promise
     () => getDocs(collection(db, '/Series')).then(format),
-    { staleTime: 20*60*1000 }, // 20 minutes
+    { staleTime: 20 * 60 * 1000 }, // 20 minutes
   )
 }
 
@@ -90,14 +91,16 @@ export const useCreators = () => {
   return useQuery(
     ['/Artists'],
     createQuery(() => query(collection(db, '/Artists'))),
-    { staleTime: 20*60*1000 }, // 20 minute  )
+    { staleTime: 20 * 60 * 1000 }, // 20 minute
+  )
 }
 
 export function useLearningPaths() {
   return useQuery(
     ['/LearningPaths'],
     createQuery(() => query(collection(db, '/LearningPaths'))),
-    { staleTime: 20*60*1000 }, // 20 minute  )
+    { staleTime: 20 * 60 * 1000 }, // 20 minute
+  )
 }
 /**** ITEMS ****/
 /* Example query functions (modify to your needs) */

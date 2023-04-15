@@ -71,6 +71,13 @@
     "search-by": "Search courses and creators...",
     "show-filters": "Show all filters",
     "apply-filters": "Apply filters",
-    "clear-filters": "Clear filters"
+    "clear-filters": "Clear filters",
+    "browse": "Browse"
+  },
+  "my-courses": {
+    "my-courses": "My Courses",
+    "downloads": "Downloads",
+    "my-progress": "My Progress",
+    "watchlist": "Watchlist"
   }
 }
