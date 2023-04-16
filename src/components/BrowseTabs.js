@@ -12,15 +12,26 @@ import BrowseDrawer from './BrowseDrawer'
 import BrowseCourseDrawerContent from './BrowseCourseDrawerContent'
 import BrowseCreatorDrawerContent from './BrowseCreatorDrawerContent'
 import BrowseEmptyState from './BrowseEmptyState'
+import FilterListSharpIcon from '@material-ui/icons/FilterListSharp'
 
 import { useTranslation } from 'react-i18next'
 import { dataContext } from '../util/dataProvider'
 import { useCoursesFilter } from '../hooks/useCoursesFilter'
 import { useCreatorsFilter } from '../hooks/useCreatorsFilter'
+import useClasses from '../hooks/useClasses'
 import { durations, culturalGroups } from '../assets/options/filters'
+
+const styles = (theme) => ({
+  filterButton: {
+    backgroundColor: 'white',
+    borderRadius: '48px !important',
+    textTransform: 'capitalize !important',
+  },
+})
 
 const BrowseTabs = ({ search }) => {
   const { t } = useTranslation()
+  const classes = useClasses(styles)
 
   const [tabIndex, setTabIndex] = useState(0)
   const [openDrawer, setOpenDrawer] = useState(false)
@@ -118,8 +129,9 @@ const BrowseTabs = ({ search }) => {
             <>
               <Button
                 variant="contained"
-                color="primary"
                 onClick={() => setOpenDrawer(true)}
+                className={classes.filterButton}
+                startIcon={<FilterListSharpIcon />}
               >
                 {t('browse.show-filters')}
               </Button>

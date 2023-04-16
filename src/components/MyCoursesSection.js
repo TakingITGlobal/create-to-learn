@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import CircularProgress from '@mui/material/CircularProgress'
-import Button from '@material-ui/core/Button'
 import Typography from '@mui/material/Typography'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
@@ -26,8 +25,8 @@ function MyCoursesSection(props) {
 
   const { allCourses, loadingCourses } = useContext(dataContext)
 
-  const watchlist = allCourses.filter(({ uid }) =>
-    auth.user.watchlist.includes(uid),
+  const watchlist = allCourses.filter(
+    ({ uid }) => auth.user?.watchlist && auth.user.watchlist.includes(uid),
   )
 
   return (
