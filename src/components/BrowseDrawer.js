@@ -1,10 +1,10 @@
 import React from 'react'
-import Box from '@material-ui/core/Box'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
+import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 import Stack from '@mui/material/Stack'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 
 import { useTranslation } from 'react-i18next'
 

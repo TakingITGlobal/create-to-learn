@@ -1,7 +1,7 @@
 import React from 'react'
-import OutlinedInput from '@material-ui/core/OutlinedInput'
-import InputAdornment from '@material-ui/core/InputAdornment'
-import SearchIcon from '@material-ui/icons/Search'
+import OutlinedInput from '@mui/material/OutlinedInput'
+import InputAdornment from '@mui/material/InputAdornment'
+import SearchIcon from '@mui/icons-material/Search'
 
 import { useTranslation } from 'react-i18next'
 
