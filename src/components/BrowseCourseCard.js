@@ -20,7 +20,7 @@ const BrowseCourseCard = ({ course }) => {
             style={{
               top: 0,
               width: '100%',
-              height: 'auto',
+              height: '100%',
               objectFit: 'cover',
             }}
           />
@@ -35,7 +35,7 @@ const BrowseCourseCard = ({ course }) => {
             <Box>
               <>
                 <Typography variant="body2">{course.creator}</Typography>
-                <Typography>
+                <Typography variant="body2">
                   {course.videos && course.videos.length}{' '}
                   {course.videos.length === 1 ? t('video') : t('videos')}
                 </Typography>
