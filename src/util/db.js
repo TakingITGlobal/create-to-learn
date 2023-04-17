@@ -19,6 +19,7 @@ import {
   deleteDoc,
   serverTimestamp,
   limit,
+  getDocs,
 } from 'firebase/firestore'
 import { firebaseApp } from './firebase'
 
@@ -26,7 +27,13 @@ import { firebaseApp } from './firebase'
 const db = getFirestore(firebaseApp)
 
 // React Query client
-const client = new QueryClient()
+const client = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false, //prevents from re-rendering when changing tabs.
+    },
+  },
+})
 
 /**** USERS ****/
 
@@ -59,6 +66,7 @@ export function createUser(uid, data) {
 export function updateUser(uid, data) {
   return updateDoc(doc(db, 'users', uid), data)
 }
+
 /**** Collections ****/
 export function useSchools() {
   return useQuery(
@@ -66,6 +74,32 @@ export function useSchools() {
     createQuery(() =>
       query(collection(db, '/Schools'), orderBy('school', 'asc')),
     ),
+  )
+}
+
+export function useCourses() {
+  return useQuery(
+    ['/Series'],
+    // When fetching once there is no need to use `createQuery` to setup a subscription
+    // Just fetch normally using `getDoc` so that we return a promise
+    () => getDocs(collection(db, '/Series')).then(format),
+    { staleTime: 20 * 60 * 1000 }, // 20 minutes
+  )
+}
+
+export const useCreators = () => {
+  return useQuery(
+    ['/Artists'],
+    createQuery(() => query(collection(db, '/Artists'))),
+    { staleTime: 20 * 60 * 1000 }, // 20 minute
+  )
+}
+
+export function useLearningPaths() {
+  return useQuery(
+    ['/LearningPaths'],
+    createQuery(() => query(collection(db, '/LearningPaths'))),
+    { staleTime: 20 * 60 * 1000 }, // 20 minute
   )
 }
 /**** ITEMS ****/
@@ -202,7 +236,6 @@ client.queryCache.subscribe(({ type, query }) => {
   }
 })
 
-// Format Firestore response
 export function format(response) {
   // Converts doc into object that contains data and `doc.id`
   const formatDoc = (doc) => ({ id: doc.id, ...doc.data() })

@@ -9,10 +9,12 @@ import CloseIcon from '@mui/icons-material/Close'
 
 import BrowseSearchBar from './BrowseSearchBar'
 import BrowseTabs from './BrowseTabs'
+import { useTranslation } from 'react-i18next'
 
 function BrowseSection(props) {
   const [showSearchBar, setShowSearchBar] = useState(false)
   const [search, setSearch] = useState('')
+  const { t } = useTranslation()
 
   return (
     <Section
@@ -24,7 +26,7 @@ function BrowseSection(props) {
       <Box mt={2}>
         <Container>
           <Box sx={{ paddingBottom: '7px' }}>
-            <Typography variant="h4">Browse</Typography>
+            <Typography variant="h4">{t('browse.browse')}</Typography>
           </Box>
           <Box
             sx={{

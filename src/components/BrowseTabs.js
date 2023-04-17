@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react'
-import Box from '@material-ui/core/Box'
-
+import Box from '@mui/material/Box'
 import Typography from '@material-ui/core/Typography'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
@@ -13,42 +12,26 @@ import BrowseDrawer from './BrowseDrawer'
 import BrowseCourseDrawerContent from './BrowseCourseDrawerContent'
 import BrowseCreatorDrawerContent from './BrowseCreatorDrawerContent'
 import BrowseEmptyState from './BrowseEmptyState'
+import FilterListSharpIcon from '@material-ui/icons/FilterListSharp'
 
 import { useTranslation } from 'react-i18next'
 import { dataContext } from '../util/dataProvider'
 import { useCoursesFilter } from '../hooks/useCoursesFilter'
 import { useCreatorsFilter } from '../hooks/useCreatorsFilter'
+import useClasses from '../hooks/useClasses'
 import { durations, culturalGroups } from '../assets/options/filters'
 
-const TabPanel = (props) => {
-  const { children, tabIndex, index, ...other } = props
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={tabIndex !== index}
-      id={`browse-tabpanel-${index}`}
-      aria-labelledby={`browse-tab-${index}`}
-      {...other}
-    >
-      {tabIndex === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  )
-}
-
-const a11yProps = (index) => {
-  return {
-    id: `browse-tab-${index}`,
-    'aria-controls': `browse-tabpanel-${index}`,
-  }
-}
+const styles = (theme) => ({
+  filterButton: {
+    backgroundColor: 'white',
+    borderRadius: '48px !important',
+    textTransform: 'capitalize !important',
+  },
+})
 
 const BrowseTabs = ({ search }) => {
   const { t } = useTranslation()
+  const classes = useClasses(styles)
 
   const [tabIndex, setTabIndex] = useState(0)
   const [openDrawer, setOpenDrawer] = useState(false)
@@ -64,7 +47,6 @@ const BrowseTabs = ({ search }) => {
     categoryFilter,
     durationFilter,
     search,
-    durations,
   })
 
   const { data: filteredCreators } = useCreatorsFilter({
@@ -147,8 +129,9 @@ const BrowseTabs = ({ search }) => {
             <>
               <Button
                 variant="contained"
-                color="primary"
                 onClick={() => setOpenDrawer(true)}
+                className={classes.filterButton}
+                startIcon={<FilterListSharpIcon />}
               >
                 {t('browse.show-filters')}
               </Button>
@@ -216,3 +199,30 @@ const BrowseTabs = ({ search }) => {
 }
 
 export default BrowseTabs
+
+const TabPanel = (props) => {
+  const { children, tabIndex, index, ...other } = props
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={tabIndex !== index}
+      id={`browse-tabpanel-${index}`}
+      aria-labelledby={`browse-tab-${index}`}
+      {...other}
+    >
+      {tabIndex === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  )
+}
+
+const a11yProps = (index) => {
+  return {
+    id: `browse-tab-${index}`,
+    'aria-controls': `browse-tabpanel-${index}`,
+  }
+}

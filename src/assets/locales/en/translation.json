@@ -64,12 +64,20 @@
   },
   "dashboard": {
     "creators-message": "A message from your creators",
-    "students-also-viewing": "Students are also viewing"
+    "students-also-viewing": "Students are also viewing",
+    "error": "Uh oh! An error has occurred."
   },
   "browse": {
     "search-by": "Search courses and creators...",
-    "show-filters": "Show all filters",
+    "show-filters": "Filter",
     "apply-filters": "Apply filters",
-    "clear-filters": "Clear filters"
+    "clear-filters": "Clear filters",
+    "browse": "Browse"
+  },
+  "my-courses": {
+    "my-courses": "My Courses",
+    "downloads": "Downloads",
+    "my-progress": "My Progress",
+    "watchlist": "Watchlist"
   }
 }

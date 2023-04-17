@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react'
 import 'react-multi-carousel/lib/styles.css'
 import Container from '@mui/material/Container'
-import 'react-multi-carousel/lib/styles.css'
 import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'
+import Typography from '@mui/material/Typography'
 import WhatshotIcon from '@mui/icons-material/Whatshot'
 import Section from './Section'
 import SignUp from './SignUp'
@@ -17,9 +17,22 @@ import { useAuth } from './../util/auth'
 import { dataContext } from '../util/dataProvider'
 import { defaultCategories } from '../assets/options/categories'
 import { useTranslation } from 'react-i18next'
+import useClasses from '../hooks/useClasses'
+
+const styles = (theme) => ({
+  boxStyle: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '500px',
+  },
+})
 
 function DashboardSection(props) {
   const { t } = useTranslation()
+  const classes = useClasses(styles)
+
   //This should be in local storage
   const [dismissSignUp, setDismissSignUp] = useState(false)
 
@@ -31,6 +44,8 @@ function DashboardSection(props) {
     loadingCourses,
     loadingCreators,
     // loadingLearningPaths,
+    errorLoadingCourses,
+    errorLoadingCreators,
   } = useContext(dataContext)
 
   const creatorsWithMessage = allCreators.length
@@ -50,7 +65,7 @@ function DashboardSection(props) {
       .slice(0, 5)
   }
 
-  const dashboardCourseVideo = allCourses.length && allCourses[0]
+  const spotlightVideoCourse = allCourses.length && allCourses[0]
 
   return (
     <Section
@@ -59,10 +74,18 @@ function DashboardSection(props) {
       bgImage={props.bgImage}
       bgImageOpacity={props.bgImageOpacity}
     >
-      {!loadingCourses && !loadingCreators ? (
+      {loadingCourses || loadingCreators ? (
+        <Box className={classes.boxStyle}>
+          <CircularProgress />
+        </Box>
+      ) : errorLoadingCourses && errorLoadingCreators ? (
+        <Box className={classes.boxStyle}>
+          <Typography>{t('dashboard.error')} </Typography>
+        </Box>
+      ) : (
         <Container>
           <DashboardGreeting />
-          <DashboardVideo course={dashboardCourseVideo} />
+          <DashboardVideo course={spotlightVideoCourse} />
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             {!dismissSignUp && !auth.user && (
               <SignUp
@@ -92,7 +115,7 @@ function DashboardSection(props) {
             )
           })}
           <DashboardTopCourses
-            title={t('students-also-viewing')}
+            title={t('dashboard.students-also-viewing')}
             icon={
               <WhatshotIcon
                 fontSize="large"
@@ -106,18 +129,6 @@ function DashboardSection(props) {
             courses={featuredCourses}
           />
         </Container>
-      ) : (
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '500px',
-          }}
-        >
-          <CircularProgress />
-        </Box>
       )}
     </Section>
   )

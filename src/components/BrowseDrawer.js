@@ -7,6 +7,13 @@ import Stack from '@mui/material/Stack'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 
 import { useTranslation } from 'react-i18next'
+import useClasses from '../hooks/useClasses'
+
+const styles = (theme) => ({
+  drawer: {
+    // backgroundColor: 'black !important',
+  },
+})
 
 const BrowseDrawer = ({
   children,
@@ -15,6 +22,7 @@ const BrowseDrawer = ({
   openDrawer,
 }) => {
   const { t } = useTranslation()
+  const classes = useClasses(styles)
 
   const toggleDrawer = (event, open) => {
     if (
@@ -32,6 +40,7 @@ const BrowseDrawer = ({
       open={openDrawer}
       onOpen={(event) => toggleDrawer(event, true)}
       onClose={(event) => toggleDrawer(event, false)}
+      PaperProps={{ className: classes.drawer }}
     >
       <Box
         mt={2}
