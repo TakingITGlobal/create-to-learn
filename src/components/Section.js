@@ -1,11 +1,9 @@
 import React from 'react'
 import useClasses from '../hooks/useClasses'
 import Box from '@mui/material/Box'
-import { emphasize } from '@mui/material/styles'
 import BackgroundImage from './BackgroundImage'
-import { capitalize } from '@mui/material/utils'
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     position: 'relative',
     // Ensure child <Container> is above background
@@ -46,11 +44,10 @@ const styles = theme => ({
   colorTransparent: {
     backgroundColor: 'transparent',
     color: 'inherit',
-  }
-});
+  },
+})
 
 function Section(props) {
-
   const classes = useClasses(styles)
   const {
     bgColor = 'default',
@@ -75,17 +72,14 @@ function Section(props) {
     <Box
       component="section"
       py={verticalPadding}
-      className={
-        classes.root +
-        (className ? ` ${className}` : '')
-      }
+      className={classes.root + (className ? ` ${className}` : '')}
       {...otherProps}
     >
       {bgImage && <BackgroundImage image={bgImage} opacity={bgImageOpacity} />}
 
       {props.children}
     </Box>
-  );
+  )
 }
 
 export default Section
