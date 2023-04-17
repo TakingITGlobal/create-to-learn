@@ -1,13 +1,13 @@
 import React from 'react'
 import useClasses from '../hooks/useClasses'
-import Box from '@material-ui/core/Box'
-import Typography from '@material-ui/core/Typography'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 import Stack from '@mui/material/Stack'
 import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined'
 import MultiCarousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 
-import { Paper } from '@material-ui/core'
+import { Paper } from '@mui/material'
 
 const styles = (theme) => ({
   cardContent: {

@@ -1,9 +1,10 @@
 import React, { useState, useContext } from 'react'
 import Box from '@mui/material/Box'
-import Typography from '@material-ui/core/Typography'
+
+import Typography from '@mui/material/Typography'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
-import Button from '@material-ui/core/Button'
+import Button from '@mui/material/Button'
 import CircularProgress from '@mui/material/CircularProgress'
 
 import BrowseCourseCard from './BrowseCourseCard'
@@ -12,7 +13,7 @@ import BrowseDrawer from './BrowseDrawer'
 import BrowseCourseDrawerContent from './BrowseCourseDrawerContent'
 import BrowseCreatorDrawerContent from './BrowseCreatorDrawerContent'
 import BrowseEmptyState from './BrowseEmptyState'
-import FilterListSharpIcon from '@material-ui/icons/FilterListSharp'
+import FilterListSharpIcon from '@mui/icons-material/FilterListSharp'
 
 import { useTranslation } from 'react-i18next'
 import { dataContext } from '../util/dataProvider'

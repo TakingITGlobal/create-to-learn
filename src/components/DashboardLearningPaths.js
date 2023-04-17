@@ -1,9 +1,9 @@
 import React from 'react'
 import useClasses from '../hooks/useClasses'
-import Box from '@material-ui/core/Box'
+import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import MultiCarousel from 'react-multi-carousel'
-import { Button, Paper } from '@material-ui/core'
+import { Button, Paper } from '@mui/material'
 import 'react-multi-carousel/lib/styles.css'
 
 const styles = (theme) => ({

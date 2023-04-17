@@ -1,7 +1,7 @@
 import React from 'react'
-import Box from '@material-ui/core/Box'
-import Typography from '@material-ui/core/Typography'
-import Chip from '@material-ui/core/Chip'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Chip from '@mui/material/Chip'
 import Stack from '@mui/material/Stack'
 
 import { useTranslation } from 'react-i18next'

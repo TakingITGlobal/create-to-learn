@@ -26,7 +26,7 @@ import {
   Typography,
   useTheme,
 } from '@mui/material'
-import { ChevronRight, Check, BookmarkBorder } from '@material-ui/icons'
+import { ChevronRight, Check, BookmarkBorder } from '@mui/icons-material'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
