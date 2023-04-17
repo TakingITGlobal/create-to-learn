@@ -3,11 +3,13 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import HandshakeIcon from '@mui/icons-material/Handshake'
+import { useTranslation } from 'react-i18next'
 
 import { useAuth } from './../util/auth'
 
 function DashboardGreeting(props) {
   const auth = useAuth()
+  const { t } = useTranslation()
 
   return (
     <Stack direction="row" spacing={1} sx={{ padding: '80px 0 10px 0' }}>
@@ -24,10 +26,10 @@ function DashboardGreeting(props) {
         {auth.user ? (
           <Box>
             <Typography variant="h4"> Tân'si </Typography>{' '}
-            <Typography variant="h4"> {auth.user.name} </Typography>{' '}
+            <Typography variant="h4"> {auth.user.name} </Typography>
           </Box>
         ) : (
-          <Typography variant="h4">Hello</Typography>
+          <Typography variant="h4">{t('hello')}</Typography>
         )}
       </Box>
     </Stack>

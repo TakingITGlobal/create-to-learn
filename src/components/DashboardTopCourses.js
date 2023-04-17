@@ -41,17 +41,13 @@ const responsive = {
 const DashboardTopCourses = ({ title, courses, icon }) => {
   const classes = useClasses(styles)
 
-  return (
+  return courses.length ? (
     <>
       <Box sx={{ padding: '20px 0', paddingBottom: '20px' }}>
         <Stack direction="row" spacing={1}>
           {icon}
-          <Box
-            sx={{
-              paddingTop: '7.5px',
-            }}
-          >
-            <Typography variant="h5">{title}</Typography>
+          <Box>
+            <Typography variant="h6">{title}</Typography>
           </Box>
         </Stack>
       </Box>
@@ -117,7 +113,7 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
         })}
       </MultiCarousel>
     </>
-  )
+  ) : null
 }
 
 export default DashboardTopCourses

@@ -46,7 +46,7 @@ const DashboardCreatorsMessage = ({ creators }) => {
 
   const { t } = useTranslation()
 
-  return (
+  return creators.length ? (
     <>
       <Box sx={{ padding: '20px 0', paddingBottom: '20px' }}>
         <Stack direction="row" spacing={1}>
@@ -148,7 +148,7 @@ const DashboardCreatorsMessage = ({ creators }) => {
         })}
       </MultiCarousel>
     </>
-  )
+  ) : null
 }
 
 export default DashboardCreatorsMessage
