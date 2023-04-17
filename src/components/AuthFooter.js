@@ -27,7 +27,7 @@ const styles = theme => ({
 
 
 function AuthFooter(props) {
-  const classes = useStyles(styles)
+  const classes = useClasses(styles)
   const { type, options } = useAuthTypeOptions()
 
   if (!options.showFooter) return null
