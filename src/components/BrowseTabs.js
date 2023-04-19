@@ -27,6 +27,7 @@ const styles = (theme) => ({
     backgroundColor: 'white',
     borderRadius: '48px !important',
     textTransform: 'capitalize !important',
+    color: 'black',
   },
 })
 

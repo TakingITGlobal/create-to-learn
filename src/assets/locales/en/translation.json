@@ -68,7 +68,7 @@
     "error": "Uh oh! An error has occurred."
   },
   "browse": {
-    "search-by": "Search courses and creators...",
+    "search": "Search",
     "show-filters": "Filter",
     "apply-filters": "Apply filters",
     "clear-filters": "Clear filters",
