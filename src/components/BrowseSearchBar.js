@@ -18,14 +18,13 @@ const BrowseSearchBar = ({ setSearch, search }) => {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: '40px 10px',
+        padding: '40px 20px',
       }}
     >
       <TextField
-        label={t('browse.search')}
         onInput={(e) => setSearch(e.target.value)}
         id="filled-start-adornment"
-        sx={{ backgroundColor: '#2B2937' }}
+        sx={{ backgroundColor: '#2B2937', borderRadius: '8px' }}
         value={search}
         InputProps={{
           startAdornment: (
