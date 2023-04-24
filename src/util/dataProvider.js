@@ -1,6 +1,5 @@
 import React, { useState, useContext, createContext, useMemo } from 'react'
-import { useQuery } from 'react-query'
-import { getFirestore, collection, getDocs, query } from 'firebase/firestore'
+import { getFirestore } from 'firebase/firestore'
 import { firebaseApp } from './firebase'
 import { useCourses, useCreators, useLearningPaths } from './db'
 

@@ -6,6 +6,7 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 import Stack from '@mui/material/Stack'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 
+import BrowseEmptyState from './BrowseEmptyState'
 import { useTranslation } from 'react-i18next'
 import useClasses from '../hooks/useClasses'
 

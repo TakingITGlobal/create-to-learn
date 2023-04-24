@@ -3,14 +3,12 @@ import Box from '@mui/material/Box'
 import InputAdornment from '@mui/material/InputAdornment'
 import SearchIcon from '@mui/icons-material/Search'
 import TextField from '@mui/material/TextField'
-import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 
 import { useTranslation } from 'react-i18next'
 
-const BrowseSearchBar = ({ setSearch, search }) => {
+const BrowseSearchBar = ({ setSearch, search, setOpenSearchDrawer }) => {
   const { t } = useTranslation()
-  console.log(search)
 
   return (
     <Box
@@ -39,8 +37,11 @@ const BrowseSearchBar = ({ setSearch, search }) => {
         }}
         variant="outlined"
       />
-      <Button onClick={() => setSearch('')} sx={{ color: 'white' }}>
-        Cancel
+      <Button
+        onClick={() => setOpenSearchDrawer(false)}
+        sx={{ color: 'white' }}
+      >
+        {t('cancel')}
       </Button>
     </Box>
   )
