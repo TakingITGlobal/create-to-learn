@@ -58,20 +58,22 @@ function BrowseSection(props) {
     >
       <Box mt={2}>
         <Container>
-          <Box sx={{ paddingBottom: '7px' }}>
-            <Typography variant="h4">{t('browse.browse')}</Typography>
-          </Box>
-
           <Box
             sx={{
+              paddingTop: '40px',
+              paddingBottom: '7px',
               display: 'flex',
-              justifyContent: 'flex-end',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
             }}
           >
+            <Typography variant="h4">{t('browse.browse')}</Typography>
+
             <IconButton onClick={() => setOpenSearchDrawer(true)}>
               <SearchIcon sx={{ color: 'white' }} fontSize="large" />
             </IconButton>
           </Box>
+
           <SwipeableDrawer
             anchor="right"
             open={openSearchDrawer}
