@@ -8,6 +8,7 @@ import FlightIcon from '@mui/icons-material/Flight'
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto'
 import NoteAltIcon from '@mui/icons-material/NoteAlt'
 import PublicIcon from '@mui/icons-material/Public'
+import WbSunnyIcon from '@mui/icons-material/WbSunny'
 
 export const defaultCategories = [
   {
@@ -52,6 +53,19 @@ export const defaultCategories = [
 ]
 
 export const categories = [
+  {
+    label: 'All',
+    icon: (
+      <WbSunnyIcon
+        fontSize="large"
+        sx={{
+          backgroundColor: 'yellow',
+          padding: '5px',
+          borderRadius: '30%',
+        }}
+      />
+    ),
+  },
   {
     label: 'Video & Film',
     icon: (

@@ -11,43 +11,64 @@ import BrowseTabs from './BrowseTabs'
 import BrowseEmptyState from './BrowseEmptyState'
 import BrowseCourseCard from './BrowseCourseCard'
 import BrowseCreatorCard from './BrowseCreatorCard'
+import Stack from '@mui/material/Stack'
+import MultiCarousel from 'react-multi-carousel'
+import 'react-multi-carousel/lib/styles.css'
 
 import { useTranslation } from 'react-i18next'
 import { dataContext } from '../util/dataProvider'
+import useClasses from '../hooks/useClasses'
+import { categories } from '../assets/options/categories'
+import { useSearchFilter } from '../hooks/useSearchFilter'
+
+const styles = (theme) => ({
+  cardContent: {
+    padding: theme.spacing(3),
+  },
+  carouselItem: {
+    paddingRight: '20px',
+  },
+  title: {
+    padding: '10px 0',
+  },
+})
+
+const responsive = {
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 5,
+    partialVisibilityGutter: 60,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 4,
+    partialVisibilityGutter: 50,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 3,
+    partialVisibilityGutter: 15,
+  },
+}
 
 function BrowseSection(props) {
   const [openSearchDrawer, setOpenSearchDrawer] = useState(false)
   const [search, setSearch] = useState('')
-  const [filterCourses, setFilterCourses] = useState('')
-  const [filterCreators, setFilterCreators] = useState('')
+  const [categoryFilter, setCategoryFilter] = useState('All')
+  const [durationFilter, setDurationFilter] = useState([])
+  const [culturalGroupFilter, setCulturalGroupFilter] = useState([])
+
   const { t } = useTranslation()
+  const classes = useClasses(styles)
 
   const { allCourses, allCreators, loadingCourses, loadingCreators } =
     useContext(dataContext)
 
-  useEffect(() => {
-    if (search !== '') {
-      const filtCourses =
-        allCourses &&
-        allCourses.filter((course) => {
-          const courseTitle = course.seriesName.toLowerCase()
-          return courseTitle.search(search.toLowerCase()) !== -1
-        })
-
-      const filtCreators =
-        allCreators &&
-        allCreators.filter((creator) => {
-          const creatorName = creator?.name?.toLowerCase()
-
-          return creatorName
-            ? creatorName.search(search.toLowerCase()) !== -1
-            : false
-        })
-
-      setFilterCourses(filtCourses)
-      setFilterCreators(filtCreators)
-    }
-  }, [search, allCourses, allCreators])
+  const { filterCourses, filterCreators } = useSearchFilter({
+    allCourses,
+    allCreators,
+    search,
+  })
 
   return (
     <Section
@@ -73,7 +94,46 @@ function BrowseSection(props) {
               <SearchIcon sx={{ color: 'white' }} fontSize="large" />
             </IconButton>
           </Box>
-
+          <Box sx={{ padding: '10px 0' }}>
+            <MultiCarousel
+              ssr
+              partialVisible
+              responsive={responsive}
+              swipeable
+              itemClass={classes.carouselItem}
+            >
+              {categories.map((category) => (
+                <Stack direction="column" spacing={2}>
+                  <IconButton
+                    onClick={() => setCategoryFilter(category.label)}
+                    sx={{
+                      border:
+                        categoryFilter === category.label ? 'solid' : 'none',
+                      borderColor: 'white',
+                    }}
+                  >
+                    {category.icon}
+                  </IconButton>
+                  <Typography
+                    sx={{
+                      fontSize: 12,
+                      textAlign: 'center',
+                    }}
+                  >
+                    {category.label}
+                  </Typography>
+                </Stack>
+              ))}
+            </MultiCarousel>
+          </Box>
+          <BrowseTabs
+            durationFilter={durationFilter}
+            setDurationFilter={setDurationFilter}
+            categoryFilter={categoryFilter}
+            culturalGroupFilter={culturalGroupFilter}
+            setCulturalGroupFilter={setCulturalGroupFilter}
+            setCategoryFilter={setCategoryFilter}
+          />
           <SwipeableDrawer
             anchor="right"
             open={openSearchDrawer}
@@ -93,7 +153,7 @@ function BrowseSection(props) {
             </Box>
             {search !== '' ? (
               <Box sx={{ padding: '0 20px' }}>
-                {filterCourses.length || filterCreators.length ? (
+                {filterCourses?.length || filterCreators?.length ? (
                   <Box>
                     {filterCreators.map((creator, index) => (
                       <BrowseCreatorCard key={index} creator={creator} />
@@ -108,7 +168,6 @@ function BrowseSection(props) {
               </Box>
             ) : null}
           </SwipeableDrawer>
-          <BrowseTabs search={search} />
         </Container>
       </Box>
     </Section>

@@ -12,7 +12,7 @@ export const dataContext = createContext()
 export function DataProvider({ children }) {
   const [creators, setCreators] = useState([])
   const [courses, setCourses] = useState([])
-  const [learningPaths, setLearningPaths] = useState([])
+  // const [learningPaths, setLearningPaths] = useState([])
   const {
     data: dataCourses,
     isLoading: loadingCourses,
@@ -23,8 +23,8 @@ export function DataProvider({ children }) {
     isLoading: loadingCreators,
     error: errorLoadingCreators,
   } = useCreators()
-  const { data: dataLearningPaths, isLoading: loadingLearningPaths } =
-    useLearningPaths()
+  // const { data: dataLearningPaths, isLoading: loadingLearningPaths } =
+  //   useLearningPaths()
 
   useMemo(() => {
     if (!loadingCourses) {
@@ -33,20 +33,20 @@ export function DataProvider({ children }) {
     if (!loadingCreators) {
       setCreators(dataCreators)
     }
-    if (!loadingLearningPaths) {
-      setLearningPaths(dataLearningPaths)
-    }
-  }, [dataCreators, dataCourses])
+    // if (!loadingLearningPaths) {
+    //   setLearningPaths(dataLearningPaths)
+    // }
+  }, [loadingCourses, loadingCreators, dataCourses, dataCreators])
 
   return (
     <dataContext.Provider
       value={{
         allCourses: courses || [],
         allCreators: creators || [],
-        learningPaths,
+        // learningPaths,
         loadingCourses,
         loadingCreators,
-        loadingLearningPaths,
+        // loadingLearningPaths,
         errorLoadingCourses,
         errorLoadingCreators,
       }}

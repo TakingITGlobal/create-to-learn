@@ -1,32 +1,34 @@
 import { useState, useEffect, useMemo } from 'react'
 import { durations, culturalGroups } from '../assets/options/filters'
-// import { categories } from '../assets/options/categories'
+import { categories } from '../assets/options/categories'
 
 export const useCoursesFilter = ({
   allCreators,
   allCourses,
   durationFilter = [],
   culturalGroupFilter = [],
+  categoryFilter = '',
 }) => {
   const [filteredCourses, setFilteredCourses] = useState(allCourses)
   const isHavingFilters = useMemo(
-    () => durationFilter.length || culturalGroupFilter.length,
-    [durationFilter, culturalGroupFilter],
+    () =>
+      durationFilter.length ||
+      culturalGroupFilter.length ||
+      categoryFilter !== 'all',
+    [durationFilter, culturalGroupFilter, categoryFilter],
   )
 
   useEffect(() => {
-    //Use filters if some have been chosen. Otherwise, assume all filters are chosen.
-    // const categoriesToFilter =
-    //   categoryFilter && categoryFilter.length
-    //     ? categoryFilter
-    //     : categories.map((category) => category.label)
     const durationsToFilter =
       durationFilter && durationFilter.length ? durationFilter : durations
     const culturalGroupsToFilter =
       culturalGroupFilter && culturalGroupFilter.length
         ? culturalGroupFilter
         : culturalGroups
-
+    const categoriesToFilter =
+      categoryFilter !== 'All'
+        ? [categoryFilter]
+        : categories.map(({ label }) => label)
     const filtCourses =
       allCourses &&
       allCourses.filter((course) => {
@@ -43,14 +45,24 @@ export const useCoursesFilter = ({
               course.totalLength >= duration.lowerValue &&
               course.totalLength < duration.upperValue,
           ) &&
-          culturalGroupsToFilter.some((culturalGroup) =>
-            creatorFNMI.includes(culturalGroup),
+          culturalGroupsToFilter.some(
+            (culturalGroup) =>
+              creatorFNMI.includes(culturalGroup) &&
+              categoriesToFilter.some((category) =>
+                course.category.includes(category),
+              ),
           )
         )
       })
 
     setFilteredCourses(filtCourses)
-  }, [durationFilter, allCourses, allCreators, culturalGroupFilter])
+  }, [
+    durationFilter,
+    allCourses,
+    allCreators,
+    culturalGroupFilter,
+    categoryFilter,
+  ])
 
   return { data: isHavingFilters ? filteredCourses : allCourses }
 }

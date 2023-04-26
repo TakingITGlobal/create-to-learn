@@ -36,15 +36,19 @@ const styles = (theme) => ({
   },
 })
 
-const BrowseTabs = ({ search }) => {
+const BrowseTabs = ({
+  durationFilter,
+  setDurationFilter,
+  culturalGroupFilter,
+  setCulturalGroupFilter,
+  categoryFilter,
+  setCategoryFilter,
+}) => {
   const { t } = useTranslation()
   const classes = useClasses(styles)
 
   const [tabIndex, setTabIndex] = useState(0)
   const [openDrawer, setOpenDrawer] = useState(false)
-  // const [categoryFilter, setCategoryFilter] = useState([])
-  const [durationFilter, setDurationFilter] = useState([])
-  const [culturalGroupFilter, setCulturalGroupFilter] = useState([])
 
   const { allCourses, allCreators, loadingCourses, loadingCreators } =
     useContext(dataContext)
@@ -53,27 +57,18 @@ const BrowseTabs = ({ search }) => {
     allCourses,
     allCreators,
     culturalGroupFilter,
-    // categoryFilter,
+    categoryFilter,
     durationFilter,
   })
 
   const { data: filteredCreators } = useCreatorsFilter({
     allCreators,
     culturalGroupFilter,
-    search,
   })
 
   const handleChangeTab = (event, newTab) => {
     setTabIndex(newTab)
   }
-
-  // const handleCategoryFilter = (category) => {
-  //   if (categoryFilter.includes(category)) {
-  //     setCategoryFilter(categoryFilter.filter((item) => item !== category))
-  //   } else {
-  //     setCategoryFilter([...categoryFilter, category])
-  //   }
-  // }
 
   const handleDurationFilter = (duration) => {
     const isInFilter = durationFilter.some((dur) => dur.id === duration.id)
@@ -97,15 +92,9 @@ const BrowseTabs = ({ search }) => {
   }
 
   const handleClearFilter = () => {
-    if (tabIndex === 0) {
-      // setCategoryFilter([])
-      setDurationFilter([])
-      setCulturalGroupFilter([])
-    }
-
-    if (tabIndex === 1) {
-      setCulturalGroupFilter([])
-    }
+    setCategoryFilter('All')
+    setDurationFilter([])
+    setCulturalGroupFilter([])
   }
 
   return (
@@ -168,7 +157,7 @@ const BrowseTabs = ({ search }) => {
                   ))}
                 </Box>
               ) : (
-                <BrowseEmptyState search={search} />
+                <BrowseEmptyState />
               )}
             </>
           )}
@@ -183,7 +172,7 @@ const BrowseTabs = ({ search }) => {
               ))}
             </Box>
           ) : (
-            <BrowseEmptyState search={search} />
+            <BrowseEmptyState />
           )}
         </TabPanel>
       </Box>
