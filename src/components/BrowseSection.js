@@ -16,7 +16,6 @@ import MultiCarousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 
 import { useTranslation } from 'react-i18next'
-import { dataContext } from '../util/dataProvider'
 import useClasses from '../hooks/useClasses'
 import { categories } from '../assets/options/categories'
 import { useSearchFilter } from '../hooks/useSearchFilter'
@@ -61,12 +60,7 @@ function BrowseSection(props) {
   const { t } = useTranslation()
   const classes = useClasses(styles)
 
-  const { allCourses, allCreators, loadingCourses, loadingCreators } =
-    useContext(dataContext)
-
   const { filterCourses, filterCreators } = useSearchFilter({
-    allCourses,
-    allCreators,
     search,
   })
 

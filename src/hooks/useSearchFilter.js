@@ -1,11 +1,14 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useContext } from 'react'
+import { dataContext } from '../util/dataProvider'
 
-export const useSearchFilter = ({ allCourses, search, allCreators }) => {
+export const useSearchFilter = ({ search }) => {
+  const { allCourses, allCreators, loadingCourses, loadingCreators } =
+    useContext(dataContext)
   const [filterCourses, setFilterCourses] = useState(allCourses)
   const [filterCreators, setFilterCreators] = useState(allCreators)
 
   useMemo(() => {
-    if (search !== '') {
+    if (search !== '' && !loadingCourses && !loadingCreators) {
       const filtCourses =
         allCourses &&
         allCourses.filter((course) => {
@@ -26,7 +29,7 @@ export const useSearchFilter = ({ allCourses, search, allCreators }) => {
       setFilterCourses(filtCourses)
       setFilterCreators(filtCreators)
     }
-  }, [search, allCourses, allCreators])
+  }, [search, allCourses, allCreators, loadingCourses, loadingCreators])
 
   return {
     filterCourses: search !== '' ? filterCourses : [],
