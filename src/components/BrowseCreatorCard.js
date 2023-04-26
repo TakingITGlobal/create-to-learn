@@ -21,7 +21,7 @@ const BrowseCreatorCard = ({ creator }) => {
         <Grid item xs={8}>
           <Box>
             <Typography variant="body2">{creator.name} </Typography>
-            <Typography variant="body2">tags </Typography>
+            <Typography variant="body2">{creator.fnmi} </Typography>
           </Box>
         </Grid>
       </Grid>
