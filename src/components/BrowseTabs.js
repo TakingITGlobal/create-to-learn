@@ -97,6 +97,8 @@ const BrowseTabs = ({
     setCulturalGroupFilter([])
   }
 
+  const numberOfFilters = durationFilter.length + culturalGroupFilter.length
+
   return (
     <>
       <Box sx={{ width: '100%' }}>
@@ -139,7 +141,8 @@ const BrowseTabs = ({
                   className={classes.filterButton}
                   startIcon={<FilterListSharpIcon />}
                 >
-                  {t('browse.show-filters')}
+                  {t('browse.show-filters')}{' '}
+                  {numberOfFilters !== 0 ? `(${numberOfFilters})` : ''}
                 </Button>
 
                 <Button
@@ -180,7 +183,7 @@ const BrowseTabs = ({
         setOpenDrawer={setOpenDrawer}
         handleClearFilter={handleClearFilter}
         openDrawer={openDrawer}
-        numberOfFilters={durationFilter.length + culturalGroupFilter.length}
+        numberOfFilters={numberOfFilters}
       >
         <BrowseCourseDrawerContent
           handleDurationFilterArr={handleDurationFilter}
