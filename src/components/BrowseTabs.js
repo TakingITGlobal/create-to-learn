@@ -63,7 +63,9 @@ const BrowseTabs = ({
 
   const { data: filteredCreators } = useCreatorsFilter({
     allCreators,
+    allCourses,
     culturalGroupFilter,
+    categoryFilter,
   })
 
   const handleChangeTab = (event, newTab) => {

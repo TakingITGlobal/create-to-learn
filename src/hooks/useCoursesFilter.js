@@ -7,7 +7,7 @@ export const useCoursesFilter = ({
   allCourses,
   durationFilter = [],
   culturalGroupFilter = [],
-  categoryFilter = '',
+  categoryFilter = 'all',
 }) => {
   const [filteredCourses, setFilteredCourses] = useState(allCourses)
   const isHavingFilters = useMemo(
