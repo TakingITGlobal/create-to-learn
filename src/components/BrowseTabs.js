@@ -11,7 +11,7 @@ import BrowseCourseCard from './BrowseCourseCard'
 import BrowseCreatorCard from './BrowseCreatorCard'
 import BrowseDrawer from './BrowseDrawer'
 import BrowseCourseDrawerContent from './BrowseCourseDrawerContent'
-import BrowseEmptyState from './BrowseEmptyState'
+import BrowseFilterEmptyState from './BrowseFilterEmptyState'
 import FilterListSharpIcon from '@mui/icons-material/FilterListSharp'
 
 import { useTranslation } from 'react-i18next'
@@ -162,7 +162,7 @@ const BrowseTabs = ({
                   ))}
                 </Box>
               ) : (
-                <BrowseEmptyState />
+                <BrowseFilterEmptyState />
               )}
             </>
           )}
@@ -177,7 +177,7 @@ const BrowseTabs = ({
               ))}
             </Box>
           ) : (
-            <BrowseEmptyState />
+            <BrowseFilterEmptyState />
           )}
         </TabPanel>
       </Box>

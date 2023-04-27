@@ -9,7 +9,7 @@ import SearchIcon from '@mui/icons-material/Search'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 import BrowseSearchBar from './BrowseSearchBar'
 import BrowseTabs from './BrowseTabs'
-import BrowseEmptyState from './BrowseEmptyState'
+import BrowseSearchEmptyState from './BrowseSearchEmptyState'
 import BrowseCourseCard from './BrowseCourseCard'
 import BrowseCreatorCard from './BrowseCreatorCard'
 import Stack from '@mui/material/Stack'
@@ -159,7 +159,7 @@ function BrowseSection(props) {
                     ))}
                   </Box>
                 ) : (
-                  <BrowseEmptyState search={search} />
+                  <BrowseSearchEmptyState search={search} />
                 )}
               </Box>
             ) : null}
