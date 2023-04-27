@@ -97,8 +97,8 @@ function BrowseSection(props) {
               swipeable
               itemClass={classes.carouselItem}
             >
-              {categories.map((category) => (
-                <Stack direction="column" spacing={2}>
+              {categories.map((category, index) => (
+                <Stack direction="column" spacing={2} key={index}>
                   <Button
                     onClick={() => setCategoryFilter(category.label)}
                     sx={{

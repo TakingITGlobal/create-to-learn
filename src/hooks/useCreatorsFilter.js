@@ -6,12 +6,12 @@ export const useCreatorsFilter = ({
   allCreators,
   allCourses,
   culturalGroupFilter = [],
-  categoryFilter = 'all',
+  categoryFilter = 'All',
 }) => {
   const [filteredCreators, setFilteredCreators] = useState(allCreators)
 
   const isHavingFilters = useMemo(
-    () => culturalGroupFilter.length || categoryFilter !== 'all',
+    () => culturalGroupFilter.length || categoryFilter !== 'All',
     [categoryFilter, culturalGroupFilter.length],
   )
 
@@ -29,9 +29,10 @@ export const useCreatorsFilter = ({
         (course) => creator.name === course.creator,
       )
       const creatorCategories =
-        categoryFilter !== 'all'
+        categoryFilter !== 'All'
           ? creatorCourses.flatMap((course) => course.category)
-          : 'categories'
+          : categories
+
       const creatorFNMI = creator.fnmi ? creator.fnmi : ['']
       return (
         creatorFNMI.some((grp) => culturalGroupsToFilter.includes(grp)) &&
