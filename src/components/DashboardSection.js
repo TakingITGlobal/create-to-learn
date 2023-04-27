@@ -9,7 +9,6 @@ import Section from './Section'
 import SignUp from './SignUp'
 import DashboardTopCourses from './DashboardTopCourses'
 import DashboardCreatorsMessage from './DashboardCreatorsMessage'
-// import DashboardLearningPaths from './DashboardLearningPaths'
 import DashboardCreatorSpotlight from './DashboardCreatorSpotlight'
 import DashboardGreeting from './DashboardGreeting'
 import DashboardVideo from './DashboardVideo'
@@ -40,10 +39,8 @@ function DashboardSection(props) {
   const {
     allCourses,
     allCreators,
-    // learningPaths,
     loadingCourses,
     loadingCreators,
-    // loadingLearningPaths,
     errorLoadingCourses,
     errorLoadingCreators,
   } = useContext(dataContext)
@@ -100,9 +97,6 @@ function DashboardSection(props) {
               .filter((creator) => creator.featured === 'checked')
               .slice(0, 5)}
           />
-          {/* {!loadingLearningPaths && (
-          <DashboardLearningPaths learningPaths={learningPaths} />
-        )} */}
           {defaultCategories.map((interest, index) => {
             const courses = coursesByCategory(interest.label)
             return (

@@ -83,7 +83,10 @@ const BrowseDrawer = ({
           <Button
             variant="outlined"
             className={classes.clearButton}
-            onClick={() => handleClearFilter()}
+            onClick={() => {
+              handleClearFilter()
+              setOpenDrawer(false)
+            }}
           >
             {t('cancel')}
           </Button>

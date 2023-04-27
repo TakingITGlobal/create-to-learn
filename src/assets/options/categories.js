@@ -1,13 +1,3 @@
-import VideocamIcon from '@mui/icons-material/Videocam'
-import PaletteIcon from '@mui/icons-material/Palette'
-import SportsEsportsIcon from '@mui/icons-material/SportsEsports'
-import MusicNoteIcon from '@mui/icons-material/MusicNote'
-import MonitorHeartIcon from '@mui/icons-material/MonitorHeart'
-import PriceChangeIcon from '@mui/icons-material/PriceChange'
-import FlightIcon from '@mui/icons-material/Flight'
-import AddAPhotoIcon from '@mui/icons-material/AddAPhoto'
-import NoteAltIcon from '@mui/icons-material/NoteAlt'
-import PublicIcon from '@mui/icons-material/Public'
 import WbSunnyIcon from '@mui/icons-material/WbSunny'
 import AllImg from '../images/category-img-all.svg'
 import VisualArtsImg from '../images/category-img-visual-arts.svg'
@@ -20,26 +10,37 @@ import CulturalTeachingsImg from '../images/category-img-cultural-teaching.svg'
 import GameDesignImg from '../images/category-img-game-design.svg'
 import VideoImg from '../images/category-img-video.svg'
 import DroneImg from '../images/category-img-drone.svg'
+import SvgIcon from '@mui/material/SvgIcon'
+import VideoIcon from '../images/category-icon-video.svg'
+import GameDesignIcon from '../images/category-icon-game-design.svg'
+import CulturalTeachingsIcon from '../images/category-icon-cultural-teachings.svg'
+import MusicIcon from '../images/category-icon-music.svg'
+import PhotographyIcon from '../images/category-icon-photography.svg'
+import WritingIcon from '../images/category-icon-writing.svg'
+import VisualArtsIcon from '../images/category-icon-visual-arts.svg'
+import HealthIcon from '../images/category-icon-health.svg'
+import DroneIcon from '../images/category-icon-drone.svg'
+import WebDesignIcon from '../images/category-icon-web-design.svg'
+
 import Box from '@mui/material/Box'
 
 export const defaultCategories = [
   {
     label: 'Video & Film',
     icon: (
-      <VideocamIcon
-        fontSize="large"
-        sx={{
-          backgroundColor: '#FBC6F3',
-          padding: '5px',
-          borderRadius: '30%',
-        }}
-      />
+      <SvgIcon fontSize="large" component="div" sx={{ paddingBottom: '10px' }}>
+        <img
+          src={VideoIcon}
+          alt="video-icon"
+          style={{ paddingBottom: '10px' }}
+        />
+      </SvgIcon>
     ),
     illustration: (
       <Box
         component="img"
         src={VideoImg}
-        alt="video"
+        alt="video-img"
         sx={{
           display: 'flex',
           objectFit: 'cover',
@@ -50,20 +51,19 @@ export const defaultCategories = [
   {
     label: 'Game Design',
     icon: (
-      <SportsEsportsIcon
-        fontSize="large"
-        sx={{
-          backgroundColor: '#6956F1',
-          padding: '5px',
-          borderRadius: '30%',
-        }}
-      />
+      <SvgIcon fontSize="large" component="div" sx={{ paddingBottom: '10px' }}>
+        <img
+          src={GameDesignIcon}
+          alt="game-design-icon"
+          style={{ paddingBottom: '10px' }}
+        />
+      </SvgIcon>
     ),
     illustration: (
       <Box
         component="img"
         src={GameDesignImg}
-        alt="game0design"
+        alt="game-design-img"
         sx={{
           display: 'flex',
           objectFit: 'cover',
@@ -74,20 +74,19 @@ export const defaultCategories = [
   {
     label: 'Cultural Teachings',
     icon: (
-      <PublicIcon
-        fontSize="large"
-        sx={{
-          backgroundColor: '#32313E',
-          padding: '5px',
-          borderRadius: '30%',
-        }}
-      />
+      <SvgIcon fontSize="large" component="div" sx={{ paddingBottom: '10px' }}>
+        <img
+          src={CulturalTeachingsIcon}
+          alt="cultural-teachings-icon"
+          style={{ paddingBottom: '10px' }}
+        />
+      </SvgIcon>
     ),
     illustration: (
       <Box
         component="img"
         src={CulturalTeachingsImg}
-        alt="cultural-teachings"
+        alt="cultural-teachings-img"
         sx={{
           display: 'flex',
           objectFit: 'cover',
@@ -125,14 +124,13 @@ export const categories = [
   {
     label: 'Video & Film',
     icon: (
-      <VideocamIcon
-        fontSize="large"
-        sx={{
-          backgroundColor: '#FBC6F3',
-          padding: '5px',
-          borderRadius: '30%',
-        }}
-      />
+      <SvgIcon fontSize="large" component="div" sx={{ paddingBottom: '10px' }}>
+        <img
+          src={VideoIcon}
+          alt="video-icon"
+          style={{ paddingBottom: '10px' }}
+        />
+      </SvgIcon>
     ),
     illustration: (
       <Box
@@ -149,20 +147,19 @@ export const categories = [
   {
     label: 'Game Design',
     icon: (
-      <SportsEsportsIcon
-        fontSize="large"
-        sx={{
-          backgroundColor: '#6956F1',
-          padding: '5px',
-          borderRadius: '30%',
-        }}
-      />
+      <SvgIcon fontSize="large" component="div" sx={{ paddingBottom: '10px' }}>
+        <img
+          src={GameDesignIcon}
+          alt="game-design-icon"
+          style={{ paddingBottom: '10px' }}
+        />
+      </SvgIcon>
     ),
     illustration: (
       <Box
         component="img"
         src={GameDesignImg}
-        alt="game0design"
+        alt="game-design-img"
         sx={{
           display: 'flex',
           objectFit: 'cover',
@@ -173,20 +170,19 @@ export const categories = [
   {
     label: 'Cultural Teachings',
     icon: (
-      <PublicIcon
-        fontSize="large"
-        sx={{
-          backgroundColor: '#32313E',
-          padding: '5px',
-          borderRadius: '30%',
-        }}
-      />
+      <SvgIcon fontSize="large" component="div" sx={{ paddingBottom: '10px' }}>
+        <img
+          src={CulturalTeachingsIcon}
+          alt="cultural-teachings-icon"
+          style={{ paddingBottom: '10px' }}
+        />
+      </SvgIcon>
     ),
     illustration: (
       <Box
         component="img"
         src={CulturalTeachingsImg}
-        alt="cultural-teachings"
+        alt="cultural-teachings-icon"
         sx={{
           display: 'flex',
           objectFit: 'cover',
@@ -197,20 +193,15 @@ export const categories = [
   {
     label: 'Music & Songwriting',
     icon: (
-      <MusicNoteIcon
-        fontSize="large"
-        sx={{
-          backgroundColor: '#6956F1',
-          padding: '5px',
-          borderRadius: '30%',
-        }}
-      />
+      <SvgIcon fontSize="large" component="div" sx={{ paddingBottom: '10px' }}>
+        <img src={MusicIcon} alt="music" style={{ paddingBottom: '10px' }} />
+      </SvgIcon>
     ),
     illustration: (
       <Box
         component="img"
         src={MusicImg}
-        alt="music"
+        alt="music-icon"
         sx={{
           display: 'flex',
           objectFit: 'cover',
@@ -221,20 +212,19 @@ export const categories = [
   {
     label: 'Visual Arts',
     icon: (
-      <PaletteIcon
-        fontSize="large"
-        sx={{
-          backgroundColor: '#6956F1',
-          padding: '5px',
-          borderRadius: '30%',
-        }}
-      />
+      <SvgIcon fontSize="large" component="div" sx={{ paddingBottom: '10px' }}>
+        <img
+          src={VisualArtsIcon}
+          alt="visual-arts"
+          style={{ paddingBottom: '10px' }}
+        />
+      </SvgIcon>
     ),
     illustration: (
       <Box
         component="img"
         src={VisualArtsImg}
-        alt="visual-arts"
+        alt="visual-arts-icon"
         sx={{
           display: 'flex',
           objectFit: 'cover',
@@ -245,14 +235,13 @@ export const categories = [
   {
     label: 'Health & Well-being',
     icon: (
-      <MonitorHeartIcon
-        fontSize="large"
-        sx={{
-          backgroundColor: '#6956F1',
-          padding: '5px',
-          borderRadius: '30%',
-        }}
-      />
+      <SvgIcon fontSize="large" component="div" sx={{ paddingBottom: '10px' }}>
+        <img
+          src={HealthIcon}
+          alt="health-icon"
+          style={{ paddingBottom: '10px' }}
+        />
+      </SvgIcon>
     ),
     illustration: (
       <Box
@@ -269,14 +258,13 @@ export const categories = [
   {
     label: 'Entrepreneurship & Web Design',
     icon: (
-      <PriceChangeIcon
-        fontSize="large"
-        sx={{
-          backgroundColor: '#6956F1',
-          padding: '5px',
-          borderRadius: '30%',
-        }}
-      />
+      <SvgIcon fontSize="large" component="div" sx={{ paddingBottom: '10px' }}>
+        <img
+          src={WebDesignIcon}
+          alt="web-design-icon"
+          style={{ paddingBottom: '10px' }}
+        />
+      </SvgIcon>
     ),
     illustration: (
       <Box
@@ -293,14 +281,13 @@ export const categories = [
   {
     label: 'Drones',
     icon: (
-      <FlightIcon
-        fontSize="large"
-        sx={{
-          backgroundColor: '#6956F1',
-          padding: '5px',
-          borderRadius: '30%',
-        }}
-      />
+      <SvgIcon fontSize="large" component="div" sx={{ paddingBottom: '10px' }}>
+        <img
+          src={DroneIcon}
+          alt="drone-icon"
+          style={{ paddingBottom: '10px' }}
+        />
+      </SvgIcon>
     ),
     illustration: (
       <Box
@@ -317,14 +304,13 @@ export const categories = [
   {
     label: 'Photography & Photoshop',
     icon: (
-      <AddAPhotoIcon
-        fontSize="large"
-        sx={{
-          backgroundColor: '#6956F1',
-          padding: '5px',
-          borderRadius: '30%',
-        }}
-      />
+      <SvgIcon fontSize="large" component="div" sx={{ paddingBottom: '10px' }}>
+        <img
+          src={PhotographyIcon}
+          alt="photography-icon"
+          style={{ paddingBottom: '10px' }}
+        />
+      </SvgIcon>
     ),
     illustration: (
       <Box
@@ -341,14 +327,13 @@ export const categories = [
   {
     label: 'Writing',
     icon: (
-      <NoteAltIcon
-        fontSize="large"
-        sx={{
-          backgroundColor: '#6956F1',
-          padding: '5px',
-          borderRadius: '30%',
-        }}
-      />
+      <SvgIcon fontSize="large" component="div" sx={{ paddingBottom: '10px' }}>
+        <img
+          src={WritingIcon}
+          alt="writing-icon"
+          style={{ paddingBottom: '10px' }}
+        />
+      </SvgIcon>
     ),
     illustration: (
       <Box
