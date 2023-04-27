@@ -4,6 +4,7 @@ import Container from '@mui/material/Container'
 import Section from './Section'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
+import Button from '@mui/material/Button'
 import SearchIcon from '@mui/icons-material/Search'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 import BrowseSearchBar from './BrowseSearchBar'
@@ -98,16 +99,17 @@ function BrowseSection(props) {
             >
               {categories.map((category) => (
                 <Stack direction="column" spacing={2}>
-                  <IconButton
+                  <Button
                     onClick={() => setCategoryFilter(category.label)}
                     sx={{
                       border:
                         categoryFilter === category.label ? 'solid' : 'none',
                       borderColor: 'white',
+                      padding: '0 5px',
                     }}
                   >
-                    {category.icon}
-                  </IconButton>
+                    {category.illustration}
+                  </Button>
                   <Typography
                     sx={{
                       fontSize: 12,
