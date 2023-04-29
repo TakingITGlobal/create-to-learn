@@ -171,11 +171,17 @@ const BrowseTabs = ({
           {loadingCreators ? (
             <CircularProgress color="primary" />
           ) : filteredCreators.length ? (
-            <Box>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+                gridGap: 20,
+              }}
+            >
               {filteredCreators.map((creator, index) => (
                 <BrowseCreatorCard key={index} creator={creator} />
               ))}
-            </Box>
+            </div>
           ) : (
             <BrowseFilterEmptyState />
           )}

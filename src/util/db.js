@@ -82,7 +82,9 @@ export function useCourses() {
     ['/Series'],
     // When fetching once there is no need to use `createQuery` to setup a subscription
     // Just fetch normally using `getDoc` so that we return a promise
-    () => getDocs(collection(db, '/Series')).then(format),
+    createQuery(() =>
+      query(collection(db, '/Series'), orderBy('seriesName', 'asc')),
+    ),
     { staleTime: 20 * 60 * 1000 }, // 20 minutes
   )
 }
@@ -90,7 +92,9 @@ export function useCourses() {
 export const useCreators = () => {
   return useQuery(
     ['/Artists'],
-    createQuery(() => query(collection(db, '/Artists'))),
+    createQuery(() =>
+      query(collection(db, '/Artists'), orderBy('name', 'asc')),
+    ),
     { staleTime: 20 * 60 * 1000 }, // 20 minute
   )
 }
