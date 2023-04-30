@@ -126,14 +126,14 @@ export function useCourseByUID(uid) {
     ),
   )
 }
-
-// export function useCategories() {
-//   return useQuery(
-//     ['/Categories'],
-//     createQuery(() => query(collection(db, '/Categories'))),
-//   )
-// }
-
+export function useCreatorByUID(uid) {
+  return useQuery(
+    ['/Artists', { uid }],
+    createQuery(() =>
+      query(collection(db, '/Artists'), where('uid', '==', uid), limit(1)),
+    ),
+  )
+}
 // Fetch item data once
 export function useItemOnce(id) {
   return useQuery(

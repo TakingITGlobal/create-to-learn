@@ -28,6 +28,7 @@ import { useTheme } from '@mui/material/styles'
 import { Box } from '@mui/material'
 import SignUpPage from './signUp'
 import CoursePage from './course'
+import CreatorPage from './creator'
 
 function App(props) {
   //Default to dark theme for now
@@ -73,6 +74,12 @@ function App(props) {
                       exact
                       path="/course/:courseId"
                       component={CoursePage}
+                    />
+
+                    <Route
+                      exact
+                      path="/creator/:creatorId"
+                      component={CreatorPage}
                     />
 
                     <Route

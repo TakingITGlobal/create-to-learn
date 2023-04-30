@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import 'react-multi-carousel/lib/styles.css'
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
@@ -18,7 +18,7 @@ import { defaultCategories } from '../assets/options/categories'
 import { useTranslation } from 'react-i18next'
 import useClasses from '../hooks/useClasses'
 import StudentsAreAlsoViewingIcon from '../assets/images/Strudents-are-also-viewing.svg'
-
+import { updateCreator } from '../util/db'
 const styles = (theme) => ({
   boxStyle: {
     display: 'flex',

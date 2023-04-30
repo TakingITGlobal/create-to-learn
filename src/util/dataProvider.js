@@ -1,7 +1,7 @@
 import React, { useState, useContext, createContext, useMemo } from 'react'
 import { getFirestore } from 'firebase/firestore'
 import { firebaseApp } from './firebase'
-import { useCourses, useCreators, useLearningPaths } from './db'
+import { useCourses, useCreators } from './db'
 
 const db = getFirestore(firebaseApp)
 
@@ -12,7 +12,6 @@ export const dataContext = createContext()
 export function DataProvider({ children }) {
   const [creators, setCreators] = useState([])
   const [courses, setCourses] = useState([])
-  // const [learningPaths, setLearningPaths] = useState([])
   const {
     data: dataCourses,
     isLoading: loadingCourses,
@@ -23,8 +22,6 @@ export function DataProvider({ children }) {
     isLoading: loadingCreators,
     error: errorLoadingCreators,
   } = useCreators()
-  // const { data: dataLearningPaths, isLoading: loadingLearningPaths } =
-  //   useLearningPaths()
 
   useMemo(() => {
     if (!loadingCourses) {
@@ -33,9 +30,6 @@ export function DataProvider({ children }) {
     if (!loadingCreators) {
       setCreators(dataCreators)
     }
-    // if (!loadingLearningPaths) {
-    //   setLearningPaths(dataLearningPaths)
-    // }
   }, [loadingCourses, loadingCreators, dataCourses, dataCreators])
 
   return (
@@ -43,10 +37,8 @@ export function DataProvider({ children }) {
       value={{
         allCourses: courses || [],
         allCreators: creators || [],
-        // learningPaths,
         loadingCourses,
         loadingCreators,
-        // loadingLearningPaths,
         errorLoadingCourses,
         errorLoadingCreators,
       }}
