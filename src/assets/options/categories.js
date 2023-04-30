@@ -26,6 +26,20 @@ import Box from '@mui/material/Box'
 
 export const defaultCategories = [
   {
+    label: 'All',
+    icon: (
+      <WbSunnyIcon
+        fontSize="large"
+        sx={{
+          backgroundColor: 'yellow',
+          padding: '5px',
+          borderRadius: '30%',
+        }}
+      />
+    ),
+    illustration: AllImg,
+  },
+  {
     label: 'Video & Film',
     icon: (
       <SvgIcon fontSize="large" component="div" sx={{ paddingBottom: '10px' }}>
@@ -36,17 +50,7 @@ export const defaultCategories = [
         />
       </SvgIcon>
     ),
-    illustration: (
-      <Box
-        component="img"
-        src={VideoImg}
-        alt="video-img"
-        sx={{
-          display: 'flex',
-          objectFit: 'cover',
-        }}
-      />
-    ),
+    illustration: VideoImg,
   },
   {
     label: 'Game Design',
@@ -59,17 +63,7 @@ export const defaultCategories = [
         />
       </SvgIcon>
     ),
-    illustration: (
-      <Box
-        component="img"
-        src={GameDesignImg}
-        alt="game-design-img"
-        sx={{
-          display: 'flex',
-          objectFit: 'cover',
-        }}
-      />
-    ),
+    illustration: GameDesignImg,
   },
   {
     label: 'Cultural Teachings',
@@ -82,17 +76,7 @@ export const defaultCategories = [
         />
       </SvgIcon>
     ),
-    illustration: (
-      <Box
-        component="img"
-        src={CulturalTeachingsImg}
-        alt="cultural-teachings-img"
-        sx={{
-          display: 'flex',
-          objectFit: 'cover',
-        }}
-      />
-    ),
+    illustration: CulturalTeachingsImg,
   },
 ]
 
@@ -109,17 +93,7 @@ export const categories = [
         }}
       />
     ),
-    illustration: (
-      <Box
-        component="img"
-        src={AllImg}
-        alt="all"
-        sx={{
-          display: 'flex',
-          objectFit: 'cover',
-        }}
-      />
-    ),
+    illustration: AllImg,
   },
   {
     label: 'Video & Film',
@@ -132,17 +106,7 @@ export const categories = [
         />
       </SvgIcon>
     ),
-    illustration: (
-      <Box
-        component="img"
-        src={VideoImg}
-        alt="video"
-        sx={{
-          display: 'flex',
-          objectFit: 'cover',
-        }}
-      />
-    ),
+    illustration: VideoImg,
   },
   {
     label: 'Game Design',
@@ -155,17 +119,7 @@ export const categories = [
         />
       </SvgIcon>
     ),
-    illustration: (
-      <Box
-        component="img"
-        src={GameDesignImg}
-        alt="game-design-img"
-        sx={{
-          display: 'flex',
-          objectFit: 'cover',
-        }}
-      />
-    ),
+    illustration: GameDesignImg,
   },
   {
     label: 'Cultural Teachings',
@@ -178,17 +132,7 @@ export const categories = [
         />
       </SvgIcon>
     ),
-    illustration: (
-      <Box
-        component="img"
-        src={CulturalTeachingsImg}
-        alt="cultural-teachings-icon"
-        sx={{
-          display: 'flex',
-          objectFit: 'cover',
-        }}
-      />
-    ),
+    illustration: CulturalTeachingsImg,
   },
   {
     label: 'Music & Songwriting',
@@ -197,17 +141,7 @@ export const categories = [
         <img src={MusicIcon} alt="music" style={{ paddingBottom: '10px' }} />
       </SvgIcon>
     ),
-    illustration: (
-      <Box
-        component="img"
-        src={MusicImg}
-        alt="music-icon"
-        sx={{
-          display: 'flex',
-          objectFit: 'cover',
-        }}
-      />
-    ),
+    illustration: MusicImg,
   },
   {
     label: 'Visual Arts',
@@ -220,17 +154,7 @@ export const categories = [
         />
       </SvgIcon>
     ),
-    illustration: (
-      <Box
-        component="img"
-        src={VisualArtsImg}
-        alt="visual-arts-icon"
-        sx={{
-          display: 'flex',
-          objectFit: 'cover',
-        }}
-      />
-    ),
+    illustration: VisualArtsImg,
   },
   {
     label: 'Health & Well-being',
@@ -243,17 +167,7 @@ export const categories = [
         />
       </SvgIcon>
     ),
-    illustration: (
-      <Box
-        component="img"
-        src={HealthImg}
-        alt="health"
-        sx={{
-          display: 'flex',
-          objectFit: 'cover',
-        }}
-      />
-    ),
+    illustration: HealthImg,
   },
   {
     label: 'Entrepreneurship & Web Design',
@@ -266,17 +180,7 @@ export const categories = [
         />
       </SvgIcon>
     ),
-    illustration: (
-      <Box
-        component="img"
-        src={WebDesignImg}
-        alt="web-design"
-        sx={{
-          display: 'flex',
-          objectFit: 'cover',
-        }}
-      />
-    ),
+    illustration: WebDesignImg,
   },
   {
     label: 'Drones',
@@ -289,17 +193,7 @@ export const categories = [
         />
       </SvgIcon>
     ),
-    illustration: (
-      <Box
-        component="img"
-        src={DroneImg}
-        alt="drones"
-        sx={{
-          display: 'flex',
-          objectFit: 'cover',
-        }}
-      />
-    ),
+    illustration: DroneImg,
   },
   {
     label: 'Photography & Photoshop',
@@ -312,17 +206,7 @@ export const categories = [
         />
       </SvgIcon>
     ),
-    illustration: (
-      <Box
-        component="img"
-        src={PhotographyImg}
-        alt="photgraphy"
-        sx={{
-          display: 'flex',
-          objectFit: 'cover',
-        }}
-      />
-    ),
+    illustration: PhotographyImg,
   },
   {
     label: 'Writing',
@@ -335,16 +219,6 @@ export const categories = [
         />
       </SvgIcon>
     ),
-    illustration: (
-      <Box
-        component="img"
-        src={WritingImg}
-        alt="writing"
-        sx={{
-          display: 'flex',
-          objectFit: 'cover',
-        }}
-      />
-    ),
+    illustration: WritingImg,
   },
 ]

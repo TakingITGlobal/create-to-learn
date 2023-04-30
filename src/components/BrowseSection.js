@@ -4,6 +4,7 @@ import Container from '@mui/material/Container'
 import Section from './Section'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
+import ButtonBase from '@mui/material/ButtonBase'
 import Button from '@mui/material/Button'
 import SearchIcon from '@mui/icons-material/Search'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer'
@@ -23,10 +24,10 @@ import { useSearchFilter } from '../hooks/useSearchFilter'
 
 const styles = (theme) => ({
   cardContent: {
-    padding: theme.spacing(3),
+    padding: '5px',
   },
   carouselItem: {
-    paddingRight: '20px',
+    padding: '0 20px',
   },
   title: {
     padding: '10px 0',
@@ -47,7 +48,7 @@ const responsive = {
   mobile: {
     breakpoint: { max: 464, min: 0 },
     items: 3,
-    partialVisibilityGutter: 15,
+    partialVisibilityGutter: 10,
   },
 }
 
@@ -99,16 +100,21 @@ function BrowseSection(props) {
             >
               {categories.map((category, index) => (
                 <Stack direction="column" spacing={2} key={index}>
-                  <Button
-                    onClick={() => setCategoryFilter(category.label)}
-                    sx={{
-                      border:
-                        categoryFilter === category.label ? 'solid' : 'none',
-                      borderColor: 'white',
-                      padding: '0 5px',
-                    }}
-                  >
-                    {category.illustration}
+                  <Button onClick={() => setCategoryFilter(category.label)}>
+                    <Box
+                      component="img"
+                      src={category.illustration}
+                      alt="all"
+                      sx={{
+                        display: 'flex',
+                        objectFit: 'cover',
+                        border:
+                          categoryFilter === category.label
+                            ? ' 1px solid'
+                            : 'none',
+                        borderColor: 'white',
+                      }}
+                    />
                   </Button>
                   <Typography
                     sx={{
