@@ -29,22 +29,6 @@ const styles = (theme) => ({
     alignItems: 'flex-end',
     width: '100%',
   },
-  primaryButton: {
-    backgroundColor: '#6956F1 !important',
-    borderRadius: '35px !important',
-    width: '100%',
-    height: '50px',
-    textTransform: 'capitalize !important',
-  },
-  dismissButton: {
-    backgroundColor: '#413F4C!important',
-    borderRadius: '35px !important',
-    width: '153.5px',
-    height: '40px',
-    textTransform: 'capitalize !important',
-    color: 'white !important',
-    border: '0 !important',
-  },
 })
 
 function SignUp({ setDismissed = null, showDismissButton = false }) {
@@ -65,7 +49,7 @@ function SignUp({ setDismissed = null, showDismissButton = false }) {
       <Stack direction="row" spacing={1} className={classes.stack}>
         <Button
           variant="contained"
-          className={classes.primaryButton}
+          size='large'
           component={Link}
           to="/sign-up"
         >
@@ -73,8 +57,8 @@ function SignUp({ setDismissed = null, showDismissButton = false }) {
         </Button>
         {showDismissButton && (
           <Button
-            variant="outlined"
-            className={classes.dismissButton}
+            variant="text"
+            size='large'
             onClick={() => setDismissed(true)}
           >
             Dismiss

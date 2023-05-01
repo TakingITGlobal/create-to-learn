@@ -18,25 +18,28 @@ import Footer from './../components/Footer'
 import './../util/analytics'
 import Chat from './../components/Chat'
 import { AuthProvider } from './../util/auth'
-import { ThemeProvider } from './../util/theme'
+import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
+import { c2learn  } from './../util/theme'
+import CssBaseline from '@mui/material/CssBaseline'
 import { StyledEngineProvider } from '@mui/material/styles'
 import { QueryClientProvider } from './../util/db'
 import { DataProvider } from './../util/dataProvider'
 import BottomNavbar from '../components/BottomNavbar'
 import Hidden from '@mui/material/Hidden'
-import { useTheme } from '@mui/material/styles'
 import { Box } from '@mui/material'
 import SignUpPage from './signUp'
 import CoursePage from './course'
 import CreatorPage from './creator'
 
 function App(props) {
-  //Default to dark theme for now
-  const theme = useTheme()
+  const theme = useTheme();
+  const darkTheme = createTheme(c2learn('dark'));
+
   return (
     <QueryClientProvider>
       <StyledEngineProvider injectFirst>
-        <ThemeProvider theme={theme.dark}>
+        <ThemeProvider theme={darkTheme}>
+          <CssBaseline />
           <DataProvider>
             <AuthProvider>
               <Chat />
