@@ -6,27 +6,25 @@ import { Link } from './../util/router'
 
 function ArrowBack({ showComponent, setShowComponent }) {
   return showComponent === 'nav' ? (
-
     <Box sx={{ paddingBottom: 5 }}>
       <IconButton
         aria-label="back to settings page"
         component={Link}
         to="/settings/profile"
       >
-        <ArrowBackIcon />
+        <ArrowBackIcon sx={{ color: 'white' }} />
       </IconButton>
     </Box>
   ) : (
-
     <Box sx={{ paddingBottom: 5 }}>
       <IconButton
         aria-label="back to previous page"
         onClick={() => setShowComponent('nav')}
       >
-        <ArrowBackIcon />
+        <ArrowBackIcon sx={{ color: 'white' }} />
       </IconButton>
     </Box>
-  );
+  )
 }
 
 export default ArrowBack
