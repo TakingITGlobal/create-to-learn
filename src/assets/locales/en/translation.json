@@ -13,7 +13,7 @@
   "video": "video",
   "close": "Close",
   "course-page": "Go to course page",
-  "start": "Start",
+  "start": "Start now",
   "help-us-know-you": "It helps us know you better, show you things you like, and track your progress",
   "sign-up": "Sign up or sign in",
   "cancel": "Cancel",
@@ -81,5 +81,11 @@
     "downloads": "Downloads",
     "my-progress": "My Progress",
     "watchlist": "Watchlist"
+  },
+  "settings": {
+    "profile": "Profile",
+    "courses-taken": "courses taken",
+    "minutes-watched": "minutes watched",
+    "videos-completed": "videos completed"
   }
 }

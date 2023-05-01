@@ -5,7 +5,7 @@ import Section from './Section'
 function CreatorSection({ data }) {
   return (
     <Section>
-      <Container>{data.uid}</Container>
+      <Container>{data.name}</Container>
     </Section>
   )
 }
