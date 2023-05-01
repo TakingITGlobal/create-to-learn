@@ -14,11 +14,11 @@ import DashboardGreeting from './DashboardGreeting'
 import DashboardVideo from './DashboardVideo'
 import { useAuth } from './../util/auth'
 import { dataContext } from '../util/dataProvider'
-import { defaultCategories } from '../assets/options/categories'
+import { defaultCategories, categories } from '../assets/options/categories'
 import { useTranslation } from 'react-i18next'
 import useClasses from '../hooks/useClasses'
 import StudentsAreAlsoViewingIcon from '../assets/images/Strudents-are-also-viewing.svg'
-import { updateCreator } from '../util/db'
+
 const styles = (theme) => ({
   boxStyle: {
     display: 'flex',
@@ -65,6 +65,11 @@ function DashboardSection(props) {
 
   const spotlightVideoCourse = allCourses.length && allCourses[0]
 
+  const interests =
+    auth.user.interests.length > 0
+      ? categories.filter(({ label }) => auth.user.interests.includes(label))
+      : defaultCategories
+
   return (
     <Section
       bgColor={props.bgColor}
@@ -98,7 +103,7 @@ function DashboardSection(props) {
               .filter((creator) => creator.featured === 'checked')
               .slice(0, 5)}
           />
-          {defaultCategories.map((interest, index) => {
+          {interests.map((interest, index) => {
             const courses = coursesByCategory(interest.label)
             return (
               <DashboardTopCourses

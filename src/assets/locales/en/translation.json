@@ -86,6 +86,7 @@
     "profile": "Profile",
     "courses-taken": "courses taken",
     "minutes-watched": "minutes watched",
-    "videos-completed": "videos completed"
+    "videos-completed": "videos completed",
+    "sign-out": "Sign out"
   }
 }

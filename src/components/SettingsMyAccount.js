@@ -14,6 +14,8 @@ import ArrowBack from './ArrowBack'
 import { useAuth } from './../util/auth'
 import { requireAuth } from './../util/auth'
 
+import SettingsInterests from './SettingsInterests'
+
 function SettingsMyAccount(props) {
   const auth = useAuth()
 
@@ -36,8 +38,7 @@ function SettingsMyAccount(props) {
 
         {showComponent === 'school' && <div>I'm attending...</div>}
 
-        {showComponent === 'interests' && <div>I'm interested in...</div>}
-
+        {showComponent === 'interests' && <SettingsInterests />}
         {showComponent === 'language' && <div>My language is...</div>}
 
         {showComponent === 'communities' && <div>I am ...</div>}
