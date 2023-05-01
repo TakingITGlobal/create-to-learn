@@ -11,8 +11,7 @@ import BrowseCourseCard from './BrowseCourseCard'
 import BrowseCreatorCard from './BrowseCreatorCard'
 import BrowseDrawer from './BrowseDrawer'
 import BrowseCourseDrawerContent from './BrowseCourseDrawerContent'
-import BrowseCreatorDrawerContent from './BrowseCreatorDrawerContent'
-import BrowseEmptyState from './BrowseEmptyState'
+import BrowseFilterEmptyState from './BrowseFilterEmptyState'
 import FilterListSharpIcon from '@mui/icons-material/FilterListSharp'
 
 import { useTranslation } from 'react-i18next'
@@ -20,52 +19,57 @@ import { dataContext } from '../util/dataProvider'
 import { useCoursesFilter } from '../hooks/useCoursesFilter'
 import { useCreatorsFilter } from '../hooks/useCreatorsFilter'
 import useClasses from '../hooks/useClasses'
-import { durations, culturalGroups } from '../assets/options/filters'
+import { durations } from '../assets/options/filters'
 
 const styles = (theme) => ({
   filterButton: {
     backgroundColor: 'white',
     borderRadius: '48px !important',
     textTransform: 'capitalize !important',
+    color: 'black',
+  },
+  clearButton: {
+    backgroundColor: 'black',
+    borderRadius: '48px !important',
+    textTransform: 'capitalize !important',
+    color: 'white',
   },
 })
 
-const BrowseTabs = ({ search }) => {
+const BrowseTabs = ({
+  durationFilter,
+  setDurationFilter,
+  culturalGroupFilter,
+  setCulturalGroupFilter,
+  categoryFilter,
+  setCategoryFilter,
+}) => {
   const { t } = useTranslation()
   const classes = useClasses(styles)
 
   const [tabIndex, setTabIndex] = useState(0)
   const [openDrawer, setOpenDrawer] = useState(false)
-  const [categoryFilter, setCategoryFilter] = useState([])
-  const [durationFilter, setDurationFilter] = useState([])
-  const [culturalGroupFilter, setCulturalGroupFilter] = useState([])
 
   const { allCourses, allCreators, loadingCourses, loadingCreators } =
     useContext(dataContext)
 
   const { data: filteredCourses } = useCoursesFilter({
     allCourses,
+    allCreators,
+    culturalGroupFilter,
     categoryFilter,
     durationFilter,
-    search,
   })
 
   const { data: filteredCreators } = useCreatorsFilter({
     allCreators,
+    allCourses,
     culturalGroupFilter,
-    search,
+    categoryFilter,
   })
 
   const handleChangeTab = (event, newTab) => {
     setTabIndex(newTab)
-  }
-
-  const handleCategoryFilter = (category) => {
-    if (categoryFilter.includes(category)) {
-      setCategoryFilter(categoryFilter.filter((item) => item !== category))
-    } else {
-      setCategoryFilter([...categoryFilter, category])
-    }
   }
 
   const handleDurationFilter = (duration) => {
@@ -90,15 +94,12 @@ const BrowseTabs = ({ search }) => {
   }
 
   const handleClearFilter = () => {
-    if (tabIndex === 0) {
-      setCategoryFilter([])
-      setDurationFilter([])
-    }
-
-    if (tabIndex === 1) {
-      setCulturalGroupFilter([])
-    }
+    setCategoryFilter('All')
+    setDurationFilter([])
+    setCulturalGroupFilter([])
   }
+
+  const numberOfFilters = durationFilter.length + culturalGroupFilter.length
 
   return (
     <>
@@ -128,15 +129,32 @@ const BrowseTabs = ({ search }) => {
             <CircularProgress color="primary" />
           ) : (
             <>
-              <Button
-                variant="contained"
-                onClick={() => setOpenDrawer(true)}
-                className={classes.filterButton}
-                startIcon={<FilterListSharpIcon />}
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  paddingBottom: '20px',
+                }}
               >
-                {t('browse.show-filters')}
-              </Button>
+                <Button
+                  variant="contained"
+                  onClick={() => setOpenDrawer(true)}
+                  className={classes.filterButton}
+                  startIcon={<FilterListSharpIcon />}
+                >
+                  {t('browse.show-filters')}{' '}
+                  {numberOfFilters !== 0 ? `(${numberOfFilters})` : ''}
+                </Button>
 
+                <Button
+                  variant="contained"
+                  onClick={() => handleClearFilter()}
+                  className={classes.clearButton}
+                >
+                  {t('browse.clear-filters')}
+                </Button>
+              </Box>
               {filteredCourses.length ? (
                 <Box>
                   {filteredCourses.map((course, index) => (
@@ -144,7 +162,7 @@ const BrowseTabs = ({ search }) => {
                   ))}
                 </Box>
               ) : (
-                <BrowseEmptyState search={search} />
+                <BrowseFilterEmptyState />
               )}
             </>
           )}
@@ -152,25 +170,20 @@ const BrowseTabs = ({ search }) => {
         <TabPanel tabIndex={tabIndex} index={1}>
           {loadingCreators ? (
             <CircularProgress color="primary" />
+          ) : filteredCreators.length ? (
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+                gridGap: 20,
+              }}
+            >
+              {filteredCreators.map((creator, index) => (
+                <BrowseCreatorCard key={index} creator={creator} />
+              ))}
+            </div>
           ) : (
-            <>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => setOpenDrawer(true)}
-              >
-                Show all filters
-              </Button>
-              {filteredCreators.length ? (
-                <Box>
-                  {filteredCreators.map((creator, index) => (
-                    <BrowseCreatorCard key={index} creator={creator} />
-                  ))}
-                </Box>
-              ) : (
-                <BrowseEmptyState search={search} />
-              )}
-            </>
+            <BrowseFilterEmptyState />
           )}
         </TabPanel>
       </Box>
@@ -178,22 +191,15 @@ const BrowseTabs = ({ search }) => {
         setOpenDrawer={setOpenDrawer}
         handleClearFilter={handleClearFilter}
         openDrawer={openDrawer}
+        numberOfFilters={numberOfFilters}
       >
-        {tabIndex === 0 ? (
-          <BrowseCourseDrawerContent
-            handleDurationFilterArr={handleDurationFilter}
-            handleCategoryFilterArr={handleCategoryFilter}
-            categoryFilter={categoryFilter}
-            durationFilter={durationFilter}
-            durations={durations}
-          />
-        ) : (
-          <BrowseCreatorDrawerContent
-            culturalGroupFilter={culturalGroupFilter}
-            handleCulturalGroupFilterArr={handleCulturalGroupFilterArr}
-            culturalGroups={culturalGroups}
-          />
-        )}
+        <BrowseCourseDrawerContent
+          handleDurationFilterArr={handleDurationFilter}
+          handleCulturalGroupFilterArr={handleCulturalGroupFilterArr}
+          culturalGroupFilter={culturalGroupFilter}
+          durationFilter={durationFilter}
+          durations={durations}
+        />
       </BrowseDrawer>
     </>
   )

@@ -4,7 +4,6 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 import Stack from '@mui/material/Stack'
-import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 
 import { useTranslation } from 'react-i18next'
 import useClasses from '../hooks/useClasses'
@@ -13,6 +12,22 @@ const styles = (theme) => ({
   drawer: {
     // backgroundColor: 'black !important',
   },
+  filterButton: {
+    backgroundColor: 'white',
+    borderRadius: '48px !important',
+    textTransform: 'capitalize !important',
+    color: 'black',
+    border: 'white',
+    padding: '10px',
+  },
+  clearButton: {
+    backgroundColor: '#0B0919',
+    borderRadius: '48px !important',
+    textTransform: 'capitalize !important',
+    color: 'white',
+    border: '#0B0919',
+    padding: '10px',
+  },
 })
 
 const BrowseDrawer = ({
@@ -20,6 +35,7 @@ const BrowseDrawer = ({
   setOpenDrawer,
   handleClearFilter,
   openDrawer,
+  numberOfFilters,
 }) => {
   const { t } = useTranslation()
   const classes = useClasses(styles)
@@ -55,16 +71,24 @@ const BrowseDrawer = ({
           <Typography variant="h5">Filters</Typography>
         </Box>
         {children}
-        <Stack direction="row" spacing={1} sx={{ paddingTop: '60px' }}>
-          <Button variant="outlined" onClick={() => handleClearFilter()}>
-            {t('browse.clear-filters')}
+        <Stack direction="column" spacing={2} sx={{ paddingTop: '60px' }}>
+          <Button
+            variant="outlined"
+            onClick={() => setOpenDrawer(false)}
+            className={classes.filterButton}
+          >
+            {t('browse.apply-filters')}{' '}
+            {numberOfFilters ? `(${numberOfFilters})` : ''}
           </Button>
           <Button
             variant="outlined"
-            endIcon={<ChevronRightIcon />}
-            onClick={() => setOpenDrawer(false)}
+            className={classes.clearButton}
+            onClick={() => {
+              handleClearFilter()
+              setOpenDrawer(false)
+            }}
           >
-            {t('close')}
+            {t('cancel')}
           </Button>
         </Stack>
       </Box>

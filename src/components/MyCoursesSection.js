@@ -21,7 +21,7 @@ import CloseIcon from '@mui/icons-material/Close'
 
 import Section from './Section'
 import BrowseCourseCard from './BrowseCourseCard'
-import BrowseEmptyState from './BrowseEmptyState'
+import BrowseFilterEmptyState from './BrowseFilterEmptyState'
 import { useTranslation } from 'react-i18next'
 import { dataContext } from '../util/dataProvider'
 import { useAuth } from './../util/auth'
@@ -169,7 +169,7 @@ function MyCoursesSection(props) {
                   </Drawer>
                 </Box>
               ) : (
-                <BrowseEmptyState />
+                <BrowseFilterEmptyState />
               )}
             </TabPanel>
           </Box>

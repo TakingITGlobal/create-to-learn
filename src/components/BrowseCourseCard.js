@@ -1,11 +1,8 @@
 import React from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-
 import Grid from '@mui/material/Grid'
 import ButtonBase from '@mui/material/ButtonBase'
-import Button from '@mui/material/Button'
-
 
 import { useTranslation } from 'react-i18next'
 
@@ -49,17 +46,6 @@ const BrowseCourseCard = ({ course }) => {
             </Box>
           </Grid>
         </Grid>
-
-        {/* <Box>
-          <Button
-            color="primary"
-            fullWidth
-            variant="contained"
-            href={'/course/' + course.uid}
-          >
-            {t('course-page')}
-          </Button>
-        </Box> */}
       </ButtonBase>
     </Box>
   )

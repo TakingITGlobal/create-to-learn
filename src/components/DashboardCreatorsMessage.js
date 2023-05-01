@@ -8,10 +8,13 @@ import CardMedia from '@mui/material/CardMedia'
 import CardActions from '@mui/material/CardActions'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
+import SvgIcon from '@mui/material/SvgIcon'
+
 import useClasses from '../hooks/useClasses'
 import 'react-multi-carousel/lib/styles.css'
 import { useTranslation } from 'react-i18next'
 import MessageIcon from '@mui/icons-material/Message'
+import MessageFromCreatorsIcon from '../assets/images/A-message-from-your-creatives.svg'
 
 const styles = (theme) => ({
   cardContent: {
@@ -50,15 +53,13 @@ const DashboardCreatorsMessage = ({ creators }) => {
     <>
       <Box sx={{ padding: '20px 0', paddingBottom: '20px' }}>
         <Stack direction="row" spacing={1}>
-          <MessageIcon
-            fontSize="large"
-            sx={{
-              backgroundColor: 'pink',
-              padding: '5px',
-              borderRadius: '30%',
-              color: '#F571E1',
-            }}
-          />
+          <SvgIcon fontSize="large" component="div">
+            <img
+              src={MessageFromCreatorsIcon}
+              alt="message-from-creators-icon"
+              style={{ paddingBottom: '5px' }}
+            />
+          </SvgIcon>
           <Box
             sx={{
               paddingTop: '7.5px',

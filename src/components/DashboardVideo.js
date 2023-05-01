@@ -22,7 +22,7 @@ function DashboardVideo({ course }) {
         width="100%"
         height="100%"
         controls={false}
-        autoplay
+        // autoplay
         className={classes.video}
       />
       <Stack

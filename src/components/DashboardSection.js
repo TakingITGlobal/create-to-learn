@@ -1,23 +1,23 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import 'react-multi-carousel/lib/styles.css'
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'
 import Typography from '@mui/material/Typography'
-import WhatshotIcon from '@mui/icons-material/Whatshot'
+import SvgIcon from '@mui/material/SvgIcon'
 import Section from './Section'
 import SignUp from './SignUp'
 import DashboardTopCourses from './DashboardTopCourses'
 import DashboardCreatorsMessage from './DashboardCreatorsMessage'
-// import DashboardLearningPaths from './DashboardLearningPaths'
 import DashboardCreatorSpotlight from './DashboardCreatorSpotlight'
 import DashboardGreeting from './DashboardGreeting'
 import DashboardVideo from './DashboardVideo'
 import { useAuth } from './../util/auth'
 import { dataContext } from '../util/dataProvider'
-import { defaultCategories } from '../assets/options/categories'
+import { defaultCategories, categories } from '../assets/options/categories'
 import { useTranslation } from 'react-i18next'
 import useClasses from '../hooks/useClasses'
+import StudentsAreAlsoViewingIcon from '../assets/images/Strudents-are-also-viewing.svg'
 
 const styles = (theme) => ({
   boxStyle: {
@@ -40,10 +40,8 @@ function DashboardSection(props) {
   const {
     allCourses,
     allCreators,
-    // learningPaths,
     loadingCourses,
     loadingCreators,
-    // loadingLearningPaths,
     errorLoadingCourses,
     errorLoadingCreators,
   } = useContext(dataContext)
@@ -66,6 +64,11 @@ function DashboardSection(props) {
   }
 
   const spotlightVideoCourse = allCourses.length && allCourses[0]
+
+  const interests =
+    auth.user.interests.length > 0
+      ? categories.filter(({ label }) => auth.user.interests.includes(label))
+      : defaultCategories
 
   return (
     <Section
@@ -100,10 +103,7 @@ function DashboardSection(props) {
               .filter((creator) => creator.featured === 'checked')
               .slice(0, 5)}
           />
-          {/* {!loadingLearningPaths && (
-          <DashboardLearningPaths learningPaths={learningPaths} />
-        )} */}
-          {defaultCategories.map((interest, index) => {
+          {interests.map((interest, index) => {
             const courses = coursesByCategory(interest.label)
             return (
               <DashboardTopCourses
@@ -117,14 +117,17 @@ function DashboardSection(props) {
           <DashboardTopCourses
             title={t('dashboard.students-also-viewing')}
             icon={
-              <WhatshotIcon
+              <SvgIcon
                 fontSize="large"
-                sx={{
-                  backgroundColor: '#FFC455',
-                  padding: '5px',
-                  borderRadius: '30%',
-                }}
-              />
+                component="div"
+                sx={{ paddingBottom: '10px' }}
+              >
+                <img
+                  src={StudentsAreAlsoViewingIcon}
+                  alt="writing-icon"
+                  style={{ paddingBottom: '10px' }}
+                />
+              </SvgIcon>
             }
             courses={featuredCourses}
           />

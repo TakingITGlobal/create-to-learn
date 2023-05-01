@@ -1,13 +1,13 @@
 import React from 'react'
-import useClasses from '../hooks/useClasses'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Stack from '@mui/material/Stack'
-import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined'
+import SvgIcon from '@mui/material/SvgIcon'
 import MultiCarousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
-
 import { Paper } from '@mui/material'
+import useClasses from '../hooks/useClasses'
+import CreatorsSpotlightIcon from '../assets/images/Creator-spotlight.svg'
 
 const styles = (theme) => ({
   cardContent: {
@@ -46,15 +46,13 @@ const DashboardCreatorSpotlight = ({ creators }) => {
     <>
       <Box sx={{ padding: '20px 0', paddingBottom: '20px' }}>
         <Stack direction="row" spacing={1}>
-          <EmojiObjectsOutlinedIcon
-            fontSize="large"
-            sx={{
-              backgroundColor: 'white',
-              color: 'yellow',
-              padding: '5px',
-              borderRadius: '30%',
-            }}
-          />
+          <SvgIcon fontSize="large" component="div">
+            <img
+              src={CreatorsSpotlightIcon}
+              alt="creators-spotlight-icon"
+              style={{ paddingBottom: '5px' }}
+            />
+          </SvgIcon>
           <Box
             sx={{
               paddingTop: '7.5px',

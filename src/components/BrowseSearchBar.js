@@ -1,33 +1,49 @@
 import React from 'react'
-import OutlinedInput from '@mui/material/OutlinedInput'
+import Box from '@mui/material/Box'
 import InputAdornment from '@mui/material/InputAdornment'
 import SearchIcon from '@mui/icons-material/Search'
+import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
 
 import { useTranslation } from 'react-i18next'
 
-const BrowseSearchBar = ({ setSearch, search }) => {
+const BrowseSearchBar = ({ setSearch, search, setOpenSearchDrawer }) => {
   const { t } = useTranslation()
 
   return (
-    <OutlinedInput
-      id="search-bar"
-      onInput={(e) => {
-        setSearch(e.target.value.toLowerCase())
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: '40px 20px',
       }}
-      value={search}
-      variant="outlined"
-      placeholder={t('browse.search-by')}
-      size="small"
-      fullWidth
-      endAdornment={
-        <InputAdornment position="end">
-          <SearchIcon color="primary" fontSize="medium" />
-        </InputAdornment>
-      }
-      inputProps={{
-        style: { color: 'white' },
-      }}
-    />
+    >
+      <TextField
+        onInput={(e) => setSearch(e.target.value)}
+        id="filled-start-adornment"
+        sx={{ backgroundColor: '#2B2937', borderRadius: '8px' }}
+        value={search}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon
+                sx={{ color: 'white' }}
+                color="primary"
+                fontSize="medium"
+              />
+            </InputAdornment>
+          ),
+        }}
+        variant="outlined"
+      />
+      <Button
+        onClick={() => setOpenSearchDrawer(false)}
+        sx={{ color: 'white' }}
+      >
+        {t('cancel')}
+      </Button>
+    </Box>
   )
 }
 

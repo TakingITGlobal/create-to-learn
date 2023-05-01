@@ -77,7 +77,7 @@ const themeConfig = {
         fontSize: '2rem',
         color: '#fff',
         fontWeight: 700,
-      }
+      },
     },
 
     components: {
@@ -87,8 +87,8 @@ const themeConfig = {
             fontSize: '2rem',
             color: '#fff',
             fontWeight: 700,
-          }
-        }
+          },
+        },
       },
       MuiTypography: {
         variants: [
@@ -130,10 +130,10 @@ const themeConfig = {
               color: '#fff',
               fontWeight: 800,
             },
-          }
+          },
         ],
       },
-    }
+    },
   },
 
   // Values for both themes
@@ -143,8 +143,8 @@ const themeConfig = {
       color: '#fff',
       fontFamily: '"Manrope", "Helvetica", "Arial", sans-serif',
       // Uncomment to make button lowercase
-      button: { 
-        textTransform: "none",
+      button: {
+        textTransform: 'none',
       },
     },
     breakpoints: {
@@ -179,7 +179,7 @@ const themeConfig = {
             },
           },
         },
-      }
+      },
     },
   },
 }
@@ -224,9 +224,9 @@ export const ThemeProvider = (props) => {
   return (
     <MuiThemeProvider theme={props?.theme ? props.theme : theme}>
       <EmotionThemeProvider theme={props?.theme ? props.theme : theme}>
-      {/* Set global MUI styles */}
-      <CssBaseline />
-      {props.children}
+        {/* Set global MUI styles */}
+        <CssBaseline />
+        {props.children}
       </EmotionThemeProvider>
     </MuiThemeProvider>
   )

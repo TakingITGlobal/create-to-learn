@@ -11,25 +11,29 @@ const styles = (theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    padding: '16px',
-    alignItems: 'flex-start',
-    backgroundColor: '#413F4C',
+    alignItems: 'center',
+    backgroundColor: 'inherit',
     borderRadius: '12px',
     width: '100%',
-    height: '200px',
+    padding: '20px 0',
   },
   title: {
     paddingBottom: '20px',
   },
+  helpText: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
   stack: {
-    flexGrow: 1,
     alignItems: 'flex-end',
+    width: '100%',
   },
   primaryButton: {
     backgroundColor: '#6956F1 !important',
     borderRadius: '35px !important',
-    width: '153.5px',
-    height: '40px',
+    width: '100%',
+    height: '50px',
     textTransform: 'capitalize !important',
   },
   dismissButton: {
@@ -51,19 +55,19 @@ function SignUp({ setDismissed = null, showDismissButton = false }) {
   return (
     <Box sx={styles.container} className={classes.container}>
       <Box>
-        <Typography variant="h5" className={classes.title}>
+        <Typography variant="h6" className={classes.title}>
           {t('sign-up')}
         </Typography>
       </Box>
-      <Box>
-        <Typography>{t('help-us-know-you')}</Typography>
+      <Box sx={{ paddingBottom: '10px' }}>
+        <Typography variant="body2">{t('help-us-know-you')}</Typography>
       </Box>
       <Stack direction="row" spacing={1} className={classes.stack}>
         <Button
           variant="contained"
           className={classes.primaryButton}
           component={Link}
-          to="/auth/signin"
+          to="/sign-up"
         >
           {t('start')}
         </Button>

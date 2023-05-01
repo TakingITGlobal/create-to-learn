@@ -44,7 +44,7 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
   return courses.length ? (
     <>
       <Box sx={{ padding: '20px 0', paddingBottom: '20px' }}>
-        <Stack direction="row" spacing={1}>
+        <Stack direction="row" spacing={0}>
           {icon}
           <Box>
             <Typography variant="h6">{title}</Typography>
