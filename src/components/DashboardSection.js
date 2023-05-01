@@ -66,8 +66,8 @@ function DashboardSection(props) {
   const spotlightVideoCourse = allCourses.length && allCourses[0]
 
   const interests =
-    auth.user.interests.length > 0
-      ? categories.filter(({ label }) => auth.user.interests.includes(label))
+    auth?.user && auth?.user?.interests.length > 0
+      ? categories.filter(({ label }) => auth?.user?.interests.includes(label))
       : defaultCategories
 
   return (
