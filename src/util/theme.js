@@ -27,10 +27,10 @@ export const c2learn = (mode) => ({
         ? {
         }
         : {
-            default: '#313131',
+            default: '#0B0919',
+            paper: '#0B0919',
             secondary: '#2B2937',
             tertiary: '#413F4C',
-            paper: '#1c1925',
         }),
       },
       text: {
