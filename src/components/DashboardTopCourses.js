@@ -47,7 +47,7 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
         <Stack direction="row" spacing={0}>
           {icon}
           <Box>
-            <Typography variant="h6">{title}</Typography>
+            <Typography variant="h3">{title}</Typography>
           </Box>
         </Stack>
       </Box>

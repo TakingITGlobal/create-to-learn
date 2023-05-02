@@ -22,6 +22,7 @@ export default function BottomNavbar() {
         left: 0, 
         right: 0, 
         zIndex: 1001, 
+        padding: 0,
         }}
       >
       <BottomNavigation

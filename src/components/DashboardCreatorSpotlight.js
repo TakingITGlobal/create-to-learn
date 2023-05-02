@@ -58,7 +58,7 @@ const DashboardCreatorSpotlight = ({ creators }) => {
               paddingTop: '7.5px',
             }}
           >
-            <Typography variant="h5">Creator Spotlight</Typography>
+            <Typography variant="h3">Creator Spotlight</Typography>
           </Box>
         </Stack>
       </Box>

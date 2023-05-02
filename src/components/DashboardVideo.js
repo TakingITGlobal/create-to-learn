@@ -34,9 +34,10 @@ function DashboardVideo({ course }) {
           justifyContent: 'space-between',
           paddingTop: '20px',
           paddingRight: '10px',
+          alignItems: 'center'
         }}
       >
-        <Typography variant="h6"> {course.seriesName}</Typography>
+        <Typography variant="bold"> {course.seriesName}</Typography>
         <IconButton sx={{ color: 'white' }} href={'/course/creative-writing'}>
           <EastIcon />
         </IconButton>

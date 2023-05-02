@@ -1,7 +1,27 @@
 export const c2learn = (mode) => ({
     typography: {
-        fontSize: 16,
         fontFamily: '"Manrope", "Helvetica", "Arial", sans-serif',
+        body: {
+          fontSize: '16px',
+          fontWeight: '500',
+        },
+        body2: {
+          fontSize: '16px',
+          fontWeight: '500',
+        },
+        bold: {
+          fontWeight: '700',
+        },
+        h1: {
+          fontSize: '1.75em',
+          lineHeight: '2em',
+          fontWeight: 700,
+        },
+        h3: {
+          fontSize: '1.125em',
+          lineHeight: '1.3em',
+          fontWeight: 700,
+        },
       },
     breakpoints: {
         values: {
@@ -38,14 +58,28 @@ export const c2learn = (mode) => ({
         ? {
         }
         : {
+          text: {
+            primary: '#fff',
+            secondary: '#ccc',
+            placeholder: '#B2B2B2',
+            disabled: '#808080'
+          },
         }),
       },
     },
     components: {
+        MuiPaper: {
+          styleOverrides: {
+            root: {
+              padding: '1rem',
+              borderRadius: '12px'
+            }
+          }
+        },
         MuiButton: {
           styleOverrides: {
             root: {
-              textTransform: 'lowercase',
+              textTransform: 'capitalize',
               fontWeight: '600',
               borderRadius: '3em',
               padding: '0.75em 1.5em',
@@ -54,6 +88,13 @@ export const c2learn = (mode) => ({
             sizeLarge: {
               fontWeight: '700',
               padding: '1em 1.5em',
+            },
+            secondary: {
+              backgroundColor: '#fff',
+              color: '#000'
+            },
+            text: {
+              color: '#fff',
             }
           }
         },

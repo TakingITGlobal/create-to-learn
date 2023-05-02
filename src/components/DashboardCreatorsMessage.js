@@ -65,7 +65,7 @@ const DashboardCreatorsMessage = ({ creators }) => {
               paddingTop: '7.5px',
             }}
           >
-            <Typography variant="h5">
+            <Typography variant="h3">
               {t('dashboard.creators-message')}
             </Typography>
           </Box>

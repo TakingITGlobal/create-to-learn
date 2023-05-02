@@ -20,16 +20,17 @@ function DashboardGreeting(props) {
           padding: '5px',
           borderRadius: '30%',
           color: 'yellow',
+          alignSelf: 'center'
         }}
       />
       <Box sx={{ paddingBottom: '7px' }}>
         {auth.user ? (
           <Box>
-            <Typography variant="h4"> Tân'si </Typography>{' '}
-            <Typography variant="h4"> {auth.user.name} </Typography>
+            <Typography variant="h1"> Tân'si </Typography>{' '}
+            <Typography variant="h1"> {auth.user.name} </Typography>
           </Box>
         ) : (
-          <Typography variant="h4">{t('hello')}</Typography>
+          <Typography variant="h1">{t('hello')}</Typography>
         )}
       </Box>
     </Stack>
