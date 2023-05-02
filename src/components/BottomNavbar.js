@@ -14,6 +14,7 @@ export default function BottomNavbar() {
   
   return (
     <Paper 
+      variant="elavation"
       elavation={0}
       sx={{ 
         position: 'fixed', 
@@ -21,8 +22,6 @@ export default function BottomNavbar() {
         left: 0, 
         right: 0, 
         zIndex: 1001, 
-        paddingTop: '10px', 
-        paddingBottom: '30px' 
         }}
       >
       <BottomNavigation

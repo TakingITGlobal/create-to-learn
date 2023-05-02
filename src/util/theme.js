@@ -56,6 +56,32 @@ export const c2learn = (mode) => ({
               padding: '1em 1.5em',
             }
           }
+        },
+        MuiBottomNavigation: {
+          styleOverrides: {
+            root: {
+              height: 'auto',
+            }
+          }
+        },
+        MuiBottomNavigationAction: {
+          styleOverrides: {
+            root: {
+              paddingTop: '10px',
+              paddingBottom: '30px',
+              "&.Mui-selected" : {
+                fontSize: '0.625em',
+                color: '#fff'
+              }
+            },
+            label: {
+              fontWeight: '700',
+              fontSize: '0.625em',
+              "&.Mui-selected" : {
+                fontSize: '1em',
+              }
+            }
+          }
         }
       },
   });
