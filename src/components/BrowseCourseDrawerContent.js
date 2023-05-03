@@ -5,12 +5,7 @@ import Chip from '@mui/material/Chip'
 import Stack from '@mui/material/Stack'
 import { durations, culturalGroups } from '../assets/options/filters'
 
-import useClasses from '../hooks/useClasses'
 import { useTranslation } from 'react-i18next'
-
-const styles = (theme) => ({
-  // muiChip: {},
-})
 
 const BrowseCourseDrawerContent = ({
   handleDurationFilterArr,
@@ -19,7 +14,6 @@ const BrowseCourseDrawerContent = ({
   durationFilter,
 }) => {
   const { t } = useTranslation()
-  const classes = useClasses(styles)
 
   return (
     <>

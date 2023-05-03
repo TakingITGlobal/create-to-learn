@@ -87,6 +87,11 @@
     "courses-taken": "courses taken",
     "minutes-watched": "minutes watched",
     "videos-completed": "videos completed",
-    "sign-out": "Sign out"
+    "sign-out": "Sign out",
+    "update": "Update",
+    "change-email": "Change Email",
+    "change-display-name": "Change display name",
+    "prefer-not-to-say": "Prefer not to say",
+    "none-of-the-above": "None of the above"
   }
 }
