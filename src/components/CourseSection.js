@@ -57,10 +57,16 @@ function a11yProps(index) {
   }
 }
 
+const getRandomColor = (array) => {
+  const randomColor = array[Math.floor(Math.random() * array.length)];
+  return randomColor;
+}
+
 function CourseSection(props) {
   const theme = useTheme()
   const [tabValue, setTabValue] = useState(0)
   const [downloadOption, setDownloadOption] = useState('')
+  const palette  = Object.values(theme.palette.accent)
 
   console.log('props.data:', props.data)
 
@@ -104,30 +110,28 @@ function CourseSection(props) {
   const videoLinksArray = props.data.videoLinks.split(', ')
   
   const [playingVideoId, setPlayingVideoId] = React.useState(videoLinksArray[0]);
-  
+
   return (
     <Section
-      bgColor={props.bgColor}
-      size={props.size}
-      bgImage={props.bgImage}
-      bgImageOpacity={props.bgImageOpacity}
+      style={{
+        backgroundColor: getRandomColor(palette),
+        backgroundImage: 'linear-gradient(180deg, rgba(11, 9, 25, 0) 0%, rgba(11, 9, 25, 0.11) 18%, rgba(11, 9, 25, 0.64) 25%, #0B0919 55%)'
+      }}
     >
       <Container sx={{ padding: '0'}}>
         {/* Series name */}
         <Box sx={{ padding: '2em 2.5em'}}>
-          <Typography variant="h1" textAlign="center">{props.data?.seriesName}</Typography>
+          <Typography variant="h1" textAlign="center" color='#000'>{props.data?.seriesName}</Typography>
 
           {/* Vimeo embed */}
           <Vimeo video={playingVideoId} responsive width="100vw" style={{paddingTop: '2em', borderRadius:'6px', overflow: 'hidden'}} />
         </Box>
 
         {/* About and Lesson tabs */}
-        <AppBar position="static" elevation="0" sx={{ pl: '0', pr: '0'}}>
+        <AppBar position="static" elevation="0" sx={{ pl: '0', pr: '0', background: 'transparent'}}>
           <Tabs
             value={tabValue}
             onChange={handleTabChange}
-            // indicatorColor="secondary"
-            // textColor="inherit"
             variant="fullWidth"
             // aria-label="full width tabs example"
           >

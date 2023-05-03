@@ -58,11 +58,18 @@ export const c2learn = (mode) => ({
         ? {
         }
         : {
-          main: '#FFC14C',
-          lavender: '#A864EC',
-          watermelon: '#F673A2',
-          fern: '#58B97D',
-          pink: '#F571E1',
+          main: '#FFC75E',
+          saffron: '#FFDA94',
+          grape: '#7867F2',
+          lightgrape: '#B4ABF8',
+          lavender: '#B173EE',
+          lightlavender: '#CBA2F4',
+          fern: '#68C08A',
+          lightfern: '#ACDCBE',
+          watermelon: '#F781AB',
+          lightwatermelon: '#FAABC7',
+          candy: '#F78DE7',
+          lightcandy: '#F9AAED',
         }),
       },
       background: {
