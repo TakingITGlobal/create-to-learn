@@ -4,6 +4,7 @@ import SwipeableViews from 'react-swipeable-views'
 import Section from './Section'
 import Vimeo from '@u-wave/react-vimeo'
 import {
+  Avatar,
   AppBar,
   Box,
   Button,
@@ -13,6 +14,7 @@ import {
   FormControl,
   Grid,
   InputLabel,
+  Link,
   List,
   ListItem,
   ListItemText,
@@ -40,7 +42,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{padding: '1em'}}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -75,11 +77,11 @@ function CourseSection(props) {
   }
 
   const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
+    // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    // ...theme.typography.body2,
+    // padding: theme.spacing(1),
+    // textAlign: 'center',
+    // color: theme.palette.text.secondary,
   }))
 
   function extractImageUrl(imageString) {
@@ -110,23 +112,24 @@ function CourseSection(props) {
       bgImage={props.bgImage}
       bgImageOpacity={props.bgImageOpacity}
     >
-      <Container>
+      <Container sx={{ padding: '0'}}>
         {/* Series name */}
-        <h1>{props.data?.seriesName}</h1>
+        <Box sx={{ padding: '2em 2.5em'}}>
+          <Typography variant="h1" textAlign="center">{props.data?.seriesName}</Typography>
 
-        {/* Vimeo embed */}
-        <Vimeo video={playingVideoId} responsive width="100vw" />
-
+          {/* Vimeo embed */}
+          <Vimeo video={playingVideoId} responsive width="100vw" style={{paddingTop: '2em', borderRadius:'6px', overflow: 'hidden'}} />
+        </Box>
 
         {/* About and Lesson tabs */}
-        <AppBar position="static" color="default">
+        <AppBar position="static" elevation="0" sx={{ pl: '0', pr: '0'}}>
           <Tabs
             value={tabValue}
             onChange={handleTabChange}
-            indicatorColor="secondary"
-            textColor="inherit"
+            // indicatorColor="secondary"
+            // textColor="inherit"
             variant="fullWidth"
-            aria-label="full width tabs example"
+            // aria-label="full width tabs example"
           >
             <Tab label="About" {...a11yProps(0)} />
             <Tab label="Lessons" {...a11yProps(1)} />
@@ -139,25 +142,18 @@ function CourseSection(props) {
         >
           <TabPanel value={tabValue} index={0} dir={theme.direction}>
             {/* Artist information */}
-            <List>
-              <ListItem button component="a" href="/artist-page">
-                <ListItemIcon>
-                  <img
-                    src={creatorPhoto}
-                    alt={creator}
-                    style={{
-                      width: '50px',
-                      height: '50px',
-                      objectFit: 'cover',
-                      borderRadius: '50%',
-                      backgroundColor: 'gray',
-                    }}
-                  />
-                </ListItemIcon>
-                <ListItemText primary={creator} />
-                <ChevronRight />
-              </ListItem>
-            </List>
+            <Link href="/artist-page" color="inherit" underline="none" variant="profile">
+              <Avatar
+                alt={creator}
+                src={creatorPhoto}
+                sx={{ width: '48px', height: '48px' }}
+              />
+              <Box> 
+                <Typography variant="bold" component="body1">{creator}</Typography>
+                <Typography variant="subtitle1" color={theme.palette.text.secondary}>Creator Community</Typography>
+              </Box>
+              <ChevronRight />
+            </Link>
 
             {/* Regular paragraph */}
             <Typography variant="body1" sx={{ marginBottom: 2 }}>
@@ -187,7 +183,7 @@ function CourseSection(props) {
               Add to Watchlist
             </Button>
             <FormControl sx={{ minWidth: 120, marginLeft: 2 }}>
-              <InputLabel id="download-label" sx={{color: 'white'}}>Download</InputLabel>
+              <InputLabel id="download-label">Download</InputLabel>
               <Select
                 value={downloadOption}
                 onChange={handleDownloadChange}
@@ -206,7 +202,6 @@ function CourseSection(props) {
             </Typography>
             <List>
               <ListItem
-                button
                 component="a"
                 href="/artist-page"
                 endIcon={<ChevronRight />}

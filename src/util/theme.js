@@ -45,6 +45,14 @@ export const c2learn = (mode) => ({
             main: '#6956F1',
         }),
       },
+      action: {
+        ...(mode === 'light' 
+        ? {
+        }
+        : {
+            active: '#fff',
+        }),
+      },
       accent: {
         ...(mode === 'light' 
         ? {
@@ -73,12 +81,10 @@ export const c2learn = (mode) => ({
         ? {
         }
         : {
-          text: {
-            primary: '#fff',
-            secondary: '#ccc',
-            placeholder: '#B2B2B2',
-            disabled: '#808080'
-          },
+          primary: '#fff',
+          secondary: '#ccc',
+          placeholder: '#B2B2B2',
+          disabled: '#808080'
         }),
       },
     },
@@ -88,6 +94,36 @@ export const c2learn = (mode) => ({
             root: {
               padding: '1rem',
               borderRadius: '12px'
+            }
+          }
+        },
+        MuiLink: {
+          variants: [
+            {
+              props: {variant: 'profile'},
+              style: {
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                padding: '15px 0',
+                width: '100%',
+                lineHeight: '1em',
+                ".MuiSvgIcon-root" : {
+                  marginLeft: 'auto'
+                }
+              }
+            }
+          ]
+        },
+        MuiTab: {
+          styleOverrides: {
+            root: {
+              textTransform: 'capitalize',
+              fontSize: '1em',
+              "&.Mui-selected" : {
+                color: '#fff',
+                fontWeight: '700'
+              }
             }
           }
         },
