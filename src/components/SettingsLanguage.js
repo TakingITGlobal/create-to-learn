@@ -34,7 +34,7 @@ function SettingsLanguage({ setShowComponent }) {
   const classes = useClasses(styles)
   const auth = useAuth()
 
-  const [languages, setLanguages] = useState(auth?.user?.language)
+  const [languages, setLanguages] = useState(auth?.user?.language ?? [])
 
   //To Do- make this simpler!
   const handleLanguages = (lan) => {
