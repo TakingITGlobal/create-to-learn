@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState }  from 'react'
 import MultiCarousel from 'react-multi-carousel'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -9,22 +9,12 @@ import CardActions from '@mui/material/CardActions'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import SvgIcon from '@mui/material/SvgIcon'
+import { useTheme } from '@mui/material/styles';
+import EastIcon from '@mui/icons-material/East'
 
-import useClasses from '../hooks/useClasses'
 import 'react-multi-carousel/lib/styles.css'
 import { useTranslation } from 'react-i18next'
-import MessageIcon from '@mui/icons-material/Message'
 import MessageFromCreatorsIcon from '../assets/images/A-message-from-your-creatives.svg'
-
-const styles = (theme) => ({
-  cardContent: {
-    padding: theme.spacing(3),
-  },
-  carouselItem: {
-    paddingRight: '20px',
-    paddingBottom: '20px',
-  },
-})
 
 const responsive = {
   desktop: {
@@ -44,14 +34,21 @@ const responsive = {
   },
 }
 
+const getRandomColor = (array) => {
+  const randomColor = array[Math.floor(Math.random() * array.length)];
+  return randomColor;
+}
+
 const DashboardCreatorsMessage = ({ creators }) => {
-  const classes = useClasses(styles)
+  const theme = useTheme();
+  const palette  = Object.values(theme.palette.accent)
+
 
   const { t } = useTranslation()
 
   return creators.length ? (
     <>
-      <Box sx={{ padding: '20px 0', paddingBottom: '20px' }}>
+      <Box sx={{ padding: '20px 0'}}>
         <Stack direction="row" spacing={1}>
           <SvgIcon fontSize="large" component="div">
             <img
@@ -76,33 +73,28 @@ const DashboardCreatorsMessage = ({ creators }) => {
         partialVisible={true}
         responsive={responsive}
         swipeable
-        itemClass={classes.carouselItem}
+        sx={{
+          paddingRight: '20px',
+          paddingBottom: '20px',
+          }
+        }
       >
         {creators?.map((creator, i) => {
           return (
             <Card
               key={i}
               sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                padding: '15px',
-                height: '425px',
-                backgroundColor: `${
-                  i === 0 ? '#B173EE !important' : '#FFC14C !important'
-                }`,
-                borderRadius: '24px !important',
+                backgroundColor: getRandomColor(palette),
+                margin: '0 10px',
               }}
             >
               <CardMedia
                 component="img"
                 alt={`${creator.seriesName}-course`}
                 sx={{
-                  display: 'flex',
-                  alignItems: 'center',
                   width: '150px',
                   height: '150px',
                   borderRadius: '24px',
-                  objectFit: 'cover',
                 }}
                 image={
                   creator && creator.image && creator.image.length
@@ -112,23 +104,35 @@ const DashboardCreatorsMessage = ({ creators }) => {
               />
               <CardContent
                 sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  padding: '20px 0',
-                  justifyContent: 'flex-end',
+                  p: '0',
+                  pb: '0',
+                  pt: theme.spacing(3),
                 }}
               >
-                <Typography variant="h5">
-                  "{creator.messageFromCreator}"
+                <Typography 
+                  variant="body"
+                  sx= {{
+                    fontSize: '1.5em',
+                    lineHeight: '1.3em',
+                    fontWeight: '600',
+                    hangingPunctuation: 'first last',
+                    color: '#000'
+                  }}
+                >
+                  {creator.messageFromCreator}
                 </Typography>
-                <CardActions>
+                <CardActions 
+                  sx= {{
+                    padding: '0',
+                    marginTop: '20px',
+                  }}
+                >
                   <Button
-                    fullWidth
                     variant="outlined"
-                    sx={{
-                      color: 'black',
-                      borderColor: 'black',
-                      borderRadius: '20px',
+                    size="large"
+                    sx= {{
+                      borderColor: '#000',
+                      color: '#000',
                     }}
                     //Make this better
                     href={
@@ -140,7 +144,8 @@ const DashboardCreatorsMessage = ({ creators }) => {
                         .toLowerCase()
                     }
                   >
-                    See {creator.name.split(' ')[0]}'s Course
+                    See {creator.name.split(' ')[0]}'s Course 
+                    <EastIcon sx={{ ml: '10px' }} />
                   </Button>
                 </CardActions>
               </CardContent>

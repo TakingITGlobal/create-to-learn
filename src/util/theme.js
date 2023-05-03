@@ -42,6 +42,18 @@ export const c2learn = (mode) => ({
             main: '#6956F1',
         }),
       },
+      accent: {
+        ...(mode === 'light' 
+        ? {
+        }
+        : {
+          main: '#FFC14C',
+          lavender: '#A864EC',
+          watermelon: '#F673A2',
+          fern: '#58B97D',
+          pink: '#F571E1',
+        }),
+      },
       background: {
         ...(mode === 'light' 
         ? {
@@ -79,6 +91,7 @@ export const c2learn = (mode) => ({
         MuiButton: {
           styleOverrides: {
             root: {
+              fontSize: '1em',
               textTransform: 'capitalize',
               fontWeight: '600',
               borderRadius: '3em',
@@ -95,6 +108,9 @@ export const c2learn = (mode) => ({
             },
             text: {
               color: '#fff',
+            },
+            outline: {
+              borderWidth: '1px',
             }
           }
         },
@@ -121,6 +137,23 @@ export const c2learn = (mode) => ({
               "&.Mui-selected" : {
                 fontSize: '1em',
               }
+            }
+          }
+        },
+        MuiCardContent: {
+          styleOverrides: {
+            root: {
+              "&:last-child" : {
+                paddingBottom: '0',
+              }
+            }
+          }
+        },
+        MuiCardMedia: {
+          styleOverrides: {
+            root: {
+              objectFit: 'cover',
+              borderRadius: '6px'
             }
           }
         }
