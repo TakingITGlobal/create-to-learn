@@ -133,6 +133,7 @@ const DashboardCreatorsMessage = ({ creators }) => {
                     sx= {{
                       borderColor: '#000',
                       color: '#000',
+                      padding: '0.5em',
                     }}
                     //Make this better
                     href={

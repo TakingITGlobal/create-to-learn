@@ -22,6 +22,9 @@ export const c2learn = (mode) => ({
           lineHeight: '1.3em',
           fontWeight: 700,
         },
+        subtitle1: {
+          fontSize: '0.875em'
+        }
       },
     breakpoints: {
         values: {
@@ -110,8 +113,8 @@ export const c2learn = (mode) => ({
               color: '#fff',
             },
             outline: {
-              borderWidth: '1px',
-            }
+              borderWidth: '2px',
+            }, 
           }
         },
         MuiBottomNavigation: {

@@ -5,21 +5,10 @@ import Stack from '@mui/material/Stack'
 import SvgIcon from '@mui/material/SvgIcon'
 import MultiCarousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
-import { Paper } from '@mui/material'
-import useClasses from '../hooks/useClasses'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
 import CreatorsSpotlightIcon from '../assets/images/Creator-spotlight.svg'
-
-const styles = (theme) => ({
-  cardContent: {
-    padding: theme.spacing(3),
-  },
-  carouselItem: {
-    paddingRight: '20px',
-  },
-  title: {
-    padding: '10px 0',
-  },
-})
 
 const responsive = {
   desktop: {
@@ -40,7 +29,6 @@ const responsive = {
 }
 
 const DashboardCreatorSpotlight = ({ creators }) => {
-  const classes = useClasses(styles)
 
   return creators.length ? (
     <>
@@ -67,43 +55,38 @@ const DashboardCreatorSpotlight = ({ creators }) => {
         partialVisible
         responsive={responsive}
         swipeable
-        itemClass={classes.carouselItem}
       >
         {creators.map((item, i) => {
           return (
-            <Paper key={i} sx={{ height: '400px' }}>
-              <Box sx={{ height: '228px', objectFit: 'cover' }}>
-                <img
-                  alt={`creator-${item.name}`}
-                  src={
-                    item && item.image && item.image.length
-                      ? item.image[0].downloadURL
-                      : ''
+            <Card key={i} 
+              raised="false"
+              elevation="0"
+              sx= {{
+                padding: '0',
+                mr: '15px'
+              }}
+            >
+              <CardMedia
+                component="img"
+                height="230px"
+                alt={`creator-${item.name}`}
+                src={
+                  item && item.image && item.image.length
+                    ? item.image[0].downloadURL
+                    : ''
                   }
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                  }}
                 />
-              </Box>
-              <Box
+              <CardContent
                 sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  paddingBottom: 5,
-                  paddingTop: 20,
-                  backgroundColor: '#0c0914',
-                  color: 'white',
-                  lineHeight: 'normal',
+                  padding: '10px 0',
                 }}
               >
-                <Typography variant="h6">
-                  <b> {item.name}</b>
+                <Typography variant="bold">
+                  {item.name}
                 </Typography>
-                <Typography variant="h6">{item.community}</Typography>
-              </Box>
-            </Paper>
+                <Typography variant="subtitle1">{item.community}</Typography>
+              </CardContent>
+            </Card>
           )
         })}
       </MultiCarousel>
