@@ -221,7 +221,7 @@ function CourseSection(props) {
             </List>
 
             {/* What You'll Learn List */}
-            <Typography variant="h3" sx={{ marginTop: 2 }}>
+            <Typography variant="bold" sx={{ marginTop: 2 }}>
               What you'll learn
             </Typography>
             <List>
@@ -236,7 +236,7 @@ function CourseSection(props) {
             </List>
 
             {/* What You'll Need List*/}
-            <Typography variant="h3" sx={{ marginTop: 2 }}>
+            <Typography variant="bold" sx={{ marginTop: 2 }}>
               What you'll need
             </Typography>
             <List>

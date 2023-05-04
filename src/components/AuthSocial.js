@@ -84,7 +84,7 @@ function AuthSocial(props) {
       {props.providers.map((provider) => (
         <Button
           className={classes.button}
-          variant="outlined"
+          variant="secondary"
           size="large"
           type="submit"
           disabled={pending === provider}

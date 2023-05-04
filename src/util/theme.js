@@ -115,6 +115,16 @@ export const c2learn = (mode) => ({
           }
         },
         MuiLink: {
+          styleOverrides: {
+            root: {
+              ...(mode === 'light' 
+              ? {
+              }
+              : {
+                  color: '#fff'
+              }),
+            }
+          },
           variants: [
             {
               props: {variant: 'profile'},
