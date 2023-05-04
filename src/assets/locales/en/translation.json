@@ -74,7 +74,10 @@
     "show-filters": "Filter",
     "apply-filters": "Apply filters",
     "clear-filters": "Clear filters",
-    "browse": "Browse"
+    "browse": "Browse",
+    "popular-searches": "Popular Searches",
+    "no-matches": "Sorry we couldn't find any matches for",
+    "search-another-term": "Please try searching with another term."
   },
   "my-courses": {
     "my-courses": "My Courses",
