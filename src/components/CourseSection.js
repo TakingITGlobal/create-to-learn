@@ -177,22 +177,28 @@ function CourseSection(props) {
             </Button>
 
             {/* Add to Watchlist button */}
-            <Button variant="text" startIcon={<BookmarkBorder />}>
-              Add to Watchlist
-            </Button>
-            <FormControl sx={{ minWidth: 120, marginLeft: 2 }}>
-              <InputLabel id="download-label">Download</InputLabel>
-              <Select
-                value={downloadOption}
-                onChange={handleDownloadChange}
-                labelId="download-label"
-                color="primary"
-              >
-                <MenuItem value="option1">Option 1</MenuItem>
-                <MenuItem value="option2">Option 2</MenuItem>
-                <MenuItem value="option3">Option 3</MenuItem>
-              </Select>
-            </FormControl>
+            <Stack direction="row" spacing={1} mb="15px" mt="20px" alignItems="center">              
+              <Button variant="text" startIcon={<BookmarkBorder />}>
+                Add to Watchlist
+              </Button>
+              <FormControl sx={{ minWidth: 120, marginLeft: 2}}>
+                {/* <InputLabel id="download-label" sx={{ padding: '0',  fontWeight: '700'}} variant="standard">Download</InputLabel> */}
+                <Select
+                  value={downloadOption}
+                  onChange={handleDownloadChange}
+                  labelId="download-label"
+                  displayEmpty
+                  variant="standard"
+                  color={theme.palette.text.main}
+                  sx={{ padding: '0', border: '0'}}
+                >
+                  <MenuItem value="" sx={{fontWeight: '700'}}><em>Download</em></MenuItem>
+                  <MenuItem value="option1">Option 1</MenuItem>
+                  <MenuItem value="option2">Option 2</MenuItem>
+                  <MenuItem value="option3">Option 3</MenuItem>
+                </Select>
+              </FormControl>
+            </Stack>
 
             {/* Topic List */}
             <Typography variant="h3" sx={{ marginTop: 2 }}>

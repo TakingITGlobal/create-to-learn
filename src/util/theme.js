@@ -214,7 +214,8 @@ export const c2learn = (mode) => ({
                   display: 'flex',
                   alignItems: 'center',
                   flex: '1',
-                  borderRadius: '4px'
+                  borderRadius: '4px',
+                  justifyContent: 'center',
                 }
               }
             }
