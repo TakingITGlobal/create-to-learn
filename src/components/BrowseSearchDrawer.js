@@ -80,8 +80,8 @@ const PopularSearches = () => {
         {t('browse.popular-searches')}
       </Typography>
       <List>
-        {popularSearches.map((searchTerm) => (
-          <ListItem sx={{ paddingLeft: '10px' }}>
+        {popularSearches.map((searchTerm, index) => (
+          <ListItem key={index} sx={{ paddingLeft: '10px' }}>
             <ListItemIcon>
               <SearchIcon />
             </ListItemIcon>
