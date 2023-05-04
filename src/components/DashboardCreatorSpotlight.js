@@ -9,6 +9,7 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import CreatorsSpotlightIcon from '../assets/images/Creator-spotlight.svg'
+import { ChevronRight} from '@mui/icons-material'
 
 const responsive = {
   desktop: {
@@ -32,8 +33,8 @@ const DashboardCreatorSpotlight = ({ creators }) => {
 
   return creators.length ? (
     <>
-      <Box sx={{ padding: '20px 0', paddingBottom: '20px' }}>
-        <Stack direction="row" spacing={1}>
+
+      <Typography variant="sectionTitle" pt="20px" pb="20px">
           <SvgIcon fontSize="large" component="div">
             <img
               src={CreatorsSpotlightIcon}
@@ -41,15 +42,10 @@ const DashboardCreatorSpotlight = ({ creators }) => {
               style={{ paddingBottom: '5px' }}
             />
           </SvgIcon>
-          <Box
-            sx={{
-              paddingTop: '7.5px',
-            }}
-          >
-            <Typography variant="h3">Creator Spotlight</Typography>
-          </Box>
-        </Stack>
-      </Box>
+          Creator Spotlight
+          <ChevronRight />
+      </Typography>
+
       <MultiCarousel
         ssr
         partialVisible

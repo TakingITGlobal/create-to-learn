@@ -30,6 +30,7 @@ import {
   useTheme,
 } from '@mui/material'
 import { ChevronRight, Check, BookmarkBorder } from '@mui/icons-material'
+import SvgIcon from '@mui/material/SvgIcon'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -201,24 +202,21 @@ function CourseSection(props) {
             </Stack>
 
             {/* Topic List */}
-            <Typography variant="h3" sx={{ marginTop: 2 }}>
+            <Typography variant="bold" sx={{ marginTop: 2 }}>
               Topic
             </Typography>
             <List>
               <ListItem
                 component="a"
                 href="/artist-page"
-                endIcon={<ChevronRight />}
+                sx={{ color: '#fff'}}
               >
-                <ListItemIcon>
-                  <img
-                    src="https://via.placeholder.com/50"
-                    alt={topic}
-                    style={{ borderRadius: '50%', backgroundColor: 'gray' }}
-                  />
-                </ListItemIcon>
-                <ListItemText> {topic}</ListItemText>
-                <ChevronRight />
+                <img
+                  src="https://via.placeholder.com/50"
+                  alt={topic}
+                  style={{ maxWidth: '30px', height: 'auto', marginRight: '10px' }}
+                />
+                {topic}
               </ListItem>
             </List>
 

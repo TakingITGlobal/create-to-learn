@@ -48,26 +48,18 @@ const DashboardCreatorsMessage = ({ creators }) => {
 
   return creators.length ? (
     <>
-      <Box sx={{ padding: '20px 0'}}>
-        <Stack direction="row" spacing={1}>
-          <SvgIcon fontSize="large" component="div">
-            <img
-              src={MessageFromCreatorsIcon}
-              alt="message-from-creators-icon"
-              style={{ paddingBottom: '5px' }}
-            />
-          </SvgIcon>
-          <Box
-            sx={{
-              paddingTop: '7.5px',
-            }}
-          >
-            <Typography variant="h3">
-              {t('dashboard.creators-message')}
-            </Typography>
-          </Box>
-        </Stack>
-      </Box>
+
+      <Typography variant="sectionTitle" pt="20px" pb="20px">
+        <SvgIcon fontSize="large" component="div">
+          <img
+            src={MessageFromCreatorsIcon}
+            alt="message-from-creators-icon"
+            style={{ paddingBottom: '5px' }}
+          />
+        </SvgIcon>
+        {t('dashboard.creators-message')}
+      </Typography>
+
       <MultiCarousel
         ssr
         partialVisible={true}

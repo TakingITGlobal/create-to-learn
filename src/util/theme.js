@@ -24,6 +24,16 @@ export const c2learn = (mode) => ({
         },
         subtitle1: {
           fontSize: '0.875em'
+        },
+        sectionTitle: {
+          fontSize: '1.125em',
+          fontWeight: '700',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '5px',
+          ".MuiSvgIcon-fontSizeMedium" : {
+            marginLeft: 'auto'
+          }
         }
       },
     breakpoints: {

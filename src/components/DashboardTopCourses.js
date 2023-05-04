@@ -43,14 +43,11 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
 
   return courses.length ? (
     <>
-      <Box sx={{ padding: '20px 0', paddingBottom: '20px' }}>
-        <Stack direction="row" spacing={0}>
+      <Typography variant="sectionTitle" pt="20px" pb="20px">
           {icon}
-          <Box>
-            <Typography variant="h3">{title}</Typography>
-          </Box>
-        </Stack>
-      </Box>
+          {title}
+      </Typography>
+
       <MultiCarousel
         ssr
         partialVisible={true}
