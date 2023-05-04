@@ -202,6 +202,23 @@ export const c2learn = (mode) => ({
               borderRadius: '6px'
             }
           }
-        }
+        },
+        MuiStack: {
+          variants: [
+            {
+              props: {variant: 'squareCard'},
+              style: {
+                justifyContent: 'center',
+                "> *" : {
+                  aspectRatio: '1/1',
+                  display: 'flex',
+                  alignItems: 'center',
+                  flex: '1',
+                  borderRadius: '4px'
+                }
+              }
+            }
+          ]
+        },
       },
   });

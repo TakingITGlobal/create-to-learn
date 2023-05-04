@@ -26,6 +26,7 @@ import {
   Tab,
   Tabs,
   Typography,
+  Stack,
   useTheme,
 } from '@mui/material'
 import { ChevronRight, Check, BookmarkBorder } from '@mui/icons-material'
@@ -96,7 +97,6 @@ function CourseSection(props) {
     return match ? match[0] : ''
   }
 
-  
   const handleStartButtonClick = (videoId) => {
     setPlayingVideoId(videoId);
   };
@@ -160,22 +160,16 @@ function CourseSection(props) {
             </Link>
 
             {/* Regular paragraph */}
-            <Typography variant="body1" sx={{ marginBottom: 2 }}>
+            <Typography variant="body2" color={theme.palette.text.secondary} sx={{ marginBottom: 2 }}>
               {description}
             </Typography>
 
-            {/* Three text boxes */}
-            <Grid container spacing={2}>
-              <Grid xs={4}>
-                <Item>{props.data.videos.length} Videos</Item>
-              </Grid>
-              <Grid xs={4}>
-                <Item>{props.data.totalLength} minutes</Item>
-              </Grid>
-              <Grid xs={4}>
-                <Item>Text Box 3</Item>
-              </Grid>
-            </Grid>
+            {/* Metrics */}
+            <Stack direction="row" spacing={1} variant="squareCard" mb="15px">              
+              <Item elevation="1">{props.data.videos.length} Videos</Item>
+              <Item elevation="1">{props.data.totalLength} minutes</Item>
+              <Item elevation="1">Difficulty</Item>
+            </Stack>
 
             {/* Start Creating Button */}
             <Button variant="contained" size="large" fullWidth>
