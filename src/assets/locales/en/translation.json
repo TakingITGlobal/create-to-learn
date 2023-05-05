@@ -74,7 +74,10 @@
     "show-filters": "Filter",
     "apply-filters": "Apply filters",
     "clear-filters": "Clear filters",
-    "browse": "Browse"
+    "browse": "Browse",
+    "popular-searches": "Popular Searches",
+    "no-matches": "Sorry we couldn't find any matches for",
+    "search-another-term": "Please try searching with another term."
   },
   "my-courses": {
     "my-courses": "My Courses",
@@ -87,6 +90,12 @@
     "courses-taken": "courses taken",
     "minutes-watched": "minutes watched",
     "videos-completed": "videos completed",
-    "sign-out": "Sign out"
+    "sign-out": "Sign out",
+    "update": "Update",
+    "change-email": "Change Email",
+    "change-display-name": "Change display name",
+    "prefer-not-to-say": "Prefer not to say",
+    "none-of-the-above": "None of the above",
+    "delete-account": "Delete my account"
   }
 }

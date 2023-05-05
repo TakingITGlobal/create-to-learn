@@ -9,6 +9,7 @@ import { categories } from '../assets/options/categories'
 import { useAuth } from './../util/auth'
 import useClasses from '../hooks/useClasses'
 import { updateUser } from '../util/db'
+import { useTranslation } from 'react-i18next'
 
 const styles = (theme) => ({
   primaryButton: {
@@ -20,8 +21,9 @@ const styles = (theme) => ({
     color: 'black',
   },
 })
-function SettingsInterests() {
+function SettingsInterests({ setShowComponent }) {
   const auth = useAuth()
+  const { t } = useTranslation()
 
   const [interests, setInterests] = useState(auth.user.interests)
   const classes = useClasses(styles)
@@ -40,12 +42,12 @@ function SettingsInterests() {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between',
+        height: '650px',
       }}
     >
       <Box>
         <Box sx={{ padding: '1.5rem 0' }}>
-          <Typography variant="h6">I'm interested in...</Typography>
+          <Typography variant="h5">I'm interested in...</Typography>
         </Box>
         <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap">
           {clippedCategories.splice(1).map((category, index) => {
@@ -60,9 +62,9 @@ function SettingsInterests() {
                 }
                 onClick={() => handleInterests(category.label)}
                 sx={{
-                  fontSize: 20,
+                  fontSize: 16,
                   marginLeft: 0,
-                  padding: '10px',
+                  padding: '10px 0',
                   backgroundColor: clicked ? '#6956F1' : '#211E34',
                 }}
                 variant="default"
@@ -71,13 +73,23 @@ function SettingsInterests() {
           })}
         </Stack>
       </Box>
-      <Box sx={{ flexGrow: 1, padding: '20px 0' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          padding: '1.5rem 0',
+          flexGrow: 1,
+          alignItems: 'flex-end',
+        }}
+      >
         <Button
           fullWidth
           className={classes.primaryButton}
-          onClick={() => updateUser(auth.user.uid, { interests: interests })}
+          onClick={() => {
+            updateUser(auth.user.uid, { interests: interests })
+            setShowComponent('nav')
+          }}
         >
-          Update
+          {t('settings.update')}
         </Button>
       </Box>
     </Box>

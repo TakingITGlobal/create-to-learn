@@ -2,19 +2,24 @@ import React, { useState } from 'react'
 import Container from '@mui/material/Container'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
-import ListItemText from '@mui/material/ListItemText'
-import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction'
 import Typography from '@mui/material/Typography'
-import DeleteIcon from '@mui/icons-material/Delete'
-import Button from '@mui/material/Button'
-import Box from '@mui/material/Box'
-import TextField from '@mui/material/TextField'
+import Grid from '@mui/material/Grid'
+import ListItemText from '@mui/material/ListItemText'
+import ListItemButton from '@mui/material/ListItemButton'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import EastIcon from '@mui/icons-material/East'
+
 import ArrowBack from './ArrowBack'
+import SettingsInterests from './SettingsInterests'
+import SettingsDisplayName from './SettingsDisplayName'
+import SettingsCommunity from './SettingsCommunity'
+import SettingsEmail from './SettingsEmail'
+import SettingsLanguage from './SettingsLanguage'
+import SettingsSchools from './SettingsSchools'
+
+import { useTranslation } from 'react-i18next'
 import { useAuth } from './../util/auth'
 import { requireAuth } from './../util/auth'
-
-import SettingsInterests from './SettingsInterests'
 
 function SettingsMyAccount(props) {
   const auth = useAuth()
@@ -29,19 +34,30 @@ function SettingsMyAccount(props) {
       />
       <Container>
         {showComponent === 'displayName' && (
-          <DisplayName auth={auth} setShowComponent={setShowComponent} />
+          <SettingsDisplayName
+            auth={auth}
+            setShowComponent={setShowComponent}
+          />
         )}
 
         {showComponent === 'email' && (
-          <Email auth={auth} setShowComponent={setShowComponent} />
+          <SettingsEmail auth={auth} setShowComponent={setShowComponent} />
         )}
 
-        {showComponent === 'school' && <div>I'm attending...</div>}
+        {showComponent === 'school' && (
+          <SettingsSchools setShowComponent={setShowComponent} />
+        )}
 
-        {showComponent === 'interests' && <SettingsInterests />}
-        {showComponent === 'language' && <div>My language is...</div>}
+        {showComponent === 'interests' && (
+          <SettingsInterests setShowComponent={setShowComponent} />
+        )}
+        {showComponent === 'language' && (
+          <SettingsLanguage setShowComponent={setShowComponent} />
+        )}
 
-        {showComponent === 'communities' && <div>I am ...</div>}
+        {showComponent === 'communities' && (
+          <SettingsCommunity setShowComponent={setShowComponent} />
+        )}
         {showComponent === 'nav' && (
           <MyAccountNav auth={auth} setShowComponent={setShowComponent} />
         )}
@@ -53,116 +69,71 @@ function SettingsMyAccount(props) {
 export default requireAuth(SettingsMyAccount)
 
 function MyAccountNav({ setShowComponent, auth }) {
+  const { t } = useTranslation()
+
   const myAccountLinks = [
     {
       id: 'displayName',
       title: 'Display Name',
-      userInfo: auth.user.name,
+      userInfo: auth?.user?.displayName ?? auth.user?.name,
     },
-    { id: 'email', title: 'Email', userInfo: auth.user.email },
-    { id: 'school', title: 'School' },
-    { id: 'interests', title: 'Interests' },
-    { id: 'language', title: 'Language' },
-    { id: 'communities', title: 'Communities' },
+    { id: 'email', title: 'Email', userInfo: auth?.user?.email },
+    { id: 'school', title: 'School', userInfo: auth?.user?.school },
+    {
+      id: 'interests',
+      title: 'Interests',
+      userInfo: auth?.user?.interests.join(','),
+    },
+    {
+      id: 'language',
+      title: 'Language',
+      userInfo: auth?.user?.language && auth?.user?.language.join(','),
+    },
+    {
+      id: 'communities',
+      title: 'Communities',
+      userInfo: auth?.user?.fnmi && auth?.user?.fnmi.join(','),
+    },
   ]
 
   return (
     <>
       <List
-        sx={{ width: '100%', maxWidth: 400 }}
+        sx={{ width: '100%', maxWidth: 450 }}
         component="nav"
         aria-labelledby="settings-my-account"
       >
         {myAccountLinks.map((accLink) => (
           <ListItem
-            button
             onClick={() => {
               setShowComponent(accLink.id)
             }}
             key={accLink.title}
+            secondaryAction={<ChevronRightIcon />}
           >
-            <ListItemText>{accLink.title}</ListItemText>
-            {accLink.userInfo && <Typography> {accLink.userInfo}</Typography>}
-
-            <ListItemSecondaryAction edge="end">
-              <ChevronRightIcon />
-            </ListItemSecondaryAction>
+            <ListItemButton>
+              <Grid container>
+                <Grid item xs={accLink.userInfo ? 7 : 12}>
+                  <Typography>{accLink.title}</Typography>
+                </Grid>
+                {accLink.userInfo && (
+                  <Grid item xs={5}>
+                    <Typography noWrap> {accLink.userInfo}</Typography>
+                  </Grid>
+                )}
+              </Grid>
+            </ListItemButton>
           </ListItem>
         ))}
+        <ListItem>
+          <ListItemButton>
+            <ListItemText sx={{ color: 'white' }}>
+              {t('settings.delete-account')}
+            </ListItemText>
+            <EastIcon />
+          </ListItemButton>
+        </ListItem>
       </List>
-      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Button variant="outlined" startIcon={<DeleteIcon />}>
-          Delete Account
-        </Button>
-      </Box>
     </>
-  )
-}
-
-function DisplayName({ auth }) {
-  const [name, setName] = useState(auth.user.name)
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
-      <Box sx={{ padding: '1.5rem 0' }}>
-        <Typography variant="h6">Change Display Name</Typography>
-      </Box>
-      <TextField
-        id="displayName"
-        label="DisplayName"
-        variant="outlined"
-        defaultValue={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <Box sx={{ padding: '1.5rem 0' }}>
-        <Button
-          fullWidth
-          variant="outlined"
-          onChange={() => auth.updateProfile({ name: name })}
-        >
-          Update
-        </Button>
-      </Box>
-    </Box>
-  )
-}
-
-function Email({ auth }) {
-  const [email, setEmail] = useState('auth.user.email')
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
-      <Box sx={{ padding: '1.5rem 0' }}>
-        <Typography variant="h6">Change Email</Typography>
-      </Box>
-      <TextField
-        id="Email"
-        label="Email"
-        variant="outlined"
-        defaultValue={auth.user.email}
-        onChange={(e) => setEmail(e.targetValue)}
-      />
-      <Box
-        sx={{
-          padding: '1.5rem 0',
-        }}
-      >
-        <Button
-          variant="outlined"
-          fullWidth
-          onChange={() => auth.updateProfile({ email: email })}
-        >
-          Update
-        </Button>
-      </Box>
-    </Box>
   )
 }

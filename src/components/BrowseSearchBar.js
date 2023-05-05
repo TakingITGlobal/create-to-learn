@@ -1,9 +1,9 @@
 import React from 'react'
 import Box from '@mui/material/Box'
 import InputAdornment from '@mui/material/InputAdornment'
-import SearchIcon from '@mui/icons-material/Search'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
+import SearchIcon from '@mui/icons-material/Search'
 
 import { useTranslation } from 'react-i18next'
 

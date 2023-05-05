@@ -54,7 +54,9 @@ function SettingsProfile() {
       <Typography variant="h5" sx={{ fontWeight: '700' }}>
         {auth.user ? auth.user.name : t('settings.profile')}
       </Typography>
-      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Box
+        sx={{ display: 'flex', justifyContent: 'center', paddingTop: '10px' }}
+      >
         {auth.user ? <Stats /> : <SignUp />}
       </Box>
       <List
@@ -95,7 +97,7 @@ function SettingsProfile() {
               borderRadius: '5px',
             }}
           >
-            <ListItemButton>
+            <ListItemButton onClick={() => auth.signout()}>
               <ListItemIcon>
                 <LogoutIcon sx={{ color: 'white' }} />
               </ListItemIcon>
