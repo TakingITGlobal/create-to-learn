@@ -95,6 +95,7 @@
     "change-email": "Change Email",
     "change-display-name": "Change display name",
     "prefer-not-to-say": "Prefer not to say",
-    "none-of-the-above": "None of the above"
+    "none-of-the-above": "None of the above",
+    "delete-account": "Delete my account"
   }
 }

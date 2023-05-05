@@ -3,21 +3,23 @@ import Container from '@mui/material/Container'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import Typography from '@mui/material/Typography'
-import DeleteIcon from '@mui/icons-material/Delete'
-import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
+import ListItemText from '@mui/material/ListItemText'
 import ListItemButton from '@mui/material/ListItemButton'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import ArrowBack from './ArrowBack'
-import { useAuth } from './../util/auth'
-import { requireAuth } from './../util/auth'
+import EastIcon from '@mui/icons-material/East'
 
+import ArrowBack from './ArrowBack'
 import SettingsInterests from './SettingsInterests'
 import SettingsDisplayName from './SettingsDisplayName'
 import SettingsCommunity from './SettingsCommunity'
 import SettingsEmail from './SettingsEmail'
 import SettingsLanguage from './SettingsLanguage'
+import SettingsSchools from './SettingsSchools'
+
+import { useTranslation } from 'react-i18next'
+import { useAuth } from './../util/auth'
+import { requireAuth } from './../util/auth'
 
 function SettingsMyAccount(props) {
   const auth = useAuth()
@@ -42,7 +44,9 @@ function SettingsMyAccount(props) {
           <SettingsEmail auth={auth} setShowComponent={setShowComponent} />
         )}
 
-        {showComponent === 'school' && <div>I'm attending...</div>}
+        {showComponent === 'school' && (
+          <SettingsSchools setShowComponent={setShowComponent} />
+        )}
 
         {showComponent === 'interests' && (
           <SettingsInterests setShowComponent={setShowComponent} />
@@ -65,6 +69,8 @@ function SettingsMyAccount(props) {
 export default requireAuth(SettingsMyAccount)
 
 function MyAccountNav({ setShowComponent, auth }) {
+  const { t } = useTranslation()
+
   const myAccountLinks = [
     {
       id: 'displayName',
@@ -119,12 +125,15 @@ function MyAccountNav({ setShowComponent, auth }) {
             </ListItemButton>
           </ListItem>
         ))}
+        <ListItem>
+          <ListItemButton>
+            <ListItemText sx={{ color: 'white' }}>
+              {t('settings.delete-account')}
+            </ListItemText>
+            <EastIcon />
+          </ListItemButton>
+        </ListItem>
       </List>
-      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Button variant="outlined" startIcon={<DeleteIcon />}>
-          Delete Account
-        </Button>
-      </Box>
     </>
   )
 }
