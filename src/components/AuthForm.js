@@ -12,6 +12,18 @@ function AuthForm(props) {
   const { handleSubmit, register, errors, getValues } = useForm()
 
   const submitHandlersByType = {
+    passwordlessStart: ({ email }) => {
+      return auth.passwordlessStart(email).then((user) => {
+        // Call auth complete handler
+        props.onAuth(user)
+      })
+    },
+    passwordlessLogin: ({ email }) => {
+      return auth.passwordlessLogin(email).then((user) => {
+        // Call auth complete handler
+        props.onAuth(user)
+      })
+    },
     signin: ({ email, pass }) => {
       return auth.signin(email, pass).then((user) => {
         // Call auth complete handler
@@ -68,7 +80,7 @@ function AuthForm(props) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container={true} spacing={2}>
-        {['signup', 'signin', 'forgotpass'].includes(props.type) && (
+        {['signup', 'signin', 'forgotpass', 'passwordlessStart', 'passwordlessLogin'].includes(props.type) && (
           <Grid item={true} xs={12}>
             <TextField
               variant="outlined"

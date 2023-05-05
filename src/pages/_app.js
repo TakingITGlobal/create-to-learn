@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect,useContext, useState } from 'react'
 import Navbar from './../components/Navbar'
 import IndexPage from './index'
 import AboutPage from './about'
@@ -11,7 +11,7 @@ import MyCoursesPage from './myCourses'
 import AuthPage from './auth'
 import SettingsPage from './settings'
 import LegalPage from './legal'
-import { Switch, Route, Router } from './../util/router'
+import { Switch, Route, Router, useLocation } from './../util/router'
 import Auth0Callback from './auth0-callback'
 import NotFoundPage from './404'
 import Footer from './../components/Footer'
@@ -31,6 +31,23 @@ import SignUpPage from './signUp'
 import CoursePage from './course'
 import CreatorPage from './creator'
 
+
+const LocationProvider = ({children}) => {
+  const {pathname} = useLocation()
+  useEffect(() => {
+    if(pathname.includes('/course/')){
+      var id = localStorage.getItem('courseId')
+      var progress = localStorage.getItem('courseProgress')
+      console.log('id: ' + id)
+      console.log('progress: ' + progress)
+
+      localStorage.removeItem('courseId')
+      localStorage.removeItem('courseProgress')
+    }
+  },[pathname])
+  return(<>{children}</>)
+}
+
 function App(props) {
   const theme = useTheme();
   const darkTheme = createTheme(c2learn('dark'));
@@ -44,7 +61,7 @@ function App(props) {
             <AuthProvider>
               <Chat />
               <Router>
-                <>
+                <LocationProvider>
                   <Hidden mdDown>
                     <Navbar
                       color="default"
@@ -118,7 +135,7 @@ function App(props) {
                     <BottomNavbar />
                     <Box sx={{ width: '100%', height: 56 }} />
                   </Hidden>
-                </>
+                </LocationProvider>
               </Router>
             </AuthProvider>
           </DataProvider>

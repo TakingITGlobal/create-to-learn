@@ -30,6 +30,8 @@ import {
   useTheme,
 } from '@mui/material'
 import { ChevronRight, Check, BookmarkBorder } from '@mui/icons-material'
+import Video from './Video'
+import { useAuth } from '../util/auth'
 import SvgIcon from '@mui/material/SvgIcon'
 
 function TabPanel(props) {
@@ -66,12 +68,12 @@ const getRandomColor = (array) => {
 
 function CourseSection(props) {
   const theme = useTheme()
+  const auth = useAuth()
   const [tabValue, setTabValue] = useState(0)
   const [downloadOption, setDownloadOption] = useState('')
   const palette  = Object.values(theme.palette.accent)
 
   console.log('props.data:', props.data)
-
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue)
   }
@@ -98,6 +100,7 @@ function CourseSection(props) {
     return match ? match[0] : ''
   }
 
+
   const handleStartButtonClick = (videoId) => {
     setPlayingVideoId(videoId);
   };
@@ -123,10 +126,13 @@ function CourseSection(props) {
         {/* Series name */}
         <Box sx={{ padding: '2em 2.5em'}}>
           <Typography variant="h1" textAlign="center" color='#000'>{props.data?.seriesName}</Typography>
-
-          {/* Vimeo embed */}
-          <Vimeo video={playingVideoId} responsive width="100vw" style={{paddingTop: '2em', borderRadius:'6px', overflow: 'hidden'}} />
         </Box>
+        {/* Vimeo embed */}
+        <Video 
+          video={playingVideoId} 
+          id={props.data?.videos[0]}
+          user={auth.user}
+        />
 
         {/* About and Lesson tabs */}
         <AppBar position="static" elevation="0" sx={{ pl: '0', pr: '0', background: 'transparent'}}>
