@@ -8,6 +8,7 @@ const auth0 = new Auth0.WebAuth({
   domain: process.env.REACT_APP_AUTH0_DOMAIN,
   clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
   audience: `https://${process.env.REACT_APP_AUTH0_DOMAIN}/api/v2/`,
+  redirectUri: 'http://localhost.8888',
   responseType: 'token id_token',
   scope: 'openid profile email',
 })
@@ -22,13 +23,36 @@ const popupAuthorize = promisify(auth0.popup.authorize.bind(auth0.popup))
 const userInfo = promisify(auth0.client.userInfo.bind(auth0.client))
 const changePassword = promisify(auth0.changePassword.bind(auth0))
 
+const passwordlessStart = promisify(auth0.passwordlessStart.bind(auth0))
+const passwordlessLogin = promisify(auth0.passwordlessLogin.bind(auth0))
+
 // Now lets wrap our methods with extra logic, such as including a "connection" value
 // and ensuring human readable errors are thrown for our UI to catch and display.
 // We make these custom methods available within an auth0.extended object.
 
 let onChangeCallback = () => null
 
+
 auth0.extended = {
+  passwordlessStart: (options) => {
+    return passwordlessStart({
+      connection: 'email',
+      send: 'link',
+      ...options,
+    })
+    .then(handleAuth)
+    .catch(handleError)
+  },
+  passwordlessLogin: (options) => {
+    return passwordlessLogin({
+      connection: 'email',
+      send: 'link',
+      ...options,
+    })
+    .then(handleAuth)
+    .catch(handleError)
+  },
+
   getCurrentUser: () => {
     const accessToken = getAccessToken()
     return userInfo(accessToken).catch(handleError)

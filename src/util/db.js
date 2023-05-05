@@ -106,17 +106,7 @@ export function useLearningPaths() {
     { staleTime: 20 * 60 * 1000 }, // 20 minute
   )
 }
-/**** ITEMS ****/
-/* Example query functions (modify to your needs) */
 
-// Subscribe to item data
-export function useItem(id) {
-  return useQuery(
-    ['item', { id }],
-    createQuery(() => doc(db, 'items', id)),
-    { enabled: !!id },
-  )
-}
 
 export function useCourseByUID(uid) {
   return useQuery(
@@ -132,6 +122,79 @@ export function useCreatorByUID(uid) {
     createQuery(() =>
       query(collection(db, '/Artists'), where('uid', '==', uid), limit(1)),
     ),
+  )
+}
+export function useVideoProgress(id) {
+  return useQuery(
+    ['video-progress', { id }],
+    createQuery(() => doc(db, 'user-progress', id)),
+    { enabled: !!id },
+  )
+}
+export function useVideoProgressOnce(id) {
+  return useQuery(
+    ['video-progress', { id }],
+    // When fetching once there is no need to use `createQuery` to setup a subscription
+    // Just fetch normally using `getDoc` so that we return a promise
+    () => getDoc(doc(db, 'user-progress', id)).then(format),
+    { enabled: !!id },
+  )
+}
+// Subscribe to all items by owner
+export function useUserProgressByOwner(owner) {
+  return useQuery(
+    ['user-progress', { owner }],
+    createQuery(() =>
+      query(
+        collection(db, 'user-progress'),
+        where('owner', '==', owner),
+        orderBy('createdAt', 'desc'),
+      ),
+    ),
+    { enabled: !!owner },
+  )
+}
+export function useVideoProgressByVideoId(owner,videoId) {
+  return useQuery(
+    ['user-progress', { owner }],
+    createQuery(() =>
+      query(
+        collection(db, 'user-progress'),
+        where('owner', '==', owner),
+        where('videoId', '==', videoId),
+        orderBy('createdAt', 'desc'),
+      ),
+    ),
+    { enabled: !!owner },
+  )
+}
+// Create a new item
+export function createVideoProgress(data) {
+  return addDoc(collection(db, 'user-progress'), {
+    ...data,
+    createdAt: serverTimestamp(),
+  })
+}
+
+// Update an item
+export function updateVideoProgress(id, data) {
+  return updateDoc(doc(db, 'user-progress', id), data)
+}
+
+// Delete an item
+export function deleteVideoProgress(id) {
+  return deleteDoc(doc(db, 'user-progress', id))
+}
+
+/**** ITEMS ****/
+/* Example query functions (modify to your needs) */
+
+// Subscribe to item data
+export function useItem(id) {
+  return useQuery(
+    ['item', { id }],
+    createQuery(() => doc(db, 'items', id)),
+    { enabled: !!id },
   )
 }
 // Fetch item data once

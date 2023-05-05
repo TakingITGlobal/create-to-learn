@@ -1,8 +1,13 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import useClasses from '../hooks/useClasses'
-import { Grid, Button, Box, TextField, Container} from '@mui/material'
+import { Grid, Button, Box, TextField, Container, Alert} from '@mui/material'
 import { useTranslation } from 'react-i18next'
+import {useSwiper,useSwiperSlide} from 'swiper/react'
 import { FixedSizeList as List } from 'react-window'
+import { updateUser } from '../util/db'
+import AuthForm from './AuthForm'
+import AuthSocial from './AuthSocial'
+import { useRouter } from '../util/router'
 
 const styles = theme => ({
   container: {
@@ -77,52 +82,76 @@ const styles = theme => ({
 function InputView(props){
   const { t } = useTranslation()
   const classes = useClasses(styles)
-  const { data, value, state } = props
+  const swiper = useSwiper()
+  const [cur,setCur] = useState(0)
+
+  const { data, value, formProgress, setFormProgress } = props
   const required = props.required ? props.required : false
-  const { setCurLength, setActive} = state
+
+  useEffect(() => {
+    swiper.on("slideChange", (swipe) => {
+      setCur(swipe.activeIndex)
+    })
+  }, [swiper])
+  // useEffect(() => {
+  //   console.log("After Form "+ formProgress)
+  //   console.log("After Cur " + cur)
+  //   if(formProgress < cur){
+  //     console.log("Gets here wrongly")
+  //     swiper.allowSlideNext = false
+  //   } else if(swiper.allowSlideNext ){
+  //     console.log("gets here")
+  //     handleAllowNext(swiper.slideNext())
+  //   }
+  // },[cur, formProgress])
+
+  
+
+  function handleFormProgress(){
+    if(formProgress <= cur)setFormProgress((formProgress) => formProgress + 1)
+    
+  }
   const setLocal = (id,val) => {
     localStorage.setItem(id,val)
-    setCurLength((length) => length + 1)
-    setActive((active) => active + 1)
+    handleFormProgress()
+    swiper.slideNext()
   }
 
   return (
-    <Container maxWidth="md" className={classes.container}>
-      <Grid className={classes.page}>
-        <Grid 
-          container 
-          item 
-          className={classes.gridColumn}
-          md={6}
-        >
-          <Grid item>
-            <p>{t(`onboarding.${props.value}.subheader`)}</p>
-          </Grid>
-          <Grid item>
-            <h3>{t(`onboarding.${props.value}.header`)}</h3>
-          </Grid>
+    <Grid className={classes.page}>
+      <Grid 
+        container 
+        item 
+        className={classes.gridColumn}
+        md={6}
+      >
+        <Grid item>
+          <p>{t(`onboarding.${props.value}.subheader`)}</p>
         </Grid>
-        <Grid container>
-          {props.children}
-        </Grid>
-        <Grid 
-          container item 
-          className={classes.btnNavWrap}
-        >
-          <Button variant="contained" onClick={() => setLocal(value,data)} disabled={!data.length > 0}>
-            {t("btn.continue")}
-          </Button>
-          {!required ? (
-            <Button variant="text" onClick={() => setLocal(value,"")}>
-              {t(`onboarding.${value}.skip-btn`)}
-            </Button>
-          ) : (
-            <Box style={{height: 36.5}}/>
-          )
-        }
+        <Grid item>
+          <h3>{t(`onboarding.${props.value}.header`)}</h3>
         </Grid>
       </Grid>
-    </Container>
+      <Grid container>
+        {props.children}
+      </Grid>
+      <Grid 
+        container item 
+        className={classes.btnNavWrap}
+      >
+        <Button variant="contained" onClick={() => setLocal(value,data)} disabled={!data.length > 0}>
+          {t("btn.continue")}
+        </Button>
+        {!required ? (
+          <Button variant="text" onClick={() => setLocal(value,"")}>
+            {t(`onboarding.${value}.skip-btn`)}
+          </Button>
+        ) : (
+          <Box style={{height: 36.5}}/>
+        )
+      }
+      </Grid>
+    </Grid>
   )
 }
 
@@ -130,23 +159,21 @@ export function WindowView(props) {
   const classes = useClasses(styles)
   
   return (
-    <Container maxWidth="md" className={classes.container}>
-      <Grid
-        container
-        className={classes.page}
-        style={{textAlign: 'center', padding: '0 20px', justifyContent: 'flex-end'}}
-        item
-        sm={4}
-      >
-        <Grid item className={classes.imageWrap} >
-          <Box className={classes.imageCover}/>
-          <img src={props.image} alt=""/>
-        </Grid>
-        <Grid item >
-          <p>{props.text}</p>
-        </Grid>
+    <Grid
+      container
+      className={classes.page}
+      style={{textAlign: 'center', padding: '0 20px', justifyContent: 'flex-end'}}
+      item
+      sm={4}
+    >
+      <Grid item className={classes.imageWrap} >
+        <Box className={classes.imageCover}/>
+        <img src={props.image} alt=""/>
       </Grid>
-    </Container>
+      <Grid item >
+        <p>{props.text}</p>
+      </Grid>
+    </Grid>
   )
 }
 
@@ -155,7 +182,8 @@ export function InputSelectView(props) {
     multi,
     value,
     options,
-    state,
+    formProgress,
+    setFormProgress,
     required,
   } = props
   const classes = useClasses(styles)
@@ -173,7 +201,7 @@ export function InputSelectView(props) {
   }
 
   return (
-    <InputView value={value} data={data} state={state} required={required}>
+    <InputView data={data} {...props}>
       {multi ? (
           <Grid container style={{gap: `${gap}`, justifyContent: 'space-between'}}>
             {options?.map((val,i) => (
@@ -228,7 +256,8 @@ export function InputSelectView(props) {
 export function InputTextView(props) {
   const { 
     value,
-    state
+    formProgress,
+    setFormProgress
   } = props
 
   const classes = useClasses(styles)
@@ -236,7 +265,7 @@ export function InputTextView(props) {
   function onChange(e) {setData(e.target.value) }
   
   return (
-    <InputView value={value} data={data} state={state}>
+    <InputView data={data} {...props}>
       <Grid
         container item 
         className={classes.gridColumn}
@@ -251,7 +280,7 @@ export function InputTextView(props) {
 export function InputSearchView(props) {
   const { 
     value,
-    state,
+    formProgress,
     options
   } = props
 
@@ -285,23 +314,24 @@ export function InputSearchView(props) {
     </span>  
   )
   return (
-    <InputView value={value} data={data} state={state}>
+    <InputView data={data} {...props}>
 
+      <Grid>
       {data.length > 0 && (
         <Button 
           variant='contained' 
-          fullWidth
+        
           size="small"
         >
           {data}
         </Button>   
       )}
-      
+      </Grid>
     
       <TextField variant="outlined" onChange={onInputChange} fullWidth/>
       
       <Grid container item className={classes.gridColumn} >
-        <Grid >
+        <Grid className={classes.scrollBox}>
           <span className={classes.btnInput}>
             <input type="radio" value="other" id="other" name={value} hidden onChange={onChange}/>
             <Button 
@@ -326,5 +356,106 @@ export function InputSearchView(props) {
         </Grid>
       </Grid>
     </InputView>
+  )
+}
+
+export function EmailView(){
+  const classes = useClasses(styles)
+  const [formAlert, setFormAlert] = useState(null)
+  const swiper = useSwiper()
+
+  const handleFormAlert = (data) => {
+    setFormAlert(data)
+  }
+  const handleAuth = (user) => {
+    localStorage.setItem('user',user.sub)
+    swiper.slideNext()
+  }
+  return (
+    <Grid className={classes.page}>
+      <Grid 
+        container 
+        item 
+        className={classes.gridColumn}
+        md={6}
+      >
+       {formAlert && (
+        <Box mb={3}>
+          <Alert severity={formAlert.type}>{formAlert.message}</Alert>
+        </Box>
+      )}
+
+      <AuthForm
+        type='passwordlessStart'
+        buttonAction='Passwordless Start'
+        onAuth={handleAuth}
+        onFormAlert={handleFormAlert}
+      />
+
+          <>
+            <Box textAlign="center" fontSize={12} my={2}>
+              OR
+            </Box>
+            <AuthSocial
+              buttonAction={'Sign Up'}
+              providers={['google', 'facebook']}
+              showLastUsed={true}
+              onAuth={handleAuth}
+              onError={(message) => {
+                handleFormAlert({
+                  type: 'error',
+                  message: message,
+                })
+              }}
+            />
+          </>
+      </Grid>
+    </Grid>
+  )
+}
+export function FinishView(props){
+  const classes = useClasses(styles)
+  const router = useRouter()
+  const { values } = props
+  const multi = [
+    "fnmi",
+    "language",
+    "interests"
+  ]
+  
+  function handleExit(){
+    router.push('/dashboard')
+  }
+  function handleClick(){
+    var user = localStorage.getItem('user')
+    const data = {}
+    values.map((val,i) => {
+      data[val] = localStorage.getItem(val)
+      if(multi.includes(val)) data[val] = data[val].split(",")
+    })
+
+    updateUser(user, data)
+    handleExit()
+  }
+ 
+  return (
+    <Grid className={classes.page}>
+      <Grid 
+        container 
+        item 
+        className={classes.gridColumn}
+        md={6}
+      >
+        <Button 
+          variant='contained' 
+          component="button" 
+          size="lg"
+          fullWidth
+          onClick={handleClick}
+        >
+          Finish Setup
+        </Button> 
+      </Grid>
+    </Grid>
   )
 }

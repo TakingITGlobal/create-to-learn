@@ -72,7 +72,6 @@ function useAuthProvider() {
         email: user.email, 
         fnmi: [], 
         displayName: null, 
-        greeting: null, 
         school: null, 
         interests: [], 
         language: null, 
@@ -84,12 +83,25 @@ function useAuthProvider() {
     setUser(user)
     return user
   }
-
-  const signup = (email, password) => {
+  const signup = (email,password) => {
     return auth0.extended
-      .signupAndAuthorize({
+      .signup({
         email: email,
         password: password,
+      })
+      .then(handleAuth)
+  }
+  const passwordlessStart = (email) => {
+    return auth0.extended
+      .passwordlessStart({
+        email: email,
+      })
+      .then(handleAuth)
+  }
+  const passwordlessLogin = (email, password) => {
+    return auth0.extended
+      .passwordlessLogin({
+        email: email
       })
       .then(handleAuth)
   }
@@ -197,6 +209,8 @@ function useAuthProvider() {
 
   return {
     user: finalUser,
+    passwordlessStart,
+    passwordlessLogin,
     signup,
     signin,
     signinWithProvider,
