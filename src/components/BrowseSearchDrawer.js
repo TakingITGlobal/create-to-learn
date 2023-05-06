@@ -73,7 +73,14 @@ export default BrowseSearchDrawer
 const PopularSearches = () => {
   const { t } = useTranslation()
 
-  const popularSearches = ['Photo', 'Beading', 'Drone', 'Indigenous']
+  const popularSearches = [
+    'Beading',
+    'Photoshop',
+    'Drone',
+    'Game Design',
+    'Goal Setting',
+  ]
+
   return (
     <>
       <Typography variant="h6" sx={{ paddingLeft: '10px', fontWeight: '700' }}>

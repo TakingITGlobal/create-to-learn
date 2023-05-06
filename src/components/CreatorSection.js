@@ -37,10 +37,15 @@ function CreatorSection({ coursesByCreator, creator }) {
           }}
         >
           <Box>
-            <IconButton>
+            <IconButton href={creator.facebookProfile ?? ''}>
               <FacebookIcon fontSize="large" />
             </IconButton>
-            <IconButton>
+            <IconButton
+              href={
+                'https://www.instagram.com/' +
+                creator.instagramHandle.replace('@', '')
+              }
+            >
               <InstagramIcon fontSize="large" />
             </IconButton>
           </Box>
