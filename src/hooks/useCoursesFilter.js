@@ -2,20 +2,24 @@ import { useState, useEffect, useMemo } from 'react'
 import { durations, culturalGroups } from '../assets/options/filters'
 import { categories } from '../assets/options/categories'
 
+const ALL_CATEGORIES = 'All'
+
 export const useCoursesFilter = ({
   allCreators,
   allCourses,
   durationFilter = [],
   culturalGroupFilter = [],
-  categoryFilter = 'all',
+  categoryFilter = ALL_CATEGORIES,
+  featuredFilter,
 }) => {
   const [filteredCourses, setFilteredCourses] = useState(allCourses)
   const isHavingFilters = useMemo(
     () =>
       durationFilter.length ||
       culturalGroupFilter.length ||
-      categoryFilter !== 'all',
-    [durationFilter, culturalGroupFilter, categoryFilter],
+      categoryFilter !== ALL_CATEGORIES ||
+      featuredFilter,
+    [durationFilter, culturalGroupFilter, categoryFilter, featuredFilter],
   )
 
   useEffect(() => {
@@ -26,7 +30,7 @@ export const useCoursesFilter = ({
         ? culturalGroupFilter
         : culturalGroups
     const categoriesToFilter =
-      categoryFilter !== 'All'
+      categoryFilter !== ALL_CATEGORIES
         ? [categoryFilter]
         : categories.map(({ label }) => label)
     const filtCourses =
@@ -39,12 +43,12 @@ export const useCoursesFilter = ({
           creator && creator.length ? creator[0].fnmi : culturalGroups
 
         return (
-          // course.category.some((cat) => categoriesToFilter.includes(cat)) &&
           durationsToFilter.some(
             (duration) =>
               course.totalLength >= duration.lowerValue &&
               course.totalLength < duration.upperValue,
           ) &&
+          (!featuredFilter || course.featured) &&
           culturalGroupsToFilter.some(
             (culturalGroup) =>
               creatorFNMI.includes(culturalGroup) &&
@@ -54,7 +58,7 @@ export const useCoursesFilter = ({
           )
         )
       })
-
+    console.log(filtCourses)
     setFilteredCourses(filtCourses)
   }, [
     durationFilter,
@@ -62,6 +66,7 @@ export const useCoursesFilter = ({
     allCreators,
     culturalGroupFilter,
     categoryFilter,
+    featuredFilter,
   ])
 
   return { data: isHavingFilters ? filteredCourses : allCourses }

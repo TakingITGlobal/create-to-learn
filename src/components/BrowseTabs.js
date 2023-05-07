@@ -49,6 +49,7 @@ const BrowseTabs = ({
 
   const [tabIndex, setTabIndex] = useState(0)
   const [openDrawer, setOpenDrawer] = useState(false)
+  const [featuredFilter, setFeaturedFilter] = useState(false)
 
   const { allCourses, allCreators, loadingCourses, loadingCreators } =
     useContext(dataContext)
@@ -59,6 +60,7 @@ const BrowseTabs = ({
     culturalGroupFilter,
     categoryFilter,
     durationFilter,
+    featuredFilter,
   })
 
   const { data: filteredCreators } = useCreatorsFilter({
@@ -66,6 +68,7 @@ const BrowseTabs = ({
     allCourses,
     culturalGroupFilter,
     categoryFilter,
+    featuredFilter,
   })
 
   const handleChangeTab = (event, newTab) => {
@@ -99,7 +102,8 @@ const BrowseTabs = ({
     setCulturalGroupFilter([])
   }
 
-  const numberOfFilters = durationFilter.length + culturalGroupFilter.length
+  const numberOfFilters =
+    durationFilter.length + culturalGroupFilter.length + Number(featuredFilter)
 
   return (
     <>
@@ -198,6 +202,8 @@ const BrowseTabs = ({
           handleCulturalGroupFilterArr={handleCulturalGroupFilterArr}
           culturalGroupFilter={culturalGroupFilter}
           durationFilter={durationFilter}
+          featuredFilter={featuredFilter}
+          setFeaturedFilter={setFeaturedFilter}
           durations={durations}
         />
       </BrowseDrawer>
