@@ -2,17 +2,13 @@ import React from 'react'
 import List from '@mui/material/List'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
-import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import ListItem from '@mui/material/ListItem'
 import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction'
-import Collapse from '@mui/material/Collapse'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { Link } from '../util/router'
 
 function SettingsNav() {
-  const [open, setOpen] = React.useState(true)
-
   return (
     <List
       sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
@@ -67,7 +63,7 @@ function SettingsNav() {
         </ListItemSecondaryAction>
       </ListItem>
     </List>
-  );
+  )
 }
 
 export default SettingsNav

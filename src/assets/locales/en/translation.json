@@ -96,6 +96,7 @@
     "change-display-name": "Change display name",
     "prefer-not-to-say": "Prefer not to say",
     "none-of-the-above": "None of the above",
-    "delete-account": "Delete my account"
+    "delete-account": "Delete my account",
+    "notification": "Notifications"
   }
 }

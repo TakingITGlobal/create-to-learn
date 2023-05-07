@@ -20,6 +20,7 @@ import SettingsSchools from './SettingsSchools'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from './../util/auth'
 import { requireAuth } from './../util/auth'
+import { deleteUser } from '../util/db'
 
 function SettingsMyAccount(props) {
   const auth = useAuth()
@@ -126,7 +127,13 @@ function MyAccountNav({ setShowComponent, auth }) {
           </ListItem>
         ))}
         <ListItem>
-          <ListItemButton>
+          <ListItemButton
+            onClick={() => {
+              deleteUser(auth.user.uid)
+              setShowComponent('nav')
+              auth.signout()
+            }}
+          >
             <ListItemText sx={{ color: 'white' }}>
               {t('settings.delete-account')}
             </ListItemText>

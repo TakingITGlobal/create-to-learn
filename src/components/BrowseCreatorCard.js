@@ -5,11 +5,7 @@ import Stack from '@mui/material/Stack'
 import ButtonBase from '@mui/material/ButtonBase'
 import CardMedia from '@mui/material/CardMedia'
 
-import { useTranslation } from 'react-i18next'
-
 const BrowseCreatorCard = ({ creator }) => {
-  const { t } = useTranslation()
-
   return (
     <ButtonBase href={'/creator/' + creator.uid}>
       <Stack direction="column" spacing={1}>
