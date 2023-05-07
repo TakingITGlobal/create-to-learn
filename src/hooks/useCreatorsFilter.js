@@ -22,35 +22,17 @@ export const useCreatorsFilter = ({
   )
 
   useEffect(() => {
-    const culturalGroupsToFilter = culturalGroupFilter.length
-      ? culturalGroupFilter
-      : //some creators do not have a cultural group set
-        culturalGroups + ['']
-
-    const categoryToFilter =
-      categoryFilter !== ALL_CATEGORIES ? [categoryFilter] : categories
-
     const filtCreators = allCreators.filter((creator) => {
-      const creatorCourses = allCourses.filter(
-        (course) => creator.name === course.creator,
-      )
-      const creatorCategories =
-        categoryFilter !== ALL_CATEGORIES
-          ? creatorCourses.flatMap((course) => course.category)
-          : categories
-
-      const creatorFNMI = creator.fnmi ? creator.fnmi : ['']
       return (
-        creatorFNMI.some((grp) => culturalGroupsToFilter.includes(grp)) &&
-        (!featuredFilter || creator.featured) &&
-        creator.featured &&
-        creatorCategories.some((category) =>
-          categoryToFilter.includes(category),
-        )
+        handleCulturalGroup(
+          culturalGroupFilter,
+          creator.fnmi ? creator.fnmi : [''],
+        ) &&
+        handleCategory(categoryFilter, creator.name, allCourses) &&
+        handleFeatured(featuredFilter, creator.featured)
       )
     })
-    console.log(featuredFilter)
-    console.log(filtCreators)
+
     setFilteredCreators(filtCreators)
   }, [
     culturalGroupFilter,
@@ -61,4 +43,35 @@ export const useCreatorsFilter = ({
   ])
 
   return { data: isHavingFilters ? filteredCreators : allCreators }
+}
+
+const handleCulturalGroup = (culturalGroupFilter, creatorFNMI) => {
+  const culturalGroupsToFilter = culturalGroupFilter.length
+    ? culturalGroupFilter
+    : //some creators do not have a cultural group set
+      culturalGroups + ['']
+
+  return creatorFNMI.some((grp) => culturalGroupsToFilter.includes(grp))
+}
+
+const handleCategory = (categoryFilter, creatorName, allCourses) => {
+  const categoryToFilter =
+    categoryFilter !== ALL_CATEGORIES ? [categoryFilter] : categories
+
+  const creatorCourses = allCourses.filter(
+    (course) => creatorName === course.creator,
+  )
+
+  const creatorCategories =
+    categoryFilter !== ALL_CATEGORIES
+      ? creatorCourses.flatMap((course) => course.category)
+      : categories
+
+  return creatorCategories.some((category) =>
+    categoryToFilter.includes(category),
+  )
+}
+
+const handleFeatured = (featuredFilter, creatorFeatured) => {
+  return !featuredFilter || creatorFeatured
 }
