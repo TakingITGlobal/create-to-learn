@@ -13,26 +13,13 @@ import { culturalGroups } from '../assets/options/filters'
 
 import { updateUser } from '../util/db'
 import { useTranslation } from 'react-i18next'
-import useClasses from '../hooks/useClasses'
 import { useAuth } from './../util/auth'
-
-const styles = (theme) => ({
-  primaryButton: {
-    backgroundColor: 'white !important',
-    borderRadius: '35px !important',
-    width: '100%',
-    height: '50px',
-    textTransform: 'capitalize !important',
-    color: 'black',
-  },
-})
 
 const PREFER_NOT_TO_SAY = 'Prefer not to say'
 const NONE_OF_THE_ABOVE = 'None of the above'
 
 function SettingsCommunity({ setShowComponent }) {
   const { t } = useTranslation()
-  const classes = useClasses(styles)
   const auth = useAuth()
 
   const [communities, setCommunities] = useState(auth?.user?.fnmi)
@@ -63,7 +50,7 @@ function SettingsCommunity({ setShowComponent }) {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '650px',
+        height: '700px',
       }}
     >
       <Box sx={{ padding: '1.5rem 0' }}>
@@ -153,7 +140,7 @@ function SettingsCommunity({ setShowComponent }) {
       >
         <Button
           fullWidth
-          className={classes.primaryButton}
+          color="info"
           onClick={() => {
             updateUser(auth.user.uid, { fnmi: communities })
             setShowComponent('nav')

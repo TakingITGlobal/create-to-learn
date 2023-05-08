@@ -14,23 +14,10 @@ import schools from '../assets/options/schools'
 
 import { updateUser } from '../util/db'
 import { useTranslation } from 'react-i18next'
-import useClasses from '../hooks/useClasses'
 import { useAuth } from './../util/auth'
-
-const styles = (theme) => ({
-  primaryButton: {
-    backgroundColor: 'white !important',
-    borderRadius: '35px !important',
-    width: '100%',
-    height: '50px',
-    textTransform: 'capitalize !important',
-    color: 'black',
-  },
-})
 
 function SettingsSchool({ setShowComponent }) {
   const { t } = useTranslation()
-  const classes = useClasses(styles)
   const auth = useAuth()
 
   const [school, setSchool] = useState(auth?.user?.school)
@@ -127,7 +114,7 @@ function SettingsSchool({ setShowComponent }) {
       >
         <Button
           fullWidth
-          className={classes.primaryButton}
+          color="info"
           onClick={() => {
             updateUser(auth.user.uid, { school: school })
             setShowComponent('nav')

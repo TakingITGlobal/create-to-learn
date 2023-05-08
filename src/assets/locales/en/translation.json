@@ -96,7 +96,15 @@
     "change-display-name": "Change display name",
     "prefer-not-to-say": "Prefer not to say",
     "none-of-the-above": "None of the above",
-    "delete-account": "Delete my account",
-    "notification": "Notifications"
+    "delete-my-account": "Delete my account",
+    "delete-your-account": "Delete your account",
+    "delete-account": "Delete Account",
+    "notification": "Notifications",
+    "confirm-delete": "Confirm Delete",
+    "yes-delete": "Yes, delete it",
+    "are-you-sure": "Are you sure you want to delete your account?",
+    "account-deleted": "Account Deleted",
+    "account-deleted-success": "Your account has been successfully deleted, and you will not be able to sign in again.",
+    "okay-got-it": "Okay, got it"
   }
 }

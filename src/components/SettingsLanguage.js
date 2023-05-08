@@ -13,25 +13,12 @@ import { languages as languageOptions } from '../assets/options/filters'
 
 import { updateUser } from '../util/db'
 import { useTranslation } from 'react-i18next'
-import useClasses from '../hooks/useClasses'
 import { useAuth } from './../util/auth'
-
-const styles = (theme) => ({
-  primaryButton: {
-    backgroundColor: 'white !important',
-    borderRadius: '35px !important',
-    width: '100%',
-    height: '50px',
-    textTransform: 'capitalize !important',
-    color: 'black',
-  },
-})
 
 const LANGUAGE_NOT_HERE = 'My language is not here'
 
 function SettingsLanguage({ setShowComponent }) {
   const { t } = useTranslation()
-  const classes = useClasses(styles)
   const auth = useAuth()
 
   const [languages, setLanguages] = useState(auth?.user?.language ?? [])
@@ -56,7 +43,7 @@ function SettingsLanguage({ setShowComponent }) {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '650px',
+        height: '700px',
       }}
     >
       <Box sx={{ padding: '1.5rem 0' }}>
@@ -127,7 +114,7 @@ function SettingsLanguage({ setShowComponent }) {
       >
         <Button
           fullWidth
-          className={classes.primaryButton}
+          color="info"
           onClick={() => {
             updateUser(auth.user.uid, { language: languages })
             setShowComponent('nav')
