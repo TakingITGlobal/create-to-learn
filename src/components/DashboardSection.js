@@ -34,7 +34,9 @@ function DashboardSection(props) {
   const classes = useClasses(styles)
 
   //This should be in local storage
-  const [dismissSignUp, setDismissSignUp] = useState(false)
+  const [dismissSignUp, setDismissSignUp] = useState(
+    localStorage.getItem('dismissSignUp'),
+  )
 
   const auth = useAuth()
   const {

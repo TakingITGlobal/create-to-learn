@@ -37,9 +37,12 @@ function SignUp({ setDismissed = null, showDismissButton = false }) {
             <Button
               variant="text"
               size="large"
-              onClick={() => setDismissed(true)}
+              onClick={() => {
+                setDismissed(true)
+                localStorage.setItem('dismissSignUp', true)
+              }}
             >
-              Dismiss
+              {t('dismiss')}
             </Button>
           </Grid>
         )}

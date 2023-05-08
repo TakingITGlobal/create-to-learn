@@ -49,7 +49,9 @@ const BrowseTabs = ({
 
   const [tabIndex, setTabIndex] = useState(0)
   const [openDrawer, setOpenDrawer] = useState(false)
-  const [featuredFilter, setFeaturedFilter] = useState(false)
+  const [featuredFilter, setFeaturedFilter] = useState(
+    localStorage.getItem('featuredFilter'),
+  )
 
   const { allCourses, allCreators, loadingCourses, loadingCreators } =
     useContext(dataContext)
@@ -81,8 +83,18 @@ const BrowseTabs = ({
       setDurationFilter(
         durationFilter.filter((item) => item.id !== duration.id),
       )
+      localStorage.setItem(
+        'durationFilter',
+        JSON.stringify(
+          durationFilter.filter((item) => item.id !== duration.id),
+        ),
+      )
     } else {
       setDurationFilter([...durationFilter, duration])
+      localStorage.setItem(
+        'durationFilter',
+        JSON.stringify([...durationFilter, duration]),
+      )
     }
   }
 
@@ -94,12 +106,26 @@ const BrowseTabs = ({
     } else {
       setCulturalGroupFilter([...culturalGroupFilter, group])
     }
+    localStorage.setItem(
+      'culturalGroupFilter',
+      JSON.stringify(culturalGroupFilter),
+    )
   }
 
   const handleClearFilter = () => {
     setCategoryFilter('All')
     setDurationFilter([])
     setCulturalGroupFilter([])
+    setFeaturedFilter(false)
+    localStorage.setItem('categoryFilter', 'All')
+    localStorage.setItem('durationFilter', [])
+    localStorage.setItem('culturalGroupFilter', [])
+    localStorage.setItem('featuredFilter', false)
+  }
+
+  const handleFeatureFilter = () => {
+    setFeaturedFilter(!featuredFilter)
+    localStorage.setItem('featuredFilter', featuredFilter)
   }
 
   const numberOfFilters =
@@ -203,8 +229,8 @@ const BrowseTabs = ({
           culturalGroupFilter={culturalGroupFilter}
           durationFilter={durationFilter}
           featuredFilter={featuredFilter}
-          setFeaturedFilter={setFeaturedFilter}
           durations={durations}
+          handleFeatureFilter={handleFeatureFilter}
         />
       </BrowseDrawer>
     </>

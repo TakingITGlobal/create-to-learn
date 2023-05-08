@@ -13,7 +13,7 @@ const BrowseCourseDrawerContent = ({
   handleCulturalGroupFilterArr,
   durationFilter,
   featuredFilter,
-  setFeaturedFilter,
+  handleFeatureFilter,
 }) => {
   const { t } = useTranslation()
 
@@ -33,7 +33,7 @@ const BrowseCourseDrawerContent = ({
               backgroundColor: featuredFilter ? '#6956F1' : '#211E34',
               padding: '5px !important',
             }}
-            onClick={() => setFeaturedFilter(!featuredFilter)}
+            onClick={() => handleFeatureFilter()}
           />
           <Chip label="New" clickable variant="default" />
         </Stack>
