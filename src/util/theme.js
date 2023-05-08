@@ -11,6 +11,7 @@ export const c2learn = (mode) => ({
         },
         bold: {
           fontWeight: '700',
+          display: 'inline-block'
         },
         h1: {
           fontSize: '1.75em',
@@ -111,6 +112,14 @@ export const c2learn = (mode) => ({
             root: {
               padding: '1rem',
               borderRadius: '12px'
+            }
+          }
+        },
+        MuiPopover: {
+          styleOverrides: {
+            paper: {
+              padding: '0',
+              borderRadius: '4px'
             }
           }
         },
@@ -241,5 +250,43 @@ export const c2learn = (mode) => ({
             }
           ]
         },
+        MuiList: {
+          variants: [
+            {
+              props: {variant: 'icon-list'},
+              style: {
+                ".MuiListItem-root" : {
+                  marginLeft: 'auto',
+                  paddingLeft: '0',
+                  fontSize: '0.875em'
+                },
+                ".MuiSvgIcon-root" : {
+                  color: '#000',
+                  backgroundColor: '#fff',
+                  borderRadius: '99em',
+                  marginRight: '14px',
+                  padding: '2px'
+                }
+              }
+            },
+            {
+              props: {variant: 'progress'},
+              style: {
+                ".MuiListItem-root" : {
+                  marginLeft: 'auto',
+                  paddingLeft: '0',
+                  fontSize: '0.875em'
+                },
+                ".MuiSvgIcon-root" : {
+                  color: '#000',
+                  backgroundColor: '#fff',
+                  borderRadius: '99em',
+                  marginRight: '14px',
+                  padding: '2px'
+                }
+              }
+            }
+          ]
+        }
       },
   });

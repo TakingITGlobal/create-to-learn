@@ -119,7 +119,7 @@ function CourseSection(props) {
       style={{
         backgroundColor: getRandomColor(palette),
         backgroundImage:
-          'linear-gradient(180deg, rgba(11, 9, 25, 0) 0%, rgba(11, 9, 25, 0.11) 18%, rgba(11, 9, 25, 0.64) 25%, #0B0919 55%)',
+          'linear-gradient(180deg, rgba(11, 9, 25, 0) 0%, rgba(11, 9, 25, 0.11) 200px, rgba(11, 9, 25, 0.64) 400px, #0B0919 600px)',
       }}
     >
       <Container sx={{ padding: '0' }}>
@@ -234,7 +234,7 @@ function CourseSection(props) {
             </Stack>
 
             {/* Topic List */}
-            <Typography variant="bold" sx={{ marginTop: 2 }}>
+            <Typography variant="bold" sx={{ mT: 2}}>
               Topic
             </Typography>
             <List>
@@ -256,14 +256,14 @@ function CourseSection(props) {
             <Typography variant="bold" sx={{ marginTop: 2 }}>
               What you'll learn
             </Typography>
-            <List>
-              <ListItem>
+            <List variant="icon-list">
+              <ListItem >
                 <Check />
-                <ListItemText primary="Item 1" />
+                <ListItemText disableTypography primary="Item 1" />
               </ListItem>
               <ListItem>
                 <Check />
-                <ListItemText primary="Item 2" />
+                <ListItemText disableTypography primary="Item 2" />
               </ListItem>
             </List>
 
@@ -271,55 +271,43 @@ function CourseSection(props) {
             <Typography variant="bold" sx={{ marginTop: 2 }}>
               What you'll need
             </Typography>
-            <List>
+            <List variant="icon-list">
               <ListItem>
                 <Check />
-                <ListItemText primary="Item 1" />
+                <ListItemText disableTypography primary="Item 1" />
               </ListItem>
               <ListItem>
                 <Check />
-                <ListItemText primary="Item 2" />
+                <ListItemText disableTypography primary="Item 2" />
               </ListItem>
             </List>
           </TabPanel>
 
           <TabPanel value={tabValue} index={1} dir={theme.direction}>
             {/* List of Lesson content */}
-            <Grid container spacing={2}>
+            <List variant="progress">
               {videoLinksArray.map((videoLink, index) => (
-                <Grid key={index} item xs={12} sm={6} md={4}>
-                  <Card>
-                    <CardContent>
-                      <Typography variant="h5" component="h2">
-                        Lesson {index + 1}
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <FormControl sx={{ minWidth: 120, marginLeft: 2 }}>
-                        <InputLabel id="download-label">Download</InputLabel>
-                        <Select
-                          value={downloadOption}
-                          onChange={handleDownloadChange}
-                          labelId="download-label"
-                        >
-                          <MenuItem value="option1">Option 1</MenuItem>
-                          <MenuItem value="option2">Option 2</MenuItem>
-                          <MenuItem value="option3">Option 3</MenuItem>
-                        </Select>
-                      </FormControl>
-                      <Button
-                        onClick={() => handleStartButtonClick(videoLink)}
-                        variant="contained"
-                        color="primary"
-                        size="large"
-                      >
-                        Start
-                      </Button>
-                    </CardActions>
-                  </Card>
-                </Grid>
+                <ListItem>
+                  <Typography variant="h5" component="h2">
+                    Lesson {index + 1}
+                  </Typography>
+                  <Link
+                    href={videoLink}
+                    underline="none"
+                  >
+                    Download
+                  </Link>
+                  <Button
+                    onClick={() => handleStartButtonClick(videoLink)}
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                  >
+                    Start
+                  </Button>
+                </ListItem>
               ))}
-            </Grid>
+            </List>
           </TabPanel>
         </SwipeableViews>
       </Container>
