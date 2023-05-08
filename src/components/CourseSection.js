@@ -46,9 +46,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ padding: '1em' }}>
-          <Typography>{children}</Typography>
-        </Box>
+        <Typography>{children}</Typography>
       )}
     </div>
   )
@@ -166,121 +164,123 @@ function CourseSection(props) {
           onChangeIndex={handleChangeIndex}
         >
           <TabPanel value={tabValue} index={0} dir={theme.direction}>
-            {/* Artist information */}
-            <Link
-              href={'/creator/' + creatorUID}
-              color="inherit"
-              underline="none"
-              variant="profile"
-            >
-              <Avatar
-                alt={creator}
-                src={creatorPhoto}
-                sx={{ width: '48px', height: '48px' }}
-              />
-              <Box>
-                <Typography variant="bold" component="body1">
-                  {creator}
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  color={theme.palette.text.secondary}
-                >
-                  Creator Community
-                </Typography>
-              </Box>
-              <ChevronRight />
-            </Link>
-
-            {/* Regular paragraph */}
-            <Typography variant="body2" color={theme.palette.text.secondary} sx={{ marginBottom: 2 }}>
-              {description}
-            </Typography>
-
-            {/* Metrics */}
-            <Stack direction="row" spacing={1} variant="squareCard" mb="15px">              
-              <Item elevation="1">{props.data.videos.length} Videos</Item>
-              <Item elevation="1">{props.data.totalLength} minutes</Item>
-              <Item elevation="1">Difficulty</Item>
-            </Stack>
-
-            {/* Start Creating Button */}
-            <Button variant="contained" size="large" fullWidth>
-              Start Creating
-            </Button>
-
-            {/* Add to Watchlist button */}
-            <Stack direction="row" spacing={1} mb="15px" mt="20px" alignItems="center">              
-              <Button variant="text" startIcon={<BookmarkBorder />}>
-                Add to Watchlist
-              </Button>
-              <FormControl sx={{ minWidth: 120, marginLeft: 2}}>
-                {/* <InputLabel id="download-label" sx={{ padding: '0',  fontWeight: '700'}} variant="standard">Download</InputLabel> */}
-                <Select
-                  value={downloadOption}
-                  onChange={handleDownloadChange}
-                  labelId="download-label"
-                  displayEmpty
-                  variant="standard"
-                  color={theme.palette.text.main}
-                  sx={{ padding: '0', border: '0'}}
-                >
-                  <MenuItem value="" sx={{fontWeight: '700'}}><em>Download</em></MenuItem>
-                  <MenuItem value="option1">Option 1</MenuItem>
-                  <MenuItem value="option2">Option 2</MenuItem>
-                  <MenuItem value="option3">Option 3</MenuItem>
-                </Select>
-              </FormControl>
-            </Stack>
-
-            {/* Topic List */}
-            <Typography variant="bold" sx={{ mT: 2}}>
-              Topic
-            </Typography>
-            <List>
-              <ListItem
-                component="a"
-                href="/artist-page"
-                sx={{ color: '#fff'}}
+            <Box sx={{padding: '1em'}}>
+              {/* Artist information */}
+              <Link
+                href={'/creator/' + creatorUID}
+                color="inherit"
+                underline="none"
+                variant="profile"
               >
-                <img
-                  src="https://via.placeholder.com/50"
-                  alt={topic}
-                  style={{ maxWidth: '30px', height: 'auto', marginRight: '10px' }}
+                <Avatar
+                  alt={creator}
+                  src={creatorPhoto}
+                  sx={{ width: '48px', height: '48px' }}
                 />
-                {topic}
-              </ListItem>
-            </List>
+                <Box>
+                  <Typography variant="bold" component="body1">
+                    {creator}
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    color={theme.palette.text.secondary}
+                  >
+                    Creator Community
+                  </Typography>
+                </Box>
+                <ChevronRight />
+              </Link>
 
-            {/* What You'll Learn List */}
-            <Typography variant="bold" sx={{ marginTop: 2 }}>
-              What you'll learn
-            </Typography>
-            <List variant="icon-list">
-              <ListItem >
-                <Check />
-                <ListItemText disableTypography primary="Item 1" />
-              </ListItem>
-              <ListItem>
-                <Check />
-                <ListItemText disableTypography primary="Item 2" />
-              </ListItem>
-            </List>
+              {/* Regular paragraph */}
+              <Typography variant="body2" color={theme.palette.text.secondary} sx={{ marginBottom: 2 }}>
+                {description}
+              </Typography>
 
-            {/* What You'll Need List*/}
-            <Typography variant="bold" sx={{ marginTop: 2 }}>
-              What you'll need
-            </Typography>
-            <List variant="icon-list">
-              <ListItem>
-                <Check />
-                <ListItemText disableTypography primary="Item 1" />
-              </ListItem>
-              <ListItem>
-                <Check />
-                <ListItemText disableTypography primary="Item 2" />
-              </ListItem>
-            </List>
+              {/* Metrics */}
+              <Stack direction="row" spacing={1} variant="squareCard" mb="15px">              
+                <Item elevation="1">{props.data.videos.length} Videos</Item>
+                <Item elevation="1">{props.data.totalLength} minutes</Item>
+                <Item elevation="1">Difficulty</Item>
+              </Stack>
+
+              {/* Start Creating Button */}
+              <Button variant="contained" size="large" fullWidth>
+                Start Creating
+              </Button>
+
+              {/* Add to Watchlist button */}
+              <Stack direction="row" spacing={1} mb="15px" mt="20px" alignItems="center">              
+                <Button variant="text" startIcon={<BookmarkBorder />}>
+                  Add to Watchlist
+                </Button>
+                <FormControl sx={{ minWidth: 120, marginLeft: 2}}>
+                  {/* <InputLabel id="download-label" sx={{ padding: '0',  fontWeight: '700'}} variant="standard">Download</InputLabel> */}
+                  <Select
+                    value={downloadOption}
+                    onChange={handleDownloadChange}
+                    labelId="download-label"
+                    displayEmpty
+                    variant="standard"
+                    color={theme.palette.text.main}
+                    sx={{ padding: '0', border: '0'}}
+                  >
+                    <MenuItem value="" sx={{fontWeight: '700'}}><em>Download</em></MenuItem>
+                    <MenuItem value="option1">Option 1</MenuItem>
+                    <MenuItem value="option2">Option 2</MenuItem>
+                    <MenuItem value="option3">Option 3</MenuItem>
+                  </Select>
+                </FormControl>
+              </Stack>
+
+              {/* Topic List */}
+              <Typography variant="bold" sx={{ mT: 2}}>
+                Topic
+              </Typography>
+              <List>
+                <ListItem
+                  component="a"
+                  href="/artist-page"
+                  sx={{ color: '#fff'}}
+                >
+                  <img
+                    src="https://via.placeholder.com/50"
+                    alt={topic}
+                    style={{ maxWidth: '30px', height: 'auto', marginRight: '10px' }}
+                  />
+                  {topic}
+                </ListItem>
+              </List>
+
+              {/* What You'll Learn List */}
+              <Typography variant="bold" sx={{ marginTop: 2 }}>
+                What you'll learn
+              </Typography>
+              <List variant="icon-list">
+                <ListItem >
+                  <Check />
+                  <ListItemText disableTypography primary="Item 1" />
+                </ListItem>
+                <ListItem>
+                  <Check />
+                  <ListItemText disableTypography primary="Item 2" />
+                </ListItem>
+              </List>
+
+              {/* What You'll Need List*/}
+              <Typography variant="bold" sx={{ marginTop: 2 }}>
+                What you'll need
+              </Typography>
+              <List variant="icon-list">
+                <ListItem>
+                  <Check />
+                  <ListItemText disableTypography primary="Item 1" />
+                </ListItem>
+                <ListItem>
+                  <Check />
+                  <ListItemText disableTypography primary="Item 2" />
+                </ListItem>
+              </List>
+            </Box>
           </TabPanel>
 
           <TabPanel value={tabValue} index={1} dir={theme.direction}>
@@ -288,23 +288,30 @@ function CourseSection(props) {
             <List variant="progress">
               {videoLinksArray.map((videoLink, index) => (
                 <ListItem>
-                  <Typography variant="h5" component="h2">
-                    Lesson {index + 1}
-                  </Typography>
-                  <Link
-                    href={videoLink}
-                    underline="none"
-                  >
-                    Download
-                  </Link>
-                  <Button
-                    onClick={() => handleStartButtonClick(videoLink)}
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                  >
-                    Start
-                  </Button>
+                  <Paper elevation="1">
+                    <Typography variant="bold">
+                      Lesson {index + 1}
+                    </Typography>
+                    <Stack direction="row" spacing={1} alignItems="center" sx={{paddingLeft: '20px'}}>
+                      <Link 
+                        flex="1"
+                        href={videoLink}
+                        underline="none"
+                        sx={{ fontSize: '1rem'}}
+                      >
+                        Download
+                      </Link>
+                      <Button
+                        onClick={() => handleStartButtonClick(videoLink)}
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        sx={{ flex: '1'}}
+                      >
+                        Start
+                      </Button>
+                    </Stack>
+                  </Paper>
                 </ListItem>
               ))}
             </List>

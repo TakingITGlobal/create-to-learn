@@ -272,10 +272,47 @@ export const c2learn = (mode) => ({
             {
               props: {variant: 'progress'},
               style: {
+                width: '100%',
+                padding: '0',
+                "&::after" : {
+                  content: '""',
+                  width: '2px',
+                  backgroundColor: '#fff',
+                  position: 'absolute',
+                  top: '10px',
+                  bottom: '10px',
+                  left: '25px',
+                  pointerEvents: 'none'
+                },
                 ".MuiListItem-root" : {
                   marginLeft: 'auto',
                   paddingLeft: '0',
-                  fontSize: '0.875em'
+                  paddingRight: '0',
+                  fontSize: '0.875em',
+                  counterIncrement: 'count',
+                },
+                ".MuiListItem-root::before" : {
+                  position: 'absolute',
+                  top: '25px',
+                  left: '15px',
+                  zIndex: '1',
+                  content: 'counter(count)',
+                  color: '#000',
+                  backgroundColor: '#fff',
+                  borderRadius: '99em',
+                  fontWeight: '700',
+                  display: 'flex',
+                  width: '20px',
+                  height: '20px',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  lineHeight: '1em',
+                  fontSize: '0.85em',
+                },
+                ".MuiPaper-root" : {
+                  width: '100%',
+                  borderRadius: '0',
+                  paddingLeft: '50px',
                 },
                 ".MuiSvgIcon-root" : {
                   color: '#000',
