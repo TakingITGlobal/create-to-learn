@@ -117,7 +117,7 @@ const BrowseTabs = ({
     setDurationFilter([])
     setCulturalGroupFilter([])
     setFeaturedFilter(false)
-    localStorage.setItem('categoryFilter', 'All')
+    localStorage.setItem('categoryFilter', 'AllApply fil')
     localStorage.setItem('durationFilter', [])
     localStorage.setItem('culturalGroupFilter', [])
     localStorage.setItem('featuredFilter', false)
@@ -129,7 +129,7 @@ const BrowseTabs = ({
   }
 
   const numberOfFilters =
-    durationFilter.length + culturalGroupFilter.length + Number(featuredFilter)
+    durationFilter.length + culturalGroupFilter.length + !!featuredFilter
 
   return (
     <>
