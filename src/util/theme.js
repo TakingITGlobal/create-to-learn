@@ -292,6 +292,22 @@ export const c2learn = (mode) => ({
           borderWidth: '2px',
         },
       },
+      variants: [
+        {
+          props: { variant: 'selection' },
+          style: {
+            justifyContent: 'flex-start',
+            backgroundColor: '#211E34',
+            borderRadius: '0.75em',
+            padding: '1.125em 1.5em',
+            color: '#ccc',
+            "&:hover": {
+              backgroundColor: '#6956F1',
+              color: '#fff'
+            }
+          },
+        },
+      ],
     },
     MuiBottomNavigation: {
       styleOverrides: {

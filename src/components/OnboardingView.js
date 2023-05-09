@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react'
 import useClasses from '../hooks/useClasses'
-import { Grid, Button, Box, TextField, Container, Alert} from '@mui/material'
+import { Grid, Button, Box, TextField, Alert, Paper, Stack, CardMedia, Typography} from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import {useSwiper,useSwiperSlide} from 'swiper/react'
 import { FixedSizeList as List } from 'react-window'
@@ -11,41 +11,41 @@ import { useRouter } from '../util/router'
 import { useAuth } from '../util/auth'
 
 const styles = theme => ({
-  container: {
-    margin: '0 auto', 
-    height: '100%',
-  },
+  // container: {
+  //   margin: '0 auto', 
+  //   height: '100%',
+  // },
 
-  page: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    height: '100%',
-    margin: '0 auto',
-  },
+  // page: {
+  //   display: 'flex',
+  //   flexDirection: 'column',
+  //   justifyContent: 'center',
+  //   alignItems: 'stretch',
+  //   height: '100%',
+  //   margin: '0 auto',
+  // },
 
-  imageWrap: {
-    margin: 'auto 0',
-    maxWidth: '100%',
-    maxHeight: '50%',
-    position: 'relative',
-    '& img': {
-      width: '100%',
-      maxHeight:'100%',
-      objectFit: 'contain',
-      userSelect: 'none',
-      userDrag: 'none',
-    },
-  },
+  // imageWrap: {
+  //   margin: 'auto 0',
+  //   maxWidth: '100%',
+  //   maxHeight: '50%',
+  //   position: 'relative',
+  //   '& img': {
+  //     width: '100%',
+  //     maxHeight:'100%',
+  //     objectFit: 'contain',
+  //     userSelect: 'none',
+  //     userDrag: 'none',
+  //   },
+  // },
 
-  imageCover: {
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-    top: 0, left:0,right:0,bottom:0,
-    zIndex: 2,
-  },
+  // imageCover: {
+  //   position: 'absolute',
+  //   width: '100%',
+  //   height: '100%',
+  //   top: 0, left:0,right:0,bottom:0,
+  //   zIndex: 2,
+  // },
 
   gridColumn: {
     flexDirection: 'column',
@@ -54,23 +54,23 @@ const styles = theme => ({
     gap: 8,
   },
 
-  btnInput: {
-    display: 'flex',
-    '& > label': {
-      flex: '1',
-      textAlign: 'left',
-      justifyContent: 'flex-start',
-    },
-    '& > input:checked + label': {
-      background: '#555555',
-    },
-  },
+  // btnInput: {
+  //   display: 'flex',
+  //   '& > label': {
+  //     flex: '1',
+  //     textAlign: 'left',
+  //     justifyContent: 'flex-start',
+  //   },
+  //   '& > input:checked + label': {
+  //     background: '#555555',
+  //   },
+  // },
 
-  btnNavWrap: {
-    marginTop: 'auto',
-    alignItems: 'stretch',
-    flexDirection: 'column',
-  },
+  // btnNavWrap: {
+  //   marginTop: 'auto',
+  //   alignItems: 'stretch',
+  //   flexDirection: 'column',
+  // },
 
   scrollBox: {
     overflowY: 'scroll', 
@@ -110,7 +110,7 @@ function InputView(props){
 
   function handleFormProgress(){
     if(formProgress <= cur)setFormProgress((formProgress) => formProgress + 1)
-    
+  
   }
   const setLocal = (id,val) => {
     localStorage.setItem(id,val)
@@ -119,12 +119,8 @@ function InputView(props){
   }
 
   return (
-    <Grid className={classes.page}>
-      <Grid 
-        container 
-        item 
-        className={classes.gridColumn}
-        md={6}
+    <Grid className={classes.page} sx={{ padding: '1em'}}>
+      <Stack direction="column"
       >
         <Grid item>
           <p>{t(`onboarding.${props.value}.subheader`)}</p>
@@ -132,13 +128,11 @@ function InputView(props){
         <Grid item>
           <h3>{t(`onboarding.${props.value}.header`)}</h3>
         </Grid>
-      </Grid>
+      </Stack>
       <Grid container>
         {props.children}
       </Grid>
-      <Grid 
-        container item 
-        className={classes.btnNavWrap}
+      <Stack direction="column" spacing={2}
       >
         <Button variant="contained" onClick={() => setLocal(value,data)} disabled={!data.length > 0}>
           {t("btn.continue")}
@@ -151,30 +145,31 @@ function InputView(props){
           <Box style={{height: 36.5}}/>
         )
       }
-      </Grid>
+      </Stack>
     </Grid>
   )
 }
 
-export function WindowView(props) {
-  const classes = useClasses(styles)
-  
+export function WindowView(props) {  
   return (
-    <Grid
-      container
-      className={classes.page}
-      style={{textAlign: 'center', padding: '0 20px', justifyContent: 'flex-end'}}
-      item
-      sm={4}
-    >
-      <Grid item className={classes.imageWrap} >
-        <Box className={classes.imageCover}/>
-        <img src={props.image} alt=""/>
-      </Grid>
-      <Grid item >
-        <p>{props.text}</p>
-      </Grid>
-    </Grid>
+    <Stack direction="column" spacing={4} alignItems="center" sx={{ margin: '0 auto'}}>
+      <CardMedia
+        component="img"
+        alt=""
+        sx={{
+          width: '350px',
+          height: '350px',
+          borderRadius: '24px',
+        }}
+        image={props.image}
+      />
+       <Typography 
+          variant="bold"
+          textAlign="center"
+        >
+          {props.text}
+        </Typography>
+    </Stack>
   )
 }
 
@@ -189,7 +184,6 @@ export function InputSelectView(props) {
   } = props
   const classes = useClasses(styles)
   const cols = props.cols ? props.cols : 1
-  const gap = 10
 
 
   const [ data, setData] = useState(multi ? [] : "");
@@ -204,9 +198,9 @@ export function InputSelectView(props) {
   return (
     <InputView data={data} {...props}>
       {multi ? (
-          <Grid container style={{gap: `${gap}`, justifyContent: 'space-between'}}>
+          <Grid container sx={{gap: '10px', justifyContent: 'space-between', marginBottom: '1em'}}>
             {options?.map((val,i) => (
-              <Box as="div" key={i} className={classes.btnInput} sx={{flex: `0 1 calc(calc(100% / ${cols}) - (${gap}px * ${cols - 1}))`}}>
+              <Box as="div" key={i} className={classes.btnInput} sx={{flex: `0 1 calc(calc(100% / ${cols}) - (10px * ${cols - 1}))`}}>
                 <input
                   onChange={onChange} 
                   type="checkbox" 
@@ -215,11 +209,10 @@ export function InputSelectView(props) {
                   id={val} hidden  
                 />
                 <Button
-                  variant='outlined' 
+                  variant="selection" 
                   component="label" 
                   fullWidth
                   htmlFor={val}
-                  size="small"
                 >
                   {val}
                 </Button>  
@@ -227,9 +220,9 @@ export function InputSelectView(props) {
             ))} 
           </Grid>
         ) : (
-          <Grid container style={{gap: `${gap}`, justifyContent: 'space-between'}}>
+          <Grid container style={{gap: '10px', justifyContent: 'space-between'}}>
             {options?.map((val,i) => (
-              <Box as="div" key={i} className={classes.btnInput} sx={{flex: `0 1 calc(calc(100% / ${cols}) - (${gap}px * ${cols - 1}))`}}>
+              <Box as="div" key={i} className={classes.btnInput} sx={{flex: `0 1 calc(calc(100% / ${cols}) - (10px * ${cols - 1}))`}}>
                 <input
                   onChange={onChange} 
                   type="radio" 
@@ -238,7 +231,7 @@ export function InputSelectView(props) {
                   id={val} hidden  
                 />
                 <Button
-                  variant='outlined' 
+                  variant="selection" 
                   component="label" 
                   fullWidth
                   htmlFor={val}
@@ -294,7 +287,7 @@ export function InputSearchView(props) {
   function onInputChange(e) {setInputValue(e.target.value)}
   function onChange(e) {setData(e.target.value)}
   const Row = ({ data, index, style }) => (
-    <span className={classes.btnInput} style={style}>
+    <div className={classes.btnInput} style={style}>
       <input 
         onChange={onChange}
         type="radio" 
@@ -304,15 +297,16 @@ export function InputSearchView(props) {
         hidden
       />
       <Button 
-        variant='outlined' 
+        variant='selection' 
         component="label" 
         htmlFor={data[index]}
         size="small"
         fullWidth
+        sx={{marginBottom: "5px"}}
       >
         {data[index]}
       </Button>   
-    </span>  
+    </div>  
   )
   return (
     <InputView data={data} {...props}>
@@ -336,7 +330,7 @@ export function InputSearchView(props) {
           <span className={classes.btnInput}>
             <input type="radio" value="other" id="other" name={value} hidden onChange={onChange}/>
             <Button 
-              variant='outlined' 
+              variant='selection' 
               component="label"
               htmlFor="other"
               size="small"
@@ -349,7 +343,7 @@ export function InputSearchView(props) {
             itemData={filtered}
             itemCount={filtered.length}
             height={400}
-            itemSize={30.5}
+            itemSize={80}
             width='100%'
           >
             {Row}
