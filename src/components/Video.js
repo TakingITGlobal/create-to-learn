@@ -1,22 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import Vimeo from '@u-wave/react-vimeo'
-import { createVideoProgress, useVideoProgressByVideoId, updateVideoProgress } from '../util/db'
+import { createVideoProgress, useVideoProgressByVideoId, updateVideoProgress, getUserProgress } from '../util/db'
 import { useAuth } from './../util/auth'
+import { collection, addDoc } from "firebase/firestore"; 
 
-
-// function UpdateVideoProgress(videoId,time) {
-//   return 
-// }
-// function HandleVideoProgressByVideoId(ownerId, videoId){
-//   return 
-// }
-// function CreateVideoProgress(ownerId, videoId, progress){
-//   return 
-// }
-function createProgress(owner,id){
-  createVideoProgress({owner: owner, videoId: id, progress: 15})
-}
 function Video(props){
+  
   const {
     video,
     user,
@@ -24,36 +13,73 @@ function Video(props){
   } = props
 
   const [loading, setLoading] = useState(true)
-
-  const progressId = useVideoProgressByVideoId(user?.uid, id)
+  const [startTime, setStartTime] = useState()
+  const [progId, setProgId] = useState()
+  const {
+    data,
+    status,
+    error
+  } = useVideoProgressByVideoId(user?.uid, id)
+  
+  const handleChange = (player) => {
+    console.log(progId.id)
+    console.log(player.seconds)
+    if(progId){
+      console.log('gets here')
+      console.log(progId || 'not value')
+      updateVideoProgress(progId.id, {progress: player.seconds})
+    }
     
+  }
   useEffect(() => {
-    if(user?.uid){
-      setLoading(false)
-    } 
-  },[progressId])
-  return (
-    <>
-    {
-      !loading && 
-      <Vimeo 
-        video={video} 
-        responsive 
-        width="100vw" 
-        // onTimeUpdate={handleUpdate}
-        // onPause={handleChange}
-        // onEnd={handleChange}
-        start={0}
-        style={{
-          paddingTop: '2em',
-          borderRadius: '6px',
-          overflow: 'hidden',
-        }}
-      />
+    if(progId){
+      if(progId?.progress){
+        setStartTime(progId?.progress)
+      } else {
+        setStartTime(0)
+      }
+      setLoading(false) 
     }
       
-    </>
-    
+  },[progId])
+
+  useEffect(() => {
+    if(status === 'success') {
+
+      
+      if(data?.length > 0){
+        setProgId(data[0])
+      } else {
+        createVideoProgress({owner: user.uid, videoId: id, progress: 0}).then(docRef => getUserProgress(docRef.id).then((data) => setProgId(data)))
+      }
+      
+    }else if(user === false){
+      setLoading(false)
+    }
+  },[status])
+
+
+
+  return (
+    <>
+      {!loading &&
+      
+        <Vimeo 
+          video={video} 
+          responsive 
+          width="100vw" 
+          onPause={handleChange}
+          onEnd={handleChange}
+          start={startTime}
+          style={{
+            paddingTop: '2em',
+            borderRadius: '6px',
+            overflow: 'hidden',
+          }}
+        />
+      }
+
+    </> 
   )
 }
 export default Video

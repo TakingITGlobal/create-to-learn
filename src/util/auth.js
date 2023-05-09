@@ -85,7 +85,7 @@ function useAuthProvider() {
   }
   const signup = (email,password) => {
     return auth0.extended
-      .signup({
+      .signupAndAuthorize({
         email: email,
         password: password,
       })

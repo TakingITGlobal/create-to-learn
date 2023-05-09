@@ -19,6 +19,7 @@ const auth0 = new Auth0.WebAuth({
 
 const signupAndAuthorize = promisify(auth0.signupAndAuthorize.bind(auth0))
 const login = promisify(auth0.client.login.bind(auth0.client))
+const signup = promisify(auth0.signup.bind(auth0))
 const popupAuthorize = promisify(auth0.popup.authorize.bind(auth0.popup))
 const userInfo = promisify(auth0.client.userInfo.bind(auth0.client))
 const changePassword = promisify(auth0.changePassword.bind(auth0))

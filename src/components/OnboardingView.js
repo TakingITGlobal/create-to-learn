@@ -9,6 +9,7 @@ import AuthFormPasswordless from './AuthFormPasswordless'
 import AuthSocial from './AuthSocial'
 import { useRouter } from '../util/router'
 import { useAuth } from '../util/auth'
+import AuthForm from './AuthForm'
 
 const styles = theme => ({
   // container: {
@@ -367,10 +368,6 @@ export function EmailView(){
     swiper.slideNext()
     
   }
-  const handleAuthVerified = (user) => {
-    localStorage.setItem('user',user.sub)
-    swiper.slideNext()
-  }
   return (
     <Grid className={classes.page}>
       <Grid 
@@ -385,9 +382,9 @@ export function EmailView(){
         </Box>
       )}
 
-      <AuthFormPasswordless
-        type='passwordlessStart'
-        buttonAction='Passwordless Start'
+      <AuthForm
+        type='signup'
+        buttonAction='Sign Up'
         onAuth={handleAuth}
         onFormAlert={handleFormAlert}
       />
