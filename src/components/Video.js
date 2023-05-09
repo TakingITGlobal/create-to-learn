@@ -4,13 +4,6 @@ import { createVideoProgress, useVideoProgressByVideoId, updateVideoProgress, ge
 import { useAuth } from './../util/auth'
 import { collection, addDoc } from "firebase/firestore"; 
 
-function CreateProgress(owner,id,progress){
-  return createVideoProgress({owner: owner, videoId: id, progress: progress})
-}
-function UpdateProgress(id,progress){
-  updateVideoProgress(id, {progress: progress})
-}
-
 function Video(props){
   
   const {
@@ -29,8 +22,12 @@ function Video(props){
   } = useVideoProgressByVideoId(user?.uid, id)
   
   const handleChange = (player) => {
-    if(user){
-      UpdateProgress(progId.id, player.seconds)
+    console.log(progId.id)
+    console.log(player.seconds)
+    if(progId){
+      console.log('gets here')
+      console.log(progId || 'not value')
+      updateVideoProgress(progId.id, {progress: player.seconds})
     }
     
   }
@@ -53,7 +50,7 @@ function Video(props){
       if(data?.length > 0){
         setProgId(data[0])
       } else {
-        createVideoProgress({owner: user.uid, videoId: id, progress: 0}).then(docRef => setProgId(getUserProgress(docRef.id)))
+        createVideoProgress({owner: user.uid, videoId: id, progress: 0}).then(docRef => getUserProgress(docRef.id).then((data) => setProgId(data)))
       }
       
     }else if(user === false){
