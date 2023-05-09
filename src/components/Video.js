@@ -27,15 +27,9 @@ function Video(props){
 
   const progressId = useVideoProgressByVideoId(user?.uid, id)
     
-  useEffect(() => {
-    if(user?.uid){
-      setLoading(false)
-    } 
-  },[progressId])
+
   return (
-    <>
-    {
-      !loading && 
+
       <Vimeo 
         video={video} 
         responsive 
@@ -49,11 +43,8 @@ function Video(props){
           borderRadius: '6px',
           overflow: 'hidden',
         }}
+
       />
-    }
-      
-    </>
-    
   )
 }
 export default Video
