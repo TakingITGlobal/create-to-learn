@@ -7,26 +7,14 @@ import Stack from '@mui/material/Stack'
 
 import { categories } from '../assets/options/categories'
 import { useAuth } from './../util/auth'
-import useClasses from '../hooks/useClasses'
 import { updateUser } from '../util/db'
 import { useTranslation } from 'react-i18next'
 
-const styles = (theme) => ({
-  primaryButton: {
-    backgroundColor: 'white !important',
-    borderRadius: '35px !important',
-    width: '100%',
-    height: '50px',
-    textTransform: 'capitalize !important',
-    color: 'black',
-  },
-})
 function SettingsInterests({ setShowComponent }) {
   const auth = useAuth()
   const { t } = useTranslation()
 
   const [interests, setInterests] = useState(auth.user.interests)
-  const classes = useClasses(styles)
 
   const handleInterests = (category) => {
     if (interests.includes(category)) {
@@ -42,7 +30,7 @@ function SettingsInterests({ setShowComponent }) {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '650px',
+        height: '700px',
       }}
     >
       <Box>
@@ -83,7 +71,7 @@ function SettingsInterests({ setShowComponent }) {
       >
         <Button
           fullWidth
-          className={classes.primaryButton}
+          color="info"
           onClick={() => {
             updateUser(auth.user.uid, { interests: interests })
             setShowComponent('nav')

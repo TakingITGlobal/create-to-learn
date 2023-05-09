@@ -56,7 +56,7 @@ function SettingsGeneral(props) {
             label="Name"
             name="name"
             placeholder="Name"
-            defaultValue={auth.user.name}
+            defaultValue={auth.user.displayName ?? auth.user.name}
             error={errors.name ? true : false}
             helperText={errors.name && errors.name.message}
             fullWidth={true}

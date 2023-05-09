@@ -49,6 +49,9 @@ const BrowseTabs = ({
 
   const [tabIndex, setTabIndex] = useState(0)
   const [openDrawer, setOpenDrawer] = useState(false)
+  const [featuredFilter, setFeaturedFilter] = useState(
+    localStorage.getItem('featuredFilter'),
+  )
 
   const { allCourses, allCreators, loadingCourses, loadingCreators } =
     useContext(dataContext)
@@ -59,6 +62,7 @@ const BrowseTabs = ({
     culturalGroupFilter,
     categoryFilter,
     durationFilter,
+    featuredFilter,
   })
 
   const { data: filteredCreators } = useCreatorsFilter({
@@ -66,6 +70,7 @@ const BrowseTabs = ({
     allCourses,
     culturalGroupFilter,
     categoryFilter,
+    featuredFilter,
   })
 
   const handleChangeTab = (event, newTab) => {
@@ -78,8 +83,18 @@ const BrowseTabs = ({
       setDurationFilter(
         durationFilter.filter((item) => item.id !== duration.id),
       )
+      localStorage.setItem(
+        'durationFilter',
+        JSON.stringify(
+          durationFilter.filter((item) => item.id !== duration.id),
+        ),
+      )
     } else {
       setDurationFilter([...durationFilter, duration])
+      localStorage.setItem(
+        'durationFilter',
+        JSON.stringify([...durationFilter, duration]),
+      )
     }
   }
 
@@ -91,15 +106,30 @@ const BrowseTabs = ({
     } else {
       setCulturalGroupFilter([...culturalGroupFilter, group])
     }
+    localStorage.setItem(
+      'culturalGroupFilter',
+      JSON.stringify(culturalGroupFilter),
+    )
   }
 
   const handleClearFilter = () => {
     setCategoryFilter('All')
     setDurationFilter([])
     setCulturalGroupFilter([])
+    setFeaturedFilter(false)
+    localStorage.setItem('categoryFilter', 'AllApply fil')
+    localStorage.setItem('durationFilter', [])
+    localStorage.setItem('culturalGroupFilter', [])
+    localStorage.setItem('featuredFilter', false)
   }
 
-  const numberOfFilters = durationFilter.length + culturalGroupFilter.length
+  const handleFeatureFilter = () => {
+    setFeaturedFilter(!featuredFilter)
+    localStorage.setItem('featuredFilter', featuredFilter)
+  }
+
+  const numberOfFilters =
+    durationFilter.length + culturalGroupFilter.length + !!featuredFilter
 
   return (
     <>
@@ -198,7 +228,9 @@ const BrowseTabs = ({
           handleCulturalGroupFilterArr={handleCulturalGroupFilterArr}
           culturalGroupFilter={culturalGroupFilter}
           durationFilter={durationFilter}
+          featuredFilter={featuredFilter}
           durations={durations}
+          handleFeatureFilter={handleFeatureFilter}
         />
       </BrowseDrawer>
     </>

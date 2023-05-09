@@ -22,8 +22,6 @@ import HealthIcon from '../images/category-icon-health.svg'
 import DroneIcon from '../images/category-icon-drone.svg'
 import WebDesignIcon from '../images/category-icon-web-design.svg'
 
-import Box from '@mui/material/Box'
-
 export const defaultCategories = [
   {
     label: 'All',

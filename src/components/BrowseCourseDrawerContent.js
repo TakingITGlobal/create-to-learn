@@ -12,6 +12,8 @@ const BrowseCourseDrawerContent = ({
   culturalGroupFilter,
   handleCulturalGroupFilterArr,
   durationFilter,
+  featuredFilter,
+  handleFeatureFilter,
 }) => {
   const { t } = useTranslation()
 
@@ -22,7 +24,17 @@ const BrowseCourseDrawerContent = ({
           {t('featured')}
         </Typography>
         <Stack direction="row" spacing={1}>
-          <Chip label="Featured" clickable variant="default" />
+          <Chip
+            label="Featured"
+            clickable
+            variant="default"
+            style={{
+              marginLeft: 0,
+              backgroundColor: featuredFilter ? '#6956F1' : '#211E34',
+              padding: '5px !important',
+            }}
+            onClick={() => handleFeatureFilter()}
+          />
           <Chip label="New" clickable variant="default" />
         </Stack>
       </Box>

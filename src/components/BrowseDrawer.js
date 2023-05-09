@@ -50,6 +50,7 @@ const BrowseDrawer = ({
 
     setOpenDrawer(open)
   }
+
   return (
     <SwipeableDrawer
       anchor="right"
@@ -73,9 +74,9 @@ const BrowseDrawer = ({
         {children}
         <Stack direction="column" spacing={2} sx={{ paddingTop: '60px' }}>
           <Button
-            variant="outlined"
+            variant="text"
+            color="info"
             onClick={() => setOpenDrawer(false)}
-            className={classes.filterButton}
           >
             {t('browse.apply-filters')}{' '}
             {numberOfFilters ? `(${numberOfFilters})` : ''}

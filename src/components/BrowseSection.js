@@ -48,12 +48,23 @@ const responsive = {
 
 function BrowseSection(props) {
   const [openSearchDrawer, setOpenSearchDrawer] = useState(false)
-  const [categoryFilter, setCategoryFilter] = useState('All')
-  const [durationFilter, setDurationFilter] = useState([])
-  const [culturalGroupFilter, setCulturalGroupFilter] = useState([])
+  const [categoryFilter, setCategoryFilter] = useState(
+    localStorage.getItem('categoryFilter') ?? 'All',
+  )
+  const [durationFilter, setDurationFilter] = useState(
+    JSON.parse(localStorage.getItem('durationFilter') || '[]'),
+  )
+  const [culturalGroupFilter, setCulturalGroupFilter] = useState(
+    JSON.parse(localStorage.getItem('culturalGroupFilter') || '[]'),
+  )
 
   const { t } = useTranslation()
   const classes = useClasses(styles)
+
+  const handleCategoryFilter = (category) => {
+    setCategoryFilter(category)
+    localStorage.setItem('categoryFilter', category)
+  }
 
   return (
     <Section
@@ -89,7 +100,7 @@ function BrowseSection(props) {
             >
               {categories.map((category, index) => (
                 <Stack direction="column" spacing={2} key={index}>
-                  <Button onClick={() => setCategoryFilter(category.label)}>
+                  <Button onClick={() => handleCategoryFilter(category.label)}>
                     <Box
                       component="img"
                       src={category.illustration}

@@ -1,11 +1,9 @@
 import React from 'react'
 import MultiCarousel from 'react-multi-carousel'
-import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import Stack from '@mui/material/Stack'
 import CardActionArea from '@mui/material/CardActionArea'
 import useClasses from '../hooks/useClasses'
 import 'react-multi-carousel/lib/styles.css'
@@ -44,8 +42,8 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
   return courses.length ? (
     <>
       <Typography variant="sectionTitle" pt="20px" pb="20px">
-          {icon}
-          {title}
+        {icon}
+        {title}
       </Typography>
 
       <MultiCarousel

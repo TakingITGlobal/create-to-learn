@@ -107,7 +107,6 @@ export function useLearningPaths() {
   )
 }
 
-
 export function useCourseByUID(uid) {
   return useQuery(
     ['/Series', { uid }],
@@ -154,7 +153,7 @@ export function useUserProgressByOwner(owner) {
     { enabled: !!owner },
   )
 }
-export function useVideoProgressByVideoId(owner,videoId) {
+export function useVideoProgressByVideoId(owner, videoId) {
   return useQuery(
     ['user-progress', { owner }],
     createQuery(() =>
@@ -239,6 +238,10 @@ export function updateItem(id, data) {
 // Delete an item
 export function deleteItem(id) {
   return deleteDoc(doc(db, 'items', id))
+}
+
+export function deleteUser(id) {
+  return deleteDoc(doc(db, 'users', id))
 }
 
 /**** HELPERS ****/

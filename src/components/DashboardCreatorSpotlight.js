@@ -1,7 +1,5 @@
 import React from 'react'
-import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import Stack from '@mui/material/Stack'
 import SvgIcon from '@mui/material/SvgIcon'
 import MultiCarousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
@@ -9,7 +7,7 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import CreatorsSpotlightIcon from '../assets/images/Creator-spotlight.svg'
-import { ChevronRight} from '@mui/icons-material'
+import { ChevronRight } from '@mui/icons-material'
 
 const responsive = {
   desktop: {
@@ -30,36 +28,30 @@ const responsive = {
 }
 
 const DashboardCreatorSpotlight = ({ creators }) => {
-
   return creators.length ? (
     <>
-
       <Typography variant="sectionTitle" pt="20px" pb="20px">
-          <SvgIcon fontSize="large" component="div">
-            <img
-              src={CreatorsSpotlightIcon}
-              alt="creators-spotlight-icon"
-              style={{ paddingBottom: '5px' }}
-            />
-          </SvgIcon>
-          Creator Spotlight
-          <ChevronRight />
+        <SvgIcon fontSize="large" component="div">
+          <img
+            src={CreatorsSpotlightIcon}
+            alt="creators-spotlight-icon"
+            style={{ paddingBottom: '5px' }}
+          />
+        </SvgIcon>
+        Creator Spotlight
+        <ChevronRight />
       </Typography>
 
-      <MultiCarousel
-        ssr
-        partialVisible
-        responsive={responsive}
-        swipeable
-      >
+      <MultiCarousel ssr partialVisible responsive={responsive} swipeable>
         {creators.map((item, i) => {
           return (
-            <Card key={i} 
+            <Card
+              key={i}
               raised="false"
               elevation="0"
-              sx= {{
+              sx={{
                 padding: '0',
-                mr: '15px'
+                mr: '15px',
               }}
             >
               <CardMedia
@@ -70,16 +62,14 @@ const DashboardCreatorSpotlight = ({ creators }) => {
                   item && item.image && item.image.length
                     ? item.image[0].downloadURL
                     : ''
-                  }
-                />
+                }
+              />
               <CardContent
                 sx={{
                   padding: '10px 0',
                 }}
               >
-                <Typography variant="bold">
-                  {item.name}
-                </Typography>
+                <Typography variant="bold">{item.name}</Typography>
                 <Typography variant="subtitle1">{item.community}</Typography>
               </CardContent>
             </Card>

@@ -18,7 +18,6 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListItemIcon,
   MenuItem,
   Paper,
   Select,
@@ -30,9 +29,7 @@ import {
   useTheme,
 } from '@mui/material'
 import { ChevronRight, Check, BookmarkBorder } from '@mui/icons-material'
-import Video from './Video'
 import { useAuth } from '../util/auth'
-import SvgIcon from '@mui/material/SvgIcon'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -45,9 +42,7 @@ function TabPanel(props) {
       aria-labelledby={`full-width-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Typography>{children}</Typography>
-      )}
+      {value === index && <Typography>{children}</Typography>}
     </div>
   )
 }
@@ -59,19 +54,16 @@ function a11yProps(index) {
   }
 }
 
-const getRandomColor = (array) => {
-  const randomColor = array[Math.floor(Math.random() * array.length)]
-  return randomColor
-}
-
 function CourseSection(props) {
   const theme = useTheme()
   const auth = useAuth()
   const [tabValue, setTabValue] = useState(0)
   const [downloadOption, setDownloadOption] = useState('')
   const palette = Object.values(theme.palette.accent)
+  const [randomColor, setRandomColor] = useState(
+    palette[Math.floor(Math.random() * palette.length)],
+  )
 
-  console.log('props.data:', props.data)
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue)
   }
@@ -98,7 +90,6 @@ function CourseSection(props) {
     return match ? match[0] : ''
   }
 
-
   const handleStartButtonClick = (videoId) => {
     setPlayingVideoId(videoId)
   }
@@ -115,7 +106,7 @@ function CourseSection(props) {
   return (
     <Section
       style={{
-        backgroundColor: getRandomColor(palette),
+        backgroundColor: randomColor,
         backgroundImage:
           'linear-gradient(180deg, rgba(11, 9, 25, 0) 0%, rgba(11, 9, 25, 0.11) 200px, rgba(11, 9, 25, 0.64) 400px, #0B0919 600px)',
       }}
@@ -164,7 +155,7 @@ function CourseSection(props) {
           onChangeIndex={handleChangeIndex}
         >
           <TabPanel value={tabValue} index={0} dir={theme.direction}>
-            <Box sx={{padding: '1em'}}>
+            <Box sx={{ padding: '1em' }}>
               {/* Artist information */}
               <Link
                 href={'/creator/' + creatorUID}
@@ -192,12 +183,16 @@ function CourseSection(props) {
               </Link>
 
               {/* Regular paragraph */}
-              <Typography variant="body2" color={theme.palette.text.secondary} sx={{ marginBottom: 2 }}>
+              <Typography
+                variant="body2"
+                color={theme.palette.text.secondary}
+                sx={{ marginBottom: 2 }}
+              >
                 {description}
               </Typography>
 
               {/* Metrics */}
-              <Stack direction="row" spacing={1} variant="squareCard" mb="15px">              
+              <Stack direction="row" spacing={1} variant="squareCard" mb="15px">
                 <Item elevation="1">{props.data.videos.length} Videos</Item>
                 <Item elevation="1">{props.data.totalLength} minutes</Item>
                 <Item elevation="1">Difficulty</Item>
@@ -209,11 +204,17 @@ function CourseSection(props) {
               </Button>
 
               {/* Add to Watchlist button */}
-              <Stack direction="row" spacing={1} mb="15px" mt="20px" alignItems="center">              
+              <Stack
+                direction="row"
+                spacing={1}
+                mb="15px"
+                mt="20px"
+                alignItems="center"
+              >
                 <Button variant="text" startIcon={<BookmarkBorder />}>
                   Add to Watchlist
                 </Button>
-                <FormControl sx={{ minWidth: 120, marginLeft: 2}}>
+                <FormControl sx={{ minWidth: 120, marginLeft: 2 }}>
                   {/* <InputLabel id="download-label" sx={{ padding: '0',  fontWeight: '700'}} variant="standard">Download</InputLabel> */}
                   <Select
                     value={downloadOption}
@@ -222,9 +223,11 @@ function CourseSection(props) {
                     displayEmpty
                     variant="standard"
                     color={theme.palette.text.main}
-                    sx={{ padding: '0', border: '0'}}
+                    sx={{ padding: '0', border: '0' }}
                   >
-                    <MenuItem value="" sx={{fontWeight: '700'}}><em>Download</em></MenuItem>
+                    <MenuItem value="" sx={{ fontWeight: '700' }}>
+                      <em>Download</em>
+                    </MenuItem>
                     <MenuItem value="option1">Option 1</MenuItem>
                     <MenuItem value="option2">Option 2</MenuItem>
                     <MenuItem value="option3">Option 3</MenuItem>
@@ -233,19 +236,23 @@ function CourseSection(props) {
               </Stack>
 
               {/* Topic List */}
-              <Typography variant="bold" sx={{ mT: 2}}>
+              <Typography variant="bold" sx={{ mT: 2 }}>
                 Topic
               </Typography>
               <List>
                 <ListItem
                   component="a"
                   href="/artist-page"
-                  sx={{ color: '#fff'}}
+                  sx={{ color: '#fff' }}
                 >
                   <img
                     src="https://via.placeholder.com/50"
                     alt={topic}
-                    style={{ maxWidth: '30px', height: 'auto', marginRight: '10px' }}
+                    style={{
+                      maxWidth: '30px',
+                      height: 'auto',
+                      marginRight: '10px',
+                    }}
                   />
                   {topic}
                 </ListItem>
@@ -256,7 +263,7 @@ function CourseSection(props) {
                 What you'll learn
               </Typography>
               <List variant="icon-list">
-                <ListItem >
+                <ListItem>
                   <Check />
                   <ListItemText disableTypography primary="Item 1" />
                 </ListItem>
@@ -289,15 +296,18 @@ function CourseSection(props) {
               {videoLinksArray.map((videoLink, index) => (
                 <ListItem>
                   <Paper elevation="1">
-                    <Typography variant="bold">
-                      Lesson {index + 1}
-                    </Typography>
-                    <Stack direction="row" spacing={1} alignItems="center" sx={{paddingLeft: '20px'}}>
-                      <Link 
+                    <Typography variant="bold">Lesson {index + 1}</Typography>
+                    <Stack
+                      direction="row"
+                      spacing={1}
+                      alignItems="center"
+                      sx={{ paddingLeft: '20px' }}
+                    >
+                      <Link
                         flex="1"
                         href={videoLink}
                         underline="none"
-                        sx={{ fontSize: '1rem'}}
+                        sx={{ fontSize: '1rem' }}
                       >
                         Download
                       </Link>
@@ -306,7 +316,7 @@ function CourseSection(props) {
                         variant="contained"
                         color="primary"
                         size="large"
-                        sx={{ flex: '1'}}
+                        sx={{ flex: '1' }}
                       >
                         Start
                       </Button>

@@ -49,15 +49,19 @@ function SettingsProfile() {
     },
   ]
 
+  const { user } = auth
+
+  const displayName = user && (user.displayName ?? user.name)
+
   return (
     <Container>
       <Typography variant="h5" sx={{ fontWeight: '700' }}>
-        {auth.user ? auth.user.name : t('settings.profile')}
+        {user ? displayName : t('settings.profile')}
       </Typography>
       <Box
         sx={{ display: 'flex', justifyContent: 'center', paddingTop: '10px' }}
       >
-        {auth.user ? <Stats /> : <SignUp />}
+        {user ? <Stats /> : <SignUp />}
       </Box>
       <List
         sx={{ width: '100%', maxWidth: 360 }}
@@ -66,7 +70,7 @@ function SettingsProfile() {
       >
         {settingsLinks.map(
           ({ title, link, icon }) =>
-            (title !== 'My Account' || auth.user) && (
+            (title !== 'My Account' || user) && (
               <ListItem
                 component={Link}
                 to={link}
@@ -89,7 +93,7 @@ function SettingsProfile() {
               </ListItem>
             ),
         )}
-        {auth.user && (
+        {user && (
           <ListItem
             sx={{
               backgroundColor: '#211E34',

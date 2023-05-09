@@ -2,58 +2,43 @@ import { useState, useEffect, useMemo } from 'react'
 import { durations, culturalGroups } from '../assets/options/filters'
 import { categories } from '../assets/options/categories'
 
+const ALL_CATEGORIES = 'All'
+
 export const useCoursesFilter = ({
   allCreators,
   allCourses,
   durationFilter = [],
   culturalGroupFilter = [],
-  categoryFilter = 'all',
+  categoryFilter = ALL_CATEGORIES,
+  featuredFilter,
 }) => {
   const [filteredCourses, setFilteredCourses] = useState(allCourses)
-  const isHavingFilters = useMemo(
+  const hasFilters = useMemo(
     () =>
       durationFilter.length ||
       culturalGroupFilter.length ||
-      categoryFilter !== 'all',
-    [durationFilter, culturalGroupFilter, categoryFilter],
+      categoryFilter !== ALL_CATEGORIES ||
+      featuredFilter,
+    [durationFilter, culturalGroupFilter, categoryFilter, featuredFilter],
   )
 
   useEffect(() => {
-    const durationsToFilter =
-      durationFilter && durationFilter.length ? durationFilter : durations
-    const culturalGroupsToFilter =
-      culturalGroupFilter && culturalGroupFilter.length
-        ? culturalGroupFilter
-        : culturalGroups
-    const categoriesToFilter =
-      categoryFilter !== 'All'
-        ? [categoryFilter]
-        : categories.map(({ label }) => label)
     const filtCourses =
       allCourses &&
       allCourses.filter((course) => {
-        const creator =
-          allCreators &&
-          allCreators.filter((creator) => creator.name === course.creator)
-        const creatorFNMI =
-          creator && creator.length ? creator[0].fnmi : culturalGroups
-
+        console.log(handleCategory(categoryFilter, course.category))
         return (
-          // course.category.some((cat) => categoriesToFilter.includes(cat)) &&
-          durationsToFilter.some(
-            (duration) =>
-              course.totalLength >= duration.lowerValue &&
-              course.totalLength < duration.upperValue,
+          handleDurations(durationFilter, course.totalLength) &&
+          handleCulturalGroup(
+            culturalGroupFilter,
+            course.creator,
+            allCreators,
           ) &&
-          culturalGroupsToFilter.some(
-            (culturalGroup) =>
-              creatorFNMI.includes(culturalGroup) &&
-              categoriesToFilter.some((category) =>
-                course.category.includes(category),
-              ),
-          )
+          handleCategory(categoryFilter, course.category) &&
+          handleFeatured(featuredFilter, course.featured)
         )
       })
+    console.log(categoryFilter, hasFilters, filtCourses)
 
     setFilteredCourses(filtCourses)
   }, [
@@ -62,7 +47,53 @@ export const useCoursesFilter = ({
     allCreators,
     culturalGroupFilter,
     categoryFilter,
+    featuredFilter,
   ])
 
-  return { data: isHavingFilters ? filteredCourses : allCourses }
+  return { data: hasFilters ? filteredCourses : allCourses }
+}
+
+const handleDurations = (durationFilter, courseLength) => {
+  const durationsToFilter =
+    durationFilter && durationFilter.length ? durationFilter : durations
+  return durationsToFilter.some(
+    (duration) =>
+      courseLength >= duration.lowerValue && courseLength < duration.upperValue,
+  )
+}
+
+const handleCulturalGroup = (
+  culturalGroupFilter,
+  courseCreator,
+  allCreators,
+) => {
+  const creator =
+    allCreators &&
+    allCreators.filter((creator) => creator.name === courseCreator)
+  const creatorFNMI =
+    creator && creator.length ? creator[0].fnmi : culturalGroups
+  const culturalGroupsToFilter =
+    culturalGroupFilter && culturalGroupFilter.length
+      ? culturalGroupFilter
+      : culturalGroups
+
+  return culturalGroupsToFilter.some((culturalGroup) =>
+    creatorFNMI.includes(culturalGroup),
+  )
+}
+
+const handleCategory = (categoryFilter, courseCategories) => {
+  const categoriesToFilter =
+    categoryFilter !== ALL_CATEGORIES
+      ? [categoryFilter]
+      : categories.map(({ label }) => label)
+
+  console.log(categoriesToFilter, categoryFilter, [categoryFilter])
+  return categoriesToFilter.some((category) =>
+    courseCategories.includes(category),
+  )
+}
+
+const handleFeatured = (featuredFilter, courseFeatured) => {
+  return !featuredFilter || courseFeatured
 }

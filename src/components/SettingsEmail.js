@@ -5,22 +5,9 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 
 import { useTranslation } from 'react-i18next'
-import useClasses from '../hooks/useClasses'
-
-const styles = (theme) => ({
-  primaryButton: {
-    backgroundColor: 'white !important',
-    borderRadius: '35px !important',
-    width: '100%',
-    height: '50px',
-    textTransform: 'capitalize !important',
-    color: 'black',
-  },
-})
 
 function SettingsEmail({ auth }) {
   const { t } = useTranslation()
-  const classes = useClasses(styles)
 
   const [email, setEmail] = useState('auth.user.email')
 
@@ -29,7 +16,7 @@ function SettingsEmail({ auth }) {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '650px',
+        height: '700px',
       }}
     >
       <Box sx={{ padding: '1.5rem 0' }}>
@@ -52,7 +39,7 @@ function SettingsEmail({ auth }) {
       >
         <Button
           fullWidth
-          className={classes.primaryButton}
+          color="info"
           onChange={() => auth.updateProfile({ email: email })}
         >
           {t('settings.update')}

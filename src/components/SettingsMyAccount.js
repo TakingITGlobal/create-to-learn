@@ -16,6 +16,7 @@ import SettingsCommunity from './SettingsCommunity'
 import SettingsEmail from './SettingsEmail'
 import SettingsLanguage from './SettingsLanguage'
 import SettingsSchools from './SettingsSchools'
+import SettingsDeleteAccount from './SettingsDeleteAccount'
 
 import { useTranslation } from 'react-i18next'
 import { useAuth } from './../util/auth'
@@ -60,6 +61,12 @@ function SettingsMyAccount(props) {
         )}
         {showComponent === 'nav' && (
           <MyAccountNav auth={auth} setShowComponent={setShowComponent} />
+        )}
+        {showComponent === 'deleteAccount' && (
+          <SettingsDeleteAccount
+            auth={auth}
+            setShowComponent={setShowComponent}
+          />
         )}
       </Container>
     </>
@@ -126,7 +133,11 @@ function MyAccountNav({ setShowComponent, auth }) {
           </ListItem>
         ))}
         <ListItem>
-          <ListItemButton>
+          <ListItemButton
+            onClick={() => {
+              setShowComponent('deleteAccount')
+            }}
+          >
             <ListItemText sx={{ color: 'white' }}>
               {t('settings.delete-account')}
             </ListItemText>
