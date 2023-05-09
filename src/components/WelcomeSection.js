@@ -3,7 +3,7 @@ import useClasses from '../hooks/useClasses'
 import Container from '@mui/material/Container'
 import Section from './Section'
 import SectionHeader from './SectionHeader'
-import { Grid, Button } from '@mui/material'
+import { Grid, Button, Paper, Stack } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
@@ -43,38 +43,26 @@ function WelcomeSection(props) {
             size={4}
             textAlign="center"
           />
-          <Grid item>
-            <img
-              src={props.image}
-              alt="logo"
-              className={classes.image}
-            />
-          </Grid>
-          <Grid 
-            container
-            item
-            direction="column"
-            alignItems="center"
-            justifyContent='center'
-            spacing={2}
-            md={6}
-          >
-            <Grid container item direction="column" alignItems='stretch'>
-              <Button variant="contained" component={Link} to='./sign-up'>
-                {t('get-started')}
-              </Button>
-            </Grid>
-            <Grid container item direction="column" alignItems='stretch'>
-              <Button variant="outlined" component={Link} to="/auth/signin">
-                {t('sign-in')}
-              </Button>
-            </Grid>
-            <Grid container item direction="column" alignItems='stretch'>
-              <Button variant="text" component={Link} to='./dashboard'>
-                {t('let-me-browse')}
-              </Button>
-            </Grid>  
-          </Grid>
+          <Paper elevation="2" sx={{ marginBottom: '20px'}}>
+            <Link componant="button" to="./sign-up">
+              <img
+                src={props.image}
+                alt="logo"
+                className={classes.image}
+              />
+            </Link>
+          </Paper>
+          <Stack direction="column" width="100%" spacing={2}>
+            <Button variant="contained" component={Link} to='./sign-up'>
+              {t('get-started')}
+            </Button>
+            <Button variant="secondary" component={Link} to="/auth/signin">
+              {t('sign-in')}
+            </Button>
+            <Button variant="text" component={Link} to='./dashboard' sx={{textTransform: 'none'}}>
+              {t('let-me-browse')}
+            </Button>
+        </Stack>
         </Grid>
       </Container>
     </Section>
