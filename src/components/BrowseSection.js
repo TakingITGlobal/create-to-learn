@@ -63,7 +63,7 @@ function BrowseSection(props) {
 
   const handleCategoryFilter = (category) => {
     setCategoryFilter(category)
-    localStorage.setItem('categoryFilter', JSON.stringify(category))
+    localStorage.setItem('categoryFilter', category)
   }
 
   return (
