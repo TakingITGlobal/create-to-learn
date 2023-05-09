@@ -139,6 +139,10 @@ export function useVideoProgressOnce(id) {
     { enabled: !!id },
   )
 }
+export function getUserProgress(uid) {
+  return getDoc(doc(db, 'user-progress', uid)).then(format)
+}
+
 // Subscribe to all items by owner
 export function useUserProgressByOwner(owner) {
   return useQuery(
@@ -169,10 +173,12 @@ export function useVideoProgressByVideoId(owner, videoId) {
 }
 // Create a new item
 export function createVideoProgress(data) {
-  return addDoc(collection(db, 'user-progress'), {
+
+  const docRef =addDoc(collection(db, 'user-progress'), {
     ...data,
     createdAt: serverTimestamp(),
   })
+  return docRef
 }
 
 // Update an item

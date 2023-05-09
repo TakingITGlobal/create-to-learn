@@ -100,7 +100,6 @@ function CourseSection(props) {
   const creatorPhoto = extractImageUrl(props.data.creatorPhoto)
   const topic = props.data.category[0]
   const videoLinksArray = props.data.videoLinks.split(', ')
-  console.log(videoLinksArray)
   const [playingVideoId, setPlayingVideoId] = React.useState(videoLinksArray[0])
 
   return (

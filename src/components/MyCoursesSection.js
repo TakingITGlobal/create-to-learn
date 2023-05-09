@@ -25,7 +25,7 @@ import BrowseFilterEmptyState from './BrowseFilterEmptyState'
 import { useTranslation } from 'react-i18next'
 import { dataContext } from '../util/dataProvider'
 import { useAuth } from './../util/auth'
-import { updateUser } from '../util/db'
+import { updateUser, useUserProgressByOwner } from '../util/db'
 
 function MyCoursesSection(props) {
   const { t } = useTranslation()
@@ -44,7 +44,7 @@ function MyCoursesSection(props) {
   const watchlist = allCourses.filter(
     ({ uid }) => auth.user?.watchlist && auth.user.watchlist.includes(uid),
   )
-
+  const progress = useUserProgressByOwner(auth.user.uid)
   return (
     <Section
       bgColor={props.bgColor}
@@ -86,7 +86,13 @@ function MyCoursesSection(props) {
               </Tabs>
             </Box>
             <TabPanel tabIndex={tabIndex} index={0}>
-              ljlfjl
+              {progress?.data?.map((watch,i) => {
+                if(watch.progress === 0) return
+                return (
+                <div>
+                  <p>Video Id: {watch.videoId} - Progress: {watch.progress}</p>
+                </div>
+              )})}
             </TabPanel>
             <TabPanel tabIndex={tabIndex} index={1}>
               'hahhh'
