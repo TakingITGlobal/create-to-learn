@@ -13,6 +13,7 @@ import SettingsPage from './settings'
 import LegalPage from './legal'
 import { Switch, Route, Router, useLocation } from './../util/router'
 import Auth0Callback from './auth0-callback'
+import Verified from './verified'
 import NotFoundPage from './404'
 import Footer from './../components/Footer'
 import './../util/analytics'
@@ -34,17 +35,17 @@ import CreatorPage from './creator'
 
 const LocationProvider = ({children}) => {
   const {pathname} = useLocation()
-  useEffect(() => {
-    if(pathname.includes('/course/')){
-      var id = localStorage.getItem('courseId')
-      var progress = localStorage.getItem('courseProgress')
-      console.log('id: ' + id)
-      console.log('progress: ' + progress)
+  // useEffect(() => {
+  //   if(pathname.includes('/course/')){
+  //     var id = localStorage.getItem('courseId')
+  //     var progress = localStorage.getItem('courseProgress')
+  //     console.log('id: ' + id)
+  //     console.log('progress: ' + progress)
 
-      localStorage.removeItem('courseId')
-      localStorage.removeItem('courseProgress')
-    }
-  },[pathname])
+  //     localStorage.removeItem('courseId')
+  //     localStorage.removeItem('courseProgress')
+  //   }
+  // },[pathname])
   return(<>{children}</>)
 }
 
@@ -114,6 +115,11 @@ function App(props) {
                       exact
                       path="/auth0-callback"
                       component={Auth0Callback}
+                    />
+                    <Route
+                      exact
+                      path="/verified"
+                      component={Verified}
                     />
 
                     <Route component={NotFoundPage} />

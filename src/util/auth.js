@@ -98,14 +98,30 @@ function useAuthProvider() {
       })
       .then(handleAuth)
   }
-  const passwordlessLogin = (email, password) => {
+  const passwordlessLogin = (email, verificationCode) => {
     return auth0.extended
       .passwordlessLogin({
-        email: email
+        email: email,
+        verificationCode: verificationCode
+      })
+      .then(handleAuth)
+  }
+  const passwordlessVerify = (email, verificationCode) => {
+    return auth0.extended
+      .passwordlessLogin({
+        email: email,
+        verificationCode: verificationCode
       })
       .then(handleAuth)
   }
 
+  const parseHash = (hash) => {
+    return auth0.extended
+      .parseHash({
+        hash: hash
+      })
+      .then(handleAuth)
+  }
   const signin = (email, password) => {
     return auth0.extended
       .login({
@@ -211,6 +227,8 @@ function useAuthProvider() {
     user: finalUser,
     passwordlessStart,
     passwordlessLogin,
+    passwordlessVerify,
+    parseHash,
     signup,
     signin,
     signinWithProvider,
@@ -315,6 +333,10 @@ export const requireAuth = (Component) => {
 }
 
 const authProviders = [
+  {
+    id: 'email',
+    name: 'email',
+  },
   {
     id: 'auth0',
     name: 'password',

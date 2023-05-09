@@ -8,7 +8,7 @@ const auth0 = new Auth0.WebAuth({
   domain: process.env.REACT_APP_AUTH0_DOMAIN,
   clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
   audience: `https://${process.env.REACT_APP_AUTH0_DOMAIN}/api/v2/`,
-  redirectUri: 'http://localhost.8888',
+  redirectUri: process.env.REACT_APP_AUTH0_REDIRECT_URI,
   responseType: 'token id_token',
   scope: 'openid profile email',
 })
@@ -25,6 +25,8 @@ const changePassword = promisify(auth0.changePassword.bind(auth0))
 
 const passwordlessStart = promisify(auth0.passwordlessStart.bind(auth0))
 const passwordlessLogin = promisify(auth0.passwordlessLogin.bind(auth0))
+const passwordlessVerify = promisify(auth0.passwordlessVerify.bind(auth0))
+const parseHash = promisify(auth0.parseHash.bind(auth0))
 
 // Now lets wrap our methods with extra logic, such as including a "connection" value
 // and ensuring human readable errors are thrown for our UI to catch and display.
@@ -39,20 +41,24 @@ auth0.extended = {
       connection: 'email',
       send: 'link',
       ...options,
-    })
-    .then(handleAuth)
-    .catch(handleError)
+    }).catch((error) => handleError(error, true))
   },
   passwordlessLogin: (options) => {
     return passwordlessLogin({
       connection: 'email',
-      send: 'link',
       ...options,
     })
     .then(handleAuth)
     .catch(handleError)
   },
-
+  passwordlessVerify: (options) => {
+    return passwordlessVerify({
+      ...options,
+    })
+    .then(handleAuth)
+    .catch(handleError)
+  },
+  
   getCurrentUser: () => {
     const accessToken = getAccessToken()
     return userInfo(accessToken).catch(handleError)
@@ -79,7 +85,9 @@ auth0.extended = {
   popupAuthorize: (options) => {
     return popupAuthorize(options).then(handleAuth).catch(handleError)
   },
-
+  parseHash: (options) => {
+    return parseHash(options).then(handleAuth).catch(handleError)
+  },
   // Send email so user can reset password
   changePassword: (options) => {
     return changePassword({

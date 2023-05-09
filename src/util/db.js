@@ -155,13 +155,13 @@ export function useUserProgressByOwner(owner) {
 }
 export function useVideoProgressByVideoId(owner, videoId) {
   return useQuery(
-    ['user-progress', { owner }],
+    ['user-progress'],
     createQuery(() =>
       query(
         collection(db, 'user-progress'),
         where('owner', '==', owner),
         where('videoId', '==', videoId),
-        orderBy('createdAt', 'desc'),
+        limit(1)
       ),
     ),
     { enabled: !!owner },

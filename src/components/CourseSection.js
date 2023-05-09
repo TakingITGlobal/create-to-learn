@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Container from '@mui/material/Container'
 import SwipeableViews from 'react-swipeable-views'
 import Section from './Section'
-import Vimeo from '@u-wave/react-vimeo'
+import Video from './Video'
 import {
   Avatar,
   AppBar,
@@ -100,7 +100,7 @@ function CourseSection(props) {
   const creatorPhoto = extractImageUrl(props.data.creatorPhoto)
   const topic = props.data.category[0]
   const videoLinksArray = props.data.videoLinks.split(', ')
-
+  console.log(videoLinksArray)
   const [playingVideoId, setPlayingVideoId] = React.useState(videoLinksArray[0])
 
   return (
@@ -119,17 +119,10 @@ function CourseSection(props) {
           </Typography>
 
           {/* Vimeo embed */}
-          <Vimeo
+          <Video
             video={playingVideoId}
             id={props.data?.videos[0]}
             user={auth.user}
-            responsive
-            width="100vw"
-            style={{
-              paddingTop: '2em',
-              borderRadius: '6px',
-              overflow: 'hidden',
-            }}
           />
         </Box>
 

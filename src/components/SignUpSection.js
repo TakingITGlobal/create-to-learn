@@ -196,13 +196,7 @@ function SignUpSection(props) {
             multi
           />
         </SwiperSlide>
-        {/* <SwiperSlide>
-          <InputTextView
-            value="greeting"
-            formProgress={formProgress}
-            setFormProgress={setFormProgress}
-          />
-        </SwiperSlide> */}
+      
         <SwiperSlide>
           <InputSearchView
             value="school"
@@ -233,6 +227,9 @@ function SignUpSection(props) {
             setFormProgress={setFormProgress}
           />
         </SwiperSlide>
+
+
+
         <SwiperSlide>
           <FinishView
             values={["fnmi","language","school","interests","displayName"]}

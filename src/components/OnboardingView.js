@@ -5,9 +5,10 @@ import { useTranslation } from 'react-i18next'
 import {useSwiper,useSwiperSlide} from 'swiper/react'
 import { FixedSizeList as List } from 'react-window'
 import { updateUser } from '../util/db'
-import AuthForm from './AuthForm'
+import AuthFormPasswordless from './AuthFormPasswordless'
 import AuthSocial from './AuthSocial'
 import { useRouter } from '../util/router'
+import { useAuth } from '../util/auth'
 
 const styles = theme => ({
   container: {
@@ -367,7 +368,12 @@ export function EmailView(){
   const handleFormAlert = (data) => {
     setFormAlert(data)
   }
-  const handleAuth = (user) => {
+  const handleAuth = (email) => {
+    localStorage.setItem('email', email)
+    swiper.slideNext()
+    
+  }
+  const handleAuthVerified = (user) => {
     localStorage.setItem('user',user.sub)
     swiper.slideNext()
   }
@@ -385,13 +391,12 @@ export function EmailView(){
         </Box>
       )}
 
-      <AuthForm
+      <AuthFormPasswordless
         type='passwordlessStart'
         buttonAction='Passwordless Start'
         onAuth={handleAuth}
         onFormAlert={handleFormAlert}
       />
-
           <>
             <Box textAlign="center" fontSize={12} my={2}>
               OR
@@ -416,6 +421,8 @@ export function EmailView(){
 export function FinishView(props){
   const classes = useClasses(styles)
   const router = useRouter()
+  const auth = useAuth()
+  const email = localStorage.getItem('email')
   const { values } = props
   const multi = [
     "fnmi",
@@ -427,14 +434,13 @@ export function FinishView(props){
     router.push('/dashboard')
   }
   function handleClick(){
-    var user = localStorage.getItem('user')
     const data = {}
     values.map((val,i) => {
       data[val] = localStorage.getItem(val)
       if(multi.includes(val)) data[val] = data[val].split(",")
     })
 
-    updateUser(user, data)
+    updateUser(auth.user.sub, data)
     handleExit()
   }
  
@@ -446,15 +452,25 @@ export function FinishView(props){
         className={classes.gridColumn}
         md={6}
       >
-        <Button 
-          variant='contained' 
-          component="button" 
-          size="lg"
-          fullWidth
-          onClick={handleClick}
-        >
-          Finish Setup
-        </Button> 
+        {!auth.user ?
+          <>
+            <p>We’ve sent a confirmation email to {email}. Please check your email to complete account registration</p>
+        
+          </> :
+          <>
+            <Button 
+              variant='contained' 
+              component="button" 
+              size="lg"
+              fullWidth
+              onClick={handleClick}
+            >
+              Finish Setup
+            </Button> 
+          </>
+        }
+        
+        
       </Grid>
     </Grid>
   )
