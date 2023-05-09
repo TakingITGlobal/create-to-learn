@@ -26,7 +26,6 @@ export const useCoursesFilter = ({
     const filtCourses =
       allCourses &&
       allCourses.filter((course) => {
-        console.log(handleCategory(categoryFilter, course.category))
         return (
           handleDurations(durationFilter, course.totalLength) &&
           handleCulturalGroup(
@@ -38,7 +37,6 @@ export const useCoursesFilter = ({
           handleFeatured(featuredFilter, course.featured)
         )
       })
-    console.log(categoryFilter, hasFilters, filtCourses)
 
     setFilteredCourses(filtCourses)
   }, [
@@ -88,7 +86,6 @@ const handleCategory = (categoryFilter, courseCategories) => {
       ? [categoryFilter]
       : categories.map(({ label }) => label)
 
-  console.log(categoriesToFilter, categoryFilter, [categoryFilter])
   return categoriesToFilter.some((category) =>
     courseCategories.includes(category),
   )
