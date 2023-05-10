@@ -284,6 +284,9 @@ export const c2learn = (mode) => ({
         secondary: {
           backgroundColor: '#fff',
           color: '#000',
+          "&:active, &:hover": {
+            color: '#ccc'
+          },
         },
         text: {
           color: '#fff',

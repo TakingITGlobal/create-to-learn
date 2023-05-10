@@ -22,33 +22,27 @@ import schoolData from '../assets/options/schools.json'
 const SlotStart = 'container-start'
 const SlotEnd = "container-end"
 const styles = theme => ({
-  container: {
-    maxHeight: '100%',
-    
-    position:'relative',
-    display: 'flex',
-    flexDirection: 'column',
-  },
+  // container: {
+  //   maxHeight: '100%',
+  //   position:'relative',
+  //   display: 'flex',
+  //   flexDirection: 'column',
+  // },
   swiper: {
     width: '100%',
-    height: '100%',
-    maxHeight: 'calc(100vh - 56px)',
+    // height: '100%',
+    // maxHeight: 'calc(100vh - 120px)',
     '& .swiper-slide': {
       display: 'flex',
       maxWidth: theme.breakpoints.md,
-
     }
-  },
-  progress: {
-    position: 'relative',
-    
   },
 });
 
 const SwiperNext = ({children}) => {
   const swiper = useSwiper()
   return(
-    <Button size="sm" onClick={() => swiper.slideNext()}>
+    <Button variant="secondary" size="sm" fullWidth onClick={() => swiper.slideNext()}>
       {children}
     </Button>
   )
@@ -73,14 +67,13 @@ const ProgressBar = (props) => {
     
   }, [swiper])
   return (
-    <Container slot={slot}> 
+    <Container slot={slot} sx={{padding: '1em'}}> 
       {active >= start ?    
         <MobileStepper
           variant="progress"
           steps={end - start  + 1}
           activeStep={active - start}
           position="top"
-          className={classes.progress}
           backButton={
             <SwiperPrev>
               <ArrowBack/>
@@ -88,21 +81,21 @@ const ProgressBar = (props) => {
           }
         />
         :
-        <Box className={classes.btnWrap}>
-          <SwiperPrev >
-            <ArrowBack/>
-          </SwiperPrev>
-        </Box>
+        <SwiperPrev >
+          <ArrowBack/>
+        </SwiperPrev>
       }
     </Container> 
   )
 }
+
 const ProgressDots = (props) => {
   const {start,end,slot} = props
   const { t } = useTranslation()
   const swiper =useSwiper()
   const classes = useClasses(styles)
   const [active,setActive] = useState(0)
+
   useEffect(() => {
     swiper.on("slideChange", (swipe) => {
       setActive(swipe.activeIndex)
@@ -110,25 +103,24 @@ const ProgressDots = (props) => {
     
   }, [swiper])
   return (
-    <Container slot={slot}> 
-      {active >= start &&
+    <Container slot={slot} > 
+      {active >= start && active <= start + 2? 
         <MobileStepper
           variant="dots"
           steps={end - start + 1}
           activeStep={active - start}
           position="bottom"
-          className={classes.progress}
+          sx={{ flexDirection: 'column', gap: '30px', padding: '0 1em 40px 1em'}}
           nextButton={
             <SwiperNext>
-              {t('btn.next')}
+              {t('btn.continue')}
             </SwiperNext>
-          }
-          backButton={
-            <SwiperPrev>
-              {t('btn.prev')}
-            </SwiperPrev>
-          }
-        />
+          } 
+          />
+          :
+          <SwiperNext>
+            {t('btn.continue')}
+          </SwiperNext>
       }
     </Container> 
   )
@@ -139,19 +131,19 @@ function SignUpSection(props) {
   const classes = useClasses(styles)
   const welcomeLength = 3
   const inputLength = 4
+  const [active,setActive] = useState(0)
   const [formProgress,setFormProgress] = useState(2)
-  
+
   return (
     <Section
       bgColor={props.bgColor}
       size='auto'
       bgImage={props.bgImage}
       bgImageOpacity={props.bgImageOpacity}
-      className={classes.container}
     >
       <Swiper
         modules={[A11y,Keyboard]}
-        className={classes.swiper}
+        autoHeight = 'true'
       >
         <ProgressBar 
           start={welcomeLength} 
@@ -227,8 +219,6 @@ function SignUpSection(props) {
             setFormProgress={setFormProgress}
           />
         </SwiperSlide>
-
-
 
         <SwiperSlide>
           <FinishView

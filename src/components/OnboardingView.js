@@ -158,13 +158,13 @@ export function WindowView(props) {
         component="img"
         alt=""
         sx={{
-          width: '350px',
-          height: '350px',
+          width: '300px',
+          height: '300px',
           borderRadius: '24px',
         }}
         image={props.image}
       />
-       <Typography 
+       <Typography sx={{padding: '1em'}}
           variant="bold"
           textAlign="center"
         >
