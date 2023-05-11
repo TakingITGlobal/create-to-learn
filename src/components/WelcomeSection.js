@@ -43,7 +43,7 @@ function WelcomeSection(props) {
             size={4}
             textAlign="center"
           />
-          <Paper elevation="2" sx={{ marginBottom: '20px'}}>
+          <Paper elevation={2} sx={{ marginBottom: '20px'}}>
             <Link componant="button" to="./sign-up">
               <img
                 src={props.image}

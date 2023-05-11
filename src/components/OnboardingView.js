@@ -12,67 +12,12 @@ import { useAuth } from '../util/auth'
 import AuthForm from './AuthForm'
 
 const styles = theme => ({
-  // container: {
-  //   margin: '0 auto', 
-  //   height: '100%',
-  // },
-
-  // page: {
-  //   display: 'flex',
-  //   flexDirection: 'column',
-  //   justifyContent: 'center',
-  //   alignItems: 'stretch',
-  //   height: '100%',
-  //   margin: '0 auto',
-  // },
-
-  // imageWrap: {
-  //   margin: 'auto 0',
-  //   maxWidth: '100%',
-  //   maxHeight: '50%',
-  //   position: 'relative',
-  //   '& img': {
-  //     width: '100%',
-  //     maxHeight:'100%',
-  //     objectFit: 'contain',
-  //     userSelect: 'none',
-  //     userDrag: 'none',
-  //   },
-  // },
-
-  // imageCover: {
-  //   position: 'absolute',
-  //   width: '100%',
-  //   height: '100%',
-  //   top: 0, left:0,right:0,bottom:0,
-  //   zIndex: 2,
-  // },
-
   gridColumn: {
     flexDirection: 'column',
     alignItems: 'stretch',
     alignContent: 'stretch',
     gap: 8,
   },
-
-  // btnInput: {
-  //   display: 'flex',
-  //   '& > label': {
-  //     flex: '1',
-  //     textAlign: 'left',
-  //     justifyContent: 'flex-start',
-  //   },
-  //   '& > input:checked + label': {
-  //     background: '#555555',
-  //   },
-  // },
-
-  // btnNavWrap: {
-  //   marginTop: 'auto',
-  //   alignItems: 'stretch',
-  //   flexDirection: 'column',
-  // },
-
   scrollBox: {
     overflowY: 'scroll', 
     height: '40vh', 

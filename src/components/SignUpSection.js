@@ -3,7 +3,7 @@ import useClasses from '../hooks/useClasses'
 import Section from './Section'
 import { useTranslation } from 'react-i18next'
 import {A11y,Keyboard} from 'swiper'
-import { MobileStepper, Button, Box, Container } from '@mui/material';
+import { MobileStepper, Button, Box, Container, Link } from '@mui/material';
 import ArrowBack from '@mui/icons-material/ArrowBack'
 import { Swiper, SwiperSlide, useSwiper} from 'swiper/react'
 import 'swiper/css'
@@ -60,7 +60,7 @@ const ProgressBar = (props) => {
   }, [swiper])
   return (
     <Container slot={slot} sx={{padding: '1em'}}> 
-      {active >= start ?    
+      {active > start ?    
         <MobileStepper
           variant="progress"
           steps={end - start  + 1}
@@ -72,6 +72,10 @@ const ProgressBar = (props) => {
             </SwiperPrev>
           }
         />
+        : active == 0 ?
+        <Link href="/dashboard" variant="subtitle1" underline="hover" p='0.75rem 1.5rem' display="block">
+          <ArrowBack style={{verticalAlign:'center'}}/> Back to Dashboard 
+        </Link>
         :
         <SwiperPrev >
           <ArrowBack/>
