@@ -3,10 +3,11 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
 import ButtonBase from '@mui/material/ButtonBase'
+import LinearProgress from '@mui/material/LinearProgress'
 
 import { useTranslation } from 'react-i18next'
 
-const BrowseCourseCard = ({ course }) => {
+const BrowseCourseCard = ({ course, percentProgress }) => {
   const { t } = useTranslation()
 
   return (
@@ -41,6 +42,7 @@ const BrowseCourseCard = ({ course }) => {
                     {course.videos && course.videos.length}{' '}
                     {course.videos.length === 1 ? t('video') : t('videos')}
                   </Typography>
+                  <LinearProgress variant="buffer" value={percentProgress} />
                 </>
               </Box>
             </Box>
