@@ -41,6 +41,7 @@ export const c2learn = (mode) => ({
         fontWeight: '800',
         display: 'block',
         color: '#CBA2F4',
+        paddingBottom: '10px'
     },
   },
   breakpoints: {
@@ -162,6 +163,9 @@ export const c2learn = (mode) => ({
             : {
                 color: '#fff',
               }),
+          ".MuiSvgIcon-root": {
+            verticalAlign: 'middle'
+          }
         },
       },
       variants: [
@@ -305,15 +309,27 @@ export const c2learn = (mode) => ({
         {
           props: { variant: 'selection' },
           style: {
-            justifyContent: 'flex-start',
+            justifyContent: 'space-between',
             backgroundColor: '#211E34',
             borderRadius: '0.75em',
             padding: '1.125em 1.5em',
             color: '#ccc',
+            ".MuiSvgIcon-root" : {
+              color: '#000',
+              backgroundColor: '#fff',
+              borderRadius: '99em',
+              marginLeft: '14px',
+              padding: '2px',
+              fontSize: '1.1em',
+              display: 'none'
+            },
             "&:hover": {
               backgroundColor: '#6956F1',
-              color: '#fff'
-            }
+              color: '#fff',
+              ".MuiSvgIcon-root": {
+                display: 'block',
+              }
+            },
           },
         },
       ],

@@ -139,7 +139,6 @@ function App(props) {
                   </Hidden>
                   <Hidden mdUp>
                     <BottomNavbar />
-                    <Box sx={{ width: '100%', height: 56 }} />
                   </Hidden>
                 </LocationProvider>
               </Router>

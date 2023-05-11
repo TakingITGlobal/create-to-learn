@@ -74,7 +74,7 @@ const ProgressBar = (props) => {
         />
         : active == 0 ?
         <Link href="/dashboard" variant="subtitle1" underline="hover" p='0.75rem 1.5rem' display="block">
-          <ArrowBack style={{verticalAlign:'center'}}/> Back to Dashboard 
+          <ArrowBack/> Back to Dashboard 
         </Link>
         :
         <SwiperPrev >
@@ -225,7 +225,6 @@ function SignUpSection(props) {
           slot={SlotEnd}
         />
       </Swiper>
-        
     </Section>
   );
 }

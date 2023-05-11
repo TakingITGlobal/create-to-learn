@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from 'react'
 import useClasses from '../hooks/useClasses'
 import { Grid, Button, Box, TextField, Alert, Paper, Stack, CardMedia, Typography} from '@mui/material'
+import Check from '@mui/icons-material/Check'
 import { useTranslation } from 'react-i18next'
 import {useSwiper,useSwiperSlide} from 'swiper/react'
 import { FixedSizeList as List } from 'react-window'
@@ -65,8 +66,8 @@ function InputView(props){
   }
 
   return (
-    <Box sx={{ padding: '50px 1em 1em 1em'}}>
-      <Stack direction="column"
+    <Box sx={{ padding: '30px 1em 1em 1em'}}>
+      <Stack direction="column" sx={{pb: '40px'}}
       >
         <Typography variant="decorative">
           {t(`onboarding.${props.value}.header`)}
@@ -147,7 +148,7 @@ export function InputSelectView(props) {
   return (
     <InputView data={data} {...props}>
       {multi ? (
-          <Grid container sx={{gap: '10px', justifyContent: 'space-between', marginBottom: '1em'}}>
+          <Grid container sx={{gap: '10px', justifyContent: 'space-between', marginBottom: '2em'}}>
             {options?.map((val,i) => (
               <Box as="div" key={i} className={classes.btnInput} sx={{flex: `0 1 calc(calc(100% / ${cols}) - (10px * ${cols - 1}))`}}>
                 <input
@@ -161,9 +162,11 @@ export function InputSelectView(props) {
                   variant="selection" 
                   component="label" 
                   fullWidth
+                  icon={Check}
                   htmlFor={val}
                 >
                   {val}
+                  <Check />
                 </Button>  
               </Box>
             ))} 
@@ -187,6 +190,7 @@ export function InputSelectView(props) {
                   size="small"
                 >
                   {val}
+                  <Check />
                 </Button>  
               </Box>
             ))} 
@@ -254,6 +258,7 @@ export function InputSearchView(props) {
         sx={{marginBottom: "5px"}}
       >
         {data[index]}
+        <Check />
       </Button>   
     </div>  
   )
@@ -264,7 +269,6 @@ export function InputSearchView(props) {
       {data.length > 0 && (
         <Button 
           variant='contained' 
-        
           size="small"
         >
           {data}
