@@ -40,7 +40,7 @@ export const c2learn = (mode) => ({
         fontSize: '1.4em',
         fontWeight: '800',
         display: 'block',
-        color: '#CBA2F4',
+        color: '#D2CCFB',
         paddingBottom: '10px'
     },
   },

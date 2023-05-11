@@ -72,7 +72,7 @@ function InputView(props){
         <Typography variant="decorative">
           {t(`onboarding.${props.value}.header`)}
         </Typography>
-        <Typography variant="secondary" sx={{color:'#CBA2F4'}}>
+        <Typography variant="secondary" sx={{color:'#D2CCFB'}}>
           {t(`onboarding.${props.value}.header2`)}
         </Typography>
         <Typography variant="secondary">
