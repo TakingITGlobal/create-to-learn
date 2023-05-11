@@ -22,16 +22,8 @@ import schoolData from '../assets/options/schools.json'
 const SlotStart = 'container-start'
 const SlotEnd = "container-end"
 const styles = theme => ({
-  // container: {
-  //   maxHeight: '100%',
-  //   position:'relative',
-  //   display: 'flex',
-  //   flexDirection: 'column',
-  // },
   swiper: {
     width: '100%',
-    // height: '100%',
-    // maxHeight: 'calc(100vh - 120px)',
     '& .swiper-slide': {
       display: 'flex',
       maxWidth: theme.breakpoints.md,
@@ -118,9 +110,7 @@ const ProgressDots = (props) => {
           } 
           />
           :
-          <SwiperNext>
-            {t('btn.continue')}
-          </SwiperNext>
+          null
       }
     </Container> 
   )

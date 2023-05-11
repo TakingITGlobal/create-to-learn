@@ -32,36 +32,43 @@
     "fnmi": {
       "subheader": "Tell us more about you, so we can personalize your experience",
       "header": "I am..",
+      "header2": "",
       "skip-btn": "Prefer not to say"
     },
     "language": {
-      "subheader": "[Reason for asking]",
-      "header": "I am..",
+      "subheader": "So that we can greet and congratulate you in the future",
+      "header": "My language is",
+      "header2": "Or a language I'm learning",
       "skip-btn": "My language is not here"
     },
     "greeting": {
       "subheader": "My greeting",
       "header": "Say your preferred greeting!",
+      "header2": "",
       "skip-btn": "Maybe later"
     },
     "school": {
-      "subheader": "Tell us more about you, so we can personalize your experience",
-      "header": "I am..",
+      "subheader": "Scroll or search to find your school",
+      "header": "I'm attending",
+      "header2": "",
       "skip-btn": "Prefer not to say"
     },
     "interests": {
       "subheader": "Tell us more about you, so we can personalize your experience",
       "header": "I am..",
+      "header2": "",
       "skip-btn": "Prefer not to say"
     },
     "email": {
       "subheader": "Tell us more about you, so we can personalize your experience",
       "header": "I am..",
+      "header2": "",
       "skip-btn": "Prefer not to say"
     },
     "displayName": {
       "subheader": "Tell us more about you, so we can personalize your experience",
       "header": "I am..",
+      "header2": "",
       "skip-btn": "Prefer not to say"
     }
   },

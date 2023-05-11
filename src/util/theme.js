@@ -16,12 +16,12 @@ export const c2learn = (mode) => ({
     h1: {
       fontSize: '1.75em',
       lineHeight: '2em',
-      fontWeight: 700,
+      fontWeight: '700',
     },
     h3: {
       fontSize: '1.125em',
       lineHeight: '1.3em',
-      fontWeight: 700,
+      fontWeight: '700',
     },
     subtitle1: {
       fontSize: '0.875em',
@@ -35,6 +35,12 @@ export const c2learn = (mode) => ({
       '.MuiSvgIcon-fontSizeMedium': {
         marginLeft: 'auto',
       },
+    },
+      decorative: {
+        fontSize: '1.4em',
+        fontWeight: '800',
+        display: 'block',
+        color: '#CBA2F4',
     },
   },
   breakpoints: {

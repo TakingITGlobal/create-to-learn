@@ -120,15 +120,18 @@ function InputView(props){
   }
 
   return (
-    <Grid className={classes.page} sx={{ padding: '1em'}}>
+    <Box sx={{ padding: '50px 1em 1em 1em'}}>
       <Stack direction="column"
       >
-        <Grid item>
-          <p>{t(`onboarding.${props.value}.subheader`)}</p>
-        </Grid>
-        <Grid item>
-          <h3>{t(`onboarding.${props.value}.header`)}</h3>
-        </Grid>
+        <Typography variant="decorative">
+          {t(`onboarding.${props.value}.header`)}
+        </Typography>
+        <Typography variant="secondary" sx={{color:'#CBA2F4'}}>
+          {t(`onboarding.${props.value}.header2`)}
+        </Typography>
+        <Typography variant="secondary">
+          {t(`onboarding.${props.value}.subheader`)}
+        </Typography>
       </Stack>
       <Grid container>
         {props.children}
@@ -147,7 +150,7 @@ function InputView(props){
         )
       }
       </Stack>
-    </Grid>
+    </Box>
   )
 }
 
