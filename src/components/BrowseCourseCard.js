@@ -7,9 +7,9 @@ import LinearProgress from '@mui/material/LinearProgress'
 
 import { useTranslation } from 'react-i18next'
 
-const BrowseCourseCard = ({ course, percentProgress }) => {
+const BrowseCourseCard = ({ course, progress }) => {
   const { t } = useTranslation()
-
+  const showProgress = progress && progress?.percentProgress > 0
   return (
     <Box sx={{ padding: '10px 0' }}>
       <ButtonBase href={'/course/' + course.uid}>
@@ -42,7 +42,20 @@ const BrowseCourseCard = ({ course, percentProgress }) => {
                     {course.videos && course.videos.length}{' '}
                     {course.videos.length === 1 ? t('video') : t('videos')}
                   </Typography>
-                  <LinearProgress variant="buffer" value={percentProgress} />
+                  {showProgress && (
+                    <>
+                      <LinearProgress
+                        variant="determinate"
+                        value={progress.percentProgress}
+                      />
+                      <Typography>
+                        {progress.timeLeft.hours > 0
+                          ? `${progress.timeLeft.hours} hours`
+                          : ''}{' '}
+                        {progress.timeLeft.minutes} min left
+                      </Typography>
+                    </>
+                  )}
                 </>
               </Box>
             </Box>

@@ -53,11 +53,18 @@ function MyCoursesProgressContent(props) {
             : vidInProgress[0].progress
         const percentProgress =
           100 * (totalTimeWatched / Number(course.totalLength))
+        const timeLeft = (Number(course.totalLength) - totalTimeWatched) / 60
         return (
           <BrowseCourseCard
             key={i}
             course={course}
-            percentProgress={percentProgress}
+            progress={{
+              percentProgress: percentProgress ?? 0,
+              timeLeft: {
+                hours: Math.floor(timeLeft / 60),
+                minutes: (timeLeft % 60).toFixed(),
+              },
+            }}
           />
         )
       })}
