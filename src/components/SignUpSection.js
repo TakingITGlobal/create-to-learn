@@ -42,7 +42,7 @@ const SwiperNext = ({children}) => {
 const SwiperPrev = ({children}) => {
   const swiper = useSwiper()
   return(
-    <Button size="sm" onClick={() => swiper.slidePrev()}>
+    <Button size="sm" sx={{paddingLeft: '0', justifyContent: 'flex-start'}} onClick={() => swiper.slidePrev()}>
       {children}
     </Button>
   )
@@ -66,6 +66,7 @@ const ProgressBar = (props) => {
           steps={end - start  + 1}
           activeStep={active - start}
           position="top"
+          sx={{padding: '1em'}}
           backButton={
             <SwiperPrev>
               <ArrowBack/>
@@ -73,7 +74,7 @@ const ProgressBar = (props) => {
           }
         />
         : active == 0 ?
-        <Link href="/dashboard" variant="subtitle1" underline="hover" p='0.75rem 1.5rem' display="block">
+        <Link href="/dashboard" variant="subtitle1" underline="hover" p='0.75rem 1.5rem 0.75em 0' display="block">
           <ArrowBack/> Back to Dashboard 
         </Link>
         :

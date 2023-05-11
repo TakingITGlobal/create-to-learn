@@ -47,6 +47,15 @@ function SignUp({ setDismissed = null, showDismissButton = false }) {
           </Grid>
         )}
       </Grid>
+      <Button
+        variant="text"
+        component={Link}
+        fullWidth
+        to="/auth/signin"
+        sx={{marginTop: '1em', textTransform: 'none', fontWeight: '500', borderTop: '1px solid #ccc'}}
+      >
+        {t('or-sign-in')}
+      </Button>
     </Paper>
   )
 }

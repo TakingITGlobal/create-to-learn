@@ -300,6 +300,7 @@ export const c2learn = (mode) => ({
         },
         text: {
           color: '#fff',
+          borderRadius: '0'
         },
         outline: {
           borderWidth: '2px',

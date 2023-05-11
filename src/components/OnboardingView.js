@@ -66,7 +66,7 @@ function InputView(props){
   }
 
   return (
-    <Box sx={{ padding: '30px 1em 1em 1em'}}>
+    <Box sx={{ padding: '50px 1em 1em 1em'}}>
       <Stack direction="column" sx={{pb: '40px'}}
       >
         <Typography variant="decorative">
