@@ -70,7 +70,7 @@ function BrowseSection(props) {
       bgImage={props.bgImage}
       bgImageOpacity={props.bgImageOpacity}
     >
-      <Container sx={{paddingBottom: '60px'}}>
+      <Container sx={{ paddingBottom: '60px' }}>
         <Box
           sx={{
             paddingTop: '40px',
@@ -95,13 +95,15 @@ function BrowseSection(props) {
             itemClass={classes.carouselItem}
           >
             {categories.map((category, index) => (
-              <Button key={index} onClick={() => handleCategoryFilter(category.label)} 
+              <Button
+                key={index}
+                onClick={() => handleCategoryFilter(category.label)}
                 sx={{
-                  display: 'flex', 
+                  display: 'flex',
                   flexDirection: 'column',
-                  padding: '0'
+                  padding: '0',
                 }}
-                >
+              >
                 <Box
                   component="img"
                   src={category.illustration}
@@ -111,9 +113,7 @@ function BrowseSection(props) {
                     objectFit: 'cover',
                     marginBottom: '7px',
                     border:
-                      categoryFilter === category.label
-                        ? ' 1px solid'
-                        : 'none',
+                      categoryFilter === category.label ? ' 1px solid' : 'none',
                     borderColor: '#fff',
                   }}
                 />
@@ -124,10 +124,7 @@ function BrowseSection(props) {
                     fontWeight: '600',
                     width: '80%',
                     overflowWrap: 'break-word',
-                    color: 
-                    categoryFilter === category.label
-                    ? '#ffff'
-                    : '#ccc',
+                    color: categoryFilter === category.label ? '#ffff' : '#ccc',
                   }}
                 >
                   {category.label}
