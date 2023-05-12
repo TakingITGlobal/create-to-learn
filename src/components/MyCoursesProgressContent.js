@@ -1,5 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
+import IconButton from '@mui/material/IconButton'
+import MoreVertIcon from '@mui/icons-material/MoreVert'
 
 import BrowseCourseCard from './BrowseCourseCard'
 
@@ -55,17 +58,22 @@ function MyCoursesProgressContent(props) {
           100 * (totalTimeWatched / Number(course.totalLength))
         const timeLeft = (Number(course.totalLength) - totalTimeWatched) / 60
         return (
-          <BrowseCourseCard
-            key={i}
-            course={course}
-            progress={{
-              percentProgress: percentProgress ?? 0,
-              timeLeft: {
-                hours: Math.floor(timeLeft / 60),
-                minutes: (timeLeft % 60).toFixed(),
-              },
-            }}
-          />
+          <Stack direction="row" justifyContent="center" alignItems="center">
+            <BrowseCourseCard
+              key={i}
+              course={course}
+              progress={{
+                percentProgress: percentProgress ?? 0,
+                timeLeft: {
+                  hours: Math.floor(timeLeft / 60),
+                  minutes: (timeLeft % 60).toFixed(),
+                },
+              }}
+            />
+            <IconButton>
+              <MoreVertIcon />
+            </IconButton>
+          </Stack>
         )
       })}
     </Box>
