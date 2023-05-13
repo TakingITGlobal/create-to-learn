@@ -11,6 +11,7 @@ export const useInProgressCourses = () => {
   const [inProgressVideoIds, setInProgressVideoIds] = useState([])
   const [inProgressCourses, setInProgressCourses] = useState([])
 
+  console.log(progress)
   useMemo(() => {
     if (progress && progress.data) {
       setInProgressVideoIds(
