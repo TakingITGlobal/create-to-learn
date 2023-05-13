@@ -92,7 +92,12 @@
     "my-courses": "My Courses",
     "downloads": "Downloads",
     "my-progress": "My Progress",
-    "watchlist": "Watchlist"
+    "watchlist": "Watchlist",
+    "continue-watching": "Continue watching",
+    "add-to-watchlist": "Add to watchlist",
+    "download-episode": "Download this episode",
+    "see-details": "See details",
+    "in-progress": "In progress"
   },
   "settings": {
     "profile": "Profile",

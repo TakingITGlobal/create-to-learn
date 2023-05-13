@@ -22,7 +22,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import Section from './Section'
 import BrowseCourseCard from './BrowseCourseCard'
 import BrowseFilterEmptyState from './BrowseFilterEmptyState'
-import MyCoursesProgressContent from './MyCoursesProgressContent'
+import MyCoursesProgress from './MyCoursesProgress'
 import { useTranslation } from 'react-i18next'
 import { dataContext } from '../util/dataProvider'
 import { useAuth } from './../util/auth'
@@ -86,7 +86,7 @@ function MyCoursesSection(props) {
               </Tabs>
             </Box>
             <TabPanel tabIndex={tabIndex} index={0}>
-              <MyCoursesProgressContent />
+              <MyCoursesProgress />
             </TabPanel>
             <TabPanel tabIndex={tabIndex} index={1}>
               'hahhh'
@@ -193,7 +193,7 @@ const TabPanel = (props) => {
       {...other}
     >
       {tabIndex === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 0 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
