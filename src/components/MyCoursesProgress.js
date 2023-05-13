@@ -73,6 +73,14 @@ function MyCoursesProgress() {
           )
         })}
       </AccordionDetails>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="in-progress-content"
+        id="in-progress-header"
+      >
+        <Typography>{t('my-courses.in-progress')}</Typography>
+      </AccordionSummary>
+      <AccordionDetails>Completed courses will go here</AccordionDetails>
     </Accordion>
   )
 }

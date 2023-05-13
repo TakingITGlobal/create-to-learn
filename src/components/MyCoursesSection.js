@@ -89,7 +89,7 @@ function MyCoursesSection(props) {
               <MyCoursesProgress />
             </TabPanel>
             <TabPanel tabIndex={tabIndex} index={1}>
-              'hahhh'
+              Downloaded courses will go here
             </TabPanel>
             <TabPanel tabIndex={tabIndex} index={2}>
               {loadingCourses ? (
