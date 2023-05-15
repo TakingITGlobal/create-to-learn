@@ -324,7 +324,7 @@ export const c2learn = (mode) => ({
               fontSize: '1.1em',
               display: 'none'
             },
-            "&:hover": {
+            "&.active": {
               backgroundColor: '#6956F1',
               color: '#fff',
               ".MuiSvgIcon-root": {

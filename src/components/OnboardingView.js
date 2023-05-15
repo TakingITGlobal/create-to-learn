@@ -137,10 +137,14 @@ export function InputSelectView(props) {
 
 
   const [ data, setData] = useState(multi ? [] : "");
+  const [isActive, setActive] = useState(false);
+  const toggleIsActive = (i) => {
+    setActive(i);
+  };  
   function onChange(e) {
     multi ? 
       !data.includes(e.target.value) 
-      ?  setData([...data,e.target.value])
+      ?  setData([...data,e.target.value]) 
       : setData(data.filter(x => x !== e.target.value))
     : setData(e.target.value)
   }
@@ -162,9 +166,10 @@ export function InputSelectView(props) {
                   variant="selection" 
                   component="label" 
                   fullWidth
-                  icon={Check}
                   htmlFor={val}
-                >
+                  onClick={()=> toggleIsActive(i)}
+                  className={isActive === i ? 'active' : ''}
+                  >
                   {val}
                   <Check />
                 </Button>  
