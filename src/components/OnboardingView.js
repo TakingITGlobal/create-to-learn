@@ -244,8 +244,8 @@ export function InputSearchView(props) {
   const [ data, setData] = useState("")
   function onInputChange(e) {setInputValue(e.target.value)}
   function onChange(e) {setData(e.target.value)}
-  const Row = ({ data, index, style }) => (
-    <div className={classes.btnInput} style={style}>
+  const Row = ({ data, index, style, e }) => (
+    <div>
       <input 
         onChange={onChange}
         type="radio" 
@@ -270,7 +270,7 @@ export function InputSearchView(props) {
   return (
     <InputView data={data} {...props}>
 
-      <Grid>
+      <Stack direction='column' sx={{padding: '10px 0'}}>
       {data.length > 0 && (
         <Button 
           variant='contained' 
@@ -279,13 +279,13 @@ export function InputSearchView(props) {
           {data}
         </Button>   
       )}
-      </Grid>
+      </Stack>
     
       <TextField variant="outlined" onChange={onInputChange} fullWidth/>
       
       <Grid container item className={classes.gridColumn} >
         <Grid className={classes.scrollBox}>
-          <span className={classes.btnInput}>
+          <Box sx={{padding: '10px 0'}}>
             <input type="radio" value="other" id="other" name={value} hidden onChange={onChange}/>
             <Button 
               variant='selection' 
@@ -296,12 +296,12 @@ export function InputSearchView(props) {
             >
               {t("btn.missing", {value: value})}
             </Button>
-          </span>
+          </Box>
           <List
             itemData={filtered}
             itemCount={filtered.length}
-            height={400}
-            itemSize={80}
+            height={420}
+            itemSize={65}
             width='100%'
           >
             {Row}
@@ -326,7 +326,7 @@ export function EmailView(){
     
   }
   return (
-    <Grid className={classes.page}>
+    <Box sx={{ padding: '50px 1em 1em 1em'}}>
       <Grid 
         container 
         item 
@@ -363,7 +363,7 @@ export function EmailView(){
             />
           </>
       </Grid>
-    </Grid>
+    </Box>
   )
 }
 export function FinishView(props){
@@ -393,7 +393,7 @@ export function FinishView(props){
   }
  
   return (
-    <Grid className={classes.page}>
+    <Box sx={{ padding: '50px 1em 1em 1em'}}>
       <Grid 
         container 
         item 
@@ -420,6 +420,6 @@ export function FinishView(props){
         
         
       </Grid>
-    </Grid>
+    </Box>
   )
 }

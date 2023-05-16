@@ -1,22 +1,8 @@
 import React from 'react'
 import MultiCarousel from 'react-multi-carousel'
-import Typography from '@mui/material/Typography'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import CardMedia from '@mui/material/CardMedia'
-import CardActionArea from '@mui/material/CardActionArea'
-import useClasses from '../hooks/useClasses'
+import { Typography, Box, Card, CardContent, CardMedia, CardActionArea } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import 'react-multi-carousel/lib/styles.css'
-
-const styles = (theme) => ({
-  cardContent: {
-    padding: theme.spacing(3),
-  },
-  carouselItem: {
-    paddingRight: '20px',
-    paddingBottom: '20px',
-  },
-})
 
 const responsive = {
   desktop: {
@@ -37,7 +23,7 @@ const responsive = {
 }
 
 const DashboardTopCourses = ({ title, courses, icon }) => {
-  const classes = useClasses(styles)
+  const theme = useTheme();
 
   return courses.length ? (
     <>
@@ -51,24 +37,26 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
         partialVisible={true}
         responsive={responsive}
         swipeable
-        itemClass={classes.carouselItem}
       >
         {courses.map((item, i) => {
           return (
             <Card
               key={i}
               sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                padding: '15px',
-                height: '375px',
-                backgroundColor: '#413F4C !important',
-                borderRadius: '6px',
+                height: '315px',
+                padding: '0',
+                margin: '0 10px'
               }}
             >
               <CardActionArea
                 sx={{
                   height: '100%',
+                  padding: '15px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  justifyContent: 'flex-start',
+                  backgroundColor: theme.palette.background.secondary,
                 }}
                 href={'/course/' + item.uid}
               >
@@ -87,20 +75,21 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
                   image={item.thumbnail[0]?.downloadURL}
                 />
                 <CardContent
-                  sx={{
+                  sx={{ 
                     display: 'flex',
                     flexDirection: 'column',
-                    padding: '10px 0',
-                    color: 'white',
-                    justifyContent: 'flex-end',
+                    justifyContent: 'space-between',
+                    flex: '1'
                   }}
                 >
-                  <Typography variant="h6">
-                    <b>{item.seriesName} </b>
-                  </Typography>
+                  <Box componant="div">
+                    <Typography component="h3" variant="bold">
+                      {item.seriesName}
+                    </Typography>
+                    <Typography variant="body" component="p">{item.creator}</Typography>
+                  </Box>
 
-                  <Typography variant="h6">{item.creator}</Typography>
-                  <Typography variant="h6">Materials Required</Typography>
+                  <Typography variant="subtitle1" component="p">Materials Required</Typography>
                 </CardContent>
               </CardActionArea>
             </Card>

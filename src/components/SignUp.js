@@ -33,7 +33,7 @@ function SignUp({ setDismissed = null, showDismissButton = false }) {
           </Button>
         </Grid>
         {showDismissButton && (
-          <Grid item xs={6}>
+          <Grid item xs={6} sx={{textAlign: 'center'}}>
             <Button
               variant="text"
               size="large"

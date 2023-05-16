@@ -50,7 +50,6 @@ const SwiperPrev = ({children}) => {
 const ProgressBar = (props) => {
   const {start,end,slot} = props
   const swiper =useSwiper()
-  const classes = useClasses(styles)
   const [active,setActive] = useState(0)
   useEffect(() => {
     swiper.on("slideChange", (swipe) => {

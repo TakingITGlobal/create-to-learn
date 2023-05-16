@@ -25,6 +25,7 @@ export const c2learn = (mode) => ({
     },
     subtitle1: {
       fontSize: '0.875em',
+      display: 'block'
     },
     sectionTitle: {
       fontSize: '1.125em',
@@ -324,7 +325,7 @@ export const c2learn = (mode) => ({
               fontSize: '1.1em',
               display: 'none'
             },
-            "&.active": {
+            "&.active, &:hover": {
               backgroundColor: '#6956F1',
               color: '#fff',
               ".MuiSvgIcon-root": {
@@ -396,5 +397,24 @@ export const c2learn = (mode) => ({
         },
       ],
     },
+    MuiMobileStepper: {
+      styleOverrides: {
+        progress: {
+          width: '100%'
+        }
+      }
+    },
+    MuiLinearProgress: {
+      styleOverrides: {
+        root: {
+          height: '8px',
+          borderRadius: '10px',
+          backgroundColor: '#ccc',
+          "& .MuiLinearProgress-bar" : {
+            borderRadius: '10px'
+          }
+        }
+      }
+    }
   },
 })
