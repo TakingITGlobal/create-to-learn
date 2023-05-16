@@ -20,9 +20,6 @@ const styles = (theme) => ({
   cardContent: {
     padding: '5px',
   },
-  carouselItem: {
-    padding: '0 20px',
-  },
   title: {
     padding: '10px 0',
   },
@@ -84,7 +81,7 @@ function BrowseSection(props) {
               justifyContent: 'space-between',
             }}
           >
-            <Typography variant="h4">{t('browse.browse')}</Typography>
+            <Typography variant="h1">{t('browse.browse')}</Typography>
 
             <IconButton onClick={() => setOpenSearchDrawer(true)}>
               <SearchIcon sx={{ color: 'white' }} fontSize="large" />
@@ -99,32 +96,44 @@ function BrowseSection(props) {
               itemClass={classes.carouselItem}
             >
               {categories.map((category, index) => (
-                <Stack direction="column" spacing={2} key={index}>
-                  <Button onClick={() => handleCategoryFilter(category.label)}>
-                    <Box
-                      component="img"
-                      src={category.illustration}
-                      alt="all"
-                      sx={{
-                        display: 'flex',
-                        objectFit: 'cover',
-                        border:
-                          categoryFilter === category.label
-                            ? ' 1px solid'
-                            : 'none',
-                        borderColor: 'white',
-                      }}
-                    />
-                  </Button>
+                <Button key={index} onClick={() => handleCategoryFilter(category.label)} 
+                  sx={{
+                    display: 'flex', 
+                    flexDirection: 'column',
+                    padding: '0'
+                  }}
+                  >
+                  <Box
+                    component="img"
+                    src={category.illustration}
+                    alt="all"
+                    sx={{
+                      display: 'flex',
+                      objectFit: 'cover',
+                      marginBottom: '7px',
+                      border:
+                        categoryFilter === category.label
+                          ? ' 1px solid'
+                          : 'none',
+                      borderColor: '#fff',
+                    }}
+                  />
                   <Typography
                     sx={{
-                      fontSize: 12,
+                      fontSize: '0.75em',
                       textAlign: 'center',
+                      fontWeight: '600',
+                      width: '80%',
+                      overflowWrap: 'break-word',
+                      color: 
+                      categoryFilter === category.label
+                      ? '#ffff'
+                      : '#ccc',
                     }}
                   >
                     {category.label}
                   </Typography>
-                </Stack>
+                </Button>
               ))}
             </MultiCarousel>
           </Box>

@@ -7,17 +7,17 @@ import CardMedia from '@mui/material/CardMedia'
 
 const BrowseCreatorCard = ({ creator }) => {
   return (
-    <ButtonBase href={'/creator/' + creator.uid}>
-      <Stack direction="column" spacing={1} width="100%">
+    <ButtonBase href={'/creator/' + creator.uid} sx={{alignItems: 'flex-start'}}>
+      <Stack direction="column" spacing={1} width="100%" alignItems="flex-start">
         <CardMedia
           component="img"
-          sx={{ height: {xs: '100px', sm: '225px'}}}
+          sx={{ height: {xs: '144px', sm: '225px'}}}
           alt={`creator-${creator.name}`}
           src={creator.image && creator.image[0]?.downloadURL}
         />
-        <Box sx={{ height: '100px' }}>
+        <Box>
           <Typography variant="body2">{creator.name} </Typography>
-          <Typography variant="body2">{creator.fnmi} </Typography>
+          <Typography variant="subtitle1">{creator.fnmi} </Typography>
         </Box>
       </Stack>
     </ButtonBase>

@@ -2,12 +2,12 @@ export const c2learn = (mode) => ({
   typography: {
     fontFamily: '"Manrope", "Helvetica", "Arial", sans-serif',
     body: {
-      fontSize: '16px',
+      fontSize: '1em',
       fontWeight: '500',
     },
     body2: {
-      fontSize: '16px',
-      fontWeight: '500',
+      fontSize: '0.875em',
+      fontWeight: '600',
     },
     bold: {
       fontWeight: '700',
@@ -25,7 +25,8 @@ export const c2learn = (mode) => ({
     },
     subtitle1: {
       fontSize: '0.875em',
-      display: 'block'
+      display: 'block',
+      color: '#ccc'
     },
     sectionTitle: {
       fontSize: '1.125em',
@@ -52,36 +53,6 @@ export const c2learn = (mode) => ({
       md: 960,
       lg: 1200,
       xl: 1920,
-    },
-  },
-  body2: {
-    fontSize: '16px',
-    fontWeight: '500',
-  },
-  bold: {
-    fontWeight: '700',
-  },
-  h1: {
-    fontSize: '1.75em',
-    lineHeight: '2em',
-    fontWeight: 700,
-  },
-  h3: {
-    fontSize: '1.125em',
-    lineHeight: '1.3em',
-    fontWeight: 700,
-  },
-  subtitle1: {
-    fontSize: '0.875em',
-  },
-  sectionTitle: {
-    fontSize: '1.125em',
-    fontWeight: '700',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '5px',
-    '.MuiSvgIcon-fontSizeMedium': {
-      marginLeft: 'auto',
     },
   },
   palette: {
@@ -264,6 +235,7 @@ export const c2learn = (mode) => ({
     MuiTab: {
       styleOverrides: {
         root: {
+          flex: '1',
           textTransform: 'capitalize',
           fontSize: '1em',
           '&.Mui-selected': {

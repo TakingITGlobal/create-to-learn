@@ -18,23 +18,7 @@ import { useTranslation } from 'react-i18next'
 import { dataContext } from '../util/dataProvider'
 import { useCoursesFilter } from '../hooks/useCoursesFilter'
 import { useCreatorsFilter } from '../hooks/useCreatorsFilter'
-import useClasses from '../hooks/useClasses'
 import { durations } from '../assets/options/filters'
-
-const styles = (theme) => ({
-  filterButton: {
-    backgroundColor: 'white',
-    borderRadius: '48px !important',
-    textTransform: 'capitalize !important',
-    color: 'black',
-  },
-  clearButton: {
-    backgroundColor: 'black',
-    borderRadius: '48px !important',
-    textTransform: 'capitalize !important',
-    color: 'white',
-  },
-})
 
 const BrowseTabs = ({
   durationFilter,
@@ -45,7 +29,6 @@ const BrowseTabs = ({
   setCategoryFilter,
 }) => {
   const { t } = useTranslation()
-  const classes = useClasses(styles)
 
   const [tabIndex, setTabIndex] = useState(0)
   const [openDrawer, setOpenDrawer] = useState(false)
@@ -145,12 +128,10 @@ const BrowseTabs = ({
             <Tab
               label={t('courses')}
               {...a11yProps(0)}
-              sx={{ color: 'white' }}
             />
             <Tab
               label={t('creators')}
               {...a11yProps(1)}
-              sx={{ color: 'white' }}
             />
           </Tabs>
         </Box>
@@ -165,12 +146,14 @@ const BrowseTabs = ({
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   paddingBottom: '20px',
+                  "> *": {
+                    flex: '1'
+                  }
                 }}
               >
                 <Button
-                  variant="contained"
+                  variant="secondary"
                   onClick={() => setOpenDrawer(true)}
-                  className={classes.filterButton}
                   startIcon={<FilterListSharpIcon />}
                 >
                   {t('browse.show-filters')}{' '}
@@ -178,9 +161,8 @@ const BrowseTabs = ({
                 </Button>
 
                 <Button
-                  variant="contained"
+                  variant="text"
                   onClick={() => handleClearFilter()}
-                  className={classes.clearButton}
                 >
                   {t('browse.clear-filters')}
                 </Button>
@@ -252,7 +234,7 @@ const TabPanel = (props) => {
     >
       {tabIndex === index && (
         <Box sx={{ pt: 2, pb: 2 }}>
-          <Typography>{children}</Typography>
+          {children}
         </Box>
       )}
     </div>

@@ -6,29 +6,6 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 import Stack from '@mui/material/Stack'
 
 import { useTranslation } from 'react-i18next'
-import useClasses from '../hooks/useClasses'
-
-const styles = (theme) => ({
-  drawer: {
-    // backgroundColor: 'black !important',
-  },
-  filterButton: {
-    backgroundColor: 'white',
-    borderRadius: '48px !important',
-    textTransform: 'capitalize !important',
-    color: 'black',
-    border: 'white',
-    padding: '10px',
-  },
-  clearButton: {
-    backgroundColor: '#0B0919',
-    borderRadius: '48px !important',
-    textTransform: 'capitalize !important',
-    color: 'white',
-    border: '#0B0919',
-    padding: '10px',
-  },
-})
 
 const BrowseDrawer = ({
   children,
@@ -38,7 +15,6 @@ const BrowseDrawer = ({
   numberOfFilters,
 }) => {
   const { t } = useTranslation()
-  const classes = useClasses(styles)
 
   const toggleDrawer = (event, open) => {
     if (
@@ -57,7 +33,7 @@ const BrowseDrawer = ({
       open={openDrawer}
       onOpen={(event) => toggleDrawer(event, true)}
       onClose={(event) => toggleDrawer(event, false)}
-      PaperProps={{ className: classes.drawer }}
+      elevation={0}
     >
       <Box
         mt={2}
@@ -74,7 +50,7 @@ const BrowseDrawer = ({
         {children}
         <Stack direction="column" spacing={2} sx={{ paddingTop: '60px' }}>
           <Button
-            variant="text"
+            variant="secondary"
             color="info"
             onClick={() => setOpenDrawer(false)}
           >
@@ -82,8 +58,7 @@ const BrowseDrawer = ({
             {numberOfFilters ? `(${numberOfFilters})` : ''}
           </Button>
           <Button
-            variant="outlined"
-            className={classes.clearButton}
+            variant="text"
             onClick={() => {
               handleClearFilter()
               setOpenDrawer(false)
