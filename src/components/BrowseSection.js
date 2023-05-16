@@ -70,87 +70,85 @@ function BrowseSection(props) {
       bgImage={props.bgImage}
       bgImageOpacity={props.bgImageOpacity}
     >
-      <Box mt={2}>
-        <Container>
-          <Box
-            sx={{
-              paddingTop: '40px',
-              paddingBottom: '7px',
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Typography variant="h1">{t('browse.browse')}</Typography>
+      <Container sx={{paddingBottom: '60px'}}>
+        <Box
+          sx={{
+            paddingTop: '40px',
+            paddingBottom: '7px',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Typography variant="h1">{t('browse.browse')}</Typography>
 
-            <IconButton onClick={() => setOpenSearchDrawer(true)}>
-              <SearchIcon sx={{ color: 'white' }} fontSize="large" />
-            </IconButton>
-          </Box>
-          <Box sx={{ padding: '10px 0' }}>
-            <MultiCarousel
-              ssr
-              partialVisible
-              responsive={responsive}
-              swipeable
-              itemClass={classes.carouselItem}
-            >
-              {categories.map((category, index) => (
-                <Button key={index} onClick={() => handleCategoryFilter(category.label)} 
+          <IconButton onClick={() => setOpenSearchDrawer(true)}>
+            <SearchIcon sx={{ color: 'white' }} fontSize="large" />
+          </IconButton>
+        </Box>
+        <Box sx={{ padding: '10px 0' }}>
+          <MultiCarousel
+            ssr
+            partialVisible
+            responsive={responsive}
+            swipeable
+            itemClass={classes.carouselItem}
+          >
+            {categories.map((category, index) => (
+              <Button key={index} onClick={() => handleCategoryFilter(category.label)} 
+                sx={{
+                  display: 'flex', 
+                  flexDirection: 'column',
+                  padding: '0'
+                }}
+                >
+                <Box
+                  component="img"
+                  src={category.illustration}
+                  alt="all"
                   sx={{
-                    display: 'flex', 
-                    flexDirection: 'column',
-                    padding: '0'
-                  }}
-                  >
-                  <Box
-                    component="img"
-                    src={category.illustration}
-                    alt="all"
-                    sx={{
-                      display: 'flex',
-                      objectFit: 'cover',
-                      marginBottom: '7px',
-                      border:
-                        categoryFilter === category.label
-                          ? ' 1px solid'
-                          : 'none',
-                      borderColor: '#fff',
-                    }}
-                  />
-                  <Typography
-                    sx={{
-                      fontSize: '0.75em',
-                      textAlign: 'center',
-                      fontWeight: '600',
-                      width: '80%',
-                      overflowWrap: 'break-word',
-                      color: 
+                    display: 'flex',
+                    objectFit: 'cover',
+                    marginBottom: '7px',
+                    border:
                       categoryFilter === category.label
-                      ? '#ffff'
-                      : '#ccc',
-                    }}
-                  >
-                    {category.label}
-                  </Typography>
-                </Button>
-              ))}
-            </MultiCarousel>
-          </Box>
-          <BrowseTabs
-            durationFilter={durationFilter}
-            setDurationFilter={setDurationFilter}
-            categoryFilter={categoryFilter}
-            culturalGroupFilter={culturalGroupFilter}
-            setCulturalGroupFilter={setCulturalGroupFilter}
-            setCategoryFilter={setCategoryFilter}
-          />
-          <BrowseSearchDrawer
-            openSearchDrawer={openSearchDrawer}
-            setOpenSearchDrawer={setOpenSearchDrawer}
-          />
-        </Container>
-      </Box>
+                        ? ' 1px solid'
+                        : 'none',
+                    borderColor: '#fff',
+                  }}
+                />
+                <Typography
+                  sx={{
+                    fontSize: '0.75em',
+                    textAlign: 'center',
+                    fontWeight: '600',
+                    width: '80%',
+                    overflowWrap: 'break-word',
+                    color: 
+                    categoryFilter === category.label
+                    ? '#ffff'
+                    : '#ccc',
+                  }}
+                >
+                  {category.label}
+                </Typography>
+              </Button>
+            ))}
+          </MultiCarousel>
+        </Box>
+        <BrowseTabs
+          durationFilter={durationFilter}
+          setDurationFilter={setDurationFilter}
+          categoryFilter={categoryFilter}
+          culturalGroupFilter={culturalGroupFilter}
+          setCulturalGroupFilter={setCulturalGroupFilter}
+          setCategoryFilter={setCategoryFilter}
+        />
+        <BrowseSearchDrawer
+          openSearchDrawer={openSearchDrawer}
+          setOpenSearchDrawer={setOpenSearchDrawer}
+        />
+      </Container>
     </Section>
   )
 }
