@@ -167,8 +167,7 @@ export function InputSelectView(props) {
                   component="label" 
                   fullWidth
                   htmlFor={val}
-                  onClick={()=> toggleIsActive(i)}
-                  className={isActive === i ? 'active' : ''}
+                  className={data.includes(val) ? 'active' : ''}
                   >
                   {val}
                   <Check />
