@@ -33,7 +33,6 @@ function DashboardSection(props) {
   const { t } = useTranslation()
   const classes = useClasses(styles)
 
-  //This should be in local storage
   const [dismissSignUp, setDismissSignUp] = useState(
     localStorage.getItem('dismissSignUp'),
   )

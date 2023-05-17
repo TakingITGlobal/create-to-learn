@@ -11,31 +11,45 @@ function DashboardGreeting(props) {
   const auth = useAuth()
   const { t } = useTranslation()
 
+  const greetingList = [
+    'Tansi',
+    'Aaniin',
+    'Ullaakuut',
+    'Boozhoo',
+    'Waachiyaa',
+    "Dänch'ea",
+  ]
+
+  const randomGreeting =
+    greetingList[Math.floor(Math.random() * greetingList.length)]
+
   return (
-    <Stack direction="row" spacing={1} sx={{ padding: '80px 0 10px 0' }}>
-      <HandshakeIcon
-        fontSize="large"
-        sx={{
-          backgroundColor: '#0B0919',
-          padding: '5px',
-          borderRadius: '30%',
-          color: 'yellow',
-          alignSelf: 'center',
-        }}
-      />
-      <Box sx={{ paddingBottom: '7px' }}>
+    <>
+      <Stack direction="row" spacing={1}>
+        <HandshakeIcon
+          fontSize="large"
+          sx={{
+            backgroundColor: '#0B0919',
+            padding: '5px',
+            borderRadius: '30%',
+            color: 'yellow',
+            alignSelf: 'center',
+          }}
+        />
+        <Typography variant="h1"> {randomGreeting}</Typography>
+      </Stack>
+      <Box>
         {auth.user ? (
-          <Box>
-            <Typography variant="h1"> Tân'si </Typography>{' '}
+          <>
             <Typography variant="h1">
-              {auth.user.displayName ?? auth.user.name}{' '}
+              {auth.user.displayName ?? auth.user.name}
             </Typography>
-          </Box>
+          </>
         ) : (
           <Typography variant="h1">{t('hello')}</Typography>
         )}
       </Box>
-    </Stack>
+    </>
   )
 }
 

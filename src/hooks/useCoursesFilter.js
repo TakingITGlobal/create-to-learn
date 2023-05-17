@@ -1,5 +1,9 @@
 import { useState, useEffect, useMemo } from 'react'
-import { durations, culturalGroups } from '../assets/options/filters'
+import {
+  durations,
+  culturalGroups,
+  difficultyLevels,
+} from '../assets/options/filters'
 import { categories } from '../assets/options/categories'
 
 const ALL_CATEGORIES = 'All'
@@ -11,6 +15,8 @@ export const useCoursesFilter = ({
   culturalGroupFilter = [],
   categoryFilter = ALL_CATEGORIES,
   featuredFilter,
+  difficultyLevelFilter,
+  materialsFilter,
 }) => {
   const [filteredCourses, setFilteredCourses] = useState(allCourses)
   const hasFilters = useMemo(
@@ -18,8 +24,17 @@ export const useCoursesFilter = ({
       durationFilter.length ||
       culturalGroupFilter.length ||
       categoryFilter !== ALL_CATEGORIES ||
+      featuredFilter ||
+      difficultyLevelFilter.length ||
+      materialsFilter.length,
+    [
+      durationFilter,
+      culturalGroupFilter,
+      categoryFilter,
       featuredFilter,
-    [durationFilter, culturalGroupFilter, categoryFilter, featuredFilter],
+      difficultyLevelFilter,
+      materialsFilter,
+    ],
   )
 
   useEffect(() => {
@@ -34,7 +49,13 @@ export const useCoursesFilter = ({
             allCreators,
           ) &&
           handleCategory(categoryFilter, course.category) &&
-          handleFeatured(featuredFilter, course.featured)
+          handleFeatured(featuredFilter, course.featured) &&
+          handleDifficulty(
+            difficultyLevelFilter,
+            difficultyLevels,
+            course.difficultyLevel,
+          ) &&
+          handleMaterials(materialsFilter, course.materials)
         )
       })
 
@@ -46,15 +67,20 @@ export const useCoursesFilter = ({
     culturalGroupFilter,
     categoryFilter,
     featuredFilter,
+    difficultyLevelFilter,
+    materialsFilter,
   ])
 
   return { data: hasFilters ? filteredCourses : allCourses }
 }
 
+//ToDo: collapse some of these into one function
+
 const handleDurations = (durationFilter, courseLength) => {
-  const durationsToFilter =
-    durationFilter && durationFilter.length ? durationFilter : durations
-  return durationsToFilter.some(
+  if (!durationFilter) {
+    return true
+  }
+  return durationFilter.some(
     (duration) =>
       courseLength >= duration.lowerValue && courseLength < duration.upperValue,
   )
@@ -70,12 +96,11 @@ const handleCulturalGroup = (
     allCreators.filter((creator) => creator.name === courseCreator)
   const creatorFNMI =
     creator && creator.length ? creator[0].fnmi : culturalGroups
-  const culturalGroupsToFilter =
-    culturalGroupFilter && culturalGroupFilter.length
-      ? culturalGroupFilter
-      : culturalGroups
+  if (!culturalGroupFilter.length) {
+    return true
+  }
 
-  return culturalGroupsToFilter.some((culturalGroup) =>
+  return culturalGroupFilter.some((culturalGroup) =>
     creatorFNMI.includes(culturalGroup),
   )
 }
@@ -93,4 +118,27 @@ const handleCategory = (categoryFilter, courseCategories) => {
 
 const handleFeatured = (featuredFilter, courseFeatured) => {
   return !featuredFilter || courseFeatured
+}
+
+const handleDifficulty = (
+  difficultyLevelFilter,
+  difficultyLevels,
+  courseDifficulty,
+) => {
+  if (!difficultyLevelFilter.length) {
+    return true
+  }
+  return difficultyLevelFilter.some((level) => level === courseDifficulty)
+}
+
+const handleMaterials = (materialsFilter, courseMaterials) => {
+  if (!materialsFilter.length) {
+    return true
+  }
+  return (
+    courseMaterials &&
+    materialsFilter.some((material) =>
+      courseMaterials.some((m) => m === material),
+    )
+  )
 }

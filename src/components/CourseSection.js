@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Container from '@mui/material/Container'
 import SwipeableViews from 'react-swipeable-views'
 import Section from './Section'
@@ -187,7 +187,7 @@ function CourseSection(props) {
               <Stack direction="row" spacing={1} variant="squareCard" mb="15px">
                 <Item elevation="1">{props.data.videos.length} Videos</Item>
                 <Item elevation="1">{props.data.totalLength} minutes</Item>
-                <Item elevation="1">Difficulty</Item>
+                <Item elevation="1">{props.data.difficultyLevel}</Item>
               </Stack>
 
               {/* Start Creating Button */}

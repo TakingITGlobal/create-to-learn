@@ -26,7 +26,7 @@ export const c2learn = (mode) => ({
     subtitle1: {
       fontSize: '0.875em',
       display: 'block',
-      color: '#ccc'
+      color: '#ccc',
     },
     sectionTitle: {
       fontSize: '1.125em',
@@ -38,12 +38,12 @@ export const c2learn = (mode) => ({
         marginLeft: 'auto',
       },
     },
-      decorative: {
-        fontSize: '1.4em',
-        fontWeight: '800',
-        display: 'block',
-        color: '#D2CCFB',
-        paddingBottom: '10px'
+    decorative: {
+      fontSize: '1.4em',
+      fontWeight: '800',
+      display: 'block',
+      color: '#D2CCFB',
+      paddingBottom: '10px',
     },
   },
   breakpoints: {
@@ -135,9 +135,9 @@ export const c2learn = (mode) => ({
             : {
                 color: '#fff',
               }),
-          ".MuiSvgIcon-root": {
-            verticalAlign: 'middle'
-          }
+          '.MuiSvgIcon-root': {
+            verticalAlign: 'middle',
+          },
         },
       },
       variants: [
@@ -267,13 +267,13 @@ export const c2learn = (mode) => ({
         secondary: {
           backgroundColor: '#fff',
           color: '#000',
-          "&:active, &:hover": {
-            color: '#ccc'
+          '&:active, &:hover': {
+            color: '#ccc',
           },
         },
         text: {
           color: '#fff',
-          borderRadius: '0'
+          borderRadius: '0',
         },
         outline: {
           borderWidth: '2px',
@@ -288,21 +288,21 @@ export const c2learn = (mode) => ({
             borderRadius: '0.75em',
             padding: '1.125em 1.5em',
             color: '#ccc',
-            ".MuiSvgIcon-root" : {
+            '.MuiSvgIcon-root': {
               color: '#000',
               backgroundColor: '#fff',
               borderRadius: '99em',
               marginLeft: '14px',
               padding: '2px',
               fontSize: '1.1em',
-              display: 'none'
+              display: 'none',
             },
-            "&.active, &:hover": {
+            '&.active, &:hover': {
               backgroundColor: '#6956F1',
               color: '#fff',
-              ".MuiSvgIcon-root": {
+              '.MuiSvgIcon-root': {
                 display: 'block',
-              }
+              },
             },
           },
         },
@@ -372,9 +372,9 @@ export const c2learn = (mode) => ({
     MuiMobileStepper: {
       styleOverrides: {
         progress: {
-          width: '100%'
-        }
-      }
+          width: '100%',
+        },
+      },
     },
     MuiLinearProgress: {
       styleOverrides: {
@@ -382,11 +382,11 @@ export const c2learn = (mode) => ({
           height: '8px',
           borderRadius: '10px',
           backgroundColor: '#ccc',
-          "& .MuiLinearProgress-bar" : {
-            borderRadius: '10px'
-          }
-        }
-      }
-    }
+          '& .MuiLinearProgress-bar': {
+            borderRadius: '10px',
+          },
+        },
+      },
+    },
   },
 })

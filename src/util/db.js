@@ -165,7 +165,7 @@ export function useVideoProgressByVideoId(owner, videoId) {
         collection(db, 'user-progress'),
         where('owner', '==', owner),
         where('videoId', '==', videoId),
-        limit(1)
+        limit(1),
       ),
     ),
     { enabled: !!owner },
@@ -173,8 +173,7 @@ export function useVideoProgressByVideoId(owner, videoId) {
 }
 // Create a new item
 export function createVideoProgress(data) {
-
-  const docRef =addDoc(collection(db, 'user-progress'), {
+  const docRef = addDoc(collection(db, 'user-progress'), {
     ...data,
     createdAt: serverTimestamp(),
   })
