@@ -1,10 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import {
-  durations,
-  culturalGroups,
-  difficultyLevels,
-} from '../assets/options/filters'
-import { categories } from '../assets/options/categories'
+import { culturalGroups } from '../assets/options/filters'
 
 const ALL_CATEGORIES = 'All'
 
@@ -50,11 +45,7 @@ export const useCoursesFilter = ({
           ) &&
           handleCategory(categoryFilter, course.category) &&
           handleFeatured(featuredFilter, course.featured) &&
-          handleDifficulty(
-            difficultyLevelFilter,
-            difficultyLevels,
-            course.difficultyLevel,
-          ) &&
+          handleDifficulty(difficultyLevelFilter, course.difficultyLevel) &&
           handleMaterials(materialsFilter, course.materials)
         )
       })
@@ -77,7 +68,7 @@ export const useCoursesFilter = ({
 //ToDo: collapse some of these into one function
 
 const handleDurations = (durationFilter, courseLength) => {
-  if (!durationFilter) {
+  if (!durationFilter.length) {
     return true
   }
   return durationFilter.some(
@@ -106,25 +97,18 @@ const handleCulturalGroup = (
 }
 
 const handleCategory = (categoryFilter, courseCategories) => {
-  const categoriesToFilter =
-    categoryFilter !== ALL_CATEGORIES
-      ? [categoryFilter]
-      : categories.map(({ label }) => label)
+  if (categoryFilter === ALL_CATEGORIES) {
+    return true
+  }
 
-  return categoriesToFilter.some((category) =>
-    courseCategories.includes(category),
-  )
+  return courseCategories.some((category) => category === categoryFilter)
 }
 
 const handleFeatured = (featuredFilter, courseFeatured) => {
   return !featuredFilter || courseFeatured
 }
 
-const handleDifficulty = (
-  difficultyLevelFilter,
-  difficultyLevels,
-  courseDifficulty,
-) => {
+const handleDifficulty = (difficultyLevelFilter, courseDifficulty) => {
   if (!difficultyLevelFilter.length) {
     return true
   }
