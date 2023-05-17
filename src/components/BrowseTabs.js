@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react'
 import Box from '@mui/material/Box'
 
-import Typography from '@mui/material/Typography'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Button from '@mui/material/Button'
@@ -20,21 +19,16 @@ import { useCoursesFilter } from '../hooks/useCoursesFilter'
 import { useCreatorsFilter } from '../hooks/useCreatorsFilter'
 import { durations } from '../assets/options/filters'
 
-const BrowseTabs = ({
-  durationFilter,
-  setDurationFilter,
-  culturalGroupFilter,
-  setCulturalGroupFilter,
-  categoryFilter,
-  setCategoryFilter,
-}) => {
+const BrowseTabs = ({ categoryFilter, setCategoryFilter }) => {
   const { t } = useTranslation()
 
   const [tabIndex, setTabIndex] = useState(0)
   const [openDrawer, setOpenDrawer] = useState(false)
-  const [featuredFilter, setFeaturedFilter] = useState(
-    localStorage.getItem('featuredFilter'),
-  )
+  const [featuredFilter, setFeaturedFilter] = useState(false)
+  const [difficultyLevelFilter, setDifficultyLevelFilter] = useState([])
+  const [materialsFilter, setMaterialsFilter] = useState([])
+  const [culturalGroupFilter, setCulturalGroupFilter] = useState([])
+  const [durationFilter, setDurationFilter] = useState([])
 
   const { allCourses, allCreators, loadingCourses, loadingCreators } =
     useContext(dataContext)
@@ -46,6 +40,8 @@ const BrowseTabs = ({
     categoryFilter,
     durationFilter,
     featuredFilter,
+    difficultyLevelFilter,
+    materialsFilter,
   })
 
   const { data: filteredCreators } = useCreatorsFilter({
@@ -60,59 +56,24 @@ const BrowseTabs = ({
     setTabIndex(newTab)
   }
 
-  const handleDurationFilter = (duration) => {
-    const isInFilter = durationFilter.some((dur) => dur.id === duration.id)
-    if (isInFilter) {
-      setDurationFilter(
-        durationFilter.filter((item) => item.id !== duration.id),
-      )
-      localStorage.setItem(
-        'durationFilter',
-        JSON.stringify(
-          durationFilter.filter((item) => item.id !== duration.id),
-        ),
-      )
-    } else {
-      setDurationFilter([...durationFilter, duration])
-      localStorage.setItem(
-        'durationFilter',
-        JSON.stringify([...durationFilter, duration]),
-      )
-    }
-  }
-
-  const handleCulturalGroupFilterArr = (group) => {
-    if (culturalGroupFilter.includes(group)) {
-      setCulturalGroupFilter(
-        culturalGroupFilter.filter((item) => item !== group),
-      )
-    } else {
-      setCulturalGroupFilter([...culturalGroupFilter, group])
-    }
-    localStorage.setItem(
-      'culturalGroupFilter',
-      JSON.stringify(culturalGroupFilter),
-    )
-  }
-
   const handleClearFilter = () => {
     setCategoryFilter('All')
     setDurationFilter([])
     setCulturalGroupFilter([])
     setFeaturedFilter(false)
-    localStorage.setItem('categoryFilter', 'AllApply fil')
-    localStorage.setItem('durationFilter', [])
-    localStorage.setItem('culturalGroupFilter', [])
-    localStorage.setItem('featuredFilter', false)
-  }
-
-  const handleFeatureFilter = () => {
-    setFeaturedFilter(!featuredFilter)
-    localStorage.setItem('featuredFilter', featuredFilter)
+    setDifficultyLevelFilter([])
+    setMaterialsFilter([])
   }
 
   const numberOfFilters =
-    durationFilter.length + culturalGroupFilter.length + !!featuredFilter
+    durationFilter.length +
+    culturalGroupFilter.length +
+    !!featuredFilter +
+    difficultyLevelFilter.length
+
+  const materials = Array.from(
+    new Set(allCourses.flatMap(({ materials }) => materials ?? [])),
+  )
 
   return (
     <>
@@ -125,14 +86,8 @@ const BrowseTabs = ({
             onChange={handleChangeTab}
             aria-label="browse tabs"
           >
-            <Tab
-              label={t('courses')}
-              {...a11yProps(0)}
-            />
-            <Tab
-              label={t('creators')}
-              {...a11yProps(1)}
-            />
+            <Tab label={t('courses')} {...a11yProps(0)} />
+            <Tab label={t('creators')} {...a11yProps(1)} />
           </Tabs>
         </Box>
         <TabPanel tabIndex={tabIndex} index={0}>
@@ -146,9 +101,9 @@ const BrowseTabs = ({
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   paddingBottom: '20px',
-                  "> *": {
-                    flex: '1'
-                  }
+                  '> *': {
+                    flex: '1',
+                  },
                 }}
               >
                 <Button
@@ -160,10 +115,7 @@ const BrowseTabs = ({
                   {numberOfFilters !== 0 ? `(${numberOfFilters})` : ''}
                 </Button>
 
-                <Button
-                  variant="text"
-                  onClick={() => handleClearFilter()}
-                >
+                <Button variant="text" onClick={() => handleClearFilter()}>
                   {t('browse.clear-filters')}
                 </Button>
               </Box>
@@ -206,13 +158,18 @@ const BrowseTabs = ({
         numberOfFilters={numberOfFilters}
       >
         <BrowseCourseDrawerContent
-          handleDurationFilterArr={handleDurationFilter}
-          handleCulturalGroupFilterArr={handleCulturalGroupFilterArr}
           culturalGroupFilter={culturalGroupFilter}
+          setCulturalGroupFilter={setCulturalGroupFilter}
           durationFilter={durationFilter}
+          setDurationFilter={setDurationFilter}
           featuredFilter={featuredFilter}
+          setFeaturedFilter={setFeaturedFilter}
           durations={durations}
-          handleFeatureFilter={handleFeatureFilter}
+          materials={materials}
+          materialsFilter={materialsFilter}
+          setMaterialsFilter={setMaterialsFilter}
+          difficultyLevelFilter={difficultyLevelFilter}
+          setDifficultyLevelFilter={setDifficultyLevelFilter}
         />
       </BrowseDrawer>
     </>
@@ -232,11 +189,7 @@ const TabPanel = (props) => {
       aria-labelledby={`browse-tab-${index}`}
       {...other}
     >
-      {tabIndex === index && (
-        <Box sx={{ pt: 2, pb: 2 }}>
-          {children}
-        </Box>
-      )}
+      {tabIndex === index && <Box sx={{ pt: 2, pb: 2 }}>{children}</Box>}
     </div>
   )
 }

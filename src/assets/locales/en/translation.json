@@ -86,7 +86,9 @@
     "browse": "Browse",
     "popular-searches": "Popular Searches",
     "no-matches": "Sorry we couldn't find any matches for",
-    "search-another-term": "Please try searching with another term."
+    "search-another-term": "Please try searching with another term.",
+    "materials": "Materials",
+    "difficulty": "Difficulty Level"
   },
   "my-courses": {
     "my-courses": "My Courses",

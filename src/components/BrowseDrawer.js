@@ -36,7 +36,6 @@ const BrowseDrawer = ({
       elevation={0}
     >
       <Box
-        mt={2}
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -48,7 +47,7 @@ const BrowseDrawer = ({
           <Typography variant="h5">Filters</Typography>
         </Box>
         {children}
-        <Stack direction="column" spacing={2} sx={{ paddingTop: '60px' }}>
+        <Stack direction="column" spacing={1} sx={{ paddingTop: '20px' }}>
           <Button
             variant="secondary"
             color="info"

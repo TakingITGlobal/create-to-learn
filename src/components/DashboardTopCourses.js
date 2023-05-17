@@ -1,8 +1,18 @@
 import React from 'react'
 import MultiCarousel from 'react-multi-carousel'
-import { Typography, Box, Card, CardContent, CardMedia, CardActionArea } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import {
+  Typography,
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  CardActionArea,
+  Stack,
+} from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 import 'react-multi-carousel/lib/styles.css'
+
+import { useTranslation } from 'react-i18next'
 
 const responsive = {
   desktop: {
@@ -23,7 +33,8 @@ const responsive = {
 }
 
 const DashboardTopCourses = ({ title, courses, icon }) => {
-  const theme = useTheme();
+  const theme = useTheme()
+  const { t } = useTranslation()
 
   return courses.length ? (
     <>
@@ -38,14 +49,14 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
         responsive={responsive}
         swipeable
       >
-        {courses.map((item, i) => {
+        {courses.map((course, i) => {
           return (
             <Card
               key={i}
               sx={{
-                height: '315px',
+                height: '250px',
                 padding: '0',
-                margin: '0 10px'
+                margin: '0 10px',
               }}
             >
               <CardActionArea
@@ -58,38 +69,45 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
                   justifyContent: 'flex-start',
                   backgroundColor: theme.palette.background.secondary,
                 }}
-                href={'/course/' + item.uid}
+                href={'/course/' + course.uid}
               >
                 <CardMedia
                   component="img"
-                  alt={`${item.seriesName}-course`}
+                  alt={`${course.seriesName}-course`}
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
                     width: '100%',
                     height: '200px',
-                    overflow: 'hidden',
                     borderRadius: '6px',
                     objectFit: 'cover',
                   }}
-                  image={item.thumbnail[0]?.downloadURL}
+                  image={course.thumbnail[0]?.downloadURL}
                 />
                 <CardContent
-                  sx={{ 
+                  sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    flex: '1'
+                    padding: '10px 0 0 0',
                   }}
                 >
                   <Box componant="div">
                     <Typography component="h3" variant="bold">
-                      {item.seriesName}
+                      {course.seriesName}
                     </Typography>
-                    <Typography variant="body" component="p">{item.creator}</Typography>
+                    <Typography variant="body" component="p">
+                      {course.creator}
+                    </Typography>
+                    <Stack direction="row">
+                      <Typography variant="subtitle1" component="p">
+                        {course.difficultyLevel}
+                      </Typography>
+                      <>&#183;</>
+                      <Typography variant="subtitle1" component="p">
+                        {course.videos.length} {t('videos')}
+                      </Typography>
+                    </Stack>
                   </Box>
-
-                  <Typography variant="subtitle1" component="p">Materials Required</Typography>
                 </CardContent>
               </CardActionArea>
             </Card>

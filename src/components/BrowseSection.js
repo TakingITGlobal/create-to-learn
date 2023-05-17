@@ -15,21 +15,12 @@ import { useTranslation } from 'react-i18next'
 
 function BrowseSection(props) {
   const [openSearchDrawer, setOpenSearchDrawer] = useState(false)
-  const [categoryFilter, setCategoryFilter] = useState(
-    localStorage.getItem('categoryFilter') ?? 'All',
-  )
-  const [durationFilter, setDurationFilter] = useState(
-    JSON.parse(localStorage.getItem('durationFilter') || '[]'),
-  )
-  const [culturalGroupFilter, setCulturalGroupFilter] = useState(
-    JSON.parse(localStorage.getItem('culturalGroupFilter') || '[]'),
-  )
+  const [categoryFilter, setCategoryFilter] = useState('All')
 
   const { t } = useTranslation()
 
   const handleCategoryFilter = (category) => {
     setCategoryFilter(category)
-    localStorage.setItem('categoryFilter', category)
   }
 
   return (
@@ -60,11 +51,7 @@ function BrowseSection(props) {
           categoryFilter={categoryFilter}
         />
         <BrowseTabs
-          durationFilter={durationFilter}
-          setDurationFilter={setDurationFilter}
           categoryFilter={categoryFilter}
-          culturalGroupFilter={culturalGroupFilter}
-          setCulturalGroupFilter={setCulturalGroupFilter}
           setCategoryFilter={setCategoryFilter}
         />
         <BrowseSearchDrawer

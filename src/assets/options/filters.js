@@ -27,3 +27,4 @@ export const durations = [
 
 export const culturalGroups = ['First Nations', 'Métis', 'Inuit']
 export const languages = ['Cree', 'Inuktitut', 'Ojibwe', 'English', 'French']
+export const difficultyLevels = ['Beginner', 'Intermediate', 'Advanced']

@@ -3,23 +3,40 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Chip from '@mui/material/Chip'
 import Stack from '@mui/material/Stack'
-import { durations, culturalGroups } from '../assets/options/filters'
+import {
+  durations,
+  culturalGroups,
+  difficultyLevels,
+} from '../assets/options/filters'
 
 import { useTranslation } from 'react-i18next'
 
 const BrowseCourseDrawerContent = ({
-  handleDurationFilterArr,
   culturalGroupFilter,
-  handleCulturalGroupFilterArr,
+  setCulturalGroupFilter,
   durationFilter,
+  setDurationFilter,
   featuredFilter,
-  handleFeatureFilter,
+  setFeaturedFilter,
+  materials,
+  materialsFilter,
+  setMaterialsFilter,
+  difficultyLevelFilter,
+  setDifficultyLevelFilter,
 }) => {
   const { t } = useTranslation()
 
+  const handleFilter = (item, clicked, itemFilter, setItemFilter) => {
+    if (clicked) {
+      setItemFilter(itemFilter.filter((it) => it !== item))
+    } else {
+      setItemFilter([...itemFilter, item])
+    }
+  }
+
   return (
     <>
-      <Box mt={2}>
+      <Box>
         <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
           {t('featured')}
         </Typography>
@@ -33,7 +50,7 @@ const BrowseCourseDrawerContent = ({
               backgroundColor: featuredFilter ? '#6956F1' : '#211E34',
               padding: '5px !important',
             }}
-            onClick={() => handleFeatureFilter()}
+            onClick={() => setFeaturedFilter(!featuredFilter)}
           />
           <Chip label="New" clickable variant="default" />
         </Stack>
@@ -63,11 +80,49 @@ const BrowseCourseDrawerContent = ({
                     backgroundColor: clicked ? '#6956F1' : '#211E34',
                     padding: '5px !important',
                   }}
-                  onClick={() => handleCulturalGroupFilterArr(group)}
+                  onClick={() =>
+                    handleFilter(
+                      group,
+                      clicked,
+                      culturalGroupFilter,
+                      setCulturalGroupFilter,
+                    )
+                  }
                   variant="default"
                 />
               )
             })}
+        </Stack>
+      </Box>
+      <Box mt={2}>
+        <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+          {t('browse.difficulty')}
+        </Typography>
+        <Stack direction="row" spacing={1}>
+          {difficultyLevels.map((level, index) => {
+            const clicked = difficultyLevelFilter.includes(level)
+            return (
+              <Chip
+                key={index}
+                label={level}
+                clickable
+                style={{
+                  marginLeft: 0,
+                  backgroundColor: clicked ? '#6956F1' : '#211E34',
+                  padding: '5px !important',
+                }}
+                onClick={() =>
+                  handleFilter(
+                    level,
+                    clicked,
+                    difficultyLevelFilter,
+                    setDifficultyLevelFilter,
+                  )
+                }
+                variant="default"
+              />
+            )
+          })}
         </Stack>
       </Box>
       <Box mt={2}>
@@ -94,7 +149,53 @@ const BrowseCourseDrawerContent = ({
                   backgroundColor: clicked ? '#6956F1' : '#211E34',
                   padding: '5px !important',
                 }}
-                onClick={() => handleDurationFilterArr(duration)}
+                onClick={() =>
+                  handleFilter(
+                    duration,
+                    clicked,
+                    durationFilter,
+                    setDurationFilter,
+                  )
+                }
+                variant="default"
+              />
+            )
+          })}
+        </Stack>
+      </Box>
+
+      <Box mt={2}>
+        <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+          {t('browse.materials')}
+        </Typography>
+        <Stack
+          direction="row"
+          spacing={1}
+          sx={{
+            flexWrap: 'wrap',
+            gap: 2,
+          }}
+        >
+          {materials.map((material, index) => {
+            const clicked = materialsFilter.some((mat) => mat === material)
+            return (
+              <Chip
+                key={index}
+                label={material}
+                clickable
+                style={{
+                  marginLeft: 0,
+                  backgroundColor: clicked ? '#6956F1' : '#211E34',
+                  padding: '5px !important',
+                }}
+                onClick={() =>
+                  handleFilter(
+                    material,
+                    clicked,
+                    materialsFilter,
+                    setMaterialsFilter,
+                  )
+                }
                 variant="default"
               />
             )
