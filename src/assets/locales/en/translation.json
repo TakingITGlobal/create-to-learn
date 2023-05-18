@@ -99,7 +99,9 @@
     "add-to-watchlist": "Add to watchlist",
     "download-episode": "Download this episode",
     "see-details": "See details",
-    "in-progress": "In progress"
+    "in-progress": "In progress",
+    "remove-from-list": "Remove from list",
+    "download": "Download..."
   },
   "settings": {
     "profile": "Profile",

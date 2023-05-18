@@ -1,57 +1,23 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
-import CircularProgress from '@mui/material/CircularProgress'
 import Typography from '@mui/material/Typography'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
-import Stack from '@mui/material/Stack'
-import IconButton from '@mui/material/IconButton'
-import Drawer from '@mui/material/Drawer'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
-import MoreVertIcon from '@mui/icons-material/MoreVert'
-import DownloadIcon from '@mui/icons-material/Download'
-import InfoIcon from '@mui/icons-material/Info'
-import DeleteIcon from '@mui/icons-material/Delete'
-import CloseIcon from '@mui/icons-material/Close'
 
 import Section from './Section'
-import BrowseCourseCard from './BrowseCourseCard'
-import BrowseFilterEmptyState from './BrowseFilterEmptyState'
+import MyCoursesEmptyState from './MyCoursesEmptyState'
 import MyCoursesProgress from './MyCoursesProgress'
+import MyCoursesWatchlistDrawer from './MyCoursesWatchlistDrawer'
 import { useTranslation } from 'react-i18next'
-import { dataContext } from '../util/dataProvider'
-import { useAuth } from './../util/auth'
-import { deleteWatchlistCourse, useUserWatchlistByOwner } from '../util/db'
 
 function MyCoursesSection(props) {
   const { t } = useTranslation()
-  const auth = useAuth()
 
   const [tabIndex, setTabIndex] = useState(0)
-  const [openDrawer, setOpenDrawer] = useState(false)
 
   const handleChangeTab = (event, newTab) => {
     setTabIndex(newTab)
-  }
-
-  const { allCourses, loadingCourses } = useContext(dataContext)
-
-  const { data: ownerWatchlist } = useUserWatchlistByOwner(auth?.user.uid)
-
-  const watchlistIds = ownerWatchlist?.length
-    ? ownerWatchlist.map((item) => item.courseId)
-    : []
-  const watchlistCourses = allCourses.filter(({ id }) =>
-    watchlistIds.includes(id),
-  )
-
-  const findWatchlistDocIdByCourseId = (id) => {
-    return ownerWatchlist.filter(({ courseId }) => courseId === id)[0]?.id
   }
 
   return (
@@ -98,85 +64,15 @@ function MyCoursesSection(props) {
               <MyCoursesProgress />
             </TabPanel>
             <TabPanel tabIndex={tabIndex} index={1}>
-              Downloaded courses will go here
+              <MyCoursesEmptyState
+                title={'You haven’t downloaded any courses'}
+                subtitle={'Download a video to have it appear here!'}
+                buttonText={'Find a course'}
+                href={'/browse'}
+              />
             </TabPanel>
             <TabPanel tabIndex={tabIndex} index={2}>
-              {loadingCourses ? (
-                <CircularProgress color="primary" />
-              ) : watchlistCourses?.length ? (
-                <Box>
-                  {watchlistCourses.map((course, index) => (
-                    <>
-                      <Stack direction="row" spacing={1}>
-                        <BrowseCourseCard key={index} course={course} />
-                        <IconButton
-                          sx={{ color: 'white' }}
-                          onClick={() => setOpenDrawer(course.id)}
-                        >
-                          <MoreVertIcon />
-                        </IconButton>
-                      </Stack>
-                      <Drawer
-                        anchor={'bottom'}
-                        open={openDrawer === course.id}
-                        onClose={() => setOpenDrawer(false)}
-                      >
-                        <Box>
-                          <Box
-                            sx={{
-                              display: 'flex',
-                              padding: '10px',
-                              justifyContent: 'flex-end',
-                            }}
-                          >
-                            <IconButton
-                              aria-label="close-icon"
-                              onClick={() => setOpenDrawer(false)}
-                            >
-                              <CloseIcon sx={{ color: 'white' }} />
-                            </IconButton>
-                          </Box>
-                          <List>
-                            <ListItem disablePadding>
-                              <ListItemButton>
-                                <ListItemIcon aria-label="download-icon">
-                                  <DownloadIcon sx={{ color: 'white' }} />
-                                </ListItemIcon>
-                                <ListItemText primary="Download..." />
-                              </ListItemButton>
-                            </ListItem>
-                            <ListItem disablePadding>
-                              <ListItemButton href={'/course/' + course.uid}>
-                                <ListItemIcon aria-label="info-icon">
-                                  <InfoIcon sx={{ color: 'white' }} />
-                                </ListItemIcon>
-                                <ListItemText primary="See Details" />
-                              </ListItemButton>
-                            </ListItem>
-                            <ListItem disablePadding>
-                              <ListItemButton
-                                onClick={() => {
-                                  deleteWatchlistCourse(
-                                    findWatchlistDocIdByCourseId(course.id),
-                                  )
-                                  setOpenDrawer(false)
-                                }}
-                              >
-                                <ListItemIcon aria-label="delete-icon">
-                                  <DeleteIcon sx={{ color: 'white' }} />
-                                </ListItemIcon>
-                                <ListItemText primary="Remove from list" />
-                              </ListItemButton>
-                            </ListItem>
-                          </List>
-                        </Box>
-                      </Drawer>
-                    </>
-                  ))}
-                </Box>
-              ) : (
-                <BrowseFilterEmptyState />
-              )}
+              <MyCoursesWatchlistDrawer />
             </TabPanel>
           </Box>
         </Container>

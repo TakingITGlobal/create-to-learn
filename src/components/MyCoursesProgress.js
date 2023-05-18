@@ -11,6 +11,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert'
 
 import BrowseCourseCard from './BrowseCourseCard'
 import MyCoursesProgressDrawer from './MyCoursesProgressDrawer'
+import MyCoursesEmptyState from './MyCoursesEmptyState'
 
 import { useTranslation } from 'react-i18next'
 import { useInProgressCourses } from '../hooks/useInProgressCourses'
@@ -21,7 +22,7 @@ function MyCoursesProgress() {
   const [openCourseDrawer, setOpenCourseDrawer] = useState(false)
   const inProgressCourses = useInProgressCourses()
 
-  return (
+  return inProgressCourses.length ? (
     <Accordion disableGutters defaultExpanded>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
@@ -82,6 +83,13 @@ function MyCoursesProgress() {
       </AccordionSummary>
       <AccordionDetails>Completed courses will go here</AccordionDetails>
     </Accordion>
+  ) : (
+    <MyCoursesEmptyState
+      title={'Courses you’ve started will appear here'}
+      subtitle={'Watch a video to have it appear here!'}
+      buttonText={'Find a course'}
+      href={'/browse'}
+    />
   )
 }
 
