@@ -26,7 +26,7 @@ import MyCoursesProgress from './MyCoursesProgress'
 import { useTranslation } from 'react-i18next'
 import { dataContext } from '../util/dataProvider'
 import { useAuth } from './../util/auth'
-import { updateUser } from '../util/db'
+import { deleteWatchlistCourse, useUserWatchlistByOwner } from '../util/db'
 
 function MyCoursesSection(props) {
   const { t } = useTranslation()
@@ -34,7 +34,6 @@ function MyCoursesSection(props) {
 
   const [tabIndex, setTabIndex] = useState(0)
   const [openDrawer, setOpenDrawer] = useState(false)
-  const [courseChosen, setCourseChosen] = useState(null)
 
   const handleChangeTab = (event, newTab) => {
     setTabIndex(newTab)
@@ -42,9 +41,19 @@ function MyCoursesSection(props) {
 
   const { allCourses, loadingCourses } = useContext(dataContext)
 
-  const watchlist = allCourses.filter(
-    ({ uid }) => auth.user?.watchlist && auth.user.watchlist.includes(uid),
+  const { data: ownerWatchlist } = useUserWatchlistByOwner(auth?.user.uid)
+
+  const watchlistIds = ownerWatchlist?.length
+    ? ownerWatchlist.map((item) => item.courseId)
+    : []
+  const watchlistCourses = allCourses.filter(({ id }) =>
+    watchlistIds.includes(id),
   )
+
+  const findWatchlistDocIdByCourseId = (id) => {
+    return ownerWatchlist.filter(({ courseId }) => courseId === id)[0]?.id
+  }
+
   return (
     <Section
       bgColor={props.bgColor}
@@ -94,79 +103,76 @@ function MyCoursesSection(props) {
             <TabPanel tabIndex={tabIndex} index={2}>
               {loadingCourses ? (
                 <CircularProgress color="primary" />
-              ) : watchlist.length ? (
+              ) : watchlistCourses?.length ? (
                 <Box>
-                  {watchlist.map((course, index) => (
-                    <Stack direction="row" spacing={1}>
-                      <BrowseCourseCard key={index} course={course} />
-                      <IconButton
-                        sx={{ color: 'white' }}
-                        onClick={() => {
-                          setOpenDrawer(true)
-                          setCourseChosen(course.uid)
-                        }}
-                      >
-                        <MoreVertIcon />
-                      </IconButton>
-                    </Stack>
-                  ))}
-                  <Drawer
-                    anchor={'bottom'}
-                    open={openDrawer}
-                    onClose={() => setOpenDrawer(false)}
-                  >
-                    <Box>
-                      <Box
-                        sx={{
-                          display: 'flex',
-                          padding: '10px',
-                          justifyContent: 'flex-end',
-                        }}
-                      >
+                  {watchlistCourses.map((course, index) => (
+                    <>
+                      <Stack direction="row" spacing={1}>
+                        <BrowseCourseCard key={index} course={course} />
                         <IconButton
-                          aria-label="close-icon"
-                          onClick={() => setOpenDrawer(false)}
+                          sx={{ color: 'white' }}
+                          onClick={() => setOpenDrawer(course.id)}
                         >
-                          <CloseIcon sx={{ color: 'white' }} />
+                          <MoreVertIcon />
                         </IconButton>
-                      </Box>
-                      <List>
-                        <ListItem disablePadding>
-                          <ListItemButton>
-                            <ListItemIcon aria-label="download-icon">
-                              <DownloadIcon sx={{ color: 'white' }} />
-                            </ListItemIcon>
-                            <ListItemText primary="Download..." />
-                          </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                          <ListItemButton href={'/course/' + courseChosen}>
-                            <ListItemIcon aria-label="info-icon">
-                              <InfoIcon sx={{ color: 'white' }} />
-                            </ListItemIcon>
-                            <ListItemText primary="See Details" />
-                          </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                          <ListItemButton
-                            onClick={() => {
-                              updateUser(auth?.user?.uid, {
-                                watchlist: auth?.user?.watchlist.filter(
-                                  (courseUid) => courseUid !== courseChosen,
-                                ),
-                              })
-                              setOpenDrawer(false)
+                      </Stack>
+                      <Drawer
+                        anchor={'bottom'}
+                        open={openDrawer === course.id}
+                        onClose={() => setOpenDrawer(false)}
+                      >
+                        <Box>
+                          <Box
+                            sx={{
+                              display: 'flex',
+                              padding: '10px',
+                              justifyContent: 'flex-end',
                             }}
                           >
-                            <ListItemIcon aria-label="delete-icon">
-                              <DeleteIcon sx={{ color: 'white' }} />
-                            </ListItemIcon>
-                            <ListItemText primary="Remove from list" />
-                          </ListItemButton>
-                        </ListItem>
-                      </List>
-                    </Box>
-                  </Drawer>
+                            <IconButton
+                              aria-label="close-icon"
+                              onClick={() => setOpenDrawer(false)}
+                            >
+                              <CloseIcon sx={{ color: 'white' }} />
+                            </IconButton>
+                          </Box>
+                          <List>
+                            <ListItem disablePadding>
+                              <ListItemButton>
+                                <ListItemIcon aria-label="download-icon">
+                                  <DownloadIcon sx={{ color: 'white' }} />
+                                </ListItemIcon>
+                                <ListItemText primary="Download..." />
+                              </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                              <ListItemButton href={'/course/' + course.uid}>
+                                <ListItemIcon aria-label="info-icon">
+                                  <InfoIcon sx={{ color: 'white' }} />
+                                </ListItemIcon>
+                                <ListItemText primary="See Details" />
+                              </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                              <ListItemButton
+                                onClick={() => {
+                                  deleteWatchlistCourse(
+                                    findWatchlistDocIdByCourseId(course.id),
+                                  )
+                                  setOpenDrawer(false)
+                                }}
+                              >
+                                <ListItemIcon aria-label="delete-icon">
+                                  <DeleteIcon sx={{ color: 'white' }} />
+                                </ListItemIcon>
+                                <ListItemText primary="Remove from list" />
+                              </ListItemButton>
+                            </ListItem>
+                          </List>
+                        </Box>
+                      </Drawer>
+                    </>
+                  ))}
                 </Box>
               ) : (
                 <BrowseFilterEmptyState />

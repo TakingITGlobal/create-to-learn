@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Container from '@mui/material/Container'
 import SwipeableViews from 'react-swipeable-views'
 import Section from './Section'
@@ -8,12 +8,7 @@ import {
   AppBar,
   Box,
   Button,
-  Card,
-  CardContent,
-  CardActions,
   FormControl,
-  Grid,
-  InputLabel,
   Link,
   List,
   ListItem,
@@ -28,8 +23,11 @@ import {
   Stack,
   useTheme,
 } from '@mui/material'
+import Snackbar from '@mui/material/Snackbar'
+import MuiAlert from '@mui/material/Alert'
 import { ChevronRight, Check, BookmarkBorder } from '@mui/icons-material'
 import { useAuth } from '../util/auth'
+import { createWatchlistCourse, useWatchlistById } from '../util/db'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -62,6 +60,11 @@ function CourseSection(props) {
   const palette = Object.values(theme.palette.accent)
   const [randomColor, setRandomColor] = useState(
     palette[Math.floor(Math.random() * palette.length)],
+  )
+
+  const { data, status, error } = useWatchlistById(
+    auth.user?.uid,
+    props.data.id,
   )
 
   const handleTabChange = (event, newValue) => {
@@ -101,6 +104,35 @@ function CourseSection(props) {
   const topic = props.data.category[0]
   const videoLinksArray = props.data.videoLinks.split(', ')
   const [playingVideoId, setPlayingVideoId] = React.useState(videoLinksArray[0])
+  const [openSnackbar, setOpenSnackbar] = React.useState(false)
+  const [snackbarMessage, setSnackbarMessage] = React.useState(
+    'Login to add to your watchlist',
+  )
+
+  const handleAddToWatchlist = () => {
+    if (!auth.user) {
+      return
+    } else {
+      setOpenSnackbar(true)
+      if (!data?.length) {
+        createWatchlistCourse({
+          owner: auth.user.uid,
+          courseId: props.data.id,
+          courseUID: props.data.uid,
+        }).then(setSnackbarMessage('Success!  Added to your watchlist'))
+      } else {
+        setSnackbarMessage('Already in watchlist.')
+      }
+    }
+  }
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+
+    setOpenSnackbar(false)
+  }
 
   return (
     <Section
@@ -203,7 +235,11 @@ function CourseSection(props) {
                 mt="20px"
                 alignItems="center"
               >
-                <Button variant="text" startIcon={<BookmarkBorder />}>
+                <Button
+                  variant="text"
+                  startIcon={<BookmarkBorder />}
+                  onClick={() => handleAddToWatchlist()}
+                >
                   Add to Watchlist
                 </Button>
                 <FormControl sx={{ minWidth: 120, marginLeft: 2 }}>
@@ -319,6 +355,21 @@ function CourseSection(props) {
             </List>
           </TabPanel>
         </SwipeableViews>
+        <Snackbar
+          open={openSnackbar}
+          autoHideDuration={6000}
+          onClose={handleCloseSnackbar}
+        >
+          <MuiAlert
+            elevation={6}
+            variant="filled"
+            onClose={handleCloseSnackbar}
+            severity="success"
+            sx={{ width: '100%' }}
+          >
+            {snackbarMessage}
+          </MuiAlert>
+        </Snackbar>
       </Container>
     </Section>
   )
