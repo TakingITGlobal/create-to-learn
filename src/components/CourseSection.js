@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Container from '@mui/material/Container'
 import SwipeableViews from 'react-swipeable-views'
 import Section from './Section'
@@ -28,7 +28,7 @@ import MuiAlert from '@mui/material/Alert'
 import { ChevronRight, Check, BookmarkBorder } from '@mui/icons-material'
 import { useAuth } from '../util/auth'
 import { createWatchlistCourse, useWatchlistById } from '../util/db'
-
+import GetByIdVimeo from '../util/vimeo'
 function TabPanel(props) {
   const { children, value, index, ...other } = props
 
@@ -133,6 +133,20 @@ function CourseSection(props) {
 
     setOpenSnackbar(false)
   }
+
+  const videoLinks = props.data.videoLinks.split(',')
+  const videoIds = videoLinks.length
+    ? videoLinks.map((link) => {
+        const videoId = link.match('([a-z0-9]+)(?:/?$)')
+        return videoId[0]
+      })
+    : []
+
+  useEffect(() => {
+    GetByIdVimeo(videoIds[0]).then((data) =>
+      console.log(data, 'maybe set state here?'),
+    )
+  }, [])
 
   return (
     <Section
@@ -321,37 +335,39 @@ function CourseSection(props) {
           <TabPanel value={tabValue} index={1} dir={theme.direction}>
             {/* List of Lesson content */}
             <List variant="progress">
-              {videoLinksArray.map((videoLink, index) => (
-                <ListItem>
-                  <Paper elevation="1">
-                    <Typography variant="bold">Lesson {index + 1}</Typography>
-                    <Stack
-                      direction="row"
-                      spacing={1}
-                      alignItems="center"
-                      sx={{ paddingLeft: '20px' }}
-                    >
-                      <Link
-                        flex="1"
-                        href={videoLink}
-                        underline="none"
-                        sx={{ fontSize: '1rem' }}
+              {videoLinksArray.map((videoLink, index) => {
+                return (
+                  <ListItem>
+                    <Paper elevation="1">
+                      <Typography variant="bold">Lesson {index + 1}</Typography>
+                      <Stack
+                        direction="row"
+                        spacing={1}
+                        alignItems="center"
+                        sx={{ paddingLeft: '20px' }}
                       >
-                        Download
-                      </Link>
-                      <Button
-                        onClick={() => handleStartButtonClick(videoLink)}
-                        variant="contained"
-                        color="primary"
-                        size="large"
-                        sx={{ flex: '1' }}
-                      >
-                        Start
-                      </Button>
-                    </Stack>
-                  </Paper>
-                </ListItem>
-              ))}
+                        <Link
+                          flex="1"
+                          href={videoLink}
+                          underline="none"
+                          sx={{ fontSize: '1rem' }}
+                        >
+                          Download
+                        </Link>
+                        <Button
+                          onClick={() => handleStartButtonClick(videoLink)}
+                          variant="contained"
+                          color="primary"
+                          size="large"
+                          sx={{ flex: '1' }}
+                        >
+                          Start
+                        </Button>
+                      </Stack>
+                    </Paper>
+                  </ListItem>
+                )
+              })}
             </List>
           </TabPanel>
         </SwipeableViews>
