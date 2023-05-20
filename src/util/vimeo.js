@@ -5,11 +5,22 @@ const GetByIdVimeo = async (ID) => {
     Authorization: `Bearer ${process.env.REACT_APP_VIMEO_ACCESS_TOKEN}`,
     'Content-Type': 'application/json',
   }
-  const response = await axios.get(`https://api.vimeo.com/videos/${ID}`, {
-    headers,
-  })
+  try {
+    const response = await axios.get(
+      `https://api.vimeo.com/videos?uris=${ID}&fields=uri,link,name,description,duration`,
+      {
+        headers,
+      },
+    )
+    console.log(response)
 
-  return response
+    if (response.status !== 200) {
+      throw Error(response.statusText)
+    }
+    return response
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 export default GetByIdVimeo
