@@ -6,7 +6,6 @@ import SvgIcon from '@mui/material/SvgIcon'
 import CompletedIcon from '../assets/images/completed.svg'
 import DurationIcon from '../assets/images/duration.svg'
 import VideoIcon from '../assets/images/video.svg'
-import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import { useTranslation } from 'react-i18next'
 
 const Stats = () => {

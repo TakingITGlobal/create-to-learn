@@ -7,12 +7,11 @@ const GetByIdVimeo = async (ID) => {
   }
   try {
     const response = await axios.get(
-      `https://api.vimeo.com/videos?uris=${ID}&fields=uri,link,name,description,duration`,
+      `https://api.vimeo.com/videos?uris=${ID}`,
       {
         headers,
       },
     )
-    console.log(response)
 
     if (response.status !== 200) {
       throw Error(response.statusText)

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import Container from '@mui/material/Container'
 import SwipeableViews from 'react-swipeable-views'
 import Section from './Section'
-import Video from './Video'
 import {
   Avatar,
   AppBar,
@@ -14,20 +13,18 @@ import {
   ListItem,
   ListItemText,
   MenuItem,
-  Paper,
   Select,
-  styled,
   Tab,
   Tabs,
   Typography,
   Stack,
   useTheme,
-  Grid,
 } from '@mui/material'
+import CardMedia from '@mui/material/CardMedia'
 import Snackbar from '@mui/material/Snackbar'
 import MuiAlert from '@mui/material/Alert'
-import DownloadIcon from '@mui/icons-material/Download'
-import Divider from '@mui/material/Divider'
+import CourseStats from './CourseStats'
+import CourseLessons from './CourseLessons'
 import { ChevronRight, Check, BookmarkBorder } from '@mui/icons-material'
 import { useAuth } from '../util/auth'
 import { createWatchlistCourse, useWatchlistById } from '../util/db'
@@ -83,31 +80,10 @@ function CourseSection(props) {
     setDownloadOption(event.target.value)
   }
 
-  const Item = styled(Paper)(({ theme }) => ({
-    // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    // ...theme.typography.body2,
-    // padding: theme.spacing(1),
-    // textAlign: 'center',
-    // color: theme.palette.text.secondary,
-  }))
-
-  function extractImageUrl(imageString) {
-    const urlRegex = /https?:\/\/[^)]+/
-    const match = imageString.match(urlRegex)
-    return match ? match[0] : ''
-  }
-
-  const handleStartButtonClick = (videoId) => {
-    setPlayingVideoId(videoId)
-  }
-
   const description = props.data.description
   const creator = props.data.creator
   const creatorUID = creator.trim().replaceAll(' ', '-').toLowerCase()
-  const creatorPhoto = extractImageUrl(props.data.creatorPhoto)
   const topic = props.data.category[0]
-  const videoLinksArray = props.data.videoLinks.split(', ')
-  const [playingVideoId, setPlayingVideoId] = React.useState(videoLinksArray[0])
   const [openSnackbar, setOpenSnackbar] = React.useState(false)
   const [snackbarMessage, setSnackbarMessage] = React.useState(
     'Login to add to your watchlist',
@@ -151,7 +127,7 @@ function CourseSection(props) {
 
   useEffect(() => {
     GetByIdVimeo(videoFormattedIds).then((data) => setVideoInfo(data.data.data))
-  }, [])
+  }, [videoFormattedIds])
 
   return (
     <Section
@@ -168,8 +144,20 @@ function CourseSection(props) {
             {props.data?.seriesName}
           </Typography>
 
-          {/* Vimeo embed */}
-          <Video video={playingVideoId} user={auth.user} />
+          <CardMedia
+            component="img"
+            alt={`${props.data.seriesName}-course`}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              width: '100%',
+              height: '200px',
+              borderRadius: '6px',
+              objectFit: 'cover',
+            }}
+            image={props.data.thumbnail[0]?.downloadURL}
+          />
+          {/* <Video video={playingVideoId} user={auth.user} /> */}
         </Box>
 
         {/* About and Lesson tabs */}
@@ -204,7 +192,7 @@ function CourseSection(props) {
               >
                 <Avatar
                   alt={creator}
-                  src={creatorPhoto}
+                  src={props.data?.thumbnail[0]?.downloadURL}
                   sx={{ width: '48px', height: '48px' }}
                 />
                 <Box>
@@ -229,13 +217,11 @@ function CourseSection(props) {
               >
                 {description}
               </Typography>
-
-              {/* Metrics */}
-              <Stack direction="row" spacing={1} variant="squareCard" mb="15px">
-                <Item elevation="1">{props.data.videos.length} Videos</Item>
-                <Item elevation="1">{props.data.totalLength} minutes</Item>
-                <Item elevation="1">{props.data.difficultyLevel}</Item>
-              </Stack>
+              <CourseStats
+                numberOfVideos={props.data.videos.length}
+                courseLength={props.data.totalLength}
+                difficultyLevel={props.data.difficultyLevel}
+              />
 
               {/* Start Creating Button */}
               <Button variant="contained" size="large" fullWidth>
@@ -334,57 +320,7 @@ function CourseSection(props) {
           </TabPanel>
 
           <TabPanel value={tabValue} index={1} dir={theme.direction}>
-            {/* List of Lesson content */}
-            <List variant="progress">
-              {videoInfo &&
-                videoInfo.map((video, index) => {
-                  return (
-                    <ListItem>
-                      <Paper elevation="1">
-                        <Grid
-                          container
-                          sx={{ display: 'flex', paddingBottom: '20px' }}
-                        >
-                          <Grid item xs={6}>
-                            <Typography variant="bold">{video.name}</Typography>
-                          </Grid>
-                          <Grid item xs={6} textAlign="center">
-                            <Typography variant="bold">
-                              {displayTime(video.duration)}
-                            </Typography>
-                          </Grid>
-                        </Grid>
-                        <Divider light />
-                        <Stack
-                          direction="row"
-                          spacing={1}
-                          alignItems="center"
-                          sx={{ paddingLeft: '20px', paddingTop: '20px' }}
-                        >
-                          <DownloadIcon />
-                          <Link
-                            flex="1"
-                            href={video.link}
-                            underline="none"
-                            sx={{ fontSize: '1rem' }}
-                          >
-                            Download
-                          </Link>
-                          <Button
-                            onClick={() => handleStartButtonClick(video.link)}
-                            variant="contained"
-                            color="primary"
-                            size="large"
-                            sx={{ flex: '1' }}
-                          >
-                            Start
-                          </Button>
-                        </Stack>
-                      </Paper>
-                    </ListItem>
-                  )
-                })}
-            </List>
+            <CourseLessons videoInfo={videoInfo} videos={props.data.videos} />
           </TabPanel>
         </SwipeableViews>
         <Snackbar
@@ -408,10 +344,3 @@ function CourseSection(props) {
 }
 
 export default CourseSection
-
-const displayTime = (totalSeconds) => {
-  const minutes = Math.floor(totalSeconds / 60)
-  const seconds = totalSeconds % 60
-  const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds
-  return `${minutes}: ${formattedSeconds}`
-}
