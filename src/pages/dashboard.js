@@ -1,6 +1,6 @@
 import React from 'react'
 import Meta from './../components/Meta'
-import DashboardSection from './../components/DashboardSection'
+import DashboardSection from './../components/Dashboard/DashboardSection'
 
 function DashboardPage(props) {
   return (

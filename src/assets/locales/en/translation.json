@@ -112,7 +112,8 @@
     "see-details": "See details",
     "in-progress": "In progress",
     "remove-from-list": "Remove from list",
-    "download": "Download..."
+    "download": "Download...",
+    "completed": "Completed"
   },
   "settings": {
     "profile": "Profile",

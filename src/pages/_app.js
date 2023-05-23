@@ -1,4 +1,4 @@
-import React, { useEffect,useContext, useState } from 'react'
+import React from 'react'
 import Navbar from './../components/Navbar'
 import IndexPage from './index'
 import AboutPage from './about'
@@ -19,8 +19,8 @@ import Footer from './../components/Footer'
 import './../util/analytics'
 import Chat from './../components/Chat'
 import { AuthProvider } from './../util/auth'
-import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
-import { c2learn  } from './../util/theme'
+import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles'
+import { c2learn } from './../util/theme'
 import CssBaseline from '@mui/material/CssBaseline'
 import { StyledEngineProvider } from '@mui/material/styles'
 import { QueryClientProvider } from './../util/db'
@@ -32,9 +32,8 @@ import SignUpPage from './signUp'
 import CoursePage from './course'
 import CreatorPage from './creator'
 
-
-const LocationProvider = ({children}) => {
-  const {pathname} = useLocation()
+const LocationProvider = ({ children }) => {
+  const { pathname } = useLocation()
   // useEffect(() => {
   //   if(pathname.includes('/course/')){
   //     var id = localStorage.getItem('courseId')
@@ -46,12 +45,12 @@ const LocationProvider = ({children}) => {
   //     localStorage.removeItem('courseProgress')
   //   }
   // },[pathname])
-  return(<>{children}</>)
+  return <>{children}</>
 }
 
 function App(props) {
-  const theme = useTheme();
-  const darkTheme = createTheme(c2learn('dark'));
+  const theme = useTheme()
+  const darkTheme = createTheme(c2learn('dark'))
 
   return (
     <QueryClientProvider>
@@ -116,11 +115,8 @@ function App(props) {
                       path="/auth0-callback"
                       component={Auth0Callback}
                     />
-                    <Route
-                      exact
-                      path="/verified"
-                      component={Verified}
-                    />
+
+                    <Route exact path="/verified" component={Verified} />
 
                     <Route component={NotFoundPage} />
                   </Switch>

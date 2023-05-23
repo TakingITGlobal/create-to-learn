@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import { culturalGroups } from '../assets/options/filters'
-import { categories } from '../assets/options/categories'
+import { categories } from './../assets/options/categories'
 
 const ALL_CATEGORIES = 'All'
 
