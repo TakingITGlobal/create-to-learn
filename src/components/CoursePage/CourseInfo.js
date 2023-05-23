@@ -61,7 +61,8 @@ function CourseInfo({ course, setOpenSnackbar, setSnackbarMessage }) {
   const inProgressVideos = videosInProgress
     ? videosInProgress.filter(
         (video) =>
-          course.videos.some((v) => v === video.videoId) && video?.progress > 0,
+          course.videos.some((v) => v === video?.videoId) &&
+          video?.progress > 0,
       )
     : []
 
@@ -170,7 +171,7 @@ function CourseInfo({ course, setOpenSnackbar, setSnackbarMessage }) {
 
         {/* Add to Watchlist button */}
         {showCourseDetails && (
-          <div>
+          <Box>
             <Stack
               direction="row"
               spacing={1}
@@ -234,19 +235,22 @@ function CourseInfo({ course, setOpenSnackbar, setSnackbarMessage }) {
             </List>
 
             {/* What You'll Need List*/}
-            <Typography variant="bold" sx={{ marginTop: 2 }}>
-              {t('course.what-you-need')}
-            </Typography>
-            <List variant="icon-list">
-              {course.materials &&
-                course.materials.map((material) => (
-                  <ListItem>
-                    <Check />
-                    <ListItemText disableTypography primary="Item 1" />
-                  </ListItem>
-                ))}
-            </List>
-          </div>
+            {course.materials && (
+              <Box>
+                <Typography variant="bold" sx={{ marginTop: 2 }}>
+                  {t('course.what-you-need')}
+                </Typography>
+                <List variant="icon-list">
+                  {course.materials.map((material) => (
+                    <ListItem>
+                      <Check />
+                      <ListItemText disableTypography primary={material} />
+                    </ListItem>
+                  ))}
+                </List>
+              </Box>
+            )}
+          </Box>
         )}
       </Box>
     </>

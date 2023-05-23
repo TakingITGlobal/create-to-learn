@@ -71,11 +71,12 @@ function CourseSection(props) {
   const videoIds = videoLinks.length
     ? videoLinks.map((link) => {
         const videoId = link.match('([a-z0-9]+)(?:/?$)')
-        return videoId[0]
+        return videoId && videoId[0]
       })
     : []
 
-  const videoFormattedIds = videoIds.map((id) => `/videos/${id}`).join(',')
+  const videoFormattedIds =
+    videoIds && videoIds.map((id) => `/videos/${id}`).join(',')
 
   useEffect(() => {
     GetByIdVimeo(videoFormattedIds).then((data) => setVideoInfo(data.data.data))
