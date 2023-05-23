@@ -15,6 +15,7 @@ import CheckIcon from '@mui/icons-material/Check'
 import { useAuth } from '../util/auth'
 import { useVideoProgressByVideoId } from '../util/db'
 import { useTranslation } from 'react-i18next'
+import { displayTime } from '../util/timeHelpers'
 
 function CourseVideoListItem({ video, videoId, setOpenCourseDrawer }) {
   const auth = useAuth()
@@ -145,11 +146,3 @@ function CourseVideoListItem({ video, videoId, setOpenCourseDrawer }) {
 }
 
 export default CourseVideoListItem
-
-const displayTime = (totalSeconds) => {
-  const minutes = Math.floor(totalSeconds / 60)
-  const seconds = totalSeconds % 60
-  const formattedSeconds =
-    seconds < 10 ? `0${Math.floor(seconds)}` : Math.floor(seconds)
-  return `${minutes}: ${formattedSeconds}`
-}
