@@ -31,9 +31,9 @@ function CourseStats({ numberOfVideos, courseLength, difficultyLevel }) {
         <Grid item xs={4} key={index}>
           <Box
             sx={{
-              padding: '0 2.5px',
+              padding: '2px 7px',
               backgroundColor: '#FFFFFF1C',
-              height: '120px',
+              height: '115px',
             }}
           >
             <Box sx={{ padding: '10px' }}>

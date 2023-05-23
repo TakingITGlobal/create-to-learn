@@ -50,7 +50,7 @@ function Video(props) {
     } else if (user === false) {
       setLoading(false)
     }
-  }, [status])
+  }, [status, data, id, user])
 
   return (
     <>

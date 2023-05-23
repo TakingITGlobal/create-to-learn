@@ -36,7 +36,7 @@ function MyCoursesProgressDrawer({ course, open, setOpenCourseDrawer }) {
             <ListItemIcon aria-label="add-to-watchlist-icon">
               <VideoLibraryIcon sx={{ color: 'white' }} />
             </ListItemIcon>
-            <ListItemText primary={t('my-courses.add-to-watchlist')} />
+            <ListItemText primary={t('add-to-watchlist')} />
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>

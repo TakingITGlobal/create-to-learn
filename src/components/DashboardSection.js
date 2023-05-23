@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import 'react-multi-carousel/lib/styles.css'
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'

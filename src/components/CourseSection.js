@@ -19,16 +19,23 @@ import {
   Typography,
   Stack,
   useTheme,
+  ListItemIcon,
 } from '@mui/material'
+import SvgIcon from '@mui/material/SvgIcon'
 import CardMedia from '@mui/material/CardMedia'
 import Snackbar from '@mui/material/Snackbar'
 import MuiAlert from '@mui/material/Alert'
-import CourseStats from './CourseStats'
+import CourseInfo from './CourseInfo'
 import CourseLessons from './CourseLessons'
-import { ChevronRight, Check, BookmarkBorder } from '@mui/icons-material'
 import { useAuth } from '../util/auth'
-import { createWatchlistCourse, useWatchlistById } from '../util/db'
+import {
+  useUserProgressByOwner,
+  useVideoProgress,
+  useWatchlistById,
+} from '../util/db'
 import GetByIdVimeo from '../util/vimeo'
+import { useTranslation } from 'react-i18next'
+import { categories } from '../assets/options/categories'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -56,16 +63,17 @@ function a11yProps(index) {
 function CourseSection(props) {
   const theme = useTheme()
   const auth = useAuth()
+  const { t } = useTranslation()
+
   const [tabValue, setTabValue] = useState(0)
-  const [downloadOption, setDownloadOption] = useState('')
+  const [openSnackbar, setOpenSnackbar] = React.useState(false)
+  const [snackbarMessage, setSnackbarMessage] = React.useState(
+    'Login to add to your watchlist',
+  )
+  const [videoInfo, setVideoInfo] = React.useState([])
   const palette = Object.values(theme.palette.accent)
   const [randomColor, setRandomColor] = useState(
     palette[Math.floor(Math.random() * palette.length)],
-  )
-
-  const { data, status, error } = useWatchlistById(
-    auth.user?.uid,
-    props.data.id,
   )
 
   const handleTabChange = (event, newValue) => {
@@ -76,42 +84,10 @@ function CourseSection(props) {
     setTabValue(index)
   }
 
-  const handleDownloadChange = (event) => {
-    setDownloadOption(event.target.value)
-  }
-
-  const description = props.data.description
-  const creator = props.data.creator
-  const creatorUID = creator.trim().replaceAll(' ', '-').toLowerCase()
-  const topic = props.data.category[0]
-  const [openSnackbar, setOpenSnackbar] = React.useState(false)
-  const [snackbarMessage, setSnackbarMessage] = React.useState(
-    'Login to add to your watchlist',
-  )
-  const [videoInfo, setVideoInfo] = React.useState([])
-
-  const handleAddToWatchlist = () => {
-    if (!auth.user) {
-      return
-    } else {
-      setOpenSnackbar(true)
-      if (!data?.length) {
-        createWatchlistCourse({
-          owner: auth.user.uid,
-          courseId: props.data.id,
-          courseUID: props.data.uid,
-        }).then(setSnackbarMessage('Success!  Added to your watchlist'))
-      } else {
-        setSnackbarMessage('Already in watchlist.')
-      }
-    }
-  }
-
   const handleCloseSnackbar = (event, reason) => {
     if (reason === 'clickaway') {
       return
     }
-
     setOpenSnackbar(false)
   }
 
@@ -128,6 +104,26 @@ function CourseSection(props) {
   useEffect(() => {
     GetByIdVimeo(videoFormattedIds).then((data) => setVideoInfo(data.data.data))
   }, [videoFormattedIds])
+
+  const { data: videosInProgress } = useUserProgressByOwner(auth.user)
+
+  const inProgressVideos = videosInProgress
+    ? videosInProgress.filter(
+        (video) =>
+          props.data.videos.some(video?.videoId) && video?.progress > 0,
+      )
+    : []
+
+  console.log(inProgressVideos)
+
+  const totalTimeWatched =
+    inProgressVideos.length > 1
+      ? inProgressVideos.reduce(
+          (acc, { progress }) => Number(acc.progress) + Number(progress),
+        )
+      : inProgressVideos.length === 1
+      ? inProgressVideos[0].progress
+      : 0
 
   return (
     <Section
@@ -182,145 +178,15 @@ function CourseSection(props) {
           onChangeIndex={handleChangeIndex}
         >
           <TabPanel value={tabValue} index={0} dir={theme.direction}>
-            <Box sx={{ padding: '1em' }}>
-              {/* Artist information */}
-              <Link
-                href={'/creator/' + creatorUID}
-                color="inherit"
-                underline="none"
-                variant="profile"
-              >
-                <Avatar
-                  alt={creator}
-                  src={props.data?.thumbnail[0]?.downloadURL}
-                  sx={{ width: '48px', height: '48px' }}
-                />
-                <Box>
-                  <Typography variant="bold" component="body1">
-                    {creator}
-                  </Typography>
-                  <Typography
-                    variant="subtitle1"
-                    color={theme.palette.text.secondary}
-                  >
-                    Creator Community
-                  </Typography>
-                </Box>
-                <ChevronRight />
-              </Link>
-
-              {/* Regular paragraph */}
-              <Typography
-                variant="body2"
-                color={theme.palette.text.secondary}
-                sx={{ marginBottom: 2 }}
-              >
-                {description}
-              </Typography>
-              <CourseStats
-                numberOfVideos={props.data.videos.length}
-                courseLength={props.data.totalLength}
-                difficultyLevel={props.data.difficultyLevel}
-              />
-
-              {/* Start Creating Button */}
-              <Button variant="contained" size="large" fullWidth>
-                Start Creating
-              </Button>
-
-              {/* Add to Watchlist button */}
-              <Stack
-                direction="row"
-                spacing={1}
-                mb="15px"
-                mt="20px"
-                alignItems="center"
-              >
-                <Button
-                  variant="text"
-                  startIcon={<BookmarkBorder />}
-                  onClick={() => handleAddToWatchlist()}
-                >
-                  Add to Watchlist
-                </Button>
-                <FormControl sx={{ minWidth: 120, marginLeft: 2 }}>
-                  {/* <InputLabel id="download-label" sx={{ padding: '0',  fontWeight: '700'}} variant="standard">Download</InputLabel> */}
-                  <Select
-                    value={downloadOption}
-                    onChange={handleDownloadChange}
-                    labelId="download-label"
-                    displayEmpty
-                    variant="standard"
-                    color={theme.palette.text.main}
-                    sx={{ padding: '0', border: '0' }}
-                  >
-                    <MenuItem value="" sx={{ fontWeight: '700' }}>
-                      <em>Download</em>
-                    </MenuItem>
-                    <MenuItem value="option1">Option 1</MenuItem>
-                    <MenuItem value="option2">Option 2</MenuItem>
-                    <MenuItem value="option3">Option 3</MenuItem>
-                  </Select>
-                </FormControl>
-              </Stack>
-
-              {/* Topic List */}
-              <Typography variant="bold" sx={{ mT: 2 }}>
-                Topic
-              </Typography>
-              <List>
-                <ListItem
-                  component="a"
-                  href="/artist-page"
-                  sx={{ color: '#fff' }}
-                >
-                  <img
-                    src="https://via.placeholder.com/50"
-                    alt={topic}
-                    style={{
-                      maxWidth: '30px',
-                      height: 'auto',
-                      marginRight: '10px',
-                    }}
-                  />
-                  {topic}
-                </ListItem>
-              </List>
-
-              {/* What You'll Learn List */}
-              <Typography variant="bold" sx={{ marginTop: 2 }}>
-                What you'll learn
-              </Typography>
-              <List variant="icon-list">
-                <ListItem>
-                  <Check />
-                  <ListItemText disableTypography primary="Item 1" />
-                </ListItem>
-                <ListItem>
-                  <Check />
-                  <ListItemText disableTypography primary="Item 2" />
-                </ListItem>
-              </List>
-
-              {/* What You'll Need List*/}
-              <Typography variant="bold" sx={{ marginTop: 2 }}>
-                What you'll need
-              </Typography>
-              <List variant="icon-list">
-                <ListItem>
-                  <Check />
-                  <ListItemText disableTypography primary="Item 1" />
-                </ListItem>
-                <ListItem>
-                  <Check />
-                  <ListItemText disableTypography primary="Item 2" />
-                </ListItem>
-              </List>
-            </Box>
+            <CourseInfo
+              course={props.data}
+              setSnackbarMessage={setSnackbarMessage}
+              setOpenSnackbar={setOpenSnackbar}
+            />
           </TabPanel>
 
           <TabPanel value={tabValue} index={1} dir={theme.direction}>
-            <CourseLessons videoInfo={videoInfo} videos={props.data.videos} />
+            <CourseLessons videoInfo={videoInfo} videoIds={props.data.videos} />
           </TabPanel>
         </SwipeableViews>
         <Snackbar
@@ -332,7 +198,7 @@ function CourseSection(props) {
             elevation={6}
             variant="filled"
             onClose={handleCloseSnackbar}
-            severity="success"
+            severity={auth.user ? 'success' : 'warning'}
             sx={{ width: '100%' }}
           >
             {snackbarMessage}

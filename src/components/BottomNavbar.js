@@ -45,7 +45,7 @@ export default function BottomNavbar() {
           <BottomNavigationAction
             component={Link}
             to="/my-courses"
-            label="Courses"
+            label="My Courses"
             icon={<LibraryIcon />}
           />
           <BottomNavigationAction
