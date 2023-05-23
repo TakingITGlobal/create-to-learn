@@ -171,9 +171,46 @@ export function useVideoProgressByVideoId(owner, videoId) {
     { enabled: !!owner },
   )
 }
+
+export function useUserWatchlistByOwner(owner) {
+  return useQuery(
+    ['user-watchlist', { owner }],
+    createQuery(() =>
+      query(
+        collection(db, 'user-watchlist'),
+        where('owner', '==', owner),
+        orderBy('createdAt', 'desc'),
+      ),
+    ),
+    { enabled: !!owner },
+  )
+}
+
+export function useWatchlistById(owner, courseId) {
+  return useQuery(
+    ['user-watchlist'],
+    createQuery(() =>
+      query(
+        collection(db, 'user-watchlist'),
+        where('owner', '==', owner),
+        where('courseId', '==', courseId),
+        limit(1),
+      ),
+    ),
+    { enabled: !!owner },
+  )
+}
 // Create a new item
 export function createVideoProgress(data) {
   const docRef = addDoc(collection(db, 'user-progress'), {
+    ...data,
+    createdAt: serverTimestamp(),
+  })
+  return docRef
+}
+
+export function createWatchlistCourse(data) {
+  const docRef = addDoc(collection(db, 'user-watchlist'), {
     ...data,
     createdAt: serverTimestamp(),
   })
@@ -188,6 +225,10 @@ export function updateVideoProgress(id, data) {
 // Delete an item
 export function deleteVideoProgress(id) {
   return deleteDoc(doc(db, 'user-progress', id))
+}
+
+export function deleteWatchlistCourse(id) {
+  return deleteDoc(doc(db, 'user-watchlist', id))
 }
 
 /**** ITEMS ****/

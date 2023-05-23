@@ -10,17 +10,16 @@ import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import CircularProgress from '@mui/material/CircularProgress'
 import { useForm } from 'react-hook-form'
-import AuthSocial from './AuthSocial'
+import AuthSocial from './auth/AuthSocial'
 import { useAuth } from './../util/auth'
 
-const styles = theme => ({
+const styles = (theme) => ({
   content: {
     paddingBottom: '24px',
-  }
-});
+  },
+})
 
 function ReauthModal(props) {
-
   const classes = useClasses(styles)
   const auth = useAuth()
   const [pending, setPending] = useState(false)
@@ -117,7 +116,7 @@ function ReauthModal(props) {
         )}
       </DialogContent>
     </Dialog>
-  );
+  )
 }
 
 export default ReauthModal

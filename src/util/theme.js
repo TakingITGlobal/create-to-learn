@@ -259,10 +259,15 @@ export const c2learn = (mode) => ({
           fontWeight: '700',
           padding: '1em 1.5em',
         },
-        textError: { backgroundColor: '#FE3A3A', color: 'white' },
+        textError: {
+          backgroundColor: '#FE3A3A',
+          color: 'white',
+          borderRadius: '3em',
+        },
         textInfo: {
           backgroundColor: 'white',
           color: 'black',
+          borderRadius: '25px',
         },
         secondary: {
           backgroundColor: '#fff',

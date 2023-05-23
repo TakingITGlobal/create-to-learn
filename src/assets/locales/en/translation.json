@@ -20,6 +20,7 @@
   "cancel": "Cancel",
   "community": "Community",
   "dismiss": "Dismiss",
+  "add-to-watchlist": "Add to watchlist",
   "btn": {
     "prev": "Prev",
     "next": "Next",
@@ -90,16 +91,29 @@
     "materials": "Materials",
     "difficulty": "Difficulty Level"
   },
+  "course": {
+    "start-over": "Start over",
+    "finished": "Finished",
+    "download": "Download",
+    "start": "Start",
+    "what-you-need": "What you'll need",
+    "what-you-learn": "What you'll learn",
+    "topic": "Topic",
+    "start-creating": "Start Creating",
+    "added-to-watchlist": "Added to Watchlist"
+  },
   "my-courses": {
     "my-courses": "My Courses",
     "downloads": "Downloads",
     "my-progress": "My Progress",
     "watchlist": "Watchlist",
     "continue-watching": "Continue watching",
-    "add-to-watchlist": "Add to watchlist",
     "download-episode": "Download this episode",
     "see-details": "See details",
-    "in-progress": "In progress"
+    "in-progress": "In progress",
+    "remove-from-list": "Remove from list",
+    "download": "Download...",
+    "completed": "Completed"
   },
   "settings": {
     "profile": "Profile",

@@ -11,7 +11,6 @@ export const useInProgressCourses = () => {
   const [inProgressVideoIds, setInProgressVideoIds] = useState([])
   const [inProgressCourses, setInProgressCourses] = useState([])
 
-  console.log(progress)
   useMemo(() => {
     if (progress && progress.data) {
       setInProgressVideoIds(
@@ -29,13 +28,13 @@ export const useInProgressCourses = () => {
           course.videos.length &&
           course.videos.some((video) => inProgressVideoIds.includes(video)),
       )
-      const blah = coursesWithInProgressVideo.map((course) => {
+      const inProgressCourses = coursesWithInProgressVideo.map((course) => {
         const vidInProgress = progress.data.filter((item) =>
           course.videos.includes(item.videoId),
         )
         return { course: course, inProgressVideos: vidInProgress }
       })
-      setInProgressCourses(blah)
+      setInProgressCourses(inProgressCourses)
     }
   }, [inProgressVideoIds.length, progress.data])
 

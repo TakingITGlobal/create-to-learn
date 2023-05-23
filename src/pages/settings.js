@@ -1,6 +1,6 @@
 import React from 'react'
 import Meta from './../components/Meta'
-import SettingsSection from './../components/SettingsSection'
+import SettingsSection from './../components/Settings/SettingsSection'
 import { useRouter } from './../util/router'
 
 function SettingsPage(props) {

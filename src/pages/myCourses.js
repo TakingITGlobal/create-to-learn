@@ -1,6 +1,6 @@
 import React from 'react'
 import Meta from '../components/Meta'
-import MyCoursesSection from '../components/MyCoursesSection'
+import MyCoursesSection from '../components/MyCourses/MyCoursesSection'
 import { requireAuth } from '../util/auth'
 
 function MyCoursesPage(props) {

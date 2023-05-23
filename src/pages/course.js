@@ -1,7 +1,6 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Meta from './../components/Meta'
-import CourseSection from './../components/CourseSection'
-import { Link } from './../util/router'
+import CourseSection from './../components/CoursePage/CourseSection'
 import { useRouter } from './../util/router'
 import { useCourseByUID } from '../util/db'
 function CoursePage(props) {
@@ -9,33 +8,31 @@ function CoursePage(props) {
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState()
   const { courseId } = router.params
-  const {data: courseData} = useCourseByUID(courseId)
+  const { data: courseData } = useCourseByUID(courseId)
 
   useEffect(() => {
-    if(courseData?.length){
-      setData(courseData[0])  
+    if (courseData?.length) {
+      setData(courseData[0])
     }
-  },[courseData])
+  }, [courseData])
   useEffect(() => {
     setLoading(false)
-  },[data])
+  }, [data])
 
   return (
     <>
       <Meta title="Course" />
-      { 
-        data && 
-          <CourseSection
-            bgColor="default"
-            size="normal"
-            bgImage=""
-            bgImageOpacity={1}
-            id={courseId}
-            data={data}  
-          />
-      }
+      {data && (
+        <CourseSection
+          bgColor="default"
+          size="normal"
+          bgImage=""
+          bgImageOpacity={1}
+          id={courseId}
+          data={data}
+        />
+      )}
     </>
-
   )
 }
 

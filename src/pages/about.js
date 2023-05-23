@@ -1,7 +1,7 @@
 import React from 'react'
 import Meta from './../components/Meta'
-import HeroSection2 from './../components/HeroSection2'
-import TeamBiosSection from './../components/TeamBiosSection'
+import HeroSection2 from './../components/Unused/HeroSection2'
+import TeamBiosSection from '../components/Unused/TeamBiosSection'
 
 function AboutPage(props) {
   return (

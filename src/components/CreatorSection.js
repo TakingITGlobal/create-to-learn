@@ -7,7 +7,7 @@ import ShareIcon from '@mui/icons-material/ShareRounded'
 import FacebookIcon from '@mui/icons-material/FacebookRounded'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import Section from './Section'
-import BrowseCourseCard from './BrowseCourseCard'
+import CourseCard from './CourseCard'
 
 function CreatorSection({ coursesByCreator, creator }) {
   return (
@@ -66,7 +66,7 @@ function CreatorSection({ coursesByCreator, creator }) {
         {coursesByCreator.length && (
           <Box>
             <Typography variant="h6">More from {creator.name}</Typography>
-            <BrowseCourseCard course={coursesByCreator[0]} />
+            <CourseCard course={coursesByCreator[0]} />
           </Box>
         )}
       </Container>
