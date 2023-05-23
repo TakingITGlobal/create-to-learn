@@ -1,13 +1,12 @@
 import React from 'react'
-import useClasses from '../hooks/useClasses'
+import useClasses from '../../hooks/useClasses'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
-import Section from './Section'
-import SectionHeader from './SectionHeader'
+import Section from '../Section'
+import SectionHeader from '../SectionHeader'
 
-const styles = theme => ({
-
+const styles = (theme) => ({
   // Increase <Container> padding so it's
   // at least half of <Grid> spacing to
   // avoid horizontal scroll on mobile.
@@ -22,8 +21,8 @@ const styles = theme => ({
     display: 'block',
     height: 'auto',
     width: '100%',
-  }
-});
+  },
+})
 
 function HeroSection(props) {
   const classes = useClasses(styles)
@@ -67,7 +66,7 @@ function HeroSection(props) {
         </Grid>
       </Container>
     </Section>
-  );
+  )
 }
 
 export default HeroSection

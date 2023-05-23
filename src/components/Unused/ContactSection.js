@@ -1,7 +1,7 @@
 import React from 'react'
 import Container from '@mui/material/Container'
-import Section from './Section'
-import SectionHeader from './SectionHeader'
+import Section from '../Section'
+import SectionHeader from '../SectionHeader'
 import Contact from './Contact'
 
 function ContactSection(props) {

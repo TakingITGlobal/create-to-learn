@@ -1,8 +1,8 @@
 import React from 'react'
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
-import Section from './Section'
-import SectionHeader from './SectionHeader'
+import Section from '../Section'
+import SectionHeader from '../SectionHeader'
 
 function HeroSection2(props) {
   return (

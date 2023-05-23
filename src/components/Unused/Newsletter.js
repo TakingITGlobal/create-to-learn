@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import { useForm } from 'react-hook-form'
-import newsletter from './../util/newsletter'
+import newsletter from '../../util/newsletter'
 
 function Newsletter(props) {
   const [subscribed, setSubscribed] = useState(false)

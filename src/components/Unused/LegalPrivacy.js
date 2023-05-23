@@ -1,5 +1,5 @@
 import React from 'react'
-import LongContent from './LongContent'
+import LongContent from '../LongContent'
 
 function LegalPrivacy(props) {
   return (

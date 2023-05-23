@@ -1,5 +1,5 @@
 import React from 'react'
-import useClasses from '../hooks/useClasses'
+import useClasses from '../../hooks/useClasses'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
@@ -7,10 +7,10 @@ import CardContent from '@mui/material/CardContent'
 import Box from '@mui/material/Box'
 import Avatar from '@mui/material/Avatar'
 import Typography from '@mui/material/Typography'
-import Section from './Section'
-import SectionHeader from './SectionHeader'
+import Section from '../Section'
+import SectionHeader from '../SectionHeader'
 
-const styles = theme => ({
+const styles = (theme) => ({
   card: {
     display: 'flex',
     flexDirection: 'column',
@@ -25,11 +25,10 @@ const styles = theme => ({
   avatar: {
     width: theme.spacing(15),
     height: theme.spacing(15),
-  }
-});
+  },
+})
 
 function TeamBiosSection(props) {
-
   const classes = useClasses(styles)
   const items = [
     {
@@ -102,7 +101,7 @@ function TeamBiosSection(props) {
         </Grid>
       </Container>
     </Section>
-  );
+  )
 }
 
 export default TeamBiosSection

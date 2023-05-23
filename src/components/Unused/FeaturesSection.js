@@ -1,13 +1,13 @@
 import React from 'react'
-import { styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import Section from './Section'
-import SectionHeader from './SectionHeader'
+import Section from '../Section'
+import SectionHeader from '../SectionHeader'
 
-const styles = theme => ({
+const styles = (theme) => ({
   itemsContainer: {
     marginTop: 60,
   },
@@ -32,8 +32,8 @@ const styles = theme => ({
   image: {
     height: 'auto',
     maxWidth: '100%',
-  }
-});
+  },
+})
 
 function FeaturesSection(props) {
   const classes = useClasses(styles)
@@ -121,7 +121,7 @@ function FeaturesSection(props) {
         </Container>
       </Container>
     </Section>
-  );
+  )
 }
 
 export default FeaturesSection

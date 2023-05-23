@@ -1,6 +1,6 @@
 import React from 'react'
 import Meta from './../components/Meta'
-import LegalSection from './../components/LegalSection'
+import LegalSection from './../components/Unused/LegalSection'
 import { useRouter } from './../util/router'
 
 function LegalPage(props) {

@@ -1,5 +1,5 @@
 import React from 'react'
-import useClasses from '../hooks/useClasses'
+import useClasses from '../../hooks/useClasses'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
@@ -12,12 +12,12 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import CheckIcon from '@mui/icons-material/Check'
 import ListItemText from '@mui/material/ListItemText'
 import Button from '@mui/material/Button'
-import Section from './Section'
-import SectionHeader from './SectionHeader'
-import { Link } from './../util/router'
-import { useAuth } from './../util/auth'
+import Section from '../Section'
+import SectionHeader from '../SectionHeader'
+import { Link } from '../../util/router'
+import { useAuth } from '../../util/auth'
 
-const styles = theme => ({
+const styles = (theme) => ({
   card: {
     display: 'flex',
     flexDirection: 'column',
@@ -44,11 +44,10 @@ const styles = theme => ({
   perkIcon: {
     minWidth: 34,
     color: theme.palette.success.main,
-  }
-});
+  },
+})
 
 function PricingSection(props) {
-
   const classes = useClasses(styles)
   const auth = useAuth()
 
@@ -170,7 +169,7 @@ function PricingSection(props) {
         </Grid>
       </Container>
     </Section>
-  );
+  )
 }
 
 export default PricingSection

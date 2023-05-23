@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import useClasses from '../hooks/useClasses'
+import useClasses from '../../hooks/useClasses'
 import Dialog from '@mui/material/Dialog'
 import DialogTitle from '@mui/material/DialogTitle'
 import DialogContent from '@mui/material/DialogContent'
@@ -10,17 +10,16 @@ import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import CircularProgress from '@mui/material/CircularProgress'
 import { useForm } from 'react-hook-form'
-import { useAuth } from './../util/auth'
-import { useItem, updateItem, createItem } from './../util/db'
+import { useAuth } from '../../util/auth'
+import { useItem, updateItem, createItem } from '../../util/db'
 
-const styles = theme => ({
+const styles = (theme) => ({
   content: {
     paddingBottom: 24,
-  }
-});
+  },
+})
 
 function EditItemModal(props) {
-
   const classes = useClasses(styles)
   const auth = useAuth()
   const [pending, setPending] = useState(false)
@@ -111,7 +110,7 @@ function EditItemModal(props) {
         </form>
       </DialogContent>
     </Dialog>
-  );
+  )
 }
 
 export default EditItemModal

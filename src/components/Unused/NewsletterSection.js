@@ -1,8 +1,8 @@
 import React from 'react'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
-import Section from './Section'
-import SectionHeader from './SectionHeader'
+import Section from '../Section'
+import SectionHeader from '../SectionHeader'
 import Newsletter from './Newsletter'
 
 function NewsletterSection(props) {

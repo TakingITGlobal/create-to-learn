@@ -1,15 +1,15 @@
 import React from 'react'
-import useClasses from '../hooks/useClasses'
+import useClasses from '../../hooks/useClasses'
 import Container from '@mui/material/Container'
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import Typography from '@mui/material/Typography'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import Section from './Section'
-import SectionHeader from './SectionHeader'
+import Section from '../Section'
+import SectionHeader from '../SectionHeader'
 
-const styles = theme => ({
+const styles = (theme) => ({
   accordion: {
     // Remove shadow
     boxShadow: 'none',
@@ -33,8 +33,8 @@ const styles = theme => ({
 
   summaryContent: {
     margin: '0 !important',
-  }
-});
+  },
+})
 
 function FaqSection(props) {
   const classes = useClasses(styles)
@@ -106,7 +106,7 @@ function FaqSection(props) {
         ))}
       </Container>
     </Section>
-  );
+  )
 }
 
 export default FaqSection
