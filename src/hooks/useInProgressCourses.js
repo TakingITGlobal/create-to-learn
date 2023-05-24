@@ -7,7 +7,7 @@ export const useInProgressCourses = () => {
   const { allCourses, loadingCourses } = useContext(dataContext)
   const auth = useAuth()
 
-  const progress = useUserProgressByOwner(auth.user.uid)
+  const progress = useUserProgressByOwner(auth.user?.uid)
   const [inProgressVideoIds, setInProgressVideoIds] = useState([])
   const [inProgressCourses, setInProgressCourses] = useState([])
 

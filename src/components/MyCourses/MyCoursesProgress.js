@@ -15,12 +15,26 @@ import MyCoursesEmptyState from './MyCoursesEmptyState'
 
 import { useTranslation } from 'react-i18next'
 import { useInProgressCourses } from '../../hooks/useInProgressCourses'
+import { useAuth } from '../../util/auth'
 
 function MyCoursesProgress() {
+  const auth = useAuth()
   const { t } = useTranslation()
 
   const [openCourseDrawer, setOpenCourseDrawer] = useState(false)
   const inProgressCourses = useInProgressCourses()
+
+  const emptyStateTitle = auth.user
+    ? t('my-course.progress-empty-state-title')
+    : t('my-courses.guest-progress-empty-state-title')
+
+  const emptyStateSubtitle = auth.user
+    ? t('my-courses.progress-empty-state-subtitle')
+    : t('my-courses.guest-progress-empty-state-subtitle')
+
+  const emptyStateButtonText = auth.user
+    ? t('my-courses.find-course')
+    : t('my-courses.create-account-sign-in')
 
   return inProgressCourses.length ? (
     <Accordion disableGutters defaultExpanded>
@@ -85,10 +99,10 @@ function MyCoursesProgress() {
     </Accordion>
   ) : (
     <MyCoursesEmptyState
-      title={'Courses you’ve started will appear here'}
-      subtitle={'Watch a video to have it appear here!'}
-      buttonText={'Find a course'}
-      href={'/browse'}
+      title={emptyStateTitle}
+      subtitle={emptyStateSubtitle}
+      buttonText={emptyStateButtonText}
+      href={auth.user ? '/browse' : '/auth/signin'}
     />
   )
 }
