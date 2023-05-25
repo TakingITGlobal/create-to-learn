@@ -61,10 +61,13 @@ function BrowseCategoryCarousel({ handleCategoryFilter, categoryFilter }) {
               <Box
                 component="img"
                 src={category.illustration}
-                alt="all"
+                alt={category}
                 sx={{
                   display: 'flex',
-                  objectFit: 'cover',
+                  width: '100px',
+                  height: '100px',
+                  backgroundColor: '#211E34',
+                  padding: '10px',
                   border:
                     categoryFilter === category.label ? ' 1px solid' : 'none',
                   borderColor: 'white',
