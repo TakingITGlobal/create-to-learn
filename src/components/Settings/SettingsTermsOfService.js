@@ -5,8 +5,6 @@ import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
 import Typography from '@mui/material/Typography'
 
-import ArrowBack from '../ArrowBack'
-
 function TermsOfService({ setShowComponent }) {
   return (
     <Box

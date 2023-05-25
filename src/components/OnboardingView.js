@@ -103,6 +103,31 @@ function InputView(props) {
   )
 }
 
+export function WelcomeView(props) {
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        height: '75vh',
+      }}
+    >
+      <CardMedia
+        component="img"
+        alt=""
+        sx={{
+          width: '300px',
+          height: '300px',
+          borderRadius: '24px',
+        }}
+        image={props.image}
+      />
+    </Box>
+  )
+}
+
 export function WindowView(props) {
   return (
     <Stack
