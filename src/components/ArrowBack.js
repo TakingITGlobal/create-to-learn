@@ -12,7 +12,7 @@ function ArrowBack({ showComponent, setShowComponent }) {
         component={Link}
         to="/settings/profile"
       >
-        <ArrowBackIcon sx={{ color: 'white' }} />
+        <ArrowBackIcon />
       </IconButton>
     </Box>
   ) : (
@@ -21,7 +21,7 @@ function ArrowBack({ showComponent, setShowComponent }) {
         aria-label="back to previous page"
         onClick={() => setShowComponent('nav')}
       >
-        <ArrowBackIcon sx={{ color: 'white' }} />
+        <ArrowBackIcon />
       </IconButton>
     </Box>
   )

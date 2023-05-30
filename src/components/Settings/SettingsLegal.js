@@ -12,6 +12,8 @@ import ArrowBack from '../ArrowBack'
 import LinkComp from '@mui/material/Link'
 import { useAuth } from '../../util/auth'
 
+import SettingsTermsOfService from './SettingsTermsOfService'
+
 function SettingsLegal(props) {
   const auth = useAuth()
   const [showComponent, setShowComponent] = useState('nav')
@@ -28,7 +30,7 @@ function SettingsLegal(props) {
         )}
 
         {showComponent === 'termsOfService' && (
-          <TermsOfService setShowComponent={setShowComponent} />
+          <SettingsTermsOfService setShowComponent={setShowComponent} />
         )}
 
         {showComponent === 'aboutCreateToLearn' && (
@@ -192,52 +194,6 @@ function PrivacyPolicy({ setShowComponent }) {
         register includes your name, e- mail address, city, state/province, and
         country,
       </Typography>
-    </Box>
-  )
-}
-
-function TermsOfService({ setShowComponent }) {
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
-      <Box sx={{ padding: '1.5rem 0' }}>
-        <Typography variant="h6">Terms of Service</Typography>
-      </Box>
-      <Box sx={{ paddingBottom: '1rem' }}>
-        <Typography>
-          <b>1. Acceptance of Terms</b>
-        </Typography>
-        <Typography>
-          Welcome to TakingITGlobal! TakingITGlobal provides its service to you,
-          subject to the following Terms of Service ("TOS"), which may be
-          updated by us from time to time without notice to you. You can review
-          the most current version of the TOS at any time at: https://
-          www.tigweb.org/static/disclaimer.html. In addition, when using
-          particular TakingITGlobal services, you and TakingITGlobal shall be
-          subject to any posted guidelines or rules applicable to such services
-          which may be posted from time to time. All such guidelines or rules
-          are hereby incorporated by reference into the TOS
-        </Typography>
-      </Box>
-
-      <Box>
-        <Typography>
-          <b>2. Description of Service</b>
-        </Typography>
-        <Typography>
-          TakingITGlobal currently provides users with access to a rich
-          collection of resources, including various communications tools,
-          databases of information, collections of expressions, forums, and
-          content through its web site(s) (the "Service"). Unless explicitly
-          stated otherwise, any new features that augment or enhance the current
-          Service, including the release of new TakingITGlobal sites and
-          features, shall be subject to the TOS.
-        </Typography>
-      </Box>
     </Box>
   )
 }

@@ -113,7 +113,13 @@
     "in-progress": "In progress",
     "remove-from-list": "Remove from list",
     "download": "Download...",
-    "completed": "Completed"
+    "completed": "Completed",
+    "progress-empty-state-title": "Courses you’ve started will appear here",
+    "guest-progress-empty-state-title": "You need to be signed in to see videos in progress",
+    "progress-empty-state-subtitle": "Watch a video to have it appear here!",
+    "guest-progress-empty-state-subtitle": "Any videos you’ve started will appear here",
+    "find-course": "Find a course",
+    "create-account-sign-in": "Create account or sign in"
   },
   "settings": {
     "profile": "Profile",
