@@ -27,11 +27,13 @@ function CourseVideoListItem({ video, videoId, setOpenCourseDrawer }) {
   )
 
   const videoProgressPercentage =
+    videoProgress &&
     videoProgress.length &&
     videoProgress[0].videoId === videoId &&
     (Number(videoProgress[0].progress) / Number(video.duration)) * 100
 
   const timeLeft =
+    videoProgress &&
     videoProgress.length &&
     videoProgress[0].videoId === videoId &&
     Number(video.duration) - Number(videoProgress[0].progress)
