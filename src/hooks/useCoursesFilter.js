@@ -1,10 +1,8 @@
 import { useState, useEffect, useMemo } from 'react'
-import { culturalGroups } from '../assets/options/filters'
 
 const ALL_CATEGORIES = 'All'
 
 export const useCoursesFilter = ({
-  allCreators,
   allCourses,
   durationFilter = [],
   culturalGroupFilter = [],
@@ -38,11 +36,7 @@ export const useCoursesFilter = ({
       allCourses.filter((course) => {
         return (
           handleDurations(durationFilter, course.totalLength) &&
-          handleCulturalGroup(
-            culturalGroupFilter,
-            course.creator,
-            allCreators,
-          ) &&
+          handleCulturalGroup(culturalGroupFilter, course.indigenousGroups) &&
           handleCategory(categoryFilter, course.category) &&
           handleFeatured(featuredFilter, course.featured) &&
           handleDifficulty(difficultyLevelFilter, course.difficultyLevel) &&
@@ -54,7 +48,6 @@ export const useCoursesFilter = ({
   }, [
     durationFilter,
     allCourses,
-    allCreators,
     culturalGroupFilter,
     categoryFilter,
     featuredFilter,
@@ -77,22 +70,12 @@ const handleDurations = (durationFilter, courseLength) => {
   )
 }
 
-const handleCulturalGroup = (
-  culturalGroupFilter,
-  courseCreator,
-  allCreators,
-) => {
-  const creator =
-    allCreators &&
-    allCreators.filter((creator) => creator.name === courseCreator)
-  const creatorFNMI =
-    creator && creator.length ? creator[0].fnmi : culturalGroups
+const handleCulturalGroup = (culturalGroupFilter, courseIndigenousGroups) => {
   if (!culturalGroupFilter.length) {
     return true
   }
-
   return culturalGroupFilter.some((culturalGroup) =>
-    creatorFNMI.includes(culturalGroup),
+    courseIndigenousGroups.includes(culturalGroup),
   )
 }
 

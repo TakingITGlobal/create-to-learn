@@ -4,7 +4,6 @@ import { useRouter } from '../util/router'
 export const useAuthForm = () => {
   const router = useRouter()
   const [formAlert, setFormAlert] = useState(null)
-  console.log(formAlert, router)
 
   const type = router.query.type
   const afterAuthPath = router.query.next || '/dashboard'

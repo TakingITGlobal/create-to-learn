@@ -19,6 +19,7 @@ import AuthSocial from './auth/AuthSocial'
 import { useRouter } from '../util/router'
 import { useAuth } from '../util/auth'
 import AuthForm from './auth/AuthForm'
+import { Link } from 'react-router-dom'
 
 const styles = (theme) => ({
   gridColumn: {
@@ -85,7 +86,11 @@ function InputView(props) {
       <Grid container>{props.children}</Grid>
       <Stack direction="column" spacing={2}>
         <Button
-          variant="contained"
+          color="info"
+          sx={{
+            backgroundColor: 'white !important',
+            color: 'black !important',
+          }}
           onClick={() => setLocal(value, data)}
           disabled={!data.length > 0}
         >
@@ -104,6 +109,15 @@ function InputView(props) {
 }
 
 export function WelcomeView(props) {
+  const swiper = useSwiper()
+  const { t } = useTranslation()
+
+  const { setFormProgress, formProgress } = props
+
+  const setLocal = () => {
+    setFormProgress(formProgress + 1)
+    swiper.slideNext()
+  }
   return (
     <Box
       sx={{
@@ -124,6 +138,17 @@ export function WelcomeView(props) {
         }}
         image={props.image}
       />
+      <Stack sx={{ width: '90%', gap: '5px' }}>
+        <Button fullWidth variant="contained" onClick={() => setLocal()}>
+          {t('get-started')}
+        </Button>
+        <Button fullWidth color="info" component={Link} to="/auth/signin">
+          {t('sign-in')}
+        </Button>
+        <Button fullWidth component={Link} to="/dashboard">
+          {t('let-me-browse')}
+        </Button>
+      </Stack>
     </Box>
   )
 }

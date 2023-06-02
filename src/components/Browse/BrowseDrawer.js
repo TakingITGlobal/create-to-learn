@@ -4,6 +4,8 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 import Stack from '@mui/material/Stack'
+import IconButton from '@mui/material/IconButton'
+import CloseIcon from '@mui/icons-material/Close'
 
 import { useTranslation } from 'react-i18next'
 
@@ -43,8 +45,18 @@ const BrowseDrawer = ({
           padding: '10px',
         }}
       >
-        <Box mt={2}>
+        <Box
+          mt={2}
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
           <Typography variant="h5">Filters</Typography>
+          <IconButton aria-label="close" onClick={() => setOpenDrawer(false)}>
+            <CloseIcon sx={{ color: 'white' }} />
+          </IconButton>
         </Box>
         {children}
         <Stack direction="column" spacing={1} sx={{ paddingTop: '20px' }}>

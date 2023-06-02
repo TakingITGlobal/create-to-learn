@@ -35,7 +35,6 @@ const BrowseTabs = ({ categoryFilter, setCategoryFilter }) => {
 
   const { data: filteredCourses } = useCoursesFilter({
     allCourses,
-    allCreators,
     culturalGroupFilter,
     categoryFilter,
     durationFilter,
@@ -69,7 +68,8 @@ const BrowseTabs = ({ categoryFilter, setCategoryFilter }) => {
     durationFilter.length +
     culturalGroupFilter.length +
     !!featuredFilter +
-    difficultyLevelFilter.length
+    difficultyLevelFilter.length +
+    materialsFilter.length
 
   const materials = Array.from(
     new Set(allCourses.flatMap(({ materials }) => materials ?? [])),

@@ -28,7 +28,7 @@ const BrowseCourseDrawerContent = ({
 
   const handleFilter = (item, clicked, itemFilter, setItemFilter) => {
     if (clicked) {
-      setItemFilter(itemFilter.filter((it) => it !== item))
+      setItemFilter(itemFilter.filter((element) => element !== item))
     } else {
       setItemFilter([...itemFilter, item])
     }

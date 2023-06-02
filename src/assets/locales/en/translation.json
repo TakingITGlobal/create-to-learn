@@ -119,7 +119,11 @@
     "progress-empty-state-subtitle": "Watch a video to have it appear here!",
     "guest-progress-empty-state-subtitle": "Any videos you’ve started will appear here",
     "find-course": "Find a course",
-    "create-account-sign-in": "Create account or sign in"
+    "create-account-sign-in": "Create account or sign in",
+    "guest-watchlist-empty-state-title": "You need to be signed in to see videos in watchlist",
+    "watchlist-empty-state-title": "You haven’t saved any courses",
+    "guest-watchlist-empty-state-subtitle": "Any videos you’ve added will appear here",
+    "watchlist-empty-state-subtitle": "Save a video to have it appear here!"
   },
   "settings": {
     "profile": "Profile",

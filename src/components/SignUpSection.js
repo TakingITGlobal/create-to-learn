@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import useClasses from '../hooks/useClasses'
 import Section from './Section'
 import { useTranslation } from 'react-i18next'
 import { A11y, Keyboard } from 'swiper'
@@ -26,22 +25,13 @@ import toolbelt from '../assets/images/toolbelt.png'
 
 const SlotStart = 'container-start'
 const SlotEnd = 'container-end'
-const styles = (theme) => ({
-  swiper: {
-    width: '100%',
-    '& .swiper-slide': {
-      display: 'flex',
-      maxWidth: theme.breakpoints.md,
-    },
-  },
-})
 
 const SwiperNext = ({ children }) => {
   const swiper = useSwiper()
   return (
     <Button
-      variant="secondary"
-      size="sm"
+      color="info"
+      sx={{ backgroundColor: 'white !important', color: 'black !important' }}
       fullWidth
       onClick={() => swiper.slideNext()}
     >
@@ -108,7 +98,6 @@ const ProgressDots = (props) => {
   const { start, end, slot } = props
   const { t } = useTranslation()
   const swiper = useSwiper()
-  const classes = useClasses(styles)
   const [active, setActive] = useState(0)
 
   useEffect(() => {
@@ -138,11 +127,10 @@ const ProgressDots = (props) => {
 
 function SignUpSection(props) {
   const { t } = useTranslation()
-  const classes = useClasses(styles)
   const welcomeLength = 3
   const inputLength = 4
-  const [active, setActive] = useState(0)
-  const [formProgress, setFormProgress] = useState(2)
+  const [formProgress, setFormProgress] = useState(0)
+  console.log(formProgress)
 
   return (
     <Section
@@ -153,11 +141,15 @@ function SignUpSection(props) {
     >
       <Swiper modules={[A11y, Keyboard]} autoHeight="true">
         <SwiperSlide sx={{ height: '600px' }}>
-          <WelcomeView image={welcome} />
+          <WelcomeView
+            image={welcome}
+            formProgress={formProgress}
+            setFormProgress={setFormProgress}
+          />
         </SwiperSlide>
         <ProgressBar
           start={welcomeLength}
-          end={welcomeLength + inputLength}
+          end={welcomeLength + inputLength + 1}
           slot={SlotStart}
         />
         <SwiperSlide>
