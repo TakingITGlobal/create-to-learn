@@ -130,7 +130,6 @@ function SignUpSection(props) {
   const welcomeLength = 3
   const inputLength = 4
   const [formProgress, setFormProgress] = useState(0)
-  console.log(formProgress)
 
   return (
     <Section

@@ -16,6 +16,5 @@ export const useAuthForm = () => {
     setFormAlert(data)
   }
 
-  console.log(formAlert)
   return { formAlert, handleAuth, handleFormAlert, type }
 }
