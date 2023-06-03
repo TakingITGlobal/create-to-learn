@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { List, Typography, Box, IconButton } from '@mui/material'
+import { List, Typography, Box, IconButton, ListItem } from '@mui/material'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 import CloseIcon from '@mui/icons-material/Close'
 import Video from '../Video'
@@ -16,7 +16,7 @@ function CourseLessons({ videoInfo, videoIds }) {
         videoInfo.map((video, index) => {
           const videoId = videoIds[index]
           return (
-            <div key={index}>
+            <ListItem key={index}>
               <CourseVideoListItem
                 video={video}
                 videoId={videoId}
@@ -47,7 +47,7 @@ function CourseLessons({ videoInfo, videoIds }) {
                 </Typography>
                 <Video video={video.link} id={videoId} user={auth.user} />
               </SwipeableDrawer>
-            </div>
+            </ListItem>
           )
         })}
     </List>

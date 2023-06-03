@@ -1,8 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks'
 import { useCoursesFilter } from './useCoursesFilter'
 
-//Mock courses, creators,
-
 describe('useCoursesFilter hook', () => {
   let props = {}
   beforeEach(() => {
@@ -73,8 +71,6 @@ describe('useCoursesFilter hook', () => {
     expect(result.current.data).toEqual(expected)
   })
 
-  // it('returns new courses', () => {})
-
   it('returns courses with Métis indigenous group', async () => {
     const { result, waitForNextUpdate } = renderHook(() =>
       useCoursesFilter({
@@ -99,6 +95,8 @@ describe('useCoursesFilter hook', () => {
     await waitForNextUpdate()
     expect(result.current.data).toEqual(expected)
   })
+
+  // it('returns new courses', () => {})
 
   // it('returns courses with Beginner difficulty level', () => {
   //   const { result } = renderHook(() =>

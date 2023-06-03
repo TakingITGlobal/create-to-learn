@@ -1,8 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Button,
-  Link,
-  ListItem,
   Paper,
   Typography,
   Stack,
@@ -20,6 +18,7 @@ import { displayTime } from '../../util/timeHelpers'
 function CourseVideoListItem({ video, videoId, setOpenCourseDrawer }) {
   const auth = useAuth()
   const { t } = useTranslation()
+  const [downloadSuccess, setDownloadSuccess] = useState(false)
 
   const { data: videoProgress } = useVideoProgressByVideoId(
     auth.user?.uid,
@@ -41,94 +40,76 @@ function CourseVideoListItem({ video, videoId, setOpenCourseDrawer }) {
   const completed = timeLeft < 10
 
   return (
-    <ListItem>
-      <Paper elevation="1">
-        <Grid container sx={{ display: 'flex', paddingBottom: '20px' }}>
-          <Grid item xs={8}>
-            <Typography variant="bold">{video.name}</Typography>
-          </Grid>
-          <Grid item xs={4} textAlign="center">
-            {videoProgressPercentage ? (
-              completed ? (
-                <Stack direction="row">
-                  <CheckIcon
-                    sx={{
-                      backgroundColor: 'inherit !important',
-                      color: '#fff !important',
-                    }}
-                  />
-
-                  <Typography sx={{ display: 'inline-block' }}>
-                    {t('course.finished')}
-                  </Typography>
-                </Stack>
-              ) : (
-                <>
-                  <Typography>{displayTime(timeLeft)} left</Typography>
-                  <LinearProgress
-                    variant="determinate"
-                    value={videoProgressPercentage}
-                  />
-                </>
-              )
-            ) : (
-              <Typography>{displayTime(video.duration)}</Typography>
-            )}
-          </Grid>
+    <Paper elevation="1">
+      <Grid container sx={{ display: 'flex', paddingBottom: '20px' }}>
+        <Grid item xs={8}>
+          <Typography variant="bold">{video.name}</Typography>
         </Grid>
-        <Divider light />
-        <Stack
-          direction="row"
-          spacing={1}
-          alignItems="center"
-          sx={{ paddingLeft: '20px', paddingTop: '20px' }}
-        >
-          <DownloadIcon
-            sx={{
-              backgroundColor: 'inherit !important',
-              color: '#fff !important',
-            }}
-          />
-          <Link
-            flex="1"
-            href={video.link}
-            underline="none"
-            sx={{ fontSize: '1rem' }}
-          >
-            {t('course.download')}
-          </Link>
+        <Grid item xs={4} textAlign="center">
           {videoProgressPercentage ? (
             completed ? (
-              <Button
-                onClick={() => {
-                  setOpenCourseDrawer(videoId)
-                }}
-                variant="contained"
-                color="primary"
-                size="large"
-                sx={{
-                  flex: '1',
-                }}
-              >
-                {t('course.start-over')}
-              </Button>
+              <Stack direction="row">
+                <CheckIcon
+                  sx={{
+                    backgroundColor: 'inherit !important',
+                    color: '#fff !important',
+                  }}
+                />
+
+                <Typography sx={{ display: 'inline-block' }}>
+                  {t('course.finished')}
+                </Typography>
+              </Stack>
             ) : (
-              <Button
-                onClick={() => {
-                  setOpenCourseDrawer(videoId)
-                }}
-                size="large"
-                sx={{
-                  flex: '1',
-                  backgroundColor: 'white',
-                  color: 'black',
-                  borderRadius: '25px',
-                }}
-              >
-                {t('btn.continue')}
-              </Button>
+              <>
+                <Typography>{displayTime(timeLeft)} left</Typography>
+                <LinearProgress
+                  variant="determinate"
+                  value={videoProgressPercentage}
+                />
+              </>
             )
           ) : (
+            <Typography>{displayTime(video.duration)}</Typography>
+          )}
+        </Grid>
+      </Grid>
+      <Divider light />
+      <Stack
+        direction="row"
+        spacing={1}
+        alignItems="center"
+        sx={{ paddingLeft: '20px', paddingTop: '20px' }}
+      >
+        {downloadSuccess ? (
+          <Button
+            startIcon={
+              <CheckIcon sx={{ backgroundColor: '#58B97D !important' }} />
+            }
+            sx={{ color: '#BCE3CB' }}
+          >
+            {t('course.downloaded')}
+          </Button>
+        ) : (
+          <Button
+            flex="1"
+            onClick={() => setDownloadSuccess(true)}
+            href={video.download[0].link}
+            sx={{ fontSize: '1rem' }}
+            startIcon={
+              <DownloadIcon
+                sx={{
+                  backgroundColor: 'inherit !important',
+                  color: '#fff !important',
+                }}
+              />
+            }
+          >
+            {t('course.download')}
+          </Button>
+        )}
+        {videoProgressPercentage ? (
+          completed ? (
             <Button
               onClick={() => {
                 setOpenCourseDrawer(videoId)
@@ -136,14 +117,43 @@ function CourseVideoListItem({ video, videoId, setOpenCourseDrawer }) {
               variant="contained"
               color="primary"
               size="large"
-              sx={{ flex: '1' }}
+              sx={{
+                flex: '1',
+              }}
             >
-              {t('course.start')}
+              {t('course.start-over')}
             </Button>
-          )}
-        </Stack>
-      </Paper>
-    </ListItem>
+          ) : (
+            <Button
+              onClick={() => {
+                setOpenCourseDrawer(videoId)
+              }}
+              size="large"
+              sx={{
+                flex: '1',
+                backgroundColor: 'white',
+                color: 'black',
+                borderRadius: '25px',
+              }}
+            >
+              {t('btn.continue')}
+            </Button>
+          )
+        ) : (
+          <Button
+            onClick={() => {
+              setOpenCourseDrawer(videoId)
+            }}
+            variant="contained"
+            color="primary"
+            size="large"
+            sx={{ flex: '1' }}
+          >
+            {t('course.start')}
+          </Button>
+        )}
+      </Stack>
+    </Paper>
   )
 }
 

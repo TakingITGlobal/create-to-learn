@@ -21,12 +21,12 @@ export const useCoursesFilter = ({
       difficultyLevelFilter.length ||
       materialsFilter.length,
     [
-      durationFilter,
-      culturalGroupFilter,
+      durationFilter.length,
+      culturalGroupFilter.length,
       categoryFilter,
       featuredFilter,
-      difficultyLevelFilter,
-      materialsFilter,
+      difficultyLevelFilter.length,
+      materialsFilter.length,
     ],
   )
 
