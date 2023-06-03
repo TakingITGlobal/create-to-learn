@@ -245,6 +245,16 @@ export const c2learn = (mode) => ({
         },
       },
     },
+    MuiRadio: {
+      styleOverrides: {
+        root: {
+          colorSecondary: {
+            color: 'white !important',
+            backgroundColor: 'white !important',
+          },
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {
