@@ -13,7 +13,6 @@ import {
 } from '@mui/material'
 import Radio from '@material-ui/core/Radio'
 import Drawer from '@mui/material/Drawer'
-import Link from '@mui/material/Link'
 import DownloadIcon from '@mui/icons-material/Download'
 import Divider from '@mui/material/Divider'
 import CheckIcon from '@mui/icons-material/Check'
@@ -193,7 +192,6 @@ function CourseVideoListItem({ video, videoId, setOpenCourseDrawer }) {
                     setOpenDownloadDrawer(false)
                     window.location.href = link
                   }}
-                  label={<Button href={link} />}
                   color="secondary"
                   name={`download-${public_name}`}
                   inputProps={{

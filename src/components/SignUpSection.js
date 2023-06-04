@@ -16,12 +16,14 @@ import {
   WelcomeView,
   EmailView,
   FinishView,
+  InputPillView,
 } from './OnboardingView'
 import schoolData from '../assets/options/schools.json'
 import welcome from '../assets/images/welcome2.png'
 import juggling from '../assets/images/juggling.png'
 import gardening from '../assets/images/gardening.png'
 import toolbelt from '../assets/images/toolbelt.png'
+import { categories } from '../assets/options/categories'
 
 const SlotStart = 'container-start'
 const SlotEnd = 'container-end'
@@ -131,6 +133,8 @@ function SignUpSection(props) {
   const inputLength = 4
   const [formProgress, setFormProgress] = useState(0)
 
+  const categoryOptions = categories.slice(1).map(({ label }) => label)
+
   return (
     <Section
       bgColor={props.bgColor}
@@ -190,28 +194,11 @@ function SignUpSection(props) {
           />
         </SwiperSlide>
         <SwiperSlide>
-          <InputSelectView
+          <InputPillView
             value="interests"
-            options={[
-              'Health & Well-being',
-              'Writing',
-              'Video & Film',
-              'Visual Arts',
-              'Game Design',
-              'Drones',
-              'Music',
-              'Songwriting',
-              'Photography',
-              'Photoshop',
-              'Web Design',
-              'Entrepreneurship',
-              'Illustration',
-              'Cultural Teachings',
-            ]}
+            options={categoryOptions}
             formProgress={formProgress}
             setFormProgress={setFormProgress}
-            cols={2}
-            multi
           />
         </SwiperSlide>
         <SwiperSlide>

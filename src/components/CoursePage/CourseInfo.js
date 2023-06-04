@@ -12,8 +12,12 @@ import {
   useTheme,
   ListItemIcon,
   Grid,
+  Checkbox,
+  Switch,
 } from '@mui/material'
 import LinearProgress from '@mui/material/LinearProgress'
+import Drawer from '@mui/material/Drawer'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import SvgIcon from '@mui/material/SvgIcon'
 import CourseStats from './CourseStats'
 import { ChevronRight, Check, BookmarkBorder } from '@mui/icons-material'
@@ -28,13 +32,19 @@ import { useTranslation } from 'react-i18next'
 import { categories } from '../../assets/options/categories'
 import { displayTime } from '../../util/timeHelpers'
 
-function CourseInfo({ course, setOpenSnackbar, setSnackbarMessage }) {
+function CourseInfo({
+  course,
+  setOpenSnackbar,
+  setSnackbarMessage,
+  setTabValue,
+  videoInfo,
+}) {
   const theme = useTheme()
   const auth = useAuth()
   const { t } = useTranslation()
-
-  const [showCourseDetails, setShowCourseDetails] = useState(false)
-
+  const [openDownloadDrawer, setOpenDownloadDrawer] = useState(false)
+  const [videosToDownload, setVideosToDownload] = useState([])
+  const [downloadVideos, setDownloadVideos] = useState(false)
   const { data } = useWatchlistById(auth.user?.uid, course.id)
 
   const creatorUID = course.creator.trim().replaceAll(' ', '-').toLowerCase()
@@ -76,6 +86,25 @@ function CourseInfo({ course, setOpenSnackbar, setSnackbarMessage }) {
       : 0
 
   const timeLeft = course.totalLength - totalTimeWatched
+
+  const handleVideosToDownload = (uri) => {
+    videosToDownload.includes(uri)
+      ? setVideosToDownload(videosToDownload.filter((id) => id !== uri))
+      : setVideosToDownload([...videosToDownload, uri])
+  }
+
+  const Download = () => {
+    const videos = videoInfo.filter((video) =>
+      videosToDownload.includes(video.uri),
+    )
+    return (
+      <div style={{ display: 'none' }}>
+        {videos.map((video) => (
+          <iframe title={video.name} src={video.download[0].link} />
+        ))}
+      </div>
+    )
+  }
 
   return (
     <>
@@ -147,14 +176,14 @@ function CourseInfo({ course, setOpenSnackbar, setSnackbarMessage }) {
             <Grid xs={4}>
               <Button
                 fullWidth
+                onClick={() => setTabValue(1)}
                 sx={{
                   backgroundColor: 'white !important',
                   color: 'black',
                   borderRadius: '25px',
                 }}
-                onClick={() => setShowCourseDetails(true)}
               >
-                Continue
+                {t('btn.continue')}
               </Button>
             </Grid>
           </Grid>
@@ -163,95 +192,160 @@ function CourseInfo({ course, setOpenSnackbar, setSnackbarMessage }) {
             variant="contained"
             size="large"
             fullWidth
-            onClick={() => setShowCourseDetails(true)}
+            onClick={() => setTabValue(1)}
           >
             {t('course.start-creating')}
           </Button>
         )}
 
         {/* Add to Watchlist button */}
-        {showCourseDetails && (
-          <Box>
-            <Stack
-              direction="row"
-              spacing={1}
-              mb="15px"
-              mt="20px"
-              alignItems="center"
-            >
-              {data?.length ? (
-                <Stack direction="row" spacing={2}>
-                  <CheckIcon sx={{ fill: '#58B97D' }} />
-                  <Typography sx={{ color: '#BCE3CB' }}>
-                    {t('course.added-to-watchlist')}
-                  </Typography>
-                </Stack>
-              ) : (
-                <Button
-                  variant="text"
-                  startIcon={<BookmarkBorder />}
-                  onClick={() => handleAddToWatchlist()}
-                >
-                  {t('add-to-watchlist')}
-                </Button>
-              )}
-              <Button variant="text">{t('course.download')}</Button>
-            </Stack>
 
-            {/* Topic List */}
-            <Typography variant="bold" sx={{ mT: 2 }}>
-              {t('course.topic')}
-            </Typography>
-            <List>
-              {topics.map(({ label, icon }) => (
-                <ListItem>
-                  <ListItemIcon>
-                    <SvgIcon
-                      fontSize="large"
-                      component="div"
-                      sx={{ paddingBottom: '10px' }}
-                    >
-                      {icon}
-                    </SvgIcon>
-                  </ListItemIcon>
-                  <ListItemText>{label}</ListItemText>
+        <Box>
+          <Stack
+            direction="row"
+            spacing={1}
+            mb="15px"
+            mt="20px"
+            alignItems="center"
+          >
+            {data?.length ? (
+              <Stack direction="row" spacing={2}>
+                <CheckIcon sx={{ fill: '#58B97D' }} />
+                <Typography sx={{ color: '#BCE3CB' }}>
+                  {t('course.added-to-watchlist')}
+                </Typography>
+              </Stack>
+            ) : (
+              <Button
+                variant="text"
+                startIcon={<BookmarkBorder />}
+                onClick={() => handleAddToWatchlist()}
+              >
+                {t('add-to-watchlist')}
+              </Button>
+            )}
+            <Button
+              variant="text"
+              onClick={() => setOpenDownloadDrawer(true)}
+              endIcon={<ExpandMoreIcon />}
+            >
+              {t('course.download')}
+            </Button>
+          </Stack>
+
+          {/* Topic List */}
+          <Typography variant="bold" sx={{ mT: 2 }}>
+            {t('course.topic')}
+          </Typography>
+          <List>
+            {topics.map(({ label, icon }) => (
+              <ListItem>
+                <ListItemIcon>
+                  <SvgIcon
+                    fontSize="large"
+                    component="div"
+                    sx={{ paddingBottom: '10px' }}
+                  >
+                    {icon}
+                  </SvgIcon>
+                </ListItemIcon>
+                <ListItemText>{label}</ListItemText>
+              </ListItem>
+            ))}
+          </List>
+
+          {/* What You'll Learn List */}
+          <Typography variant="bold" sx={{ marginTop: 2 }}>
+            {t('course.what-you-learn')}
+          </Typography>
+          <List variant="icon-list">
+            <ListItem>
+              <Check />
+              <ListItemText disableTypography primary="Item 1" />
+            </ListItem>
+            <ListItem>
+              <Check />
+              <ListItemText disableTypography primary="Item 2" />
+            </ListItem>
+          </List>
+
+          {/* What You'll Need List*/}
+          {course.materials && (
+            <Box>
+              <Typography variant="bold" sx={{ marginTop: 2 }}>
+                {t('course.what-you-need')}
+              </Typography>
+              <List variant="icon-list">
+                {course.materials.map((material) => (
+                  <ListItem>
+                    <Check />
+                    <ListItemText disableTypography primary={material} />
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
+          )}
+        </Box>
+        <Drawer
+          anchor="bottom"
+          open={openDownloadDrawer}
+          onClose={() => {
+            setOpenDownloadDrawer(false)
+            setDownloadVideos(false)
+          }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              padding: '0 17.5px',
+            }}
+          >
+            <Box sx={{ paddingTop: '10px' }}>Download all lesson</Box>
+            <Switch
+              checked={videosToDownload.length === videoInfo.length}
+              onChange={
+                videosToDownload.length === videoInfo.length
+                  ? () => setVideosToDownload([])
+                  : () => setVideosToDownload(videoInfo.map(({ uri }) => uri))
+              }
+            />
+          </Box>
+          <List>
+            {videoInfo &&
+              videoInfo.length &&
+              videoInfo.map(({ uri, name }) => (
+                <ListItem
+                  secondaryAction={
+                    <Checkbox
+                      value={name}
+                      checked={videosToDownload.includes(uri)}
+                      onChange={() => handleVideosToDownload(uri)}
+                      name={`download-${uri}`}
+                      inputProps={{
+                        'aria-label': `download-${uri}`,
+                      }}
+                      style={{ color: '#6956F1' }}
+                    />
+                  }
+                >
+                  {name}
                 </ListItem>
               ))}
-            </List>
-
-            {/* What You'll Learn List */}
-            <Typography variant="bold" sx={{ marginTop: 2 }}>
-              {t('course.what-you-learn')}
-            </Typography>
-            <List variant="icon-list">
-              <ListItem>
-                <Check />
-                <ListItemText disableTypography primary="Item 1" />
-              </ListItem>
-              <ListItem>
-                <Check />
-                <ListItemText disableTypography primary="Item 2" />
-              </ListItem>
-            </List>
-
-            {/* What You'll Need List*/}
-            {course.materials && (
-              <Box>
-                <Typography variant="bold" sx={{ marginTop: 2 }}>
-                  {t('course.what-you-need')}
-                </Typography>
-                <List variant="icon-list">
-                  {course.materials.map((material) => (
-                    <ListItem>
-                      <Check />
-                      <ListItemText disableTypography primary={material} />
-                    </ListItem>
-                  ))}
-                </List>
-              </Box>
-            )}
-          </Box>
-        )}
+          </List>
+          <Button
+            fullWidth
+            variant="contained"
+            sx={{ backgroundColor: 'white', color: 'black' }}
+            onClick={() => {
+              setDownloadVideos(true)
+            }}
+          >
+            {t('btn.continue')}
+          </Button>
+          {downloadVideos && <Download />}
+        </Drawer>
       </Box>
     </>
   )

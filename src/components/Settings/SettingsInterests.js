@@ -17,11 +17,9 @@ function SettingsInterests({ setShowComponent }) {
   const [interests, setInterests] = useState(auth.user.interests)
 
   const handleInterests = (category) => {
-    if (interests.includes(category)) {
-      setInterests(interests.filter((item) => item !== category))
-    } else {
-      setInterests([...interests, category])
-    }
+    interests.includes(category)
+      ? setInterests(interests.filter((item) => item !== category))
+      : setInterests([...interests, category])
   }
   const clippedCategories = categories.slice(1)
 

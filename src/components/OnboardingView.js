@@ -9,6 +9,7 @@ import {
   Stack,
   CardMedia,
   Typography,
+  Chip,
 } from '@mui/material'
 import Check from '@mui/icons-material/Check'
 import { useTranslation } from 'react-i18next'
@@ -274,9 +275,50 @@ export function InputSelectView(props) {
   )
 }
 
-export function InputTextView(props) {
-  const { value, formProgress, setFormProgress } = props
+export function InputPillView(props) {
+  const { value, options } = props
 
+  const [data, setData] = useState([])
+
+  function onChange(val) {
+    !data.includes(val)
+      ? setData([...data, val])
+      : setData(data.filter((x) => x !== val))
+  }
+
+  return (
+    <InputView data={data} {...props}>
+      <Grid
+        container
+        sx={{
+          gap: '10px',
+          justifyContent: 'space-between',
+          marginBottom: '2em',
+        }}
+      >
+        {options?.map((val, i) => (
+          <Box as="div" key={i}>
+            <Chip
+              key={i}
+              label={val}
+              clickable
+              style={{
+                marginLeft: 0,
+                backgroundColor: data.includes(val) ? '#6956F1' : '#211E34',
+                padding: '5px !important',
+              }}
+              onClick={() => onChange(val)}
+              variant="default"
+              disabled={data.length === 3 && !data.includes(val)}
+            />
+          </Box>
+        ))}
+      </Grid>
+    </InputView>
+  )
+}
+
+export function InputTextView(props) {
   const classes = useClasses(styles)
   const [data, setData] = useState('')
   function onChange(e) {

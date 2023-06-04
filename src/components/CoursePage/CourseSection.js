@@ -139,6 +139,8 @@ function CourseSection(props) {
               course={props.data}
               setSnackbarMessage={setSnackbarMessage}
               setOpenSnackbar={setOpenSnackbar}
+              setTabValue={setTabValue}
+              videoInfo={videoInfo}
             />
           </TabPanel>
 
