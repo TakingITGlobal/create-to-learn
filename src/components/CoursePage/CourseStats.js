@@ -4,6 +4,7 @@ import SvgIcon from '@mui/material/SvgIcon'
 import DifficultyIcon from '../../assets/images/difficulty.svg'
 import DurationIcon from '../../assets/images/duration.svg'
 import VideoIcon from '../../assets/images/video.svg'
+import { displayMinutes } from '../../util/timeHelpers'
 
 function CourseStats({ numberOfVideos, courseLength, difficultyLevel }) {
   const courseStats = [
@@ -13,7 +14,7 @@ function CourseStats({ numberOfVideos, courseLength, difficultyLevel }) {
       alt: 'video-icon',
     },
     {
-      title: `${courseLength} minutes`,
+      title: displayMinutes(courseLength),
       img: DurationIcon,
       alt: 'duration-icon',
     },
