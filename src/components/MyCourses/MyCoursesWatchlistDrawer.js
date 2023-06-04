@@ -39,7 +39,7 @@ function MyCoursesWatchlistDrawer({ watchlistDocId, course }) {
   )
 
   const emptyStateTitle = auth.user
-    ? t('my-course.progress-empty-state-title')
+    ? t('my-courses.progress-empty-state-title')
     : t('my-courses.guest-progress-empty-state-title')
 
   const emptyStateSubtitle = auth.user
