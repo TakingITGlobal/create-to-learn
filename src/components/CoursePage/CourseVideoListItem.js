@@ -180,9 +180,9 @@ function CourseVideoListItem({ video, videoId, setOpenCourseDrawer }) {
             <CloseIcon sx={{ color: 'white' }} />
           </IconButton>
         </Box>
-        <List>
-          {video &&
-            video?.download.map(({ link, public_name }) => (
+        {video?.download && (
+          <List>
+            {video?.download.map(({ link, public_name }) => (
               <ListItem
                 secondaryAction={
                   <Radio
@@ -204,7 +204,8 @@ function CourseVideoListItem({ video, videoId, setOpenCourseDrawer }) {
                 {public_name}
               </ListItem>
             ))}
-        </List>
+          </List>
+        )}
       </Drawer>
     </Paper>
   )

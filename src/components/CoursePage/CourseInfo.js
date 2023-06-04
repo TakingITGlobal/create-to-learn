@@ -100,7 +100,7 @@ function CourseInfo({
     return (
       <div style={{ display: 'none' }}>
         {videos.map((video) => (
-          <iframe title={video.name} src={video.download[0].link} />
+          <iframe title={video.name} src={video?.download[0].link} />
         ))}
       </div>
     )
