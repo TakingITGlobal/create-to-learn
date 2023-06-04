@@ -101,7 +101,8 @@
     "topic": "Topic",
     "start-creating": "Start Creating",
     "added-to-watchlist": "Added to Watchlist",
-    "downloaded": "Downloaded"
+    "downloaded": "Downloaded",
+    "download-all": "Download all lessons"
   },
   "my-courses": {
     "my-courses": "My Courses",

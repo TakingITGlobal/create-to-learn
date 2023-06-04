@@ -302,7 +302,7 @@ function CourseInfo({
               padding: '0 17.5px',
             }}
           >
-            <Box sx={{ paddingTop: '10px' }}>Download all lesson</Box>
+            <Box sx={{ paddingTop: '10px' }}>{t('course.download-all')}</Box>
             <Switch
               checked={videosToDownload.length === videoInfo.length}
               onChange={
