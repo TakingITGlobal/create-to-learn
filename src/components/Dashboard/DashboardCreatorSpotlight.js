@@ -5,6 +5,7 @@ import MultiCarousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
+import CardActionArea from '@mui/material/CardActionArea'
 import CardMedia from '@mui/material/CardMedia'
 import CreatorsSpotlightIcon from '../../assets/images/Creator-spotlight.svg'
 import { ChevronRight } from '@mui/icons-material'
@@ -43,7 +44,7 @@ const DashboardCreatorSpotlight = ({ creators }) => {
       </Typography>
 
       <MultiCarousel ssr partialVisible responsive={responsive} swipeable>
-        {creators.map((item, i) => {
+        {creators.map(({ name, image, community, uid }, i) => {
           return (
             <Card
               key={i}
@@ -54,24 +55,22 @@ const DashboardCreatorSpotlight = ({ creators }) => {
                 mr: '15px',
               }}
             >
-              <CardMedia
-                component="img"
-                height="230px"
-                alt={`creator-${item.name}`}
-                src={
-                  item && item.image && item.image.length
-                    ? item.image[0].downloadURL
-                    : ''
-                }
-              />
-              <CardContent
-                sx={{
-                  padding: '10px 0',
-                }}
-              >
-                <Typography variant="bold">{item.name}</Typography>
-                <Typography variant="subtitle1">{item.community}</Typography>
-              </CardContent>
+              <CardActionArea href={'/creator/' + uid}>
+                <CardMedia
+                  component="img"
+                  height="230px"
+                  alt={`creator-${name}`}
+                  src={image && image.length ? image[0].downloadURL : ''}
+                />
+                <CardContent
+                  sx={{
+                    padding: '10px 0',
+                  }}
+                >
+                  <Typography variant="bold">{name}</Typography>
+                  <Typography variant="subtitle1">{community}</Typography>
+                </CardContent>
+              </CardActionArea>
             </Card>
           )
         })}

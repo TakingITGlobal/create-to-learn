@@ -102,7 +102,6 @@ function CourseVideoListItem({ video, videoId, setOpenCourseDrawer }) {
           <Button
             flex="1"
             onClick={() => setOpenDownloadDrawer(true)}
-            // href={video.download[0].link}
             sx={{ fontSize: '1rem' }}
             startIcon={
               <DownloadIcon
@@ -182,28 +181,29 @@ function CourseVideoListItem({ video, videoId, setOpenCourseDrawer }) {
           </IconButton>
         </Box>
         <List>
-          {video.download.map(({ link, public_name }) => (
-            <ListItem
-              secondaryAction={
-                <Radio
-                  checked={downloadSuccess.includes(public_name)}
-                  onChange={() => {
-                    setDownloadSuccess([...downloadSuccess, public_name])
-                    setOpenDownloadDrawer(false)
-                    window.location.href = link
-                  }}
-                  color="secondary"
-                  name={`download-${public_name}`}
-                  inputProps={{
-                    'aria-label': `download-${public_name}`,
-                  }}
-                  style={{ color: 'white' }}
-                />
-              }
-            >
-              {public_name}
-            </ListItem>
-          ))}
+          {video &&
+            video?.download.map(({ link, public_name }) => (
+              <ListItem
+                secondaryAction={
+                  <Radio
+                    checked={downloadSuccess.includes(public_name)}
+                    onChange={() => {
+                      setDownloadSuccess([...downloadSuccess, public_name])
+                      setOpenDownloadDrawer(false)
+                      window.location.href = link
+                    }}
+                    color="secondary"
+                    name={`download-${public_name}`}
+                    inputProps={{
+                      'aria-label': `download-${public_name}`,
+                    }}
+                    style={{ color: 'white' }}
+                  />
+                }
+              >
+                {public_name}
+              </ListItem>
+            ))}
         </List>
       </Drawer>
     </Paper>
