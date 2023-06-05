@@ -97,11 +97,19 @@ function CourseInfo({
     const videos = videoInfo.filter((video) =>
       videosToDownload.includes(video.uri),
     )
+    console.log(videos)
+
     return (
       <div style={{ display: 'none' }}>
-        {videos.map((video) => (
-          <iframe title={video.name} src={video?.download[0].link} />
-        ))}
+        {videos.map((video, index) =>
+          video?.download ? (
+            <iframe
+              key={index}
+              title={video.name}
+              src={video?.download[0].link}
+            />
+          ) : null,
+        )}
       </div>
     )
   }
