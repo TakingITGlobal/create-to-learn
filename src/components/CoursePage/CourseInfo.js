@@ -15,12 +15,18 @@ import {
   Checkbox,
   Switch,
 } from '@mui/material'
-import LinearProgress from '@mui/material/LinearProgress'
 import Drawer from '@mui/material/Drawer'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import SvgIcon from '@mui/material/SvgIcon'
+import LinearProgress from '@mui/material/LinearProgress'
+
+import {
+  ChevronRight,
+  Check,
+  BookmarkBorder,
+  ExpandMore,
+} from '@mui/icons-material'
 import CourseStats from './CourseStats'
-import { ChevronRight, Check, BookmarkBorder } from '@mui/icons-material'
+import QualityDrawer from './QualityDrawer'
 import CheckIcon from '@mui/icons-material/CheckCircle'
 import { useAuth } from '../../util/auth'
 import {
@@ -45,6 +51,8 @@ function CourseInfo({
   const [openDownloadDrawer, setOpenDownloadDrawer] = useState(false)
   const [videosToDownload, setVideosToDownload] = useState([])
   const [downloadVideos, setDownloadVideos] = useState(false)
+  const [qualityDrawer, setQualityDrawer] = useState(false)
+  const [quality, setQuality] = useState('')
   const { data } = useWatchlistById(auth.user?.uid, course.id)
 
   const creatorUID = course.creator.trim().replaceAll(' ', '-').toLowerCase()
@@ -94,25 +102,24 @@ function CourseInfo({
   }
 
   const Download = () => {
-    const videos = videoInfo.filter((video) =>
-      videosToDownload.includes(video.uri),
-    )
-    console.log(videos)
+    const videos = videoInfo
+      .filter((video) => videosToDownload.includes(video.uri))
+      .flatMap(({ download }) =>
+        download.filter(({ public_name }) => public_name === quality),
+      )
 
     return (
       <div style={{ display: 'none' }}>
         {videos.map((video, index) =>
-          video?.download ? (
-            <iframe
-              key={index}
-              title={video.name}
-              src={video?.download[0].link}
-            />
+          video?.link ? (
+            <iframe key={index} title={video.link} src={video.link} />
           ) : null,
         )}
       </div>
     )
   }
+
+  const qualityOptions = ['240p', '360p', '540p', '720p', '1080p']
 
   return (
     <>
@@ -235,7 +242,7 @@ function CourseInfo({
             <Button
               variant="text"
               onClick={() => setOpenDownloadDrawer(true)}
-              endIcon={<ExpandMoreIcon />}
+              endIcon={<ExpandMore />}
             >
               {t('course.download')}
             </Button>
@@ -246,8 +253,8 @@ function CourseInfo({
             {t('course.topic')}
           </Typography>
           <List>
-            {topics.map(({ label, icon }) => (
-              <ListItem>
+            {topics.map(({ label, icon }, index) => (
+              <ListItem key={index}>
                 <ListItemIcon>
                   <SvgIcon
                     fontSize="large"
@@ -284,8 +291,8 @@ function CourseInfo({
                 {t('course.what-you-need')}
               </Typography>
               <List variant="icon-list">
-                {course.materials.map((material) => (
-                  <ListItem>
+                {course.materials.map((material, index) => (
+                  <ListItem key={index}>
                     <Check />
                     <ListItemText disableTypography primary={material} />
                   </ListItem>
@@ -323,8 +330,9 @@ function CourseInfo({
           <List>
             {videoInfo &&
               videoInfo.length &&
-              videoInfo.map(({ uri, name }) => (
+              videoInfo.map(({ uri, name }, index) => (
                 <ListItem
+                  key={index}
                   secondaryAction={
                     <Checkbox
                       value={name}
@@ -347,13 +355,23 @@ function CourseInfo({
             variant="contained"
             sx={{ backgroundColor: 'white', color: 'black' }}
             onClick={() => {
-              setDownloadVideos(true)
+              setQualityDrawer(true)
+              setOpenDownloadDrawer(false)
             }}
           >
             {t('btn.continue')}
           </Button>
-          {downloadVideos && <Download />}
         </Drawer>
+        <QualityDrawer
+          setDownloadVideos={setDownloadVideos}
+          setOpenDownloadDrawer={setOpenDownloadDrawer}
+          setVideosToDownload={setVideosToDownload}
+          quality={quality}
+          setQuality={setQuality}
+          qualityDrawer={qualityDrawer}
+          setQualityDrawer={setQualityDrawer}
+        />
+        {downloadVideos && <Download />}
       </Box>
     </>
   )
