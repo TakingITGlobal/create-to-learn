@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next'
 function CourseInfo({
   openDownloadDrawer,
   setOpenDownloadDrawer,
-  downloadVideos,
   setDownloadVideos,
   videosToDownload,
   setVideosToDownload,

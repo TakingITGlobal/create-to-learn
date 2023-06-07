@@ -42,15 +42,19 @@ function Video(props) {
       if (data?.length > 0) {
         setProgId(data[0])
       } else {
-        createVideoProgress({ owner: user.uid, videoId: id, progress: 0 }).then(
-          (docRef) =>
-            getUserProgress(docRef.id).then((data) => setProgId(data)),
+        createVideoProgress({
+          owner: user.uid,
+          videoId: id,
+          progress: 0,
+          videoLink: video,
+        }).then((docRef) =>
+          getUserProgress(docRef.id).then((data) => setProgId(data)),
         )
       }
     } else if (user === false) {
       setLoading(false)
     }
-  }, [status, data, id, user])
+  }, [status, data, id, user, video])
 
   return (
     <>

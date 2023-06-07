@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import IconButton from '@mui/material/IconButton'
@@ -22,6 +22,7 @@ function MyCoursesProgress() {
   const { t } = useTranslation()
 
   const [openCourseDrawer, setOpenCourseDrawer] = useState(false)
+
   const inProgressCourses = useInProgressCourses()
 
   const emptyStateTitle = auth.user
@@ -79,11 +80,14 @@ function MyCoursesProgress() {
                   <MoreVertIcon />
                 </IconButton>
               </Stack>
-              <MyCoursesProgressDrawer
-                course={course}
-                open={openCourseDrawer === course.id}
-                setOpenCourseDrawer={setOpenCourseDrawer}
-              />
+              {openCourseDrawer === course.id ? (
+                <MyCoursesProgressDrawer
+                  course={course}
+                  open={openCourseDrawer === course.id}
+                  setOpenCourseDrawer={setOpenCourseDrawer}
+                  inProgressVideos={inProgressVideos}
+                />
+              ) : null}
             </Box>
           )
         })}
