@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const GetByIdVimeo = async (ID) => {
+const getByIdVimeo = async (ID) => {
   const headers = {
     Authorization: `Bearer ${process.env.REACT_APP_VIMEO_ACCESS_TOKEN}`,
     'Content-Type': 'application/json',
@@ -22,4 +22,4 @@ const GetByIdVimeo = async (ID) => {
   }
 }
 
-export default GetByIdVimeo
+export default getByIdVimeo

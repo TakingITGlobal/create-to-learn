@@ -7,9 +7,23 @@ import CompletedIcon from '../../assets/images/completed.svg'
 import DurationIcon from '../../assets/images/duration.svg'
 import VideoIcon from '../../assets/images/video.svg'
 import { useTranslation } from 'react-i18next'
+import { useUserProgressByOwner } from '../../util/db'
+import { useAuth } from '../../util/auth'
 
 const Stats = () => {
   const { t } = useTranslation()
+  const auth = useAuth()
+
+  const { data: userProgress } = useUserProgressByOwner(auth?.user?.uid)
+
+  const completedVideos =
+    userProgress && userProgress.filter(({ complete }) => complete).length
+
+  const minutesWatched =
+    userProgress &&
+    userProgress
+      .map(({ progress }) => progress)
+      .reduce((acc, curr) => acc + parseInt(curr / 60))
 
   return (
     <Box sx={{ padding: '40px 10px 10px 10px' }}>
@@ -61,7 +75,7 @@ const Stats = () => {
                   style={{ paddingBottom: '10px' }}
                 />
               </SvgIcon>
-              <Typography variant="h6">1053</Typography>
+              <Typography variant="h6">{minutesWatched}</Typography>
               <Typography variant="body2">
                 {t('settings.minutes-watched')}
               </Typography>
@@ -88,7 +102,7 @@ const Stats = () => {
                   style={{ paddingBottom: '10px' }}
                 />
               </SvgIcon>
-              <Typography variant="h5">5</Typography>
+              <Typography variant="h5">{completedVideos}</Typography>
               <Typography variant="body2">
                 {t('settings.videos-completed')}
               </Typography>

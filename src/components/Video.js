@@ -8,6 +8,7 @@ import {
 } from '../util/db'
 import { useAuth } from './../util/auth'
 import { collection, addDoc } from 'firebase/firestore'
+import getByIdVimeo from '../util/vimeo'
 
 function Video(props) {
   const { video, user, id } = props
@@ -16,16 +17,30 @@ function Video(props) {
   const [startTime, setStartTime] = useState()
   const [progId, setProgId] = useState()
   const { data, status, error } = useVideoProgressByVideoId(user?.uid, id)
+  const [videoInfo, setVideoInfo] = useState([])
 
   const handleChange = (player) => {
-    console.log(progId.id)
-    console.log(player.seconds)
+    // console.log(progId.id)
+    // console.log(player.seconds)
     if (progId) {
-      console.log('gets here')
-      console.log(progId || 'not value')
-      updateVideoProgress(progId.id, { progress: player.seconds })
+      // console.log('gets here')
+      // console.log(progId || 'not value')
+      const complete =
+        parseInt(player.seconds + 30) / parseInt(videoInfo.duration) >= 1
+      updateVideoProgress(progId.id, {
+        progress: player.seconds,
+        complete: complete,
+      })
     }
   }
+
+  useEffect(() => {
+    const videoId = video.match(/\d+/g)[0]
+    getByIdVimeo(`/videos/${videoId}`).then((data) =>
+      setVideoInfo(data.data.data[0]),
+    )
+  }, [video])
+
   useEffect(() => {
     if (progId) {
       if (progId?.progress) {

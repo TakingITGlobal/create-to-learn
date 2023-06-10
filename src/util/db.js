@@ -123,6 +123,7 @@ export function useCreatorByUID(uid) {
     ),
   )
 }
+
 export function useVideoProgress(id) {
   return useQuery(
     ['video-progress', { id }],

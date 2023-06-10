@@ -10,7 +10,7 @@ import CourseInfo from './CourseInfo'
 import CourseLessons from './CourseLessons'
 import { useAuth } from '../../util/auth'
 
-import GetByIdVimeo from '../../util/vimeo'
+import getByIdVimeo from '../../util/vimeo'
 import { useTranslation } from 'react-i18next'
 
 function TabPanel(props) {
@@ -79,7 +79,7 @@ function CourseSection(props) {
     videoIds && videoIds.map((id) => `/videos/${id}`).join(',')
 
   useEffect(() => {
-    GetByIdVimeo(videoFormattedIds).then((data) => setVideoInfo(data.data.data))
+    getByIdVimeo(videoFormattedIds).then((data) => setVideoInfo(data.data.data))
   }, [videoFormattedIds])
 
   return (
