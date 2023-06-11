@@ -5,52 +5,78 @@ import CloseIcon from '@mui/icons-material/Close'
 import Video from '../Video'
 import CourseVideoListItem from './CourseVideoListItem'
 import { useAuth } from '../../util/auth'
+import { useUserProgressByCourse } from '../../util/db'
 
-function CourseLessons({ videoInfo, videoIds }) {
+function CourseLessons({ videoInfo, videoIds, courseId }) {
   const auth = useAuth()
 
   const [openCourseDrawer, setOpenCourseDrawer] = useState(false)
+  const [videoToShow, setVideoToShow] = useState(false)
+
+  //This should probably go on a higher level in courseSection because it is used by CourseInfo
+  const { data: userProgressByCourse } = useUserProgressByCourse(
+    auth.user?.uid,
+    videoIds,
+  )
+
   return (
-    <List variant="progress">
-      {videoInfo &&
-        videoInfo.map((video, index) => {
-          const videoId = videoIds[index]
-          return (
-            <ListItem key={index}>
-              <CourseVideoListItem
-                video={video}
-                videoId={videoId}
-                setOpenCourseDrawer={setOpenCourseDrawer}
-              />
-              <SwipeableDrawer
-                anchor="right"
-                open={openCourseDrawer === videoId}
-                onClose={() => setOpenCourseDrawer(false)}
-              >
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'flex-end',
-                    alignItems: 'flex-end',
-                  }}
-                >
-                  <IconButton
-                    aria-label="close-icon"
-                    onClick={() => setOpenCourseDrawer(false)}
-                  >
-                    <CloseIcon sx={{ color: 'white' }} />
-                  </IconButton>
-                </Box>
-                <Typography align="center" variant="h1">
-                  {video.name}
-                </Typography>
-                <Video video={video.link} id={videoId} user={auth.user} />
-              </SwipeableDrawer>
-            </ListItem>
-          )
-        })}
-    </List>
+    <>
+      <List variant="progress">
+        {videoInfo &&
+          videoInfo.map((video, index) => {
+            const videoId = videoIds[index]
+            return (
+              <ListItem key={index}>
+                <CourseVideoListItem
+                  video={video}
+                  videoId={videoId}
+                  setOpenCourseDrawer={setOpenCourseDrawer}
+                  setVideoToShow={setVideoToShow}
+                  videoProgress={
+                    userProgressByCourse &&
+                    userProgressByCourse.filter(
+                      (video) => video.videoId === videoId,
+                    )[0]
+                  }
+                />
+              </ListItem>
+            )
+          })}
+      </List>
+      {videoToShow && (
+        <SwipeableDrawer
+          anchor="right"
+          open={openCourseDrawer}
+          onClose={() => setOpenCourseDrawer(false)}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+              alignItems: 'flex-end',
+            }}
+          >
+            <IconButton
+              aria-label="close-icon"
+              onClick={() => setOpenCourseDrawer(false)}
+            >
+              <CloseIcon sx={{ color: 'white' }} />
+            </IconButton>
+          </Box>
+          <Typography align="center" variant="h1">
+            {videoToShow.name}
+          </Typography>
+          <Video
+            video={videoToShow.link}
+            id={videoToShow.videoId}
+            user={auth.user}
+            duration={videoToShow.duration}
+            courseId={courseId}
+          />
+        </SwipeableDrawer>
+      )}
+    </>
   )
 }
 

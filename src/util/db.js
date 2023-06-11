@@ -158,9 +158,29 @@ export function useUserProgressByOwner(owner) {
     { enabled: !!owner },
   )
 }
+
+// Subscribe to all items by owner
+export function useUserProgressByCourse(owner, videoIds) {
+  return useQuery(
+    ['user-progress', { owner }],
+    createQuery(() =>
+      query(
+        collection(db, 'user-progress'),
+        where('owner', '==', owner),
+        where('videoId', 'in', videoIds),
+        orderBy('createdAt', 'desc'),
+      ),
+    ),
+    {
+      enabled: !!owner,
+      refetchOnWindowFocus: 'always',
+    },
+  )
+}
+
 export function useVideoProgressByVideoId(owner, videoId) {
   return useQuery(
-    ['user-progress'],
+    ['user-progress', { owner }],
     createQuery(() =>
       query(
         collection(db, 'user-progress'),

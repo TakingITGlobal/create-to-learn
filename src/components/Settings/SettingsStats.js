@@ -25,6 +25,14 @@ const Stats = () => {
       .map(({ progress }) => progress)
       .reduce((acc, curr) => acc + parseInt(curr / 60))
 
+  const coursesTaken = userProgress && [
+    ...new Set(
+      userProgress
+        .map(({ courseId }) => courseId)
+        .filter((courseId) => courseId),
+    ),
+  ]
+
   return (
     <Box sx={{ padding: '40px 10px 10px 10px' }}>
       <Grid container spacing={1} sx={{ width: '100%' }}>
@@ -48,7 +56,8 @@ const Stats = () => {
                   style={{ paddingBottom: '10px' }}
                 />
               </SvgIcon>
-              <Typography variant="h6">10</Typography>
+              <Typography variant="h6">{coursesTaken.length}</Typography>
+              {/* To do: Only write course taken if there is only one */}
               <Typography variant="body2">
                 {t('settings.courses-taken')}
               </Typography>

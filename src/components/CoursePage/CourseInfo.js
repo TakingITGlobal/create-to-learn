@@ -84,13 +84,14 @@ function CourseInfo({
 
   const totalTimeWatched =
     inProgressVideos.length > 1
-      ? inProgressVideos.reduce(
-          (acc, { progress }) => Number(acc.progress) + Number(progress),
-        )
+      ? inProgressVideos
+          .map(({ progress }) => progress)
+          .reduce((acc, curr) => acc + curr)
       : inProgressVideos.length === 1
       ? inProgressVideos[0].progress
       : 0
 
+  //Check if this should be turned into hrs:minutes:seconds
   const timeLeft = course.totalLength - totalTimeWatched
 
   const Download = () => {

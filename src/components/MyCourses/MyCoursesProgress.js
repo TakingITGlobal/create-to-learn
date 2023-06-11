@@ -52,12 +52,13 @@ function MyCoursesProgress() {
             inProgressVideos.length > 1
               ? inProgressVideos.reduce(
                   (acc, { progress }) =>
-                    Number(acc.progress) + Number(progress),
+                    //Be consistent with use of parseInt, Number or toFixed
+                    parseInt(acc) + parseInt(progress),
                 )
-              : inProgressVideos[0].progress
+              : inProgressVideos[0]?.progress ?? 0
           const percentProgress =
             100 * (totalTimeWatched / Number(course.totalLength))
-          const timeLeft = (Number(course.totalLength) - totalTimeWatched) / 60
+          const timeLeft = Number(course.totalLength) - totalTimeWatched / 60
           return (
             <Box key={i}>
               <Stack

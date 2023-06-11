@@ -50,7 +50,7 @@ const BrowseCourseCard = ({ course, progress }) => {
                       />
                       <Typography>
                         {progress.timeLeft.hours > 0
-                          ? `${progress.timeLeft.hours} hours`
+                          ? `${progress.timeLeft.hours} hrs`
                           : ''}{' '}
                         {progress.timeLeft.minutes} min left
                       </Typography>

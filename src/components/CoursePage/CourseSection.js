@@ -145,7 +145,11 @@ function CourseSection(props) {
           </TabPanel>
 
           <TabPanel value={tabValue} index={1} dir={theme.direction}>
-            <CourseLessons videoInfo={videoInfo} videoIds={props.data.videos} />
+            <CourseLessons
+              videoInfo={videoInfo}
+              videoIds={props.data.videos}
+              courseId={props.data.id}
+            />
           </TabPanel>
         </SwipeableViews>
         <Snackbar

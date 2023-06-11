@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Button,
   Paper,
@@ -17,33 +17,26 @@ import DownloadIcon from '@mui/icons-material/Download'
 import Divider from '@mui/material/Divider'
 import CheckIcon from '@mui/icons-material/Check'
 import CloseIcon from '@mui/icons-material/Close'
-import { useAuth } from '../../util/auth'
-import { useVideoProgressByVideoId } from '../../util/db'
 import { useTranslation } from 'react-i18next'
 import { displayTime } from '../../util/timeHelpers'
 
-function CourseVideoListItem({ video, videoId, setOpenCourseDrawer }) {
-  const auth = useAuth()
+function CourseVideoListItem({
+  video,
+  videoId,
+  setOpenCourseDrawer,
+  setVideoToShow,
+  videoProgress,
+}) {
   const { t } = useTranslation()
   const [downloadSuccess, setDownloadSuccess] = useState([])
   const [openDownloadDrawer, setOpenDownloadDrawer] = useState(false)
 
-  const { data: videoProgress } = useVideoProgressByVideoId(
-    auth.user?.uid,
-    videoId,
-  )
-
   const videoProgressPercentage =
     videoProgress &&
-    videoProgress.length &&
-    videoProgress[0].videoId === videoId &&
-    (Number(videoProgress[0].progress) / Number(video.duration)) * 100
+    (Number(videoProgress.progress) / Number(video.duration)) * 100
 
   const timeLeft =
-    videoProgress &&
-    videoProgress.length &&
-    videoProgress[0].videoId === videoId &&
-    Number(video.duration) - Number(videoProgress[0].progress)
+    videoProgress && Number(video.duration) - Number(videoProgress.progress)
 
   const completed = timeLeft < 10
 
@@ -119,7 +112,8 @@ function CourseVideoListItem({ video, videoId, setOpenCourseDrawer }) {
           completed ? (
             <Button
               onClick={() => {
-                setOpenCourseDrawer(videoId)
+                setOpenCourseDrawer(true)
+                setVideoToShow({ ...video, videoId: videoId })
               }}
               variant="contained"
               color="primary"
@@ -133,7 +127,8 @@ function CourseVideoListItem({ video, videoId, setOpenCourseDrawer }) {
           ) : (
             <Button
               onClick={() => {
-                setOpenCourseDrawer(videoId)
+                setOpenCourseDrawer(true)
+                setVideoToShow({ ...video, videoId: videoId })
               }}
               size="large"
               sx={{
@@ -149,7 +144,8 @@ function CourseVideoListItem({ video, videoId, setOpenCourseDrawer }) {
         ) : (
           <Button
             onClick={() => {
-              setOpenCourseDrawer(videoId)
+              setOpenCourseDrawer(true)
+              setVideoToShow({ ...video, videoId: videoId })
             }}
             variant="contained"
             color="primary"

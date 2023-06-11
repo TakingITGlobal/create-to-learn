@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import Drawer from '@mui/material/Drawer'
 import List from '@mui/material/List'
@@ -17,6 +17,7 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 import CloseIcon from '@mui/icons-material/Close'
 import Video from '../Video'
 import { useAuth } from '../../util/auth'
+import getByIdVimeo from '../../util/vimeo'
 
 import { useTranslation } from 'react-i18next'
 
@@ -30,11 +31,19 @@ function MyCoursesProgressDrawer({
   const auth = useAuth()
 
   const [openVideoDrawer, setOpenVideoDrawer] = useState(false)
-  console.log(
-    inProgressVideos[0].videoLink,
-    openVideoDrawer,
-    inProgressVideos[0].videoId,
-  )
+  const [videoInfo, setVideoInfo] = useState([])
+
+  useEffect(() => {
+    const videoId =
+      inProgressVideos[0]?.videoLink &&
+      inProgressVideos[0]?.videoLink.match(/\d+/g)[0]
+    getByIdVimeo(`/videos/${videoId}`).then((data) =>
+      setVideoInfo(data.data.data[0]),
+    )
+  }, [inProgressVideos])
+
+  console.log(inProgressVideos)
+
   return (
     <>
       {!openVideoDrawer ? (
@@ -107,13 +116,15 @@ function MyCoursesProgressDrawer({
             </IconButton>
           </Box>
           <Typography align="center" variant="h1">
-            {course.seriesName}
+            {videoInfo.name}
           </Typography>
           <Box>
             <Video
               video={inProgressVideos[0].videoLink}
               id={inProgressVideos[0].videoId}
               user={auth.user}
+              duration={videoInfo.duration}
+              courseId={course.id}
             />
           </Box>
         </SwipeableDrawer>

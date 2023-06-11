@@ -6,18 +6,14 @@ import {
   updateVideoProgress,
   getUserProgress,
 } from '../util/db'
-import { useAuth } from './../util/auth'
-import { collection, addDoc } from 'firebase/firestore'
-import getByIdVimeo from '../util/vimeo'
 
 function Video(props) {
-  const { video, user, id } = props
+  const { video, user, id, duration, courseId } = props
 
   const [loading, setLoading] = useState(true)
   const [startTime, setStartTime] = useState()
   const [progId, setProgId] = useState()
   const { data, status, error } = useVideoProgressByVideoId(user?.uid, id)
-  const [videoInfo, setVideoInfo] = useState([])
 
   const handleChange = (player) => {
     // console.log(progId.id)
@@ -25,21 +21,16 @@ function Video(props) {
     if (progId) {
       // console.log('gets here')
       // console.log(progId || 'not value')
-      const complete =
-        parseInt(player.seconds + 30) / parseInt(videoInfo.duration) >= 1
+      const complete = parseInt(player.seconds + 30) / parseInt(duration) >= 1
       updateVideoProgress(progId.id, {
         progress: player.seconds,
         complete: complete,
+        //Can remove this once we deploy, just making sure data is backwards compatible
+        courseId: courseId,
+        videoLink: video,
       })
     }
   }
-
-  useEffect(() => {
-    const videoId = video.match(/\d+/g)[0]
-    getByIdVimeo(`/videos/${videoId}`).then((data) =>
-      setVideoInfo(data.data.data[0]),
-    )
-  }, [video])
 
   useEffect(() => {
     if (progId) {
@@ -62,6 +53,7 @@ function Video(props) {
           videoId: id,
           progress: 0,
           videoLink: video,
+          courseId: courseId,
         }).then((docRef) =>
           getUserProgress(docRef.id).then((data) => setProgId(data)),
         )
@@ -69,7 +61,7 @@ function Video(props) {
     } else if (user === false) {
       setLoading(false)
     }
-  }, [status, data, id, user, video])
+  }, [status, data, id, user, video, courseId])
 
   return (
     <>

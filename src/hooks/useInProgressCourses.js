@@ -4,6 +4,7 @@ import { dataContext } from '../util/dataProvider'
 import { useAuth } from './../util/auth'
 
 export const useInProgressCourses = () => {
+  //This should be removed with new courseId added to userProgress
   const { allCourses, loadingCourses } = useContext(dataContext)
   const auth = useAuth()
 
