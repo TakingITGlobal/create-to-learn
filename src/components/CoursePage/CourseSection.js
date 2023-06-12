@@ -9,7 +9,7 @@ import Section from '../Section'
 import CourseInfo from './CourseInfo'
 import CourseLessons from './CourseLessons'
 import { useAuth } from '../../util/auth'
-
+import { useUserProgressByCourse } from '../../util/db'
 import getByIdVimeo from '../../util/vimeo'
 import { useTranslation } from 'react-i18next'
 
@@ -50,6 +50,11 @@ function CourseSection(props) {
   const palette = Object.values(theme.palette.accent)
   const [randomColor, setRandomColor] = useState(
     palette[Math.floor(Math.random() * palette.length)],
+  )
+
+  const { data: userProgressByCourse } = useUserProgressByCourse(
+    auth.user?.uid,
+    props.data.videos,
   )
 
   const handleTabChange = (event, newValue) => {
@@ -141,6 +146,7 @@ function CourseSection(props) {
               setOpenSnackbar={setOpenSnackbar}
               setTabValue={setTabValue}
               videoInfo={videoInfo}
+              courseProgress={userProgressByCourse}
             />
           </TabPanel>
 
@@ -149,6 +155,7 @@ function CourseSection(props) {
               videoInfo={videoInfo}
               videoIds={props.data.videos}
               courseId={props.data.id}
+              courseProgress={userProgressByCourse}
             />
           </TabPanel>
         </SwipeableViews>

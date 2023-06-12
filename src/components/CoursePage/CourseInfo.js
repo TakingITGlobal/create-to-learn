@@ -26,12 +26,9 @@ import CourseStats from './CourseStats'
 import CourseQualityDrawer from './CourseQualityDrawer'
 import CourseDownloadDrawer from './CourseDownloadDrawer'
 import CheckIcon from '@mui/icons-material/CheckCircle'
+import CheckSimpleIcon from '@mui/icons-material/Check'
 import { useAuth } from '../../util/auth'
-import {
-  createWatchlistCourse,
-  useWatchlistById,
-  useUserProgressByOwner,
-} from '../../util/db'
+import { createWatchlistCourse, useWatchlistById } from '../../util/db'
 import { useTranslation } from 'react-i18next'
 import { categories } from '../../assets/options/categories'
 import { displayTime } from '../../util/timeHelpers'
@@ -42,6 +39,7 @@ function CourseInfo({
   setSnackbarMessage,
   setTabValue,
   videoInfo,
+  courseProgress,
 }) {
   const theme = useTheme()
   const auth = useAuth()
@@ -72,14 +70,8 @@ function CourseInfo({
     }
   }
 
-  const { data: videosInProgress } = useUserProgressByOwner(auth?.user?.uid)
-
-  const inProgressVideos = videosInProgress
-    ? videosInProgress.filter(
-        (video) =>
-          course.videos.some((v) => v === video?.videoId) &&
-          video?.progress > 0,
-      )
+  const inProgressVideos = courseProgress
+    ? courseProgress.filter((video) => video?.progress > 0)
     : []
 
   const totalTimeWatched =
@@ -93,6 +85,8 @@ function CourseInfo({
 
   //Check if this should be turned into hrs:minutes:seconds
   const timeLeft = course.totalLength - totalTimeWatched
+
+  const percentProgress = (totalTimeWatched / course.totalLength) * 100
 
   const Download = () => {
     const videos = videoInfo
@@ -111,6 +105,8 @@ function CourseInfo({
       </div>
     )
   }
+
+  console.log(percentProgress, totalTimeWatched)
 
   return (
     <>
@@ -161,23 +157,38 @@ function CourseInfo({
             }}
           >
             <Grid xs={8}>
-              <Stack
-                direction="row"
-                spacing={1}
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <LinearProgress
-                  color="primary"
-                  variant="determinate"
-                  value={20}
-                  sx={{ width: '120px' }}
-                />
-                <Typography>{displayTime(timeLeft)} left </Typography>
-              </Stack>
+              {timeLeft > 0.5 ? (
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <LinearProgress
+                    color="primary"
+                    variant="determinate"
+                    value={percentProgress}
+                    sx={{ width: '120px' }}
+                  />
+                  <Typography>{displayTime(timeLeft)} left </Typography>
+                </Stack>
+              ) : (
+                <Stack direction="row" spacing={1}>
+                  <CheckSimpleIcon
+                    sx={{
+                      backgroundColor: 'inherit !important',
+                      color: '#fff !important',
+                    }}
+                  />
+
+                  <Typography sx={{ display: 'inline-block' }}>
+                    {t('course.finished')}
+                  </Typography>
+                </Stack>
+              )}
             </Grid>
             <Grid xs={4}>
               <Button

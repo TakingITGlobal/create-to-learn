@@ -5,19 +5,12 @@ import CloseIcon from '@mui/icons-material/Close'
 import Video from '../Video'
 import CourseVideoListItem from './CourseVideoListItem'
 import { useAuth } from '../../util/auth'
-import { useUserProgressByCourse } from '../../util/db'
 
-function CourseLessons({ videoInfo, videoIds, courseId }) {
+function CourseLessons({ videoInfo, videoIds, courseId, courseProgress }) {
   const auth = useAuth()
 
   const [openCourseDrawer, setOpenCourseDrawer] = useState(false)
   const [videoToShow, setVideoToShow] = useState(false)
-
-  //This should probably go on a higher level in courseSection because it is used by CourseInfo
-  const { data: userProgressByCourse } = useUserProgressByCourse(
-    auth.user?.uid,
-    videoIds,
-  )
 
   return (
     <>
@@ -33,8 +26,8 @@ function CourseLessons({ videoInfo, videoIds, courseId }) {
                   setOpenCourseDrawer={setOpenCourseDrawer}
                   setVideoToShow={setVideoToShow}
                   videoProgress={
-                    userProgressByCourse &&
-                    userProgressByCourse.filter(
+                    courseProgress &&
+                    courseProgress.filter(
                       (video) => video.videoId === videoId,
                     )[0]
                   }

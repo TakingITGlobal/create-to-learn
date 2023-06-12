@@ -23,7 +23,7 @@ const Stats = () => {
     userProgress &&
     userProgress
       .map(({ progress }) => progress)
-      .reduce((acc, curr) => acc + parseInt(curr / 60))
+      .reduce((acc, curr) => parseInt(acc) + parseInt(curr / 60))
 
   const coursesTaken = userProgress && [
     ...new Set(

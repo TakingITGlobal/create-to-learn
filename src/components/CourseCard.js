@@ -2,14 +2,18 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
+import Button from '@mui/material/Button'
 import ButtonBase from '@mui/material/ButtonBase'
 import LinearProgress from '@mui/material/LinearProgress'
+import CheckIcon from '@mui/icons-material/CheckCircle'
 
 import { useTranslation } from 'react-i18next'
 
 const BrowseCourseCard = ({ course, progress }) => {
   const { t } = useTranslation()
+
   const showProgress = progress && progress?.percentProgress > 0
+
   return (
     <Box sx={{ padding: '10px 0' }}>
       <ButtonBase href={'/course/' + course.uid}>
@@ -42,20 +46,32 @@ const BrowseCourseCard = ({ course, progress }) => {
                     {course.videos && course.videos.length}{' '}
                     {course.videos.length === 1 ? t('video') : t('videos')}
                   </Typography>
-                  {showProgress && (
-                    <>
-                      <LinearProgress
-                        variant="determinate"
-                        value={progress.percentProgress}
-                      />
-                      <Typography>
-                        {progress.timeLeft.hours > 0
-                          ? `${progress.timeLeft.hours} hrs`
-                          : ''}{' '}
-                        {progress.timeLeft.minutes} min left
-                      </Typography>
-                    </>
-                  )}
+                  {showProgress &&
+                    (progress.completed ? (
+                      <Box sx={{ paddingLeft: 0 }}>
+                        <Button
+                          startIcon={
+                            <CheckIcon sx={{ fill: '#58B97D !important' }} />
+                          }
+                          sx={{ color: '#BCE3CB', paddingLeft: '5px' }}
+                        >
+                          {t('my-courses.completed')}
+                        </Button>
+                      </Box>
+                    ) : (
+                      <>
+                        <LinearProgress
+                          variant="determinate"
+                          value={progress.percentProgress}
+                        />
+                        <Typography>
+                          {progress.timeLeft.hours > 0
+                            ? `${progress.timeLeft.hours} hrs`
+                            : ''}{' '}
+                          {progress.timeLeft.minutes} min left
+                        </Typography>
+                      </>
+                    ))}
                 </>
               </Box>
             </Box>
