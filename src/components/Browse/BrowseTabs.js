@@ -18,9 +18,11 @@ import { dataContext } from '../../util/dataProvider'
 import { useCoursesFilter } from '../../hooks/useCoursesFilter'
 import { useCreatorsFilter } from '../../hooks/useCreatorsFilter'
 import { durations } from '../../assets/options/filters'
+import { useTheme } from '@mui/material/styles'
 
 const BrowseTabs = ({ categoryFilter, setCategoryFilter }) => {
   const { t } = useTranslation()
+  const theme = useTheme()
 
   const [tabIndex, setTabIndex] = useState(0)
   const [openDrawer, setOpenDrawer] = useState(false)
@@ -110,6 +112,10 @@ const BrowseTabs = ({ categoryFilter, setCategoryFilter }) => {
                   variant="secondary"
                   onClick={() => setOpenDrawer(true)}
                   startIcon={<FilterListSharpIcon />}
+                  sx={{
+                    backgroundColor: numberOfFilters !== 0 ? theme.palette.primary.main : '',
+                    color: numberOfFilters !== 0 ? theme.palette.text.primary : ''
+                  }}
                 >
                   {t('browse.show-filters')}{' '}
                   {numberOfFilters !== 0 ? `(${numberOfFilters})` : ''}
