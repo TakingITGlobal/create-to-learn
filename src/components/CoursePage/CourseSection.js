@@ -12,6 +12,9 @@ import { useAuth } from '../../util/auth'
 import { useUserProgressByCourse } from '../../util/db'
 import getByIdVimeo from '../../util/vimeo'
 import { useTranslation } from 'react-i18next'
+import IconButton from '@mui/material/IconButton'
+import ShareIcon from '@mui/icons-material/ShareRounded'
+import ShareDrawer from '../ShareDrawer'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -47,6 +50,8 @@ function CourseSection(props) {
     'Login to add to your watchlist',
   )
   const [videoInfo, setVideoInfo] = React.useState([])
+  const [openShareDrawer, setOpenShareDrawer] = useState(false)
+
   const palette = Object.values(theme.palette.accent)
   const [randomColor, setRandomColor] = useState(
     palette[Math.floor(Math.random() * palette.length)],
@@ -96,6 +101,21 @@ function CourseSection(props) {
       }}
     >
       <Container sx={{ padding: '0' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            alignItems: 'flex-end',
+          }}
+        >
+          <IconButton
+            aria-label="close-icon"
+            onClick={() => setOpenShareDrawer(true)}
+          >
+            <ShareIcon sx={{ color: 'white' }} />
+          </IconButton>
+        </Box>
         {/* Series name */}
         <Box sx={{ padding: '2em 2.5em' }}>
           <Typography variant="h1" textAlign="center" color="#000">
@@ -174,6 +194,12 @@ function CourseSection(props) {
             {snackbarMessage}
           </MuiAlert>
         </Snackbar>
+        <ShareDrawer
+          url={`https://create-to-learn.netlify.app/course/${props.data.uid}`}
+          title={`Share the ${props.data.seriesName} course page`}
+          openShareDrawer={openShareDrawer}
+          setOpenShareDrawer={setOpenShareDrawer}
+        />
       </Container>
     </Section>
   )
