@@ -43,6 +43,9 @@ function MyCoursesProgress() {
   const notCompletedCourses = inProgressCourses.filter((course) =>
     course.inProgressVideos.some(({ complete }) => !complete),
   )
+
+  //To Do: Cleanup code.  Not sure if these should be split up into two components for each accordion or just be left alone.
+  //To Do: Consider moving the drawer out of the list and instead just change the courseInfo to be shown
   return inProgressCourses.length ? (
     <div>
       <Accordion disableGutters defaultExpanded>
