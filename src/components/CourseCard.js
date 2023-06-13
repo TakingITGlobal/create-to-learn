@@ -6,10 +6,12 @@ import Button from '@mui/material/Button'
 import ButtonBase from '@mui/material/ButtonBase'
 import LinearProgress from '@mui/material/LinearProgress'
 import CheckIcon from '@mui/icons-material/CheckCircle'
+import { useTheme } from '@mui/material/styles'
 
 import { useTranslation } from 'react-i18next'
 
 const BrowseCourseCard = ({ course, progress }) => {
+  const theme = useTheme()
   const { t } = useTranslation()
 
   const showProgress = progress && progress?.percentProgress > 0
@@ -17,7 +19,7 @@ const BrowseCourseCard = ({ course, progress }) => {
   return (
     <Box sx={{ padding: '10px 0' }}>
       <ButtonBase href={'/course/' + course.uid}>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 2, sm: 2, md: 3 }}>
           <Grid item xs={6}>
             <Box
               component="img"
@@ -35,14 +37,14 @@ const BrowseCourseCard = ({ course, progress }) => {
           <Grid item xs={6}>
             <Box>
               <Box>
-                <Typography variant="body2" fontWeight="fontWeightBold">
+                <Typography variant="bold">
                   {course.seriesName}
                 </Typography>
               </Box>
               <Box>
                 <>
-                  <Typography variant="body2">{course.creator}</Typography>
-                  <Typography variant="body2">
+                  <Typography variant="body2" sx={{color: theme.palette.text.secondary}}>{course.creator}</Typography>
+                  <Typography variant="body2" sx={{color: theme.palette.text.secondary}}>
                     {course.videos && course.videos.length}{' '}
                     {course.videos.length === 1 ? t('video') : t('videos')}
                   </Typography>

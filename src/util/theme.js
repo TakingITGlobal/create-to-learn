@@ -9,6 +9,10 @@ export const c2learn = (mode) => ({
       fontSize: '0.875em',
       fontWeight: '600',
     },
+    small: {
+      fontSize: '0.75em',
+      fontWeight: '500',
+    },
     bold: {
       fontWeight: '700',
       display: 'inline-block',
@@ -278,6 +282,9 @@ export const c2learn = (mode) => ({
           backgroundColor: 'white',
           color: 'black',
           borderRadius: '25px',
+          '&:active, &:hover': {
+            color: '#fff',
+          },
         },
         secondary: {
           backgroundColor: '#fff',
@@ -335,6 +342,7 @@ export const c2learn = (mode) => ({
         root: {
           paddingTop: '10px',
           paddingBottom: '30px',
+          textAlign: 'center',
           '&.Mui-selected': {
             fontSize: '0.625em',
             color: '#fff',

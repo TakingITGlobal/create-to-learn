@@ -5,21 +5,9 @@ import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
 import MultiCarousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
+import { useTheme } from '@mui/material/styles'
 
-import useClasses from '../../hooks/useClasses'
 import { categories } from '../../assets/options/categories'
-
-const styles = (theme) => ({
-  cardContent: {
-    padding: '5px',
-  },
-  carouselItem: {
-    padding: '0 20px',
-  },
-  title: {
-    padding: '10px 0',
-  },
-})
 
 const responsive = {
   desktop: {
@@ -40,8 +28,7 @@ const responsive = {
 }
 
 function BrowseCategoryCarousel({ handleCategoryFilter, categoryFilter }) {
-  const classes = useClasses(styles)
-
+  const theme = useTheme()
   return (
     <Box sx={{ padding: '10px 0' }}>
       <MultiCarousel
@@ -51,7 +38,6 @@ function BrowseCategoryCarousel({ handleCategoryFilter, categoryFilter }) {
         responsive={responsive}
         swipeable
         infinite
-        itemClass={classes.carouselItem}
         removeArrowOnDeviceType={['tablet', 'mobile']}
         additionalTransfrom={0}
       >
@@ -75,9 +61,11 @@ function BrowseCategoryCarousel({ handleCategoryFilter, categoryFilter }) {
               />
             </Button>
             <Typography
+              variant="small"
               sx={{
-                fontSize: 12,
                 textAlign: 'center',
+                marginTop: '0!important',
+                color:  categoryFilter === category.label ? theme.palette.text.primary : theme.palette.text.secondary,
               }}
             >
               {category.label}
