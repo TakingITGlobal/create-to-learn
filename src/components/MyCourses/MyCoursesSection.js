@@ -37,7 +37,7 @@ function MyCoursesSection(props) {
               <Tabs
                 value={tabIndex}
                 textColor="secondary"
-                indicatorColor="secondary"
+                indicatorColor="primary"
                 onChange={handleChangeTab}
                 aria-label="my courses tabs"
                 variant="fullWidth"

@@ -89,7 +89,7 @@ function DashboardSection(props) {
           <Typography>{t('dashboard.error')} </Typography>
         </Box>
       ) : (
-        <Container>
+        <Container sx={{paddingBottom: '100px'}}>
           <DashboardGreeting />
           <DashboardVideo course={spotlightVideoCourse} />
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>

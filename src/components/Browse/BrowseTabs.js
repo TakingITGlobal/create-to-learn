@@ -84,7 +84,7 @@ const BrowseTabs = ({ categoryFilter, setCategoryFilter }) => {
           <Tabs
             value={tabIndex}
             textColor="secondary"
-            indicatorColor="secondary"
+            indicatorColor="primary"
             onChange={handleChangeTab}
             aria-label="browse tabs"
           >
