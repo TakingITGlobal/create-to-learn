@@ -129,7 +129,7 @@ function CourseInfo({
             </Typography>
             <Typography variant="subtitle1">Creator Community</Typography>
           </Box>
-          <ChevronRight />
+          <ChevronRight sx={{ marginLeft: {xs: 'auto', md: '10px'}, fontSize: {md: '2.5em'}}} />
         </Link>
 
         {/* Regular paragraph */}

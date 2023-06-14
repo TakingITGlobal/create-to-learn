@@ -154,9 +154,6 @@ export const c2learn = (mode) => ({
             padding: '15px 0',
             width: '100%',
             lineHeight: '1em',
-            '.MuiSvgIcon-root': {
-              marginLeft: 'auto',
-            },
           },
         },
       ],

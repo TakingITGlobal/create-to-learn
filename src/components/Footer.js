@@ -144,7 +144,7 @@ function Footer(props) {
               rel="noreferrer"
               className={classes.link}
             >
-              <TwitterIcon fontSize="small" />
+              <TwitterIcon fontSize="large" />
             </a>
             <a
               href="https://facebook.com/DivjoyOfficial"
@@ -152,7 +152,7 @@ function Footer(props) {
               rel="noreferrer"
               className={classes.link}
             >
-              <FacebookIcon fontSize="small" />
+              <FacebookIcon fontSize="large" />
             </a>
             <a
               href="https://instagram.com"
@@ -160,7 +160,7 @@ function Footer(props) {
               rel="noreferrer"
               className={classes.link}
             >
-              <InstagramIcon fontSize="small" />
+              <InstagramIcon fontSize="large" />
             </a>
           </div>
           <span className={`${classes.item} ${classes.legal} ${classes.left}`}>

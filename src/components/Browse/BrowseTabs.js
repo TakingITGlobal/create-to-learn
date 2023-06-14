@@ -79,7 +79,7 @@ const BrowseTabs = ({ categoryFilter, setCategoryFilter }) => {
 
   return (
     <>
-      <Box sx={{ width: '100%' }}>
+      <Box sx={{ width: '100%', maxWidth: {xs: '100%', md: '850px' }, margin: {md: '0 auto'}}}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs
             value={tabIndex}
@@ -87,6 +87,7 @@ const BrowseTabs = ({ categoryFilter, setCategoryFilter }) => {
             indicatorColor="primary"
             onChange={handleChangeTab}
             aria-label="browse tabs"
+            sx={{paddingBottom: '40px'}}
           >
             <Tab label={t('courses')} {...a11yProps(0)} />
             <Tab label={t('creators')} {...a11yProps(1)} />

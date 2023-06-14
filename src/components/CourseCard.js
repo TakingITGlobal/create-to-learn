@@ -37,14 +37,14 @@ const BrowseCourseCard = ({ course, progress }) => {
           <Grid item xs={6}>
             <Box>
               <Box>
-                <Typography variant="bold">
+                <Typography variant="bold" sx={{fontSize: {md: '1.4em'}}}>
                   {course.seriesName}
                 </Typography>
               </Box>
               <Box>
                 <>
-                  <Typography variant="body2" sx={{color: theme.palette.text.secondary}}>{course.creator}</Typography>
-                  <Typography variant="body2" sx={{color: theme.palette.text.secondary}}>
+                  <Typography variant="body2" sx={{color: theme.palette.text.secondary, fontSize: {md: '1.1em'}}}>{course.creator}</Typography>
+                  <Typography variant="body2" sx={{color: theme.palette.text.secondary, fontSize: {md: '1.1em'}}}>
                     {course.videos && course.videos.length}{' '}
                     {course.videos.length === 1 ? t('video') : t('videos')}
                   </Typography>

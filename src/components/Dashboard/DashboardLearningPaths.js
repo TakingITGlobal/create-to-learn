@@ -55,7 +55,6 @@ const DashboardLearningPaths = ({ learningPaths }) => {
             key={i}
             sx={{
               padding: 10,
-              height: '250px',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',

@@ -95,10 +95,10 @@ function CourseSection(props) {
           'linear-gradient(180deg, rgba(11, 9, 25, 0) 0%, rgba(11, 9, 25, 0.11) 200px, rgba(11, 9, 25, 0.64) 400px, #0B0919 600px)',
       }}
     >
-      <Container sx={{ padding: '0' }}>
+      <Container sx={{ padding: '0',  maxWidth: {xs: '100%', md: '850px' }  }}>
         {/* Series name */}
-        <Box sx={{ padding: '2em 2.5em' }}>
-          <Typography variant="h1" textAlign="center" color="#000">
+        <Box sx={{ padding: '2em 2.5em'}}>
+          <Typography variant="h1" textAlign="center" color="#000" sx={{ paddingBottom: {md: '20px'}, fontSize: {md: '2.75em'}}}>
             {props.data?.seriesName}
           </Typography>
 
@@ -109,7 +109,6 @@ function CourseSection(props) {
               display: 'flex',
               alignItems: 'center',
               width: '100%',
-              height: '200px',
               borderRadius: '6px',
               objectFit: 'cover',
             }}

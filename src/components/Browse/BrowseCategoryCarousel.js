@@ -50,8 +50,8 @@ function BrowseCategoryCarousel({ handleCategoryFilter, categoryFilter }) {
                 alt={category}
                 sx={{
                   display: 'flex',
-                  width: '100px',
-                  height: '100px',
+                  width: {xs:'100px', md: '150px'},
+                  height: {xs:'100px', md: '150px'},
                   backgroundColor: '#211E34',
                   padding: '10px',
                   border:
@@ -63,6 +63,7 @@ function BrowseCategoryCarousel({ handleCategoryFilter, categoryFilter }) {
             <Typography
               variant="small"
               sx={{
+                fontSize: {md: '0.85em'},
                 textAlign: 'center',
                 marginTop: '0!important',
                 color:  categoryFilter === category.label ? theme.palette.text.primary : theme.palette.text.secondary,

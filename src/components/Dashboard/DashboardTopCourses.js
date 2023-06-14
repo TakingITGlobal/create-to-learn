@@ -54,7 +54,6 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
             <Card
               key={i}
               sx={{
-                height: '250px',
                 padding: '0',
                 margin: '0 10px',
               }}
