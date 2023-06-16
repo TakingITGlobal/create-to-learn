@@ -49,7 +49,7 @@ export default function SettingsFeedbackDialog({ hidden }) {
           onSubmit={(e) => handleSubmit(e)}
           hidden={hidden}
         >
-          <input type="hidden" name="form-feedback" value="form-feedback" />
+          <input type="hidden" name="form-name" value="form-feedback" />
 
           <InputLabel htmlFor="my-input">My name</InputLabel>
           <TextField
