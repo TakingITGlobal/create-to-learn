@@ -20,6 +20,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700;800&display=swap" rel="stylesheet">
   </head>
   <body>
+    <form
+  name="form-feedback"
+  method="POST"
+  netlify
+  data-netlify-honeypot="bot-field"
+  hidden
+>
+  <input aria-label='feedback-name' label="feedback-name" type="text" name="feedback-name" />
+  <input aria-label='feedback-email' label="feedback-email" text" name="feedback-email" />
+  <input aria-label='feedback-message' label="feedback-message"  ype="text" name="feedback-message" />
+</form>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
   </body>

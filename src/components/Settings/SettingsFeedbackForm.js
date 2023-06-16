@@ -47,6 +47,8 @@ export default function SettingsFeedbackDialog({ hidden }) {
           data-netlify-honeypot="bot-field"
           hidden={hidden}
         >
+          <input type="hidden" name="form-name" value="form-feedback" />
+
           <InputLabel htmlFor="my-input">My name</InputLabel>
           <TextField
             name="feedback-name"
