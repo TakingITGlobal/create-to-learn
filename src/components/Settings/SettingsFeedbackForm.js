@@ -13,6 +13,7 @@ export default function SettingsFeedbackDialog() {
   const { t } = useTranslation()
 
   const handleSubmit = () => {
+    console.log('hello')
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -45,7 +46,8 @@ export default function SettingsFeedbackDialog() {
           name="provide-feedback"
           action="/settings/help-and-support"
           method="POST"
-          netlify
+          data-netlify="true"
+          onSubmit={() => handleSubmit()}
         >
           <input type="hidden" name="form-name" value="feedback" />
 
@@ -60,18 +62,8 @@ export default function SettingsFeedbackDialog() {
           />
           <InputLabel htmlFor="my-input">Message</InputLabel>
           <TextField fullWidth id="feedback-message" multiline rows={8} />
+          <button type="submit">{t('btn.submit')}</button>
         </form>
-        <Button
-          onClick={() => handleSubmit()}
-          color="info"
-          sx={{
-            backgroundColor: 'white !important',
-            color: 'black !important',
-          }}
-          type="submit"
-        >
-          {t('btn.submit')}
-        </Button>
       </Box>
     </>
   )
