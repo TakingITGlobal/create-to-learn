@@ -25,13 +25,15 @@ const Stats = () => {
       .map(({ progress }) => progress)
       .reduce((acc, curr) => parseInt(acc) + parseInt(curr / 60))
 
-  const coursesTaken = userProgress && [
-    ...new Set(
-      userProgress
-        .map(({ courseId }) => courseId)
-        .filter((courseId) => courseId),
-    ),
-  ]
+  const coursesTaken = userProgress
+    ? [
+        ...new Set(
+          userProgress
+            .map(({ courseId }) => courseId)
+            .filter((courseId) => courseId),
+        ),
+      ]
+    : []
 
   return (
     <Box sx={{ padding: '40px 10px 10px 10px' }}>
