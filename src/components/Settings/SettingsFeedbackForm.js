@@ -13,11 +13,12 @@ export default function SettingsFeedbackDialog({ hidden }) {
   const { t } = useTranslation()
 
   const handleSubmit = (e) => {
-    console.log(e)
+    const formData = new FormData(e.target)
+
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: 'name:dina',
+      body: new URLSearchParams(formData).toString(),
     })
       .then(() => console.log('Form successfully submitted'))
       .catch((error) => alert(error))
@@ -46,7 +47,7 @@ export default function SettingsFeedbackDialog({ hidden }) {
           onSubmit={(e) => handleSubmit(e)}
           hidden={hidden}
         >
-          {/* <input type="hidden" name="form-feedback" value="form-feedback" /> */}
+          <input type="hidden" name="feedback" value="form-feedback" />
 
           <InputLabel htmlFor="my-input">My name</InputLabel>
           <TextField
