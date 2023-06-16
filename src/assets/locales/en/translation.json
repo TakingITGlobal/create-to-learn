@@ -149,6 +149,11 @@
     "are-you-sure": "Are you sure you want to delete your account?",
     "account-deleted": "Account Deleted",
     "account-deleted-success": "Your account has been successfully deleted, and you will not be able to sign in again.",
-    "okay-got-it": "Okay, got it"
+    "okay-got-it": "Okay, got it",
+    "provide-feedback": "Provide Feedback",
+    "feedback-subtitle": " The following information will be included in your email.",
+    "my-name": "My name",
+    "my-email": "My email",
+    "message": "Message"
   }
 }

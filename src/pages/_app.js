@@ -27,11 +27,9 @@ import { QueryClientProvider } from './../util/db'
 import { DataProvider } from './../util/dataProvider'
 import BottomNavbar from '../components/BottomNavbar'
 import Hidden from '@mui/material/Hidden'
-import { Box } from '@mui/material'
 import SignUpPage from './signUp'
 import CoursePage from './course'
 import CreatorPage from './creator'
-import SettingsFeedbackForm from '../components/Settings/SettingsFeedbackForm'
 
 const LocationProvider = ({ children }) => {
   const { pathname } = useLocation()
@@ -61,7 +59,6 @@ function App(props) {
           <DataProvider>
             <AuthProvider>
               <Chat />
-              <SettingsFeedbackForm hidden />
               <Router>
                 <LocationProvider>
                   <Hidden mdDown>

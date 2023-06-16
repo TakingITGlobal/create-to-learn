@@ -1,7 +1,4 @@
 import * as React from 'react'
-
-import Drawer from '@mui/material/Drawer'
-import FormControl from '@mui/material/FormControl'
 import Button from '@mui/material/Button'
 import InputLabel from '@mui/material/FormHelperText'
 import TextField from '@mui/material/TextField'
@@ -9,13 +6,11 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { useTranslation } from 'react-i18next'
 
-export default function SettingsFeedbackDialog({ hidden }) {
+export default function SettingsFeedbackDialog() {
   const { t } = useTranslation()
 
   const handleSubmit = (e) => {
     const formData = new FormData(e.target)
-
-    console.log(formData, e)
 
     fetch('/', {
       method: 'POST',
@@ -28,58 +23,63 @@ export default function SettingsFeedbackDialog({ hidden }) {
   }
 
   return (
-    <Box hidden={hidden}>
-      <Typography variant="decorative">Provide Feedback</Typography>
-      <Typography variant="secondary">
-        The following information will be included in your email.
+    <>
+      <Typography variant="decorative">
+        {t('settings.provide-feedback')}
       </Typography>
-      <Box
-        sx={{
-          paddingTop: '20px',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          height: '600px',
-        }}
-      >
+      <Typography variant="secondary">
+        {t('settings.feedback-subtitle')}
+      </Typography>
+      <Box>
         <form
           name="form-feedback"
           method="POST"
-          netlify
+          netlify="true"
           onSubmit={(e) => handleSubmit(e)}
-          hidden={hidden}
+          style={{
+            paddingTop: '20px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            height: '550px',
+          }}
         >
-          <input type="hidden" name="form-name" value="form-feedback" />
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <input type="hidden" name="form-name" value="form-feedback" />
 
-          <InputLabel htmlFor="my-input">My name</InputLabel>
-          <TextField
-            name="feedback-name"
-            required
-            id="feedback-name"
-            variant="outlined"
-            fullWidth
-          />
-          <InputLabel htmlFor="my-input">My email</InputLabel>
-          <TextField
-            required
-            id="feedback-email"
-            name="feedback-email"
-            variant="outlined"
-            fullWidth
-          />
-          <InputLabel name="feedback-message" htmlFor="my-input">
-            Message
-          </InputLabel>
-          <TextField
-            fullWidth
-            id="feedback-message"
-            name="feedback-message"
-            multiline
-            rows={8}
-          />
-          <button type="submit">{t('btn.submit')}</button>
+            <InputLabel htmlFor="name">{t('settings.my-name')}</InputLabel>
+            <TextField
+              name="feedback-name"
+              required
+              id="feedback-name"
+              variant="outlined"
+              fullWidth
+            />
+            <InputLabel htmlFor="email">{t('settings.my-email')}</InputLabel>
+            <TextField
+              required
+              id="feedback-email"
+              name="feedback-email"
+              type="email"
+              variant="outlined"
+              fullWidth
+            />
+            <InputLabel htmlFor="message">{t('settings.mesage')}</InputLabel>
+            <TextField
+              fullWidth
+              id="feedback-message"
+              name="feedback-message"
+              multiline
+              rows={8}
+              inputProps={{ maxLength: 500 }}
+            />
+          </Box>
+
+          <Button fullWidth color="info" type="submit">
+            {t('btn.submit')}
+          </Button>
         </form>
       </Box>
-    </Box>
+    </>
   )
 }
