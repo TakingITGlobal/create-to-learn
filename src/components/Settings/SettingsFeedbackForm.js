@@ -12,6 +12,20 @@ import { useTranslation } from 'react-i18next'
 export default function SettingsFeedbackDialog() {
   const { t } = useTranslation()
 
+  const handleSubmit = () => {
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        name: 'dina',
+        email: 'dina@heynova.io',
+        message: 'testing',
+      }).toString(),
+    })
+      .then(() => console.log('Form successfully submitted'))
+      .catch((error) => alert(error))
+  }
+
   return (
     <>
       <Typography variant="decorative">Provide Feedback</Typography>
@@ -47,7 +61,17 @@ export default function SettingsFeedbackDialog() {
           <InputLabel htmlFor="my-input">Message</InputLabel>
           <TextField fullWidth id="feedback-message" multiline rows={8} />
         </form>
-        <button type="submit">{t('btn.submit')}</button>
+        <Button
+          onClick={() => handleSubmit()}
+          color="info"
+          sx={{
+            backgroundColor: 'white !important',
+            color: 'black !important',
+          }}
+          type="submit"
+        >
+          {t('btn.submit')}
+        </Button>
       </Box>
     </>
   )
