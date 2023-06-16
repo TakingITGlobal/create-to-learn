@@ -13,7 +13,7 @@ export default function SettingsFeedbackDialog({ hidden }) {
   const { t } = useTranslation()
 
   const handleSubmit = (e) => {
-    console.log('hello')
+    console.log(e)
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -42,12 +42,11 @@ export default function SettingsFeedbackDialog({ hidden }) {
         <form
           name="form-feedback"
           method="POST"
-          data-netlify="true"
+          netlify
           onSubmit={(e) => handleSubmit(e)}
-          data-netlify-honeypot="bot-field"
           hidden={hidden}
         >
-          <input type="hidden" name="form-name" value="form-feedback" />
+          {/* <input type="hidden" name="form-feedback" value="form-feedback" /> */}
 
           <InputLabel htmlFor="my-input">My name</InputLabel>
           <TextField
