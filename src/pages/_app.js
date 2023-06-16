@@ -31,6 +31,7 @@ import { Box } from '@mui/material'
 import SignUpPage from './signUp'
 import CoursePage from './course'
 import CreatorPage from './creator'
+import SettingsFeedbackForm from '../components/Settings/SettingsFeedbackForm'
 
 const LocationProvider = ({ children }) => {
   const { pathname } = useLocation()
@@ -60,6 +61,7 @@ function App(props) {
           <DataProvider>
             <AuthProvider>
               <Chat />
+              <SettingsFeedbackForm hidden />
               <Router>
                 <LocationProvider>
                   <Hidden mdDown>

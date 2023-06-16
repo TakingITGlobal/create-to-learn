@@ -9,26 +9,23 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { useTranslation } from 'react-i18next'
 
-export default function SettingsFeedbackDialog() {
+export default function SettingsFeedbackDialog({ hidden }) {
   const { t } = useTranslation()
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
     console.log('hello')
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        name: 'dina',
-        email: 'dina@heynova.io',
-        message: 'testing',
-      }).toString(),
+      body: 'name:dina',
     })
       .then(() => console.log('Form successfully submitted'))
       .catch((error) => alert(error))
+    e.preventDefault()
   }
 
   return (
-    <>
+    <Box hidden={hidden}>
       <Typography variant="decorative">Provide Feedback</Typography>
       <Typography variant="secondary">
         The following information will be included in your email.
@@ -43,28 +40,42 @@ export default function SettingsFeedbackDialog() {
         }}
       >
         <form
-          name="provide-feedback"
-          action="/settings/help-and-support"
+          name="form-feedback"
           method="POST"
           data-netlify="true"
-          onSubmit={() => handleSubmit()}
+          onSubmit={(e) => handleSubmit(e)}
+          data-netlify-honeypot="bot-field"
+          hidden={hidden}
         >
-          <input type="hidden" name="form-name" value="feedback" />
-
           <InputLabel htmlFor="my-input">My name</InputLabel>
-          <TextField required id="feedback-name" variant="outlined" fullWidth />
+          <TextField
+            name="feedback-name"
+            required
+            id="feedback-name"
+            variant="outlined"
+            fullWidth
+          />
           <InputLabel htmlFor="my-input">My email</InputLabel>
           <TextField
             required
             id="feedback-email"
+            name="feedback-email"
             variant="outlined"
             fullWidth
           />
-          <InputLabel htmlFor="my-input">Message</InputLabel>
-          <TextField fullWidth id="feedback-message" multiline rows={8} />
+          <InputLabel name="feedback-message" htmlFor="my-input">
+            Message
+          </InputLabel>
+          <TextField
+            fullWidth
+            id="feedback-message"
+            name="feedback-message"
+            multiline
+            rows={8}
+          />
           <button type="submit">{t('btn.submit')}</button>
         </form>
       </Box>
-    </>
+    </Box>
   )
 }
