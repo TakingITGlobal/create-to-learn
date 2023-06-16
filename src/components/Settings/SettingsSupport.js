@@ -12,6 +12,7 @@ import BugReportIcon from '@mui/icons-material/BugReport'
 import EmailIcon from '@mui/icons-material/Email'
 import ForumIcon from '@mui/icons-material/Forum'
 import LinkComp from '@mui/material/Link'
+import SettingsFeedbackForm from './SettingsFeedbackForm'
 
 import ArrowBack from '../ArrowBack'
 
@@ -36,6 +37,8 @@ function SettingsSupport(props) {
         {showComponent === 'findCourse' && <div>Find a course support...</div>}
 
         {showComponent === 'createCourse' && <div>Create a course..</div>}
+
+        {showComponent === 'provideFeedback' && <SettingsFeedbackForm />}
       </Container>
     </>
   )
@@ -52,6 +55,7 @@ function SupportNav({ setShowComponent }) {
     { id: 'findCourse', title: 'Find specific course' },
     { id: 'requestCourse', title: 'Request a new course' },
     { id: 'createCourse', title: 'Want to create a course myself' },
+    { id: 'provideFeedback', title: 'Provide Feedback' },
   ]
 
   return (
@@ -101,7 +105,11 @@ function SupportNav({ setShowComponent }) {
         <Button variant="outlined" startIcon={<BugReportIcon />}>
           Report a Bug
         </Button>
-        <Button variant="outlined" startIcon={<EmailIcon />}>
+        <Button
+          variant="outlined"
+          startIcon={<EmailIcon />}
+          onClick={() => setShowComponent('provideFeedback')}
+        >
           Provide Feedback
         </Button>
         <Button variant="outlined" startIcon={<ForumIcon />}>

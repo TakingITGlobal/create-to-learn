@@ -25,6 +25,9 @@ function SettingsLegal(props) {
         setShowComponent={setShowComponent}
       />
       <Container>
+        {showComponent === 'nav' && (
+          <LegalNav auth={auth} setShowComponent={setShowComponent} />
+        )}
         {showComponent === 'privacyPolicy' && (
           <PrivacyPolicy setShowComponent={setShowComponent} />
         )}
@@ -41,9 +44,6 @@ function SettingsLegal(props) {
           <AboutOrganization setShowComponent={setShowComponent} />
         )}
 
-        {showComponent === 'nav' && (
-          <LegalNav auth={auth} setShowComponent={setShowComponent} />
-        )}
         <Box sx={{ fontWeight: 300, color: 'grey' }}>
           <Typography>Version 5.5.0</Typography>
         </Box>
