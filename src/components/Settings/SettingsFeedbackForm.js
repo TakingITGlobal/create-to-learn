@@ -15,6 +15,8 @@ export default function SettingsFeedbackDialog({ hidden }) {
   const handleSubmit = (e) => {
     const formData = new FormData(e.target)
 
+    console.log(formData, e)
+
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -47,7 +49,7 @@ export default function SettingsFeedbackDialog({ hidden }) {
           onSubmit={(e) => handleSubmit(e)}
           hidden={hidden}
         >
-          <input type="hidden" name="feedback" value="form-feedback" />
+          <input type="hidden" name="form-feedback" value="form-feedback" />
 
           <InputLabel htmlFor="my-input">My name</InputLabel>
           <TextField
