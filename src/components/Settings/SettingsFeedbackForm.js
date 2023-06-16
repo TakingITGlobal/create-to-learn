@@ -29,11 +29,14 @@ export default function SettingsFeedbackDialog() {
       >
         <FormControl
           sx={{ width: '100%', gap: '10px' }}
-          action="/success"
+          name="provide-feedback"
+          action="/settings/help-and-support"
           method="POST"
           netlify
           data-netlify="true"
         >
+          <input type="hidden" name="form-name" value="feedback" />
+
           <InputLabel htmlFor="my-input">My name</InputLabel>
           <TextField required id="feedback-name" variant="outlined" fullWidth />
           <InputLabel htmlFor="my-input">My email</InputLabel>
@@ -54,7 +57,7 @@ export default function SettingsFeedbackDialog() {
           }}
           type="submit"
         >
-          {t('btn.continue')}
+          {t('btn.submit')}
         </Button>
       </Box>
     </>

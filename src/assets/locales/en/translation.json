@@ -25,7 +25,8 @@
     "prev": "Prev",
     "next": "Next",
     "continue": "Continue",
-    "missing": "My {{value}} isn't here"
+    "missing": "My {{value}} isn't here",
+    "submit": "Submit"
   },
   "onboarding": {
     "screen-1": "A space where you can learn by making, creating, and taking part.",
