@@ -27,13 +27,11 @@ export default function SettingsFeedbackDialog() {
           height: '600px',
         }}
       >
-        <FormControl
-          sx={{ width: '100%', gap: '10px' }}
+        <form
           name="provide-feedback"
           action="/settings/help-and-support"
           method="POST"
           netlify
-          data-netlify="true"
         >
           <input type="hidden" name="form-name" value="feedback" />
 
@@ -47,18 +45,9 @@ export default function SettingsFeedbackDialog() {
             fullWidth
           />
           <InputLabel htmlFor="my-input">Message</InputLabel>
-          <TextField id="feedback-message" multiline rows={8} />
-        </FormControl>
-        <Button
-          color="info"
-          sx={{
-            backgroundColor: 'white !important',
-            color: 'black !important',
-          }}
-          type="submit"
-        >
-          {t('btn.submit')}
-        </Button>
+          <TextField fullWidth id="feedback-message" multiline rows={8} />
+        </form>
+        <button type="submit">{t('btn.submit')}</button>
       </Box>
     </>
   )
