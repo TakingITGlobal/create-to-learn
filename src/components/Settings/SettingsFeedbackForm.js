@@ -6,7 +6,11 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { useTranslation } from 'react-i18next'
 
-export default function SettingsFeedbackDialog() {
+export default function SettingsFeedbackDialog({
+  setShowComponent,
+  setOpenSnackbar,
+  setSnackbarMessage,
+}) {
   const { t } = useTranslation()
 
   const handleSubmit = (e) => {
@@ -17,7 +21,11 @@ export default function SettingsFeedbackDialog() {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams(formData).toString(),
     })
-      .then(() => console.log('Form successfully submitted'))
+      .then(() => {
+        setShowComponent('nav')
+        setOpenSnackbar(true)
+        setSnackbarMessage('Thank you for your feedback!')
+      })
       .catch((error) => alert(error))
     e.preventDefault()
   }
@@ -64,7 +72,7 @@ export default function SettingsFeedbackDialog() {
               variant="outlined"
               fullWidth
             />
-            <InputLabel htmlFor="message">{t('settings.mesage')}</InputLabel>
+            <InputLabel htmlFor="message">{t('settings.message')}</InputLabel>
             <TextField
               fullWidth
               id="feedback-message"
