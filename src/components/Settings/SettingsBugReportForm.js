@@ -8,7 +8,7 @@ import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import { useTranslation } from 'react-i18next'
 
-export default function SettingsFeedbackForm({
+export default function SettingsBugReportForm({
   setShowComponent,
   setOpenSnackbar,
   setSnackbarMessage,
@@ -16,12 +16,10 @@ export default function SettingsFeedbackForm({
   const { t } = useTranslation()
   const [issueOption, setIssueOption] = useState('default')
 
-  const handleChange = (event) => {
-    setIssueOption(event.target.value)
-  }
-
   const handleSubmit = (e) => {
     const formData = new FormData(e.target)
+
+    console.log(formData, e.target)
 
     fetch('/', {
       method: 'POST',
@@ -54,65 +52,54 @@ export default function SettingsFeedbackForm({
             height: '600px',
           }}
         >
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              gap: '10px',
-              height: '100%',
-            }}
-          >
-            <Box>
-              <input type="hidden" name="form-name" value="form-feedback" />
-              <InputLabel htmlFor="name">{t('settings.my-name')}</InputLabel>
-              <TextField
-                name="bug-report-name"
-                required
-                id="bug-report-name"
-                variant="outlined"
-                fullWidth
-              />
-              <InputLabel htmlFor="email">{t('settings.my-email')}</InputLabel>
-              <TextField
-                required
-                id="bug-report-email"
-                name="bug-report-email"
-                type="email"
-                variant="outlined"
-                fullWidth
-              />
-              <InputLabel id="issue-select">Issue type</InputLabel>
+          <input type="hidden" name="form-name" value="form-bug-report" />
+          <InputLabel htmlFor="name">{t('settings.my-name')}</InputLabel>
+          <TextField
+            name="bug-report-name"
+            required
+            id="bug-report-name"
+            variant="outlined"
+            fullWidth
+          />
+          <InputLabel htmlFor="email">{t('settings.my-email')}</InputLabel>
+          <TextField
+            required
+            id="bug-report-email"
+            name="bug-report-email"
+            type="email"
+            variant="outlined"
+            fullWidth
+          />
+          <InputLabel id="issue-select">Issue type</InputLabel>
 
-              <Select
-                labelId="issue-select"
-                id="issue-select"
-                value={issueOption}
-                onChange={handleChange}
-                label=""
-                fullWidth
-              >
-                <MenuItem value={'default'}>Choose an issue type...</MenuItem>
-                <MenuItem value={'issue-1'}>Issue type 1</MenuItem>
-                <MenuItem value={'issue-2'}>Issue type 2 </MenuItem>
-                <MenuItem value={'issue-3'}>Issue type 3</MenuItem>
-              </Select>
-              <InputLabel htmlFor="tell-us-more">
-                {t('settings.tell-us-more')}
-              </InputLabel>
-              <TextField
-                fullWidth
-                id="bug-report-message"
-                name="bug-report-message"
-                multiline
-                rows={8}
-                inputProps={{ maxLength: 500 }}
-              />
-            </Box>
-            <Button fullWidth color="info" type="submit">
-              {t('btn.submit')}
-            </Button>
-          </Box>
+          <Select
+            labelId="issue-select"
+            name="bug-report-issue"
+            id="issue-select"
+            value={issueOption}
+            onChange={(e) => setIssueOption(e.target.value)}
+            label=""
+            fullWidth
+          >
+            <MenuItem value={'default'}>Choose an issue type...</MenuItem>
+            <MenuItem value={'issue-1'}>Issue type 1</MenuItem>
+            <MenuItem value={'issue-2'}>Issue type 2 </MenuItem>
+            <MenuItem value={'issue-3'}>Issue type 3</MenuItem>
+          </Select>
+          <InputLabel htmlFor="tell-us-more">
+            {t('settings.tell-us-more')}
+          </InputLabel>
+          <TextField
+            fullWidth
+            id="bug-report-message"
+            name="bug-report-message"
+            multiline
+            rows={8}
+            inputProps={{ maxLength: 500 }}
+          />
+          <Button fullWidth color="info" type="submit">
+            {t('btn.submit')}
+          </Button>
         </form>
       </Box>
     </>
