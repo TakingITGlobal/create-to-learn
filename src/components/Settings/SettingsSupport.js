@@ -34,20 +34,18 @@ function SettingsSupport(props) {
         {showComponent === 'findCourse' && <div>Find a course support...</div>}
         {showComponent === 'createCourse' && <div>Create a course..</div>}
         {showComponent === 'faqs' && <div>Faqs</div>}
-        {showComponent === 'provideFeedback' && (
-          <SettingsFeedbackForm
-            setShowComponent={setShowComponent}
-            setOpenSnackbar={setOpenSnackbar}
-            setSnackbarMessage={setSnackbarMessage}
-          />
-        )}
-        {showComponent === 'bugReport' && (
-          <SettingsBugReportForm
-            setShowComponent={setShowComponent}
-            setOpenSnackbar={setOpenSnackbar}
-            setSnackbarMessage={setSnackbarMessage}
-          />
-        )}
+        <SettingsFeedbackForm
+          showComponent={showComponent}
+          setShowComponent={setShowComponent}
+          setOpenSnackbar={setOpenSnackbar}
+          setSnackbarMessage={setSnackbarMessage}
+        />
+        <SettingsBugReportForm
+          showComponent={showComponent}
+          setShowComponent={setShowComponent}
+          setOpenSnackbar={setOpenSnackbar}
+          setSnackbarMessage={setSnackbarMessage}
+        />
         <Snackbar
           open={openSnackbar}
           autoHideDuration={1200}
