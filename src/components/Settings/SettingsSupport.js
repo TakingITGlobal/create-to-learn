@@ -17,6 +17,8 @@ import MuiAlert from '@mui/material/Alert'
 import ArrowBack from '../ArrowBack'
 
 import { useAuth } from '../../util/auth'
+import { useTranslation } from 'react-i18next'
+
 import SettingsFeedbackForm from './SettingsFeedbackForm'
 import SettingsBugReportForm from './SettingsBugReportForm'
 
@@ -43,6 +45,7 @@ function SettingsSupport(props) {
         {showComponent === 'verifyEmail' && <div>Verify email support...</div>}
         {showComponent === 'findCourse' && <div>Find a course support...</div>}
         {showComponent === 'createCourse' && <div>Create a course..</div>}
+        {showComponent === 'faqs' && <div>Faqs</div>}
         {showComponent === 'provideFeedback' && (
           <SettingsFeedbackForm
             setShowComponent={setShowComponent}
@@ -80,6 +83,8 @@ function SettingsSupport(props) {
 export default SettingsSupport
 
 function SupportNav({ setShowComponent }) {
+  const { t } = useTranslation()
+
   const myAccountLinks = [
     {
       id: 'verifyEmail',
@@ -119,7 +124,9 @@ function SupportNav({ setShowComponent }) {
           </ListItem>
         ))}
         <ListItem>
-          <LinkComp>See all FAQs </LinkComp>
+          <LinkComp onClick={() => setShowComponent('faqs')}>
+            See all FAQs
+          </LinkComp>
         </ListItem>
       </List>
       <Box sx={{ padding: '.5rem 1rem' }}>
@@ -139,14 +146,14 @@ function SupportNav({ setShowComponent }) {
           startIcon={<BugReportIcon />}
           onClick={() => setShowComponent('bugReport')}
         >
-          Report a Bug
+          {t('settings.report-bug')}
         </Button>
         <Button
           variant="outlined"
           startIcon={<EmailIcon />}
           onClick={() => setShowComponent('provideFeedback')}
         >
-          Provide Feedback
+          {t('settings.provide-feedback')}
         </Button>
         <Button variant="outlined" startIcon={<ForumIcon />}>
           Chat Support
