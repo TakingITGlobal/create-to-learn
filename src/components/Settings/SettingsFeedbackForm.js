@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import Button from '@mui/material/Button'
 import InputLabel from '@mui/material/FormHelperText'
 import TextField from '@mui/material/TextField'
@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { useTranslation } from 'react-i18next'
 
-export default function SettingsFeedbackDialog({
+export default function SettingsFeedbackForm({
   setShowComponent,
   setOpenSnackbar,
   setSnackbarMessage,

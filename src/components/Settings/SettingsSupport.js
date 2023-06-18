@@ -12,13 +12,13 @@ import BugReportIcon from '@mui/icons-material/BugReport'
 import EmailIcon from '@mui/icons-material/Email'
 import ForumIcon from '@mui/icons-material/Forum'
 import LinkComp from '@mui/material/Link'
-import SettingsFeedbackForm from './SettingsFeedbackForm'
 import Snackbar from '@mui/material/Snackbar'
 import MuiAlert from '@mui/material/Alert'
-
 import ArrowBack from '../ArrowBack'
 
 import { useAuth } from '../../util/auth'
+import SettingsFeedbackForm from './SettingsFeedbackForm'
+import SettingsBugReportForm from './SettingsBugReportForm'
 
 function SettingsSupport(props) {
   const auth = useAuth()
@@ -45,6 +45,13 @@ function SettingsSupport(props) {
         {showComponent === 'createCourse' && <div>Create a course..</div>}
         {showComponent === 'provideFeedback' && (
           <SettingsFeedbackForm
+            setShowComponent={setShowComponent}
+            setOpenSnackbar={setOpenSnackbar}
+            setSnackbarMessage={setSnackbarMessage}
+          />
+        )}
+        {showComponent === 'bugReport' && (
+          <SettingsBugReportForm
             setShowComponent={setShowComponent}
             setOpenSnackbar={setOpenSnackbar}
             setSnackbarMessage={setSnackbarMessage}
@@ -127,7 +134,11 @@ function SupportNav({ setShowComponent }) {
           padding: '0 1rem',
         }}
       >
-        <Button variant="outlined" startIcon={<BugReportIcon />}>
+        <Button
+          variant="outlined"
+          startIcon={<BugReportIcon />}
+          onClick={() => setShowComponent('bugReport')}
+        >
           Report a Bug
         </Button>
         <Button

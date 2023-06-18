@@ -154,6 +154,8 @@
     "feedback-subtitle": " The following information will be included in your email.",
     "my-name": "My name",
     "my-email": "My email",
-    "message": "Message"
+    "message": "Message",
+    "report-bug": "Report a Bug",
+    "tell-us-more": "Tell us a little more about the issue"
   }
 }
