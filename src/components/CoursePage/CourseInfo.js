@@ -106,8 +106,6 @@ function CourseInfo({
     )
   }
 
-  console.log(percentProgress, totalTimeWatched)
-
   return (
     <>
       <Box sx={{ padding: ' 0 1em' }}>
@@ -129,7 +127,12 @@ function CourseInfo({
             </Typography>
             <Typography variant="subtitle1">Creator Community</Typography>
           </Box>
-          <ChevronRight sx={{ marginLeft: {xs: 'auto', md: '10px'}, fontSize: {md: '2.5em'}}} />
+          <ChevronRight
+            sx={{
+              marginLeft: { xs: 'auto', md: '10px' },
+              fontSize: { md: '2.5em' },
+            }}
+          />
         </Link>
 
         {/* Regular paragraph */}

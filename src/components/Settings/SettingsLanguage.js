@@ -17,7 +17,7 @@ import { useAuth } from '../../util/auth'
 
 const LANGUAGE_NOT_HERE = 'My language is not here'
 
-function SettingsLanguage({ setShowComponent }) {
+function SettingsLanguage({ showComponent, setShowComponent }) {
   const { t } = useTranslation()
   const auth = useAuth()
 
@@ -39,89 +39,91 @@ function SettingsLanguage({ setShowComponent }) {
   }
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        height: '700px',
-      }}
-    >
-      <Box sx={{ padding: '1.5rem 0' }}>
-        <Typography variant="h5" sx={{ paddingBottom: '10px' }}>
-          My language is...
-        </Typography>
-        <Typography>Or a language I am learning</Typography>
-        <Typography>
-          So that we can greet and congratulate you in the future
-        </Typography>
-      </Box>
-      <List
-        sx={{ width: '100%', maxWidth: 360 }}
-        component="nav"
-        aria-labelledby="settings-profile"
+    showComponent === 'language' && (
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          height: '700px',
+        }}
       >
-        {languageOptions.map((language, index) => (
+        <Box sx={{ padding: '1.5rem 0' }}>
+          <Typography variant="h5" sx={{ paddingBottom: '10px' }}>
+            My language is...
+          </Typography>
+          <Typography>Or a language I am learning</Typography>
+          <Typography>
+            So that we can greet and congratulate you in the future
+          </Typography>
+        </Box>
+        <List
+          sx={{ width: '100%', maxWidth: 360 }}
+          component="nav"
+          aria-labelledby="settings-profile"
+        >
+          {languageOptions.map((language, index) => (
+            <ListItem
+              key={index}
+              sx={{
+                backgroundColor: languages.includes(language)
+                  ? '#6956F1'
+                  : '#211E34',
+                marginBottom: '15px',
+                borderRadius: '5px',
+              }}
+              secondaryAction={
+                languages.includes(language) && (
+                  <IconButton size="large">
+                    <CheckCircleIcon />
+                  </IconButton>
+                )
+              }
+            >
+              <ListItemButton onClick={() => handleLanguages(language)}>
+                <ListItemText>{language}</ListItemText>
+              </ListItemButton>
+            </ListItem>
+          ))}
           <ListItem
-            key={index}
             sx={{
-              backgroundColor: languages.includes(language)
-                ? '#6956F1'
-                : '#211E34',
+              backgroundColor: !languages.length ? '#6956F1' : '#211E34',
               marginBottom: '15px',
               borderRadius: '5px',
             }}
             secondaryAction={
-              languages.includes(language) && (
+              !languages.length && (
                 <IconButton size="large">
                   <CheckCircleIcon />
                 </IconButton>
               )
             }
           >
-            <ListItemButton onClick={() => handleLanguages(language)}>
-              <ListItemText>{language}</ListItemText>
+            <ListItemButton onClick={() => handleLanguages(LANGUAGE_NOT_HERE)}>
+              <ListItemText>My language is not here</ListItemText>
             </ListItemButton>
           </ListItem>
-        ))}
-        <ListItem
+        </List>
+        <Box
           sx={{
-            backgroundColor: !languages.length ? '#6956F1' : '#211E34',
-            marginBottom: '15px',
-            borderRadius: '5px',
-          }}
-          secondaryAction={
-            !languages.length && (
-              <IconButton size="large">
-                <CheckCircleIcon />
-              </IconButton>
-            )
-          }
-        >
-          <ListItemButton onClick={() => handleLanguages(LANGUAGE_NOT_HERE)}>
-            <ListItemText>My language is not here</ListItemText>
-          </ListItemButton>
-        </ListItem>
-      </List>
-      <Box
-        sx={{
-          display: 'flex',
-          padding: '1.5rem 0',
-          flexGrow: 1,
-          alignItems: 'flex-end',
-        }}
-      >
-        <Button
-          fullWidth
-          color="info"
-          onClick={() => {
-            updateUser(auth.user.uid, { language: languages })
-            setShowComponent('nav')
+            display: 'flex',
+            padding: '1.5rem 0',
+            flexGrow: 1,
+            alignItems: 'flex-end',
           }}
         >
-          {t('settings.update')}
-        </Button>
+          <Button
+            fullWidth
+            color="info"
+            onClick={() => {
+              updateUser(auth.user.uid, { language: languages })
+              setShowComponent('nav')
+            }}
+          >
+            {t('settings.update')}
+          </Button>
+        </Box>
       </Box>
-    </Box>
+    )
   )
 }
 

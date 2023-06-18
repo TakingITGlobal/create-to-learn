@@ -9,52 +9,54 @@ import { updateUser } from '../../util/db'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../../util/auth'
 
-function SettingsDisplayName({ setShowComponent }) {
+function SettingsDisplayName({ showComponent, setShowComponent }) {
   const { t } = useTranslation()
   const auth = useAuth()
 
   const [name, setName] = useState(auth.user.displayName ?? auth.user.name)
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        height: '700px',
-      }}
-    >
-      <Box sx={{ padding: '1.5rem 0' }}>
-        <Typography variant="h6">
-          {t('settings.change-display-name')}
-        </Typography>
-      </Box>
-      <TextField
-        id="displayName"
-        label="DisplayName"
-        variant="outlined"
-        defaultValue={name}
-        onChange={(e) => setName(e.target.value)}
-      />
+    showComponent === 'displayName' && (
       <Box
         sx={{
           display: 'flex',
-          padding: '1.5rem 0',
-          flexGrow: 1,
-          alignItems: 'flex-end',
+          flexDirection: 'column',
+          height: '700px',
         }}
       >
-        <Button
-          fullWidth
-          color="info"
-          onClick={() => {
-            updateUser(auth.user.uid, { displayName: name })
-            setShowComponent('nav')
+        <Box sx={{ padding: '1.5rem 0' }}>
+          <Typography variant="h6">
+            {t('settings.change-display-name')}
+          </Typography>
+        </Box>
+        <TextField
+          id="displayName"
+          label="DisplayName"
+          variant="outlined"
+          defaultValue={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <Box
+          sx={{
+            display: 'flex',
+            padding: '1.5rem 0',
+            flexGrow: 1,
+            alignItems: 'flex-end',
           }}
         >
-          {t('settings.update')}
-        </Button>
+          <Button
+            fullWidth
+            color="info"
+            onClick={() => {
+              updateUser(auth.user.uid, { displayName: name })
+              setShowComponent('nav')
+            }}
+          >
+            {t('settings.update')}
+          </Button>
+        </Box>
       </Box>
-    </Box>
+    )
   )
 }
 

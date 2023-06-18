@@ -6,47 +6,49 @@ import TextField from '@mui/material/TextField'
 
 import { useTranslation } from 'react-i18next'
 
-function SettingsEmail({ auth }) {
+function SettingsEmail({ auth, showComponent, setShowComponent }) {
   const { t } = useTranslation()
 
   const [email, setEmail] = useState('auth.user.email')
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        height: '700px',
-      }}
-    >
-      <Box sx={{ padding: '1.5rem 0' }}>
-        <Typography variant="h6">{t('settings.change-email')}</Typography>
-      </Box>
-      <TextField
-        id="Email"
-        label="Email"
-        variant="outlined"
-        defaultValue={auth.user.email}
-        onChange={(e) => setEmail(e.targetValue)}
-      />
+    showComponent === 'email' && (
       <Box
         sx={{
           display: 'flex',
-          padding: '1.5rem 0',
-          flexGrow: 1,
-          alignItems: 'flex-end',
+          flexDirection: 'column',
+          height: '700px',
         }}
       >
-        <Button
-          fullWidth
-          color="info"
-          sx={{ borderRadius: '25px' }}
-          onChange={() => auth.updateProfile({ email: email })}
+        <Box sx={{ padding: '1.5rem 0' }}>
+          <Typography variant="h6">{t('settings.change-email')}</Typography>
+        </Box>
+        <TextField
+          id="Email"
+          label="Email"
+          variant="outlined"
+          defaultValue={auth.user.email}
+          onChange={(e) => setEmail(e.targetValue)}
+        />
+        <Box
+          sx={{
+            display: 'flex',
+            padding: '1.5rem 0',
+            flexGrow: 1,
+            alignItems: 'flex-end',
+          }}
         >
-          {t('settings.update')}
-        </Button>
+          <Button
+            fullWidth
+            color="info"
+            sx={{ borderRadius: '25px' }}
+            onChange={() => auth.updateProfile({ email: email })}
+          >
+            {t('settings.update')}
+          </Button>
+        </Box>
       </Box>
-    </Box>
+    )
   )
 }
 

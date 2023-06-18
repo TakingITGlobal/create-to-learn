@@ -16,7 +16,7 @@ import { updateUser } from '../../util/db'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../../util/auth'
 
-function SettingsSchool({ setShowComponent }) {
+function SettingsSchools({ showComponent, setShowComponent }) {
   const { t } = useTranslation()
   const auth = useAuth()
 
@@ -56,71 +56,73 @@ function SettingsSchool({ setShowComponent }) {
   )
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        height: '700px',
-      }}
-    >
-      <Box sx={{ padding: '1.5rem 0' }}>
-        <Typography variant="h5" sx={{ paddingBottom: '10px' }}>
-          I'm attending ...
-        </Typography>
-        <Typography>Scroll or search to find your school </Typography>
-        <Box sx={{ paddingTop: '40px' }}>
-          <Typography>Search your school</Typography>
-        </Box>
-        <TextField
-          onInput={(e) => onChange(e)}
-          id="filled-start-adornment"
-          sx={{
-            backgroundColor: '#2B2937',
-            borderRadius: '8px',
-            width: '100%',
-          }}
-          value={search}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon color="primary" fontSize="medium" />
-              </InputAdornment>
-            ),
-          }}
-          variant="outlined"
-        />
-      </Box>
-      <FixedSizeList
-        height={650}
-        width="100%"
-        itemSize={50}
-        itemData={filteredSchools}
-        itemCount={filteredSchools.length}
-        overscanCount={50}
-      >
-        {Row}
-      </FixedSizeList>
+    showComponent === 'school' && (
       <Box
         sx={{
           display: 'flex',
-          padding: '1.5rem 0',
-          flexGrow: 1,
-          alignItems: 'flex-end',
+          flexDirection: 'column',
+          height: '700px',
         }}
       >
-        <Button
-          fullWidth
-          color="info"
-          onClick={() => {
-            updateUser(auth.user.uid, { school: school })
-            setShowComponent('nav')
+        <Box sx={{ padding: '1.5rem 0' }}>
+          <Typography variant="h5" sx={{ paddingBottom: '10px' }}>
+            I'm attending ...
+          </Typography>
+          <Typography>Scroll or search to find your school </Typography>
+          <Box sx={{ paddingTop: '40px' }}>
+            <Typography>Search your school</Typography>
+          </Box>
+          <TextField
+            onInput={(e) => onChange(e)}
+            id="filled-start-adornment"
+            sx={{
+              backgroundColor: '#2B2937',
+              borderRadius: '8px',
+              width: '100%',
+            }}
+            value={search}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon color="primary" fontSize="medium" />
+                </InputAdornment>
+              ),
+            }}
+            variant="outlined"
+          />
+        </Box>
+        <FixedSizeList
+          height={650}
+          width="100%"
+          itemSize={50}
+          itemData={filteredSchools}
+          itemCount={filteredSchools.length}
+          overscanCount={50}
+        >
+          {Row}
+        </FixedSizeList>
+        <Box
+          sx={{
+            display: 'flex',
+            padding: '1.5rem 0',
+            flexGrow: 1,
+            alignItems: 'flex-end',
           }}
         >
-          {t('settings.update')}
-        </Button>
+          <Button
+            fullWidth
+            color="info"
+            onClick={() => {
+              updateUser(auth.user.uid, { school: school })
+              setShowComponent('nav')
+            }}
+          >
+            {t('settings.update')}
+          </Button>
+        </Box>
       </Box>
-    </Box>
+    )
   )
 }
 
-export default SettingsSchool
+export default SettingsSchools

@@ -20,8 +20,6 @@ export default function SettingsBugReportForm({
   const handleSubmit = (e) => {
     const formData = new FormData(e.target)
 
-    console.log(formData, e.target)
-
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
