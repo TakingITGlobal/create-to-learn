@@ -41,17 +41,20 @@ export default function SettingsBugReportForm({
       <Typography variant="secondary">
         {t('settings.feedback-subtitle')}
       </Typography>
-      <Box>
-        <form
-          name="form-bug-report"
-          method="POST"
-          netlify="true"
-          onSubmit={(e) => handleSubmit(e)}
-          style={{
-            paddingTop: '20px',
-            height: '600px',
-          }}
-        >
+      <form
+        name="form-bug-report"
+        method="POST"
+        netlify="true"
+        onSubmit={(e) => handleSubmit(e)}
+        style={{
+          paddingTop: '20px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          height: '550px',
+        }}
+      >
+        <Box>
           <input type="hidden" name="form-name" value="form-bug-report" />
           <InputLabel htmlFor="name">{t('settings.my-name')}</InputLabel>
           <TextField
@@ -97,11 +100,11 @@ export default function SettingsBugReportForm({
             rows={8}
             inputProps={{ maxLength: 500 }}
           />
-          <Button fullWidth color="info" type="submit">
-            {t('btn.submit')}
-          </Button>
-        </form>
-      </Box>
+        </Box>
+        <Button fullWidth color="info" type="submit">
+          {t('btn.submit')}
+        </Button>
+      </form>
     </>
   )
 }

@@ -49,7 +49,7 @@ export default function SettingsFeedbackForm({
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            height: '550px',
+            height: '600px',
           }}
         >
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
