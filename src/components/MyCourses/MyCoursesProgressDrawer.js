@@ -42,8 +42,6 @@ function MyCoursesProgressDrawer({
     )
   }, [inProgressVideos])
 
-  console.log(inProgressVideos)
-
   return (
     <>
       {!openVideoDrawer ? (

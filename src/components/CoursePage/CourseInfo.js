@@ -153,7 +153,6 @@ function CourseInfo({
     const videoDownloadInfo = videos.flatMap(({ download }) =>
       download.filter(({ public_name }) => public_name === quality),
     )
-    console.log(videoDownloadInfo)
 
     return (
       <div style={{ display: 'none' }}>

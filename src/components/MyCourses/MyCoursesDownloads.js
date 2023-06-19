@@ -39,11 +39,11 @@ function MyCoursesDownloads() {
 
   const emptyStateTitle = auth.user
     ? t('my-courses.downloads-empty-state-title')
-    : t('my-courses.guest-progress-empty-state-title')
+    : t('my-courses.guest-downloads-empty-state-title')
 
   const emptyStateSubtitle = auth.user
     ? t('my-courses.downloads-empty-state-subtitle')
-    : t('my-courses.guest-progress-empty-state-subtitle')
+    : t('my-courses.guest-downloads-empty-state-subtitle')
 
   const emptyStateButtonText = auth.user
     ? t('my-courses.find-course')
@@ -84,14 +84,6 @@ function MyCoursesDownloads() {
                 </IconButton>
               </Box>
               <List>
-                <ListItem disablePadding>
-                  <ListItemButton>
-                    <ListItemIcon aria-label="download-icon">
-                      <DownloadIcon />
-                    </ListItemIcon>
-                    <ListItemText primary={t('my-courses.download')} />
-                  </ListItemButton>
-                </ListItem>
                 <ListItem disablePadding>
                   <ListItemButton href={'/course/' + course.uid}>
                     <ListItemIcon aria-label="info-icon">
