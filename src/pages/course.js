@@ -29,7 +29,7 @@ function CoursePage(props) {
           bgImage=""
           bgImageOpacity={1}
           id={courseId}
-          data={data}
+          courseData={data}
         />
       )}
     </>

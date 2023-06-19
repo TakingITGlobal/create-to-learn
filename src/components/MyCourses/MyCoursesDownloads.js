@@ -18,43 +18,42 @@ import CourseCard from '../CourseCard'
 import MyCoursesEmptyState from './MyCoursesEmptyState'
 import { useAuth } from '../../util/auth'
 import { useTranslation } from 'react-i18next'
-import { deleteWatchlistCourse } from '../../util/db'
 import { dataContext } from '../../util/dataProvider'
-import { useUserWatchlistByOwner } from '../../util/db'
+import { useUserDownloadsByOwner } from '../../util/db'
 
-function MyCoursesWatchlistDrawer() {
+function MyCoursesDownloads() {
   const { t } = useTranslation()
   const auth = useAuth()
 
   const [openDrawer, setOpenDrawer] = useState(false)
 
   const { allCourses, loadingCourses } = useContext(dataContext)
-  const { data: ownerWatchlist } = useUserWatchlistByOwner(auth?.user.uid)
+  const { data: downloadedData } = useUserDownloadsByOwner(auth?.user.uid)
 
-  const watchlistIds = ownerWatchlist?.length
-    ? ownerWatchlist.map((item) => item.courseId)
+  const downloadsCourseIds = downloadedData?.length
+    ? downloadedData.map((item) => item.courseId)
     : []
-  const watchlistCourses = allCourses.filter(({ id }) =>
-    watchlistIds.includes(id),
+  const downloadedCourses = allCourses.filter(({ id }) =>
+    downloadsCourseIds.includes(id),
   )
 
   const emptyStateTitle = auth.user
-    ? t('my-courses.progress-empty-state-title')
+    ? t('my-courses.downloads-empty-state-title')
     : t('my-courses.guest-progress-empty-state-title')
 
   const emptyStateSubtitle = auth.user
-    ? t('my-courses.progress-empty-state-subtitle')
+    ? t('my-courses.downloads-empty-state-subtitle')
     : t('my-courses.guest-progress-empty-state-subtitle')
 
   const emptyStateButtonText = auth.user
     ? t('my-courses.find-course')
     : t('my-courses.create-account-sign-in')
 
-  return watchlistCourses?.length ? (
-    watchlistCourses.map((course, index) => {
-      const watchlistDocId = ownerWatchlist.filter(
-        ({ courseId }) => courseId === course.id,
-      )[0]?.id
+  return downloadedCourses?.length ? (
+    downloadedCourses.map((course, index) => {
+      // const watchlistDocId = ownerWatchlist.filter(
+      //   ({ courseId }) => courseId === course.id,
+      // )[0]?.id
 
       return (
         <>
@@ -104,7 +103,7 @@ function MyCoursesWatchlistDrawer() {
                 <ListItem disablePadding>
                   <ListItemButton
                     onClick={() => {
-                      deleteWatchlistCourse(watchlistDocId)
+                      // deleteWatchlistCourse(watchlistDocId)
                       setOpenDrawer(false)
                     }}
                   >
@@ -125,9 +124,9 @@ function MyCoursesWatchlistDrawer() {
       title={emptyStateTitle}
       subtitle={emptyStateSubtitle}
       buttonText={emptyStateButtonText}
-      href={auth.user ? '/browse' : '/auth/signin'}
+      href={'/browse'}
     />
   )
 }
 
-export default MyCoursesWatchlistDrawer
+export default MyCoursesDownloads

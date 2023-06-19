@@ -1,6 +1,12 @@
 import React from 'react'
 import { Box, Button, List, ListItem, Checkbox, Switch } from '@mui/material'
 import Drawer from '@mui/material/Drawer'
+import {
+  createWatchlistCourse,
+  useWatchlistById,
+  createDownloadsCourse,
+  useDownloadsById,
+} from '../../util/db'
 
 import { useTranslation } from 'react-i18next'
 
@@ -11,6 +17,7 @@ function CourseInfo({
   videosToDownload,
   setVideosToDownload,
   setQualityDrawer,
+  handleAddToDownloads,
   videoInfo,
 }) {
   const { t } = useTranslation()

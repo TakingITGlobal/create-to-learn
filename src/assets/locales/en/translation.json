@@ -127,7 +127,11 @@
     "guest-watchlist-empty-state-title": "You need to be signed in to see videos in watchlist",
     "watchlist-empty-state-title": "You haven’t saved any courses",
     "guest-watchlist-empty-state-subtitle": "Any videos you’ve added will appear here",
-    "watchlist-empty-state-subtitle": "Save a video to have it appear here!"
+    "watchlist-empty-state-subtitle": "Save a video to have it appear here!",
+    "downloads-empty-state-title": "You haven’t downloaded any courses",
+    "downloads-empty-state-subtitle": "Download a video to have it appear here!",
+    "guest-downloads-empty-state-title": "You need to be signed in to see downloaded videos",
+    "guest-downloads-empty-state-subtitle": "Any videos you've downloaded will appear here"
   },
   "settings": {
     "profile": "Profile",

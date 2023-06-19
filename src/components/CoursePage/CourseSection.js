@@ -9,7 +9,7 @@ import Section from '../Section'
 import CourseInfo from './CourseInfo'
 import CourseLessons from './CourseLessons'
 import { useAuth } from '../../util/auth'
-import { useUserProgressByCourse } from '../../util/db'
+import { useUserProgressByCourse, useDownloadsById } from '../../util/db'
 import getByIdVimeo from '../../util/vimeo'
 import { useTranslation } from 'react-i18next'
 import IconButton from '@mui/material/IconButton'
@@ -39,7 +39,7 @@ function a11yProps(index) {
   }
 }
 
-function CourseSection(props) {
+function CourseSection({ courseData }) {
   const theme = useTheme()
   const auth = useAuth()
   const { t } = useTranslation()
@@ -59,16 +59,13 @@ function CourseSection(props) {
 
   const { data: userProgressByCourse } = useUserProgressByCourse(
     auth.user?.uid,
-    props.data.videos,
+    courseData.videos,
   )
 
-  const handleTabChange = (event, newValue) => {
-    setTabValue(newValue)
-  }
-
-  const handleChangeIndex = (index) => {
-    setTabValue(index)
-  }
+  const { data: downloadsData } = useDownloadsById(
+    auth.user?.uid,
+    courseData.id,
+  )
 
   const handleCloseSnackbar = (event, reason) => {
     if (reason === 'clickaway') {
@@ -77,8 +74,8 @@ function CourseSection(props) {
     setOpenSnackbar(false)
   }
 
-  const videoLinks = props.data.videoLinks.split(',')
-  const videoIds = videoLinks.length
+  const videoLinks = courseData?.videoLinks?.split(',')
+  const videoIds = videoLinks?.length
     ? videoLinks.map((link) => {
         const videoId = link.match('([a-z0-9]+)(?:/?$)')
         return videoId && videoId[0]
@@ -89,6 +86,7 @@ function CourseSection(props) {
     videoIds && videoIds.map((id) => `/videos/${id}`).join(',')
 
   useEffect(() => {
+    //ToDo: eeek fix data.data.data
     getByIdVimeo(videoFormattedIds).then((data) => setVideoInfo(data.data.data))
   }, [videoFormattedIds])
 
@@ -100,7 +98,7 @@ function CourseSection(props) {
           'linear-gradient(180deg, rgba(11, 9, 25, 0) 0%, rgba(11, 9, 25, 0.11) 200px, rgba(11, 9, 25, 0.64) 400px, #0B0919 600px)',
       }}
     >
-      <Container sx={{ padding: '0',  maxWidth: {xs: '100%', md: '850px' }  }}>
+      <Container sx={{ padding: '0', maxWidth: { xs: '100%', md: '850px' } }}>
         <Box
           sx={{
             display: 'flex',
@@ -117,14 +115,19 @@ function CourseSection(props) {
           </IconButton>
         </Box>
         {/* Series name */}
-        <Box sx={{ padding: '2em 2.5em'}}>
-          <Typography variant="h1" textAlign="center" color="#000" sx={{ paddingBottom: {md: '20px'}, fontSize: {md: '2.75em'}}}>
-            {props.data?.seriesName}
+        <Box sx={{ padding: '2em 2.5em' }}>
+          <Typography
+            variant="h1"
+            textAlign="center"
+            color="#000"
+            sx={{ paddingBottom: { md: '20px' }, fontSize: { md: '2.75em' } }}
+          >
+            {courseData?.seriesName}
           </Typography>
 
           <CardMedia
             component="img"
-            alt={`${props.data.seriesName}-course`}
+            alt={`${courseData.seriesName}-course`}
             sx={{
               display: 'flex',
               alignItems: 'center',
@@ -132,9 +135,8 @@ function CourseSection(props) {
               borderRadius: '6px',
               objectFit: 'cover',
             }}
-            image={props.data.thumbnail[0]?.downloadURL}
+            image={courseData.thumbnail[0]?.downloadURL}
           />
-          {/* <Video video={playingVideoId} user={auth.user} /> */}
         </Box>
 
         {/* About and Lesson tabs */}
@@ -145,7 +147,7 @@ function CourseSection(props) {
         >
           <Tabs
             value={tabValue}
-            onChange={handleTabChange}
+            onChange={(e, index) => setTabValue(index)}
             variant="fullWidth"
             // aria-label="full width tabs example"
           >
@@ -156,25 +158,27 @@ function CourseSection(props) {
         <SwipeableViews
           axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
           index={tabValue}
-          onChangeIndex={handleChangeIndex}
+          onChangeIndex={(index) => setTabValue(index)}
         >
           <TabPanel value={tabValue} index={0} dir={theme.direction}>
             <CourseInfo
-              course={props.data}
+              course={courseData}
               setSnackbarMessage={setSnackbarMessage}
               setOpenSnackbar={setOpenSnackbar}
               setTabValue={setTabValue}
               videoInfo={videoInfo}
               courseProgress={userProgressByCourse}
+              downloadsData={downloadsData}
             />
           </TabPanel>
-
           <TabPanel value={tabValue} index={1} dir={theme.direction}>
             <CourseLessons
               videoInfo={videoInfo}
-              videoIds={props.data.videos}
-              courseId={props.data.id}
+              videoIds={courseData.videos}
+              courseId={courseData.id}
+              courseUID={courseData.uid}
               courseProgress={userProgressByCourse}
+              downloadsData={downloadsData}
             />
           </TabPanel>
         </SwipeableViews>
@@ -194,8 +198,8 @@ function CourseSection(props) {
           </MuiAlert>
         </Snackbar>
         <ShareDrawer
-          url={`https://create-to-learn.netlify.app/course/${props.data.uid}`}
-          title={`Share the ${props.data.seriesName} course page`}
+          url={`https://create-to-learn.netlify.app/course/${courseData.uid}`}
+          title={`Share the ${courseData.seriesName} course page`}
           openShareDrawer={openShareDrawer}
           setOpenShareDrawer={setOpenShareDrawer}
         />

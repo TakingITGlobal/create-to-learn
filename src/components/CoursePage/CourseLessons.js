@@ -6,7 +6,14 @@ import Video from '../Video'
 import CourseVideoListItem from './CourseVideoListItem'
 import { useAuth } from '../../util/auth'
 
-function CourseLessons({ videoInfo, videoIds, courseId, courseProgress }) {
+function CourseLessons({
+  videoInfo,
+  videoIds,
+  courseId,
+  courseUID,
+  courseProgress,
+  downloadsData,
+}) {
   const auth = useAuth()
 
   const [openCourseDrawer, setOpenCourseDrawer] = useState(false)
@@ -23,6 +30,8 @@ function CourseLessons({ videoInfo, videoIds, courseId, courseProgress }) {
                 <CourseVideoListItem
                   video={video}
                   videoId={videoId}
+                  courseId={courseId}
+                  courseUID={courseUID}
                   setOpenCourseDrawer={setOpenCourseDrawer}
                   setVideoToShow={setVideoToShow}
                   videoProgress={
@@ -31,6 +40,7 @@ function CourseLessons({ videoInfo, videoIds, courseId, courseProgress }) {
                       (video) => video.videoId === videoId,
                     )[0]
                   }
+                  downloadsData={downloadsData}
                 />
               </ListItem>
             )

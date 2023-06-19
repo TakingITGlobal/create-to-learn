@@ -19,15 +19,22 @@ import CheckIcon from '@mui/icons-material/Check'
 import CloseIcon from '@mui/icons-material/Close'
 import { useTranslation } from 'react-i18next'
 import { displayTime } from '../../util/timeHelpers'
+import { createDownloadCourse, updateDownloads } from '../../util/db'
+import { useAuth } from '../../util/auth'
 
 function CourseVideoListItem({
   video,
   videoId,
+  courseId,
+  courseUID,
   setOpenCourseDrawer,
   setVideoToShow,
   videoProgress,
+  downloadsData,
 }) {
   const { t } = useTranslation()
+  const auth = useAuth()
+
   const [downloadSuccess, setDownloadSuccess] = useState([])
   const [openDownloadDrawer, setOpenDownloadDrawer] = useState(false)
 
@@ -39,6 +46,59 @@ function CourseVideoListItem({
     videoProgress && Number(video.duration) - Number(videoProgress.progress)
 
   const completed = timeLeft < 10
+
+  const getVideoDataToDownload = (video) => {
+    return [
+      {
+        videoName: video.name,
+        duration: video.duration,
+        link: video.link,
+        uri: video.uri,
+      },
+    ]
+  }
+  const isDownloaded = (videoURI) => {
+    const downloadedVideoIds =
+      downloadsData && downloadsData.length
+        ? downloadsData[0].videos.map((video) => video.uri)
+        : []
+    return downloadedVideoIds.includes(videoURI)
+  }
+
+  //ToDo: abstract this function to courseSection because it is used in both tabs of the Course Page
+  const handleAddToDownloads = (link) => {
+    if (!auth.user.uid) {
+      return
+    }
+
+    const videoDownloadData = getVideoDataToDownload(video)
+
+    if (!downloadsData.length) {
+      createDownloadCourse({
+        owner: auth.user.uid,
+        courseId: courseId,
+        courseUID: courseUID,
+        videos: videoDownloadData,
+      }).then(() => {
+        window.location.href = link
+        setOpenDownloadDrawer(false)
+      })
+    } else {
+      const videosAlreadyAdded = downloadsData[0].videos
+      const videosToAdd = videoDownloadData.filter(
+        (video) =>
+          !videosAlreadyAdded.map((video) => video.uri).includes(video.uri),
+      )
+      if (videosToAdd.length) {
+        updateDownloads(downloadsData[0].id, {
+          ...downloadsData[0],
+          videos: [...videosAlreadyAdded, ...videosToAdd],
+        }).then(() => setOpenDownloadDrawer(false))
+      } else {
+        setOpenDownloadDrawer(false)
+      }
+    }
+  }
 
   return (
     <Paper elevation="1">
@@ -82,7 +142,7 @@ function CourseVideoListItem({
         alignItems="center"
         sx={{ paddingLeft: '20px', paddingTop: '20px' }}
       >
-        {downloadSuccess.length ? (
+        {isDownloaded(video.uri) ? (
           <Button
             startIcon={
               <CheckIcon sx={{ backgroundColor: '#58B97D !important' }} />
@@ -177,30 +237,46 @@ function CourseVideoListItem({
           </IconButton>
         </Box>
         {video?.download && (
-          <List>
-            {video?.download.map(({ link, public_name }) => (
-              <ListItem
-                secondaryAction={
-                  <Radio
-                    checked={downloadSuccess.includes(public_name)}
-                    onChange={() => {
-                      setDownloadSuccess([...downloadSuccess, public_name])
-                      setOpenDownloadDrawer(false)
-                      window.location.href = link
-                    }}
-                    color="secondary"
-                    name={`download-${public_name}`}
-                    inputProps={{
-                      'aria-label': `download-${public_name}`,
-                    }}
-                    style={{ color: 'white' }}
-                  />
-                }
-              >
-                {public_name}
-              </ListItem>
-            ))}
-          </List>
+          <>
+            <List>
+              {video?.download.map(({ link, public_name }) => (
+                <ListItem
+                  secondaryAction={
+                    <Radio
+                      checked={downloadSuccess.includes(link)}
+                      onChange={() => {
+                        setDownloadSuccess(link)
+                      }}
+                      color="secondary"
+                      name={`download-${public_name}`}
+                      inputProps={{
+                        'aria-label': `download-${public_name}`,
+                      }}
+                      style={{ color: 'white' }}
+                    />
+                  }
+                >
+                  {public_name}
+                </ListItem>
+              ))}
+            </List>
+            <Button
+              fullWidth
+              variant="contained"
+              sx={{
+                backgroundColor: 'white !important',
+                color: 'black !important',
+                paddingTop: '10px !important',
+                paddingBottom: '10px !important',
+                borderRadius: '25px !important',
+              }}
+              onClick={() => {
+                handleAddToDownloads(downloadSuccess)
+              }}
+            >
+              {t('course.download')}
+            </Button>
+          </>
         )}
       </Drawer>
     </Paper>

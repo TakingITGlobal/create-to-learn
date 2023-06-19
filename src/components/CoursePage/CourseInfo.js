@@ -28,7 +28,12 @@ import CourseDownloadDrawer from './CourseDownloadDrawer'
 import CheckIcon from '@mui/icons-material/CheckCircle'
 import CheckSimpleIcon from '@mui/icons-material/Check'
 import { useAuth } from '../../util/auth'
-import { createWatchlistCourse, useWatchlistById } from '../../util/db'
+import {
+  createWatchlistCourse,
+  useWatchlistById,
+  createDownloadCourse,
+  updateDownloads,
+} from '../../util/db'
 import { useTranslation } from 'react-i18next'
 import { categories } from '../../assets/options/categories'
 import { displayTime } from '../../util/timeHelpers'
@@ -40,6 +45,7 @@ function CourseInfo({
   setTabValue,
   videoInfo,
   courseProgress,
+  downloadsData,
 }) {
   const theme = useTheme()
   const auth = useAuth()
@@ -49,7 +55,7 @@ function CourseInfo({
   const [downloadVideos, setDownloadVideos] = useState(false)
   const [qualityDrawer, setQualityDrawer] = useState(false)
   const [quality, setQuality] = useState('')
-  const { data } = useWatchlistById(auth.user?.uid, course.id)
+  const { data: watchlistData } = useWatchlistById(auth.user?.uid, course.id)
 
   const creatorUID = course.creator.trim().replaceAll(' ', '-').toLowerCase()
   const topics = course.category.map((topic) => {
@@ -61,12 +67,64 @@ function CourseInfo({
 
   const handleAddToWatchlist = () => {
     setOpenSnackbar(true)
-    if (!data?.length && auth.user) {
+    if (!watchlistData?.length && auth.user) {
       createWatchlistCourse({
         owner: auth.user.uid,
         courseId: course.id,
         courseUID: course.uid,
       }).then(setSnackbarMessage('Success!  Added to your watchlist'))
+    }
+  }
+
+  const handleCloseDrawers = (title) => {
+    setSnackbarMessage(title)
+    setOpenSnackbar(true)
+    setQualityDrawer(false)
+  }
+
+  const getVideoDataToDownload = () => {
+    const videos = videoInfo.filter((video) =>
+      videosToDownload.includes(video.uri),
+    )
+    return videos.map((video) => {
+      return {
+        videoName: video.name,
+        duration: video.duration,
+        link: video.link,
+        uri: video.uri,
+      }
+    })
+  }
+
+  //This function needs to be separated out to CourseSection since it is also used in CourseLessons
+  const handleAddToDownloads = () => {
+    if (!auth.user.uid) {
+      return
+    }
+
+    const videoDownloadData = getVideoDataToDownload()
+
+    if (!downloadsData.length) {
+      createDownloadCourse({
+        owner: auth.user.uid,
+        courseId: course.id,
+        courseUID: course.uid,
+        videos: videoDownloadData,
+      }).then(() => handleCloseDrawers('Success!  Added to your Downloads'))
+    } else {
+      const videosAlreadyAdded = downloadsData[0].videos
+      const videosToAdd = videoDownloadData.filter(
+        (video) =>
+          !videosAlreadyAdded.map((video) => video.uri).includes(video.uri),
+      )
+      if (videosToAdd.length) {
+        updateDownloads(downloadsData[0].id, {
+          ...downloadsData[0],
+          videos: [...videosAlreadyAdded, ...videosToAdd],
+        }).then(() => handleCloseDrawers('Success!  Added to your Downloads'))
+      } else {
+        handleCloseDrawers('Already in your downloads!')
+      }
     }
   }
 
@@ -89,17 +147,24 @@ function CourseInfo({
   const percentProgress = (totalTimeWatched / course.totalLength) * 100
 
   const Download = () => {
-    const videos = videoInfo
-      .filter((video) => videosToDownload.includes(video.uri))
-      .flatMap(({ download }) =>
-        download.filter(({ public_name }) => public_name === quality),
-      )
+    const videos = videoInfo.filter((video) =>
+      videosToDownload.includes(video.uri),
+    )
+    const videoDownloadInfo = videos.flatMap(({ download }) =>
+      download.filter(({ public_name }) => public_name === quality),
+    )
+    console.log(videoDownloadInfo)
 
     return (
       <div style={{ display: 'none' }}>
-        {videos.map((video, index) =>
+        {videoDownloadInfo.map((video, index) =>
           video?.link ? (
-            <iframe key={index} title={video.link} src={video.link} />
+            <iframe
+              key={`${video.link}-${index}`}
+              title={`${video.link}-${index}`}
+              src={video.link}
+              loading="lazy"
+            />
           ) : null,
         )}
       </div>
@@ -228,7 +293,7 @@ function CourseInfo({
             mt="20px"
             alignItems="center"
           >
-            {data?.length ? (
+            {watchlistData?.length ? (
               <Stack direction="row" spacing={2}>
                 <CheckIcon sx={{ fill: '#58B97D' }} />
                 <Typography sx={{ color: '#BCE3CB' }}>
@@ -323,6 +388,9 @@ function CourseInfo({
           setQuality={setQuality}
           qualityDrawer={qualityDrawer}
           setQualityDrawer={setQualityDrawer}
+          handleAddToDownloads={handleAddToDownloads}
+          setOpenSnackbar={setOpenSnackbar}
+          setSnackbarMessage={setSnackbarMessage}
         />
         {downloadVideos && <Download />}
       </Box>

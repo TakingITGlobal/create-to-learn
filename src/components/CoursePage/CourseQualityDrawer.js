@@ -4,7 +4,6 @@ import Drawer from '@mui/material/Drawer'
 import Radio from '@material-ui/core/Radio'
 
 import { Close, ChevronLeft } from '@mui/icons-material'
-
 import { useTranslation } from 'react-i18next'
 
 function QualityDrawer({
@@ -15,9 +14,9 @@ function QualityDrawer({
   setQuality,
   qualityDrawer,
   setQualityDrawer,
+  handleAddToDownloads,
 }) {
   const { t } = useTranslation()
-
   const qualityOptions = ['240p', '360p', '540p', '720p', '1080p']
 
   const handleCloseDrawer = () => {
@@ -94,6 +93,7 @@ function QualityDrawer({
         }}
         onClick={() => {
           setDownloadVideos(true)
+          handleAddToDownloads()
         }}
       >
         {t('course.download')}

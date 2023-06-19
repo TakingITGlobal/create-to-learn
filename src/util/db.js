@@ -19,7 +19,6 @@ import {
   deleteDoc,
   serverTimestamp,
   limit,
-  getDocs,
 } from 'firebase/firestore'
 import { firebaseApp } from './firebase'
 
@@ -221,6 +220,35 @@ export function useWatchlistById(owner, courseId) {
     { enabled: !!owner },
   )
 }
+
+export function useDownloadsById(owner, courseId) {
+  return useQuery(
+    ['user-downloads'],
+    createQuery(() =>
+      query(
+        collection(db, 'user-downloads'),
+        where('owner', '==', owner),
+        where('courseId', '==', courseId),
+        limit(1),
+      ),
+    ),
+    { enabled: !!owner },
+  )
+}
+
+export function useUserDownloadsByOwner(owner) {
+  return useQuery(
+    ['user-downloads', { owner }],
+    createQuery(() =>
+      query(
+        collection(db, 'user-downloads'),
+        where('owner', '==', owner),
+        orderBy('createdAt', 'desc'),
+      ),
+    ),
+    { enabled: !!owner },
+  )
+}
 // Create a new item
 export function createVideoProgress(data) {
   const docRef = addDoc(collection(db, 'user-progress'), {
@@ -238,6 +266,18 @@ export function createWatchlistCourse(data) {
   return docRef
 }
 
+export function createDownloadCourse(data) {
+  const docRef = addDoc(collection(db, 'user-downloads'), {
+    ...data,
+    createdAt: serverTimestamp(),
+  })
+  return docRef
+}
+
+export function updateDownloads(id, data) {
+  return updateDoc(doc(db, 'user-downloads', id), data)
+}
+
 // Update an item
 export function updateVideoProgress(id, data) {
   return updateDoc(doc(db, 'user-progress', id), data)
@@ -250,6 +290,10 @@ export function deleteVideoProgress(id) {
 
 export function deleteWatchlistCourse(id) {
   return deleteDoc(doc(db, 'user-watchlist', id))
+}
+
+export function deleteDownloadsVdeos(ids) {
+  return deleteDoc(doc(db, 'user-downloads', ids))
 }
 
 /**** ITEMS ****/

@@ -6,8 +6,8 @@ import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 
 import Section from '../Section'
-import MyCoursesEmptyState from './MyCoursesEmptyState'
 import MyCoursesProgress from './MyCoursesProgress'
+import MyCoursesDownloads from './MyCoursesDownloads'
 import MyCoursesWatchlistDrawer from './MyCoursesWatchlistDrawer'
 import { useTranslation } from 'react-i18next'
 
@@ -64,12 +64,7 @@ function MyCoursesSection(props) {
               <MyCoursesProgress />
             </TabPanel>
             <TabPanel tabIndex={tabIndex} index={1}>
-              <MyCoursesEmptyState
-                title={'You haven’t downloaded any courses'}
-                subtitle={'Download a video to have it appear here!'}
-                buttonText={'Find a course'}
-                href={'/browse'}
-              />
+              <MyCoursesDownloads />
             </TabPanel>
             <TabPanel tabIndex={tabIndex} index={2}>
               <MyCoursesWatchlistDrawer />
