@@ -43,7 +43,7 @@ function a11yProps(index) {
   }
 }
 
-function CourseSection({ courseData, courseProgress }) {
+function CourseSection({ data, courseData, courseProgress }) {
   const theme = useTheme()
   const auth = useAuth()
   const { t } = useTranslation()
@@ -120,7 +120,7 @@ function CourseSection({ courseData, courseProgress }) {
           'linear-gradient(180deg, rgba(11, 9, 25, 0) 0%, rgba(11, 9, 25, 0.11) 200px, rgba(11, 9, 25, 0.64) 400px, #0B0919 600px)',
       }}
     >
-      <Container sx={{ padding: '0', maxWidth: { xs: '100%', md: '850px' } }}>
+      <Container sx={{ padding: '0', paddingBottom: {xs: '120px', md: '80px'}, maxWidth: { xs: '100%', md: '850px' } }}>
         <Box
           sx={{
             display: 'flex',
@@ -226,7 +226,7 @@ function CourseSection({ courseData, courseProgress }) {
           setOpenShareDrawer={setOpenShareDrawer}
         />
       </Container>
-      {/* Start Creating Button
+      {/* Start Creating Button */}
         {inProgressVideos.length ? (
           <Grid
             container
@@ -285,16 +285,30 @@ function CourseSection({ courseData, courseProgress }) {
             </Grid>
           </Grid>
         ) : (
-          <Button
-            variant="contained"
-            size="large"
-            fullWidth
-            sx={{maxWidth: '800px', margin: '0 auto'}}
-            onClick={() => setTabValue(1)}
+          <Box
+            sx={{
+              position: {xs: 'fixed', md: 'relative'},
+              bottom: {xs: '78px', md: '20px'},
+              left: '0',
+              right: '0',
+              padding: '2px 15px 5px 15px',
+              display: 'flex',
+              justifyContent: 'center'
+            }}
           >
-            {t('course.start-creating')}
-          </Button>
-        )} */}
+            <Button
+              variant="contained"
+              size="large"
+              fullWidth
+              sx={{
+                maxWidth: '800px', 
+              }}
+              onClick={() => setTabValue(1)}
+            >
+              {t('course.start-creating')}
+            </Button>
+          </Box>
+        )}
     </Section>
   )
 }
