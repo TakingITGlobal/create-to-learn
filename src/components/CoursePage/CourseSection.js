@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Container from '@mui/material/Container'
 import SwipeableViews from 'react-swipeable-views'
-import { AppBar, Box, Tab, Tabs, Typography, useTheme } from '@mui/material'
+import { AppBar, Box, Tab, Tabs, Typography, useTheme, Grid, Stack, Button } from '@mui/material'
 import CardMedia from '@mui/material/CardMedia'
 import Snackbar from '@mui/material/Snackbar'
 import MuiAlert from '@mui/material/Alert'
@@ -15,6 +15,10 @@ import { useTranslation } from 'react-i18next'
 import IconButton from '@mui/material/IconButton'
 import ShareIcon from '@mui/icons-material/ShareRounded'
 import ShareDrawer from '../ShareDrawer'
+import LinearProgress from '@mui/material/LinearProgress'
+import { displayTime } from '../../util/timeHelpers'
+import CheckSimpleIcon from '@mui/icons-material/Check'
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -39,7 +43,7 @@ function a11yProps(index) {
   }
 }
 
-function CourseSection({ courseData }) {
+function CourseSection({ courseData, courseProgress }) {
   const theme = useTheme()
   const auth = useAuth()
   const { t } = useTranslation()
@@ -89,6 +93,24 @@ function CourseSection({ courseData }) {
     //ToDo: eeek fix data.data.data
     getByIdVimeo(videoFormattedIds).then((data) => setVideoInfo(data.data.data))
   }, [videoFormattedIds])
+
+  const inProgressVideos = courseProgress
+    ? courseProgress.filter((video) => video?.progress > 0)
+    : []
+
+  const totalTimeWatched =
+    inProgressVideos.length > 1
+      ? inProgressVideos
+          .map(({ progress }) => progress)
+          .reduce((acc, curr) => acc + curr)
+      : inProgressVideos.length === 1
+      ? inProgressVideos[0].progress
+      : 0
+
+  //Check if this should be turned into hrs:minutes:seconds
+  const timeLeft = courseData.totalLength - totalTimeWatched
+
+  const percentProgress = (totalTimeWatched / courseData.totalLength) * 100
 
   return (
     <Section
@@ -204,6 +226,75 @@ function CourseSection({ courseData }) {
           setOpenShareDrawer={setOpenShareDrawer}
         />
       </Container>
+      {/* Start Creating Button
+        {inProgressVideos.length ? (
+          <Grid
+            container
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Grid xs={8}>
+              {timeLeft > 0.5 ? (
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <LinearProgress
+                    color="primary"
+                    variant="determinate"
+                    value={percentProgress}
+                    sx={{ width: '120px' }}
+                  />
+                  <Typography>{displayTime(timeLeft)} left </Typography>
+                </Stack>
+              ) : (
+                <Stack direction="row" spacing={1}>
+                  <CheckSimpleIcon
+                    sx={{
+                      backgroundColor: 'inherit !important',
+                      color: '#fff !important',
+                    }}
+                  />
+
+                  <Typography sx={{ display: 'inline-block' }}>
+                    {t('course.finished')}
+                  </Typography>
+                </Stack>
+              )}
+            </Grid>
+            <Grid xs={4}>
+              <Button
+                fullWidth
+                onClick={() => setTabValue(1)}
+                sx={{
+                  backgroundColor: 'white !important',
+                  color: 'black',
+                  borderRadius: '25px',
+                }}
+              >
+                {t('btn.continue')}
+              </Button>
+            </Grid>
+          </Grid>
+        ) : (
+          <Button
+            variant="contained"
+            size="large"
+            fullWidth
+            sx={{maxWidth: '800px', margin: '0 auto'}}
+            onClick={() => setTabValue(1)}
+          >
+            {t('course.start-creating')}
+          </Button>
+        )} */}
     </Section>
   )
 }

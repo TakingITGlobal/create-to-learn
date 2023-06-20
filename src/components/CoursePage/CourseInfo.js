@@ -11,10 +11,8 @@ import {
   Stack,
   useTheme,
   ListItemIcon,
-  Grid,
 } from '@mui/material'
 import SvgIcon from '@mui/material/SvgIcon'
-import LinearProgress from '@mui/material/LinearProgress'
 
 import {
   ChevronRight,
@@ -36,7 +34,6 @@ import {
 } from '../../util/db'
 import { useTranslation } from 'react-i18next'
 import { categories } from '../../assets/options/categories'
-import { displayTime } from '../../util/timeHelpers'
 
 function CourseInfo({
   course,
@@ -132,19 +129,19 @@ function CourseInfo({
     ? courseProgress.filter((video) => video?.progress > 0)
     : []
 
-  const totalTimeWatched =
-    inProgressVideos.length > 1
-      ? inProgressVideos
-          .map(({ progress }) => progress)
-          .reduce((acc, curr) => acc + curr)
-      : inProgressVideos.length === 1
-      ? inProgressVideos[0].progress
-      : 0
+  // const totalTimeWatched =
+  //   inProgressVideos.length > 1
+  //     ? inProgressVideos
+  //         .map(({ progress }) => progress)
+  //         .reduce((acc, curr) => acc + curr)
+  //     : inProgressVideos.length === 1
+  //     ? inProgressVideos[0].progress
+  //     : 0
 
   //Check if this should be turned into hrs:minutes:seconds
-  const timeLeft = course.totalLength - totalTimeWatched
+  // const timeLeft = course.totalLength - totalTimeWatched
 
-  const percentProgress = (totalTimeWatched / course.totalLength) * 100
+  // const percentProgress = (totalTimeWatched / course.totalLength) * 100
 
   const Download = () => {
     const videos = videoInfo.filter((video) =>
@@ -212,75 +209,6 @@ function CourseInfo({
           courseLength={course.totalLength}
           difficultyLevel={course.difficultyLevel}
         />
-
-        {/* Start Creating Button */}
-        {inProgressVideos.length ? (
-          <Grid
-            container
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <Grid xs={8}>
-              {timeLeft > 0.5 ? (
-                <Stack
-                  direction="row"
-                  spacing={1}
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <LinearProgress
-                    color="primary"
-                    variant="determinate"
-                    value={percentProgress}
-                    sx={{ width: '120px' }}
-                  />
-                  <Typography>{displayTime(timeLeft)} left </Typography>
-                </Stack>
-              ) : (
-                <Stack direction="row" spacing={1}>
-                  <CheckSimpleIcon
-                    sx={{
-                      backgroundColor: 'inherit !important',
-                      color: '#fff !important',
-                    }}
-                  />
-
-                  <Typography sx={{ display: 'inline-block' }}>
-                    {t('course.finished')}
-                  </Typography>
-                </Stack>
-              )}
-            </Grid>
-            <Grid xs={4}>
-              <Button
-                fullWidth
-                onClick={() => setTabValue(1)}
-                sx={{
-                  backgroundColor: 'white !important',
-                  color: 'black',
-                  borderRadius: '25px',
-                }}
-              >
-                {t('btn.continue')}
-              </Button>
-            </Grid>
-          </Grid>
-        ) : (
-          <Button
-            variant="contained"
-            size="large"
-            fullWidth
-            onClick={() => setTabValue(1)}
-          >
-            {t('course.start-creating')}
-          </Button>
-        )}
 
         {/* Add to Watchlist button */}
 
