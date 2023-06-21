@@ -74,7 +74,7 @@ function SettingsSection(props) {
       )}
 
       <Box mt={5} sx={{ paddingBottom: 15 }}>
-        <Container maxWidth="xs">
+        <Container maxWidth="md" sx={{padding: '0'}}>
           {formAlert && (
             <Box mb={4}>
               <Alert severity={formAlert.type}>{formAlert.message}</Alert>

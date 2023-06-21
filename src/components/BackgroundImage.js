@@ -4,7 +4,6 @@ const PREFIX = 'BackgroundImage';
 
 const styles = theme => ({
   root: {
-    content: '',
     backgroundPosition: 'center center',
     backgroundSize: 'cover',
     top: 0,

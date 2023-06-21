@@ -48,7 +48,7 @@ export default function MyAccountNav({
     showComponent === 'nav' && (
       <>
         <List
-          sx={{ width: '100%', maxWidth: 450 }}
+          sx={{ width: '100%'}}
           component="nav"
           aria-labelledby="settings-my-account"
         >

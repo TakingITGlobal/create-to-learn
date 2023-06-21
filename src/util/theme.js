@@ -159,6 +159,11 @@ export const c2learn = (mode) => ({
       ],
     },
     MuiList: {
+      styleOverrides: {
+        root: {
+          maxWidth: '100%',
+        },
+      },
       variants: [
         {
           props: { variant: 'icon-list' },
@@ -187,8 +192,8 @@ export const c2learn = (mode) => ({
               width: '2px',
               backgroundColor: '#fff',
               position: 'absolute',
-              top: '10px',
-              bottom: '10px',
+              top: '25px',
+              bottom: '120px',
               left: '25px',
               pointerEvents: 'none',
             },

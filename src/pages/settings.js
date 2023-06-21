@@ -11,7 +11,7 @@ function SettingsPage(props) {
       <Meta title="Settings" />
       <SettingsSection
         bgColor="default"
-        size="medium"
+        size="large"
         bgImage=""
         bgImageOpacity={1}
         section={router.query.section}

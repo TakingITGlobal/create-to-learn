@@ -36,9 +36,8 @@ function DashboardGreeting(props) {
             alignSelf: 'center',
           }}
         />
-        <Typography variant="h1"> {randomGreeting}</Typography>
-      </Stack>
-      <Box>
+        <Typography variant="h1">{randomGreeting}</Typography>
+        <Box>
         {auth.user ? (
           <>
             <Typography variant="h1">
@@ -49,6 +48,7 @@ function DashboardGreeting(props) {
           <Typography variant="h1">{t('hello')}</Typography>
         )}
       </Box>
+      </Stack>
     </>
   )
 }
