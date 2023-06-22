@@ -2,8 +2,10 @@ import React from 'react'
 import useClasses from '../hooks/useClasses'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import { BoxProps } from '@mui/material'
+import cx from 'classnames'
 
-const styles = theme => ({
+const styles = (_: any) => ({
   root: {
     // Add bottom margin if element below
     '&:not(:last-child)': {
@@ -18,30 +20,37 @@ const styles = theme => ({
     // So we can have max-width but still
     // have alignment controlled by text-align.
     display: 'inline-block',
-  }
-});
+  },
+})
 
-function SectionHeader(props) {
+interface Props extends BoxProps {
+  subtitle: string
+  title: string
+  size: string
+}
 
-  const classes = useClasses(styles)
-  const { subtitle, title, size, className, ...otherProps } = props
+function SectionHeader({
+  subtitle,
+  title,
+  size,
+  className,
+  ...otherProps
+}: Props) {
+  const classes = useClasses(styles) as any // TODO: type this
 
   // Render nothing if no title or subtitle
   if (!title && !subtitle) {
-    return null
+    return <></>
   }
 
   return (
     <Box
       component="header"
-      className={classes.root + (props.className ? ` ${props.className}` : '')}
+      className={cx([classes.root, className])}
       {...otherProps}
     >
       {title && (
-        <Typography
-          variant="h1"
-          gutterBottom={props.subtitle ? true : false}
-        >
+        <Typography variant="h1" gutterBottom={subtitle ? true : false}>
           {title}
         </Typography>
       )}
@@ -52,7 +61,7 @@ function SectionHeader(props) {
         </Typography>
       )}
     </Box>
-  );
+  )
 }
 
 export default SectionHeader
