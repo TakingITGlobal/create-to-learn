@@ -61,7 +61,7 @@ function InputView(props) {
   }
 
   return (
-    <Box sx={{ padding: '50px 1em 1em 1em' }}>
+    <Box sx={{ padding: '50px 1em 1em 1em', maxWidth: {md:'850px'}, margin: {md: '0 auto'}}}>
       <Stack direction="column" sx={{ pb: '40px' }}>
         <Typography variant="decorative">
           {t(`onboarding.${props.value}.header`)}

@@ -63,14 +63,14 @@ const ProgressBar = (props) => {
     })
   }, [swiper])
   return (
-    <Container slot={slot} sx={{ padding: '1em' }}>
+    <Container slot={slot} sx={{ padding: '1em'}}>
       {active > start ? (
         <MobileStepper
           variant="progress"
           steps={end - start + 1}
           activeStep={active - start}
           position="top"
-          sx={{ border: '1px solid #ff00a2', padding: '1em', position: {md: 'relative'} }}
+          sx={{padding: '1em', position: {md: 'relative'} }}
           backButton={
             <SwiperPrev>
               <ArrowBack />
