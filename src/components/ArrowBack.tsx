@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import { Link } from './../util/router'
+import { Link } from 'util/router'
 
-function ArrowBack({ showComponent, setShowComponent }) {
+interface Props {
+  showComponent: string
+  setShowComponent: Dispatch<SetStateAction<string>>
+}
+function ArrowBack({ showComponent, setShowComponent }: Props) {
+  const handleClick = () => setShowComponent('nav')
+
   return showComponent === 'nav' ? (
     <Box>
       <IconButton
@@ -17,10 +23,7 @@ function ArrowBack({ showComponent, setShowComponent }) {
     </Box>
   ) : (
     <Box>
-      <IconButton
-        aria-label="back to previous page"
-        onClick={() => setShowComponent('nav')}
-      >
+      <IconButton aria-label="back to previous page" onClick={handleClick}>
         <ArrowBackIcon />
       </IconButton>
     </Box>
