@@ -1,8 +1,7 @@
 import React, { HTMLAttributes } from 'react'
-import useClasses from '../hooks/useClasses'
+import useClasses from 'hooks/useClasses'
 
-const styles = (_: any) => ({
-  // TODO: type this for useClasses
+const styles = () => ({
   root: {
     backgroundPosition: 'center center',
     backgroundSize: 'cover',
@@ -17,10 +16,10 @@ const styles = (_: any) => ({
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   image: string
-  opacity: 1
+  opacity: number
 }
 function BackgroundImage({ image, opacity, ...otherProps }: Props) {
-  const classes = useClasses(styles) as any // TODO: type this
+  const classes = useClasses(styles)
 
   return (
     <div

@@ -1,11 +1,10 @@
 import React from 'react'
-import useClasses from '../hooks/useClasses'
-import Box from '@mui/material/Box'
+import useClasses from 'hooks/useClasses'
+import Box, { BoxProps } from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { BoxProps } from '@mui/material'
 import cx from 'classnames'
 
-const styles = (_: any) => ({
+const styles = () => ({
   root: {
     // Add bottom margin if element below
     '&:not(:last-child)': {
@@ -24,19 +23,12 @@ const styles = (_: any) => ({
 })
 
 interface Props extends BoxProps {
-  subtitle: string
-  title: string
-  size: string
+  subtitle?: string
+  title?: string
 }
 
-function SectionHeader({
-  subtitle,
-  title,
-  size,
-  className,
-  ...otherProps
-}: Props) {
-  const classes = useClasses(styles) as any // TODO: type this
+function SectionHeader({ subtitle, title, className, ...rest }: Props) {
+  const classes = useClasses(styles)
 
   // Render nothing if no title or subtitle
   if (!title && !subtitle) {
@@ -44,11 +36,7 @@ function SectionHeader({
   }
 
   return (
-    <Box
-      component="header"
-      className={cx([classes.root, className])}
-      {...otherProps}
-    >
+    <Box component="header" className={cx([classes.root, className])} {...rest}>
       {title && (
         <Typography variant="h1" gutterBottom={subtitle ? true : false}>
           {title}
