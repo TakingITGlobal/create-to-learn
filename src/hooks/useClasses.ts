@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import { css } from '@emotion/css'
-import { useTheme, type Theme } from '@emotion/react'
+import { useTheme } from '@emotion/react'
 
-export type ThemeGenericBuilder<T> = (theme: Theme) => T
+export type ThemeGenericBuilder<T> = (theme: any) => T
 export type ThemeGeneric<T> = Record<keyof T, string>
 
 function useClasses<T>(
