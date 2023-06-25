@@ -1,6 +1,6 @@
 import React from 'react'
 import Meta from './../components/Meta'
-import SignUpSection from '../components/SignUpSection'
+import SignUpSection from 'components/SignUp/SignUpSection'
 
 function SignUpPage() {
   return (

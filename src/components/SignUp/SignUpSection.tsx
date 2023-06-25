@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Section from '../Section'
 import { useTranslation } from 'react-i18next'
 import { A11y, Keyboard } from 'swiper'
-import { MobileStepper, Button, Container, Link } from '@mui/material'
-import ArrowBack from '@mui/icons-material/ArrowBack'
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/a11y'
 import 'swiper/css/keyboard'
@@ -18,97 +16,18 @@ import {
   FinishView,
   InputPillView,
 } from '../OnboardingView'
-import { SwiperNext, SwiperPrev } from './Swipers'
 import schoolData from 'assets/options/schools.json'
 import welcome from 'assets/images/welcome2.png'
 import juggling from 'assets/images/juggling.png'
 import gardening from 'assets/images/gardening.png'
 import toolbelt from 'assets/images/toolbelt.png'
 import { categories } from 'assets/options/categories'
+import { ProgressDots, ProgressBar } from './Progress'
 
 const SlotStart = 'container-start'
 const SlotEnd = 'container-end'
 
-const ProgressBar = (props) => {
-  const { start, end, slot } = props
-
-  const [active, setActive] = useState(0)
-  const swiper = useSwiper()
-  useEffect(() => {
-    swiper.on('slideChange', (swipe) => {
-      setActive(swipe.activeIndex)
-    })
-  }, [swiper])
-
-  const { slideNext, slidePrev } = swiper
-
-  return (
-    <Container slot={slot} sx={{ padding: '1em' }}>
-      {active > start ? (
-        <MobileStepper
-          variant="progress"
-          steps={end - start + 1}
-          activeStep={active - start}
-          position="top"
-          sx={{ padding: '1em' }}
-          backButton={
-            <SwiperPrev handleClick={swiper.slidePrev}>
-              <ArrowBack />
-            </SwiperPrev>
-          }
-          nextButton={undefined}
-        />
-      ) : active == 0 ? (
-        <Link
-          href="/dashboard"
-          variant="subtitle1"
-          underline="hover"
-          p="0.75rem 1.5rem 0.75em 0"
-          display="block"
-        >
-          <ArrowBack /> Back to Dashboard
-        </Link>
-      ) : (
-        <SwiperPrev handleClick={swiper.slidePrev}>
-          <ArrowBack />
-        </SwiperPrev>
-      )}
-    </Container>
-  )
-}
-
-const ProgressDots = (props) => {
-  const { start, end, slot } = props
-  const { t } = useTranslation()
-  const swiper = useSwiper()
-  const [active, setActive] = useState(0)
-
-  useEffect(() => {
-    swiper.on('slideChange', (swipe) => {
-      setActive(swipe.activeIndex)
-    })
-  }, [swiper])
-  return (
-    <Container slot={slot}>
-      {active >= start && active <= start + 2 ? (
-        <MobileStepper
-          variant="dots"
-          steps={end - start + 1}
-          activeStep={active - start}
-          position="bottom"
-          sx={{
-            flexDirection: 'column',
-            gap: '30px',
-            padding: '0 1em 40px 1em',
-          }}
-          nextButton={<SwiperNext>{t('btn.continue')}</SwiperNext>}
-        />
-      ) : null}
-    </Container>
-  )
-}
-
-function SignUpSection(props) {
+function SignUpSection() {
   const { t } = useTranslation()
   const welcomeLength = 3
   const inputLength = 4
@@ -117,20 +36,16 @@ function SignUpSection(props) {
   const categoryOptions = categories.slice(1).map(({ label }) => label)
 
   return (
-    <Section
-      bgColor={props.bgColor}
-      size="auto"
-      bgImage={props.bgImage}
-      bgImageOpacity={props.bgImageOpacity}
-    >
-      <Swiper modules={[A11y, Keyboard]} autoHeight="true">
-        <SwiperSlide sx={{ height: '600px' }}>
+    <Section size="auto">
+      <Swiper modules={[A11y, Keyboard]} autoHeight={true}>
+        <SwiperSlide style={{ height: '600px' }}>
           <WelcomeView
             image={welcome}
             formProgress={formProgress}
             setFormProgress={setFormProgress}
           />
         </SwiperSlide>
+
         <ProgressBar
           start={welcomeLength}
           end={welcomeLength + inputLength + 1}
@@ -139,9 +54,11 @@ function SignUpSection(props) {
         <SwiperSlide>
           <WindowView image={juggling} text={t('onboarding.screen-1')} />
         </SwiperSlide>
+
         <SwiperSlide>
           <WindowView image={gardening} text={t('onboarding.screen-2')} />
         </SwiperSlide>
+
         <SwiperSlide>
           <WindowView image={toolbelt} text={t('onboarding.screen-3')} />
         </SwiperSlide>
@@ -156,6 +73,7 @@ function SignUpSection(props) {
             multi
           />
         </SwiperSlide>
+
         <SwiperSlide>
           <InputSelectView
             value="language"
@@ -182,9 +100,11 @@ function SignUpSection(props) {
             setFormProgress={setFormProgress}
           />
         </SwiperSlide>
+
         <SwiperSlide>
           <EmailView />
         </SwiperSlide>
+
         <SwiperSlide>
           <InputTextView
             value="displayName"
@@ -198,6 +118,7 @@ function SignUpSection(props) {
             values={['fnmi', 'language', 'school', 'interests', 'displayName']}
           />
         </SwiperSlide>
+
         <ProgressDots start={1} end={welcomeLength} slot={SlotEnd} />
       </Swiper>
     </Section>

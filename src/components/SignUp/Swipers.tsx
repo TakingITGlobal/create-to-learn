@@ -1,10 +1,12 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useState, useEffect } from 'react'
+import { useSwiper } from 'swiper/react'
 import { Button } from '@mui/material'
 
 interface SwiperProp {
   children: ReactNode
   handleClick: () => void
 }
+
 export const SwiperNext = ({ children, handleClick }: SwiperProp) => {
   return (
     <Button
@@ -17,6 +19,7 @@ export const SwiperNext = ({ children, handleClick }: SwiperProp) => {
     </Button>
   )
 }
+
 export const SwiperPrev = ({ children, handleClick }: SwiperProp) => {
   return (
     <Button
@@ -27,4 +30,17 @@ export const SwiperPrev = ({ children, handleClick }: SwiperProp) => {
       {children}
     </Button>
   )
+}
+
+export function useSwipe() {
+  const [active, setActive] = useState<number>(0)
+  const swiper = useSwiper()
+
+  useEffect(() => {
+    swiper.on('slideChange', (swipe) => {
+      setActive(swipe.activeIndex)
+    })
+  }, [swiper])
+
+  return { swiper, active }
 }
