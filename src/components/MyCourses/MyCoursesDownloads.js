@@ -9,7 +9,6 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
-import DownloadIcon from '@mui/icons-material/Download'
 import InfoIcon from '@mui/icons-material/Info'
 import DeleteIcon from '@mui/icons-material/Delete'
 import CloseIcon from '@mui/icons-material/Close'
@@ -19,7 +18,7 @@ import MyCoursesEmptyState from './MyCoursesEmptyState'
 import { useAuth } from '../../util/auth'
 import { useTranslation } from 'react-i18next'
 import { dataContext } from '../../util/dataProvider'
-import { useUserDownloadsByOwner } from '../../util/db'
+import { useUserDownloadsByOwner, deleteDownloadsCourse } from '../../util/db'
 
 function MyCoursesDownloads() {
   const { t } = useTranslation()
@@ -51,9 +50,9 @@ function MyCoursesDownloads() {
 
   return downloadedCourses?.length ? (
     downloadedCourses.map((course, index) => {
-      // const watchlistDocId = ownerWatchlist.filter(
-      //   ({ courseId }) => courseId === course.id,
-      // )[0]?.id
+      const DownloadDocId = downloadedData.filter(
+        ({ courseId }) => courseId === course.id,
+      )[0]?.id
 
       return (
         <>
@@ -95,7 +94,7 @@ function MyCoursesDownloads() {
                 <ListItem disablePadding>
                   <ListItemButton
                     onClick={() => {
-                      // deleteWatchlistCourse(watchlistDocId)
+                      deleteDownloadsCourse(DownloadDocId)
                       setOpenDrawer(false)
                     }}
                   >

@@ -89,7 +89,7 @@ function DashboardSection(props) {
           <Typography>{t('dashboard.error')} </Typography>
         </Box>
       ) : (
-        <Container sx={{paddingBottom: '100px'}}>
+        <Container sx={{ paddingBottom: '100px' }}>
           <DashboardGreeting />
           <DashboardVideo course={spotlightVideoCourse} />
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -100,12 +100,12 @@ function DashboardSection(props) {
               />
             )}
           </Box>
-          <DashboardCreatorsMessage creators={creatorsWithMessage} />
           <DashboardCreatorSpotlight
             creators={allCreators
               .filter((creator) => creator.featured === 'checked')
               .slice(0, 5)}
           />
+          <DashboardCreatorsMessage creators={creatorsWithMessage} />
           {interests.map((interest, index) => {
             const courses = coursesByCategory(interest.label)
             return (

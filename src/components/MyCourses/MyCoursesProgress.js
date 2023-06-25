@@ -8,7 +8,8 @@ import AccordionDetails from '@mui/material/AccordionDetails'
 import Typography from '@mui/material/Typography'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
-
+import Snackbar from '@mui/material/Snackbar'
+import MuiAlert from '@mui/material/Alert'
 import CourseCard from '../CourseCard'
 import MyCoursesProgressDrawer from './MyCoursesProgressDrawer'
 import MyCoursesEmptyState from './MyCoursesEmptyState'
@@ -24,6 +25,12 @@ function MyCoursesProgress() {
   const [openCourseDrawer, setOpenCourseDrawer] = useState(false)
 
   const inProgressCourses = useInProgressCourses()
+  const [courseToDownload, setCourseToDownload] = useState(false)
+  const [downloadVideos, setDownloadVideos] = useState(false)
+  const [openSnackbar, setOpenSnackbar] = React.useState(false)
+  const [snackbarMessage, setSnackbarMessage] = React.useState(
+    'Login to add to your watchlist',
+  )
 
   const emptyStateTitle = auth.user
     ? t('my-courses.progress-empty-state-title')
@@ -43,6 +50,29 @@ function MyCoursesProgress() {
   const notCompletedCourses = inProgressCourses.filter((course) =>
     course.inProgressVideos.some(({ complete }) => !complete),
   )
+
+  const Download = () => {
+    return (
+      <div style={{ display: 'none' }}>
+        {courseToDownload.map((video, index) =>
+          video?.link ? (
+            <iframe
+              key={`${video.link}-${index}`}
+              title={`${video.link}-${index}`}
+              src={video.link}
+            />
+          ) : null,
+        )}
+      </div>
+    )
+  }
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    setOpenSnackbar(false)
+  }
 
   //To Do: Cleanup code.  Not sure if these should be split up into two components for each accordion or just be left alone.
   //To Do: Consider moving the drawer out of the list and instead just change the courseInfo to be shown
@@ -100,6 +130,10 @@ function MyCoursesProgress() {
                     setOpenCourseDrawer={setOpenCourseDrawer}
                     inProgressVideos={inProgressVideos}
                     completed={false}
+                    setCourseToDownload={setCourseToDownload}
+                    setDownloadVideos={setDownloadVideos}
+                    setSnackbarMessage={setSnackbarMessage}
+                    setOpenSnackbar={setOpenSnackbar}
                   />
                 ) : null}
               </Box>
@@ -153,6 +187,22 @@ function MyCoursesProgress() {
           })}
         </AccordionDetails>
       </Accordion>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+      >
+        <MuiAlert
+          elevation={6}
+          variant="filled"
+          onClose={handleCloseSnackbar}
+          severity={auth.user ? 'success' : 'warning'}
+          sx={{ width: '100%' }}
+        >
+          {snackbarMessage}
+        </MuiAlert>
+      </Snackbar>
+      {downloadVideos && <Download />}
     </div>
   ) : (
     <MyCoursesEmptyState

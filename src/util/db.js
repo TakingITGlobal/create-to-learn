@@ -154,7 +154,9 @@ export function useUserProgressByOwner(owner) {
         orderBy('createdAt', 'desc'),
       ),
     ),
-    { enabled: !!owner },
+    {
+      enabled: !!owner,
+    },
   )
 }
 
@@ -292,7 +294,7 @@ export function deleteWatchlistCourse(id) {
   return deleteDoc(doc(db, 'user-watchlist', id))
 }
 
-export function deleteDownloadsVdeos(ids) {
+export function deleteDownloadsCourse(ids) {
   return deleteDoc(doc(db, 'user-downloads', ids))
 }
 
