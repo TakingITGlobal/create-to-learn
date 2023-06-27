@@ -8,19 +8,19 @@ export const useInProgressCourses = () => {
   const { allCourses, loadingCourses } = useContext(dataContext)
   const auth = useAuth()
 
-  const progress = useUserProgressByOwner(auth.user?.uid)
+  const { data: progress } = useUserProgressByOwner(auth.user?.uid)
   const [inProgressVideoIds, setInProgressVideoIds] = useState([])
   const [inProgressCourses, setInProgressCourses] = useState([])
 
   useMemo(() => {
-    if (progress && progress.data) {
+    if (progress) {
       setInProgressVideoIds(
-        progress.data
+        progress
           .filter((item) => item.progress !== 0)
           .map((item) => item.videoId),
       )
     }
-  }, [progress.data])
+  }, [progress])
 
   useMemo(() => {
     if (inProgressVideoIds.length && !loadingCourses) {
@@ -30,14 +30,14 @@ export const useInProgressCourses = () => {
           course.videos.some((video) => inProgressVideoIds.includes(video)),
       )
       const inProgressCourses = coursesWithInProgressVideo.map((course) => {
-        const vidInProgress = progress.data.filter((item) =>
+        const vidInProgress = progress.filter((item) =>
           course.videos.includes(item.videoId),
         )
         return { course: course, inProgressVideos: vidInProgress }
       })
       setInProgressCourses(inProgressCourses)
     }
-  }, [inProgressVideoIds.length, progress.data])
+  }, [inProgressVideoIds.length, progress])
 
   return inProgressCourses
 }

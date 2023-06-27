@@ -73,6 +73,7 @@ function InputView(props) {
           {t(`onboarding.${props.value}.subheader`)}
         </Typography>
       </Stack>
+      <Stack direction="column" spacing={2} sx={{ padding: '20px 0' }}>
       <Grid container>{props.children}</Grid>
       <Stack spacing={2} sx={{flexDirection: {xs: 'column', md: 'row'} }}>
         <Button

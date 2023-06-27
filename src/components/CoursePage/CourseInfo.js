@@ -24,7 +24,6 @@ import CourseStats from './CourseStats'
 import CourseQualityDrawer from './CourseQualityDrawer'
 import CourseDownloadDrawer from './CourseDownloadDrawer'
 import CheckIcon from '@mui/icons-material/CheckCircle'
-import CheckSimpleIcon from '@mui/icons-material/Check'
 import { useAuth } from '../../util/auth'
 import {
   createWatchlistCourse,
@@ -39,7 +38,6 @@ function CourseInfo({
   course,
   setOpenSnackbar,
   setSnackbarMessage,
-  setTabValue,
   videoInfo,
   courseProgress,
   downloadsData,

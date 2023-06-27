@@ -57,7 +57,12 @@ function SettingsLanguage({ showComponent, setShowComponent }) {
           </Typography>
         </Box>
         <List
-          sx={{ width: '100%', maxWidth: 360 }}
+          sx={{
+            width: '100%',
+            maxWidth: 360,
+            maxHeight: '550px',
+            overflow: 'scroll',
+          }}
           component="nav"
           aria-labelledby="settings-profile"
         >

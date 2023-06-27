@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, Fragment } from 'react'
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import IconButton from '@mui/material/IconButton'
@@ -57,7 +57,7 @@ function MyCoursesWatchlistDrawer() {
       )[0]?.id
 
       return (
-        <>
+        <Fragment key={index}>
           <Stack direction="row" spacing={1}>
             <CourseCard course={course} />
             <IconButton onClick={() => setOpenDrawer(course.id)}>
@@ -117,7 +117,7 @@ function MyCoursesWatchlistDrawer() {
               </List>
             </Box>
           </Drawer>
-        </>
+        </Fragment>
       )
     })
   ) : (
