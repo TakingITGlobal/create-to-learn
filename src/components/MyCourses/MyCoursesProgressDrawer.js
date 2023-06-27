@@ -26,6 +26,7 @@ import {
   useDownloadsById,
 } from '../../util/db'
 import { useTranslation } from 'react-i18next'
+import { handleAddToDownloads } from './handleAddToDownloads'
 
 function MyCoursesProgressDrawer({
   course,
@@ -51,13 +52,11 @@ function MyCoursesProgressDrawer({
     const videoId =
       inProgressVideos[0]?.videoLink &&
       inProgressVideos[0]?.videoLink.match(/\d+/g)[0]
-    console.log(inProgressVideos[0], 'videoLink')
+
     getByIdVimeo(`/videos/${videoId}`).then((data) =>
       setVideoInfo([data.data.data[0]]),
     )
   }, [inProgressVideos])
-
-  console.log(videoInfo)
 
   const handleAddToWatchlist = () => {
     setOpenSnackbar(true)
@@ -73,60 +72,9 @@ function MyCoursesProgressDrawer({
     }
   }
 
-  const getVideoDataToDownload = () => {
-    return videoInfo.map((video) => {
-      return {
-        videoName: video.name,
-        duration: video.duration,
-        link: video.link,
-        uri: video.uri,
-      }
-    })
-  }
-
-  const handleCloseDrawers = (title) => {
+  const handleSnackbar = (title) => {
     setSnackbarMessage(title)
     setOpenSnackbar(true)
-  }
-
-  //This function needs to be separated out to CourseSection since it is also used in CourseLessons
-  const handleAddToDownloads = () => {
-    if (!auth.user.uid) {
-      return
-    }
-
-    setOpenSnackbar(true)
-    const videoDownloadInfo = videoInfo.flatMap(({ download }) =>
-      download.filter(({ public_name }) => public_name === '240p'),
-    )
-
-    setCourseToDownload(videoDownloadInfo)
-
-    const videoDownloadData = getVideoDataToDownload()
-    if (!downloadsData.length) {
-      setDownloadVideos(true)
-      createDownloadCourse({
-        owner: auth.user.uid,
-        courseId: course.id,
-        courseUID: course.uid,
-        videos: videoDownloadData,
-      }).then(() => handleCloseDrawers('Success!  Added to your Downloads'))
-    } else {
-      const videosAlreadyAdded = downloadsData[0].videos
-      const videosToAdd = videoDownloadData.filter(
-        (video) =>
-          !videosAlreadyAdded.map((video) => video.uri).includes(video.uri),
-      )
-      if (videosToAdd.length) {
-        setDownloadVideos(true)
-        updateDownloads(downloadsData[0].id, {
-          ...downloadsData[0],
-          videos: [...videosAlreadyAdded, ...videosToAdd],
-        }).then(() => handleCloseDrawers('Success!  Added to your Downloads'))
-      } else {
-        handleCloseDrawers('Already in your downloads!')
-      }
-    }
   }
 
   const listItemOptions = [
@@ -145,7 +93,16 @@ function MyCoursesProgressDrawer({
       icon: <VideoLibraryIcon />,
     },
     {
-      onClick: () => handleAddToDownloads(),
+      onClick: () =>
+        handleAddToDownloads(
+          videoInfo,
+          downloadsData,
+          handleSnackbar,
+          setDownloadVideos,
+          setCourseToDownload,
+          auth,
+          course,
+        ),
       ariaLabel: 'download-icon',
       text: t('my-courses.download-episode'),
       href: null,
@@ -159,8 +116,6 @@ function MyCoursesProgressDrawer({
       icon: <InfoIcon />,
     },
   ]
-
-  console.log(inProgressVideos, 'inprogress')
 
   return (
     <>
