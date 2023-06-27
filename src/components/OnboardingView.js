@@ -61,7 +61,13 @@ function InputView(props) {
   }
 
   return (
-    <Box sx={{ padding: '50px 1em 1em 1em', maxWidth: {md:'850px'}, margin: {md: '0 auto'}}}>
+    <Box
+      sx={{
+        padding: '50px 1em 1em 1em',
+        maxWidth: { md: '850px' },
+        margin: { md: '0 auto' },
+      }}
+    >
       <Stack direction="column" sx={{ pb: '40px' }}>
         <Typography variant="decorative">
           {t(`onboarding.${props.value}.header`)}
@@ -73,9 +79,17 @@ function InputView(props) {
           {t(`onboarding.${props.value}.subheader`)}
         </Typography>
       </Stack>
-      <Stack direction="column" spacing={2} sx={{ padding: '20px 0' }}>
-      <Grid container>{props.children}</Grid>
-      <Stack spacing={2} sx={{flexDirection: {xs: 'column', md: 'row'} }}>
+
+      <Grid
+        sx={{ maxHeight: '350px', overflow: 'scroll', padding: '20px 0' }}
+        container
+      >
+        {props.children}
+      </Grid>
+      <Stack
+        spacing={2}
+        sx={{ flexDirection: { xs: 'column', md: 'row' }, padding: '20px 0' }}
+      >
         <Button
           color="info"
           sx={{
@@ -129,7 +143,13 @@ export function WelcomeView(props) {
         }}
         image={props.image}
       />
-      <Stack sx={{ width: '90%', gap: '5px', flexDirection: {xs: 'column', md: 'row'} }}>
+      <Stack
+        sx={{
+          width: '90%',
+          gap: '5px',
+          flexDirection: { xs: 'column', md: 'row' },
+        }}
+      >
         <Button fullWidth variant="contained" onClick={() => setLocal()}>
           {t('get-started')}
         </Button>

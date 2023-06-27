@@ -60,7 +60,7 @@ function SettingsLanguage({ showComponent, setShowComponent }) {
           sx={{
             width: '100%',
             maxWidth: 360,
-            maxHeight: '550px',
+            maxHeight: '400px',
             overflow: 'scroll',
           }}
           component="nav"
