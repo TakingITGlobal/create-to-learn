@@ -84,8 +84,10 @@ function InputView(props) {
           {t(`onboarding.${props.value}.subheader`)}
         </Typography>
       </Stack>
-      <Grid container>{props.children}</Grid>
-      <Stack direction="column" spacing={2}>
+      <Grid container sx={{ maxHeight: '520px', overflow: 'scroll' }}>
+        {props.children}
+      </Grid>
+      <Stack direction="column" spacing={2} sx={{ padding: '20px 0' }}>
         <Button
           color="info"
           sx={{

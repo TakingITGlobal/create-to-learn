@@ -1,3 +1,4 @@
+import { languages as languageList } from './languages.js'
 export const durations = [
   {
     id: 'less-20',
@@ -26,5 +27,5 @@ export const durations = [
 ]
 
 export const culturalGroups = ['First Nations', 'Métis', 'Inuit']
-export const languages = ['Cree', 'Inuktitut', 'Ojibwe', 'English', 'French']
+export const languages = languageList.split('\n')
 export const difficultyLevels = ['Beginner', 'Intermediate', 'Advanced']

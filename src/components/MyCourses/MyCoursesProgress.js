@@ -141,7 +141,7 @@ function MyCoursesProgress() {
           })}
         </AccordionDetails>
       </Accordion>
-      <Accordion>
+      <Accordion defaultExpanded>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="in-progress-content"

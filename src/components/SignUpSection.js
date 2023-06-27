@@ -24,6 +24,7 @@ import juggling from '../assets/images/juggling.png'
 import gardening from '../assets/images/gardening.png'
 import toolbelt from '../assets/images/toolbelt.png'
 import { categories } from '../assets/options/categories'
+import { languages } from '../assets/options/filters.js'
 
 const SlotStart = 'container-start'
 const SlotEnd = 'container-end'
@@ -178,7 +179,7 @@ function SignUpSection(props) {
         <SwiperSlide>
           <InputSelectView
             value="language"
-            options={['Cree', 'Inuktitut', 'Ojibwe', 'English']}
+            options={languages}
             formProgress={formProgress}
             setFormProgress={setFormProgress}
             multi
