@@ -38,7 +38,7 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
 
   return courses.length ? (
     <>
-      <Typography variant="sectionTitle" pt="20px" pb="20px">
+      <Typography variant="sectionTitle" pt={{xs: "20px", md: "75px"}} pb="20px">
         {icon}
         {title}
       </Typography>

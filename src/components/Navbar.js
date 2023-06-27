@@ -10,9 +10,6 @@ import Button from '@mui/material/Button'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-// import Divider from '@mui/material/Divider'
-// import NightsStayIcon from '@mui/icons-material/NightsStay'
-// import WbSunnyIcon from '@mui/icons-material/WbSunny'
 import Drawer from '@mui/material/Drawer'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
@@ -88,6 +85,9 @@ function Navbar(props) {
             <Button component={Link} to="/my-courses">
               My Courses
             </Button>
+            <Button component={Link} to="/settings/my-profile">
+              My Profile
+            </Button>
             <div className={classes.spacer} />
             <Hidden smUp={true} implementation="css">
               <IconButton
@@ -101,7 +101,7 @@ function Navbar(props) {
             </Hidden>
             <Hidden smDown={true} implementation="css">
               {!auth.user && (
-                <Button component={Link} to="/" color="inherit">
+                <Button variant="contained" component={Link} to="/">
                   Sign in
                 </Button>
               )}
@@ -145,21 +145,11 @@ function Navbar(props) {
                       Dashboard
                     </MenuItem>
                     <MenuItem component={Link} to="/settings/profile">
-                      Settings
+                      Profile
                     </MenuItem>
                   </Menu>
                 </>
               )}
-
-              {/* <IconButton
-                color="inherit"
-                onClick={darkMode.toggle}
-                style={{ opacity: 0.6 }}
-              >
-                {darkMode.value && <NightsStayIcon />}
-
-                {!darkMode.value && <WbSunnyIcon />}
-              </IconButton> */}
             </Hidden>
           </Toolbar>
         </Container>
@@ -189,18 +179,6 @@ function Navbar(props) {
               </ListItem>
             </>
           )}
-
-          {/* <ListItem>
-            <IconButton
-              color="inherit"
-              onClick={darkMode.toggle}
-              style={{ opacity: 0.6 }}
-            >
-              {darkMode.value && <NightsStayIcon />}
-
-              {!darkMode.value && <WbSunnyIcon />}
-            </IconButton>
-          </ListItem> */}
         </List>
       </Drawer>
     </Section>
