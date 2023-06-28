@@ -3,10 +3,28 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import { Link } from '../../util/router'
+import emptyStateImage from '../../assets/images/empty-state.png'
 
 const MyCoursesEmptyState = ({ title, subtitle, buttonText, href }) => {
   return (
-    <Box mt={5}>
+    <Box
+      mt={5}
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+      }}
+    >
+      <Box
+        component="img"
+        src={emptyStateImage}
+        sx={{
+          height: '225px',
+          maxHeight: { xs: 300, lg: 500 },
+          padding: '20px 0',
+        }}
+      />
       <Box>
         <Typography variant="h3" align="center">
           {title}

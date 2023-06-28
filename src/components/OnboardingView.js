@@ -50,17 +50,6 @@ function InputView(props) {
       setCur(swipe.activeIndex)
     })
   }, [swiper])
-  // useEffect(() => {
-  //   console.log("After Form "+ formProgress)
-  //   console.log("After Cur " + cur)
-  //   if(formProgress < cur){
-  //     console.log("Gets here wrongly")
-  //     swiper.allowSlideNext = false
-  //   } else if(swiper.allowSlideNext ){
-  //     console.log("gets here")
-  //     handleAllowNext(swiper.slideNext())
-  //   }
-  // },[cur, formProgress])
 
   function handleFormProgress() {
     if (formProgress <= cur) setFormProgress((formProgress) => formProgress + 1)
@@ -72,7 +61,13 @@ function InputView(props) {
   }
 
   return (
-    <Box sx={{ padding: '50px 1em 1em 1em' }}>
+    <Box
+      sx={{
+        padding: '50px 1em 1em 1em',
+        maxWidth: { md: '850px' },
+        margin: { md: '0 auto' },
+      }}
+    >
       <Stack direction="column" sx={{ pb: '40px' }}>
         <Typography variant="decorative">
           {t(`onboarding.${props.value}.header`)}
@@ -84,8 +79,17 @@ function InputView(props) {
           {t(`onboarding.${props.value}.subheader`)}
         </Typography>
       </Stack>
-      <Grid container>{props.children}</Grid>
-      <Stack direction="column" spacing={2}>
+
+      <Grid
+        sx={{ maxHeight: '350px', overflow: 'scroll', padding: '20px 0' }}
+        container
+      >
+        {props.children}
+      </Grid>
+      <Stack
+        spacing={2}
+        sx={{ flexDirection: { xs: 'column', md: 'row' }, padding: '20px 0' }}
+      >
         <Button
           color="info"
           sx={{
@@ -139,17 +143,23 @@ export function WelcomeView(props) {
         }}
         image={props.image}
       />
-      <Stack sx={{ width: '90%', gap: '5px' }}>
+      <Stack
+        sx={{
+          width: '90%',
+          gap: '5px',
+          flexDirection: { xs: 'column', md: 'row' },
+        }}
+      >
         <Button fullWidth variant="contained" onClick={() => setLocal()}>
           {t('get-started')}
         </Button>
         <Button fullWidth color="info" component={Link} to="/auth/signin">
           {t('sign-in')}
         </Button>
-        <Button fullWidth component={Link} to="/dashboard">
-          {t('let-me-browse')}
-        </Button>
       </Stack>
+      <Button fullWidth component={Link} to="/dashboard">
+        {t('let-me-browse')}
+      </Button>
     </Box>
   )
 }

@@ -90,8 +90,6 @@ const styles = theme => ({
 });
 
 function Footer(props) {
-
-
   // const darkMode = useDarkMode()
   // Use inverted logo if specified
   // and we are in dark mode

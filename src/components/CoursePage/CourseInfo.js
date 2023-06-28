@@ -24,22 +24,17 @@ import CourseStats from './CourseStats'
 import CourseQualityDrawer from './CourseQualityDrawer'
 import CourseDownloadDrawer from './CourseDownloadDrawer'
 import CheckIcon from '@mui/icons-material/CheckCircle'
-import CheckSimpleIcon from '@mui/icons-material/Check'
 import { useAuth } from '../../util/auth'
-import {
-  createWatchlistCourse,
-  useWatchlistById,
-  createDownloadCourse,
-  updateDownloads,
-} from '../../util/db'
+import { createWatchlistCourse, useWatchlistById } from '../../util/db'
 import { useTranslation } from 'react-i18next'
 import { categories } from '../../assets/options/categories'
+import { handleAddToDownloads } from './handleAddToDownloads'
+import Download from './Download'
 
 function CourseInfo({
   course,
   setOpenSnackbar,
   setSnackbarMessage,
-  setTabValue,
   videoInfo,
   courseProgress,
   downloadsData,
@@ -79,91 +74,14 @@ function CourseInfo({
     setQualityDrawer(false)
   }
 
-  const getVideoDataToDownload = () => {
-    const videos = videoInfo.filter((video) =>
-      videosToDownload.includes(video.uri),
-    )
-    return videos.map((video) => {
-      return {
-        videoName: video.name,
-        duration: video.duration,
-        link: video.link,
-        uri: video.uri,
-      }
-    })
-  }
-
-  //This function needs to be separated out to CourseSection since it is also used in CourseLessons
-  const handleAddToDownloads = () => {
-    if (!auth.user.uid) {
-      return
-    }
-
-    const videoDownloadData = getVideoDataToDownload()
-
-    if (!downloadsData.length) {
-      createDownloadCourse({
-        owner: auth.user.uid,
-        courseId: course.id,
-        courseUID: course.uid,
-        videos: videoDownloadData,
-      }).then(() => handleCloseDrawers('Success!  Added to your Downloads'))
-    } else {
-      const videosAlreadyAdded = downloadsData[0].videos
-      const videosToAdd = videoDownloadData.filter(
-        (video) =>
-          !videosAlreadyAdded.map((video) => video.uri).includes(video.uri),
-      )
-      if (videosToAdd.length) {
-        updateDownloads(downloadsData[0].id, {
-          ...downloadsData[0],
-          videos: [...videosAlreadyAdded, ...videosToAdd],
-        }).then(() => handleCloseDrawers('Success!  Added to your Downloads'))
-      } else {
-        handleCloseDrawers('Already in your downloads!')
-      }
-    }
-  }
-
-  const inProgressVideos = courseProgress
-    ? courseProgress.filter((video) => video?.progress > 0)
-    : []
-
-  // const totalTimeWatched =
-  //   inProgressVideos.length > 1
-  //     ? inProgressVideos
-  //         .map(({ progress }) => progress)
-  //         .reduce((acc, curr) => acc + curr)
-  //     : inProgressVideos.length === 1
-  //     ? inProgressVideos[0].progress
-  //     : 0
-
-  //Check if this should be turned into hrs:minutes:seconds
-  // const timeLeft = course.totalLength - totalTimeWatched
-
-  // const percentProgress = (totalTimeWatched / course.totalLength) * 100
-
-  const Download = () => {
-    const videos = videoInfo.filter((video) =>
-      videosToDownload.includes(video.uri),
-    )
-    const videoDownloadInfo = videos.flatMap(({ download }) =>
-      download.filter(({ public_name }) => public_name === quality),
-    )
-
-    return (
-      <div style={{ display: 'none' }}>
-        {videoDownloadInfo.map((video, index) =>
-          video?.link ? (
-            <iframe
-              key={`${video.link}-${index}`}
-              title={`${video.link}-${index}`}
-              src={video.link}
-              loading="lazy"
-            />
-          ) : null,
-        )}
-      </div>
+  const handleDownloads = () => {
+    handleAddToDownloads(
+      handleCloseDrawers,
+      auth,
+      downloadsData,
+      course,
+      videosToDownload,
+      videoInfo,
     )
   }
 
@@ -315,11 +233,17 @@ function CourseInfo({
           setQuality={setQuality}
           qualityDrawer={qualityDrawer}
           setQualityDrawer={setQualityDrawer}
-          handleAddToDownloads={handleAddToDownloads}
+          handleAddToDownloads={handleDownloads}
           setOpenSnackbar={setOpenSnackbar}
           setSnackbarMessage={setSnackbarMessage}
         />
-        {downloadVideos && <Download />}
+        {downloadVideos && (
+          <Download
+            videoInfo={videoInfo}
+            quality={quality}
+            videosToDownload={videosToDownload}
+          />
+        )}
       </Box>
     </>
   )

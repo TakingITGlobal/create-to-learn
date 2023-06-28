@@ -22,7 +22,11 @@ export const ProgressBar = ({ start, end, slot }: ProgressProps) => {
           steps={end - start + 1}
           activeStep={active - start}
           position="top"
-          sx={{ padding: '1em' }}
+          sx={{
+            border: '1px solid #ff00a2',
+            padding: '1em',
+            position: { md: 'relative' },
+          }}
           backButton={
             <SwiperPrev handleClick={swiper.slidePrev}>
               <ArrowBack />

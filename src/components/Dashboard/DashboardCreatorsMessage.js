@@ -58,10 +58,10 @@ const DashboardCreatorsMessage = ({ creators }) => {
 
       <MultiCarousel
         ssr
-        partialVisible={true}
+        // partialVisible={true}
         responsive={responsive}
         swipeable
-        sx={{
+        style={{
           paddingRight: '20px',
           paddingBottom: '20px',
         }}
