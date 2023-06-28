@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import Container from '@mui/material/Container'
 import SwipeableViews from 'react-swipeable-views'
-import { AppBar, Box, Tab, Tabs, Typography, useTheme, Grid, Stack, Button } from '@mui/material'
+import {
+  AppBar,
+  Box,
+  Tab,
+  Tabs,
+  Typography,
+  useTheme,
+  Grid,
+  Stack,
+  Button,
+} from '@mui/material'
 import CardMedia from '@mui/material/CardMedia'
 import Snackbar from '@mui/material/Snackbar'
 import MuiAlert from '@mui/material/Alert'
@@ -18,7 +28,6 @@ import ShareDrawer from '../ShareDrawer'
 import LinearProgress from '@mui/material/LinearProgress'
 import { displayTime } from '../../util/timeHelpers'
 import CheckSimpleIcon from '@mui/icons-material/Check'
-
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -120,7 +129,13 @@ function CourseSection({ data, courseData, courseProgress }) {
           'linear-gradient(180deg, rgba(11, 9, 25, 0) 0%, rgba(11, 9, 25, 0.11) 200px, rgba(11, 9, 25, 0.64) 400px, #0B0919 600px)',
       }}
     >
-      <Container sx={{ padding: '0', paddingBottom: {xs: '120px', md: '80px'}, maxWidth: { xs: '100%', md: '850px' } }}>
+      <Container
+        sx={{
+          padding: '0',
+          paddingBottom: { xs: '120px', md: '80px' },
+          maxWidth: { xs: '100%', md: '850px' },
+        }}
+      >
         <Box
           sx={{
             display: 'flex',
@@ -227,73 +242,74 @@ function CourseSection({ data, courseData, courseProgress }) {
         />
       </Container>
       {/* Start Creating Button */}
-        {inProgressVideos.length ? (
-          <Grid
-            container
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <Grid xs={8}>
-              {timeLeft > 0.5 ? (
-                <Stack
-                  direction="row"
-                  spacing={1}
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <LinearProgress
-                    color="primary"
-                    variant="determinate"
-                    value={percentProgress}
-                    sx={{ width: '120px' }}
-                  />
-                  <Typography>{displayTime(timeLeft)} left </Typography>
-                </Stack>
-              ) : (
-                <Stack direction="row" spacing={1}>
-                  <CheckSimpleIcon
-                    sx={{
-                      backgroundColor: 'inherit !important',
-                      color: '#fff !important',
-                    }}
-                  />
-
-                  <Typography sx={{ display: 'inline-block' }}>
-                    {t('course.finished')}
-                  </Typography>
-                </Stack>
-              )}
-            </Grid>
-            <Grid xs={4}>
-              <Button
-                fullWidth
-                onClick={() => setTabValue(1)}
+      {inProgressVideos.length ? (
+        <Grid
+          container
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Grid xs={8}>
+            {timeLeft > 0.5 ? (
+              <Stack
+                direction="row"
+                spacing={1}
                 sx={{
-                  backgroundColor: 'white !important',
-                  color: 'black',
-                  borderRadius: '25px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}
               >
-                {t('btn.continue')}
-              </Button>
-            </Grid>
+                <LinearProgress
+                  color="primary"
+                  variant="determinate"
+                  value={percentProgress}
+                  sx={{ width: '120px' }}
+                />
+                <Typography>{displayTime(timeLeft)} left </Typography>
+              </Stack>
+            ) : (
+              <Stack direction="row" spacing={1}>
+                <CheckSimpleIcon
+                  sx={{
+                    backgroundColor: 'inherit !important',
+                    color: '#fff !important',
+                  }}
+                />
+
+                <Typography sx={{ display: 'inline-block' }}>
+                  {t('course.finished')}
+                </Typography>
+              </Stack>
+            )}
           </Grid>
-        ) : (
+          <Grid xs={4}>
+            <Button
+              fullWidth
+              onClick={() => setTabValue(1)}
+              sx={{
+                backgroundColor: 'white !important',
+                color: 'black',
+                borderRadius: '25px',
+              }}
+            >
+              {t('btn.continue')}
+            </Button>
+          </Grid>
+        </Grid>
+      ) : (
+        tabValue === 0 && (
           <Box
             sx={{
-              position: {xs: 'fixed', md: 'relative'},
-              bottom: {xs: '78px', md: '20px'},
+              position: { xs: 'fixed', md: 'relative' },
+              bottom: { xs: '78px', md: '20px' },
               left: '0',
               right: '0',
               padding: '2px 15px 5px 15px',
               display: 'flex',
-              justifyContent: 'center'
+              justifyContent: 'center',
             }}
           >
             <Button
@@ -301,14 +317,15 @@ function CourseSection({ data, courseData, courseProgress }) {
               size="large"
               fullWidth
               sx={{
-                maxWidth: '800px', 
+                maxWidth: '800px',
               }}
               onClick={() => setTabValue(1)}
             >
               {t('course.start-creating')}
             </Button>
           </Box>
-        )}
+        )
+      )}
     </Section>
   )
 }
