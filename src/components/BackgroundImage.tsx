@@ -1,8 +1,7 @@
-import React from 'react'
-import useClasses from '../hooks/useClasses'
-const PREFIX = 'BackgroundImage';
+import React, { HTMLAttributes } from 'react'
+import useClasses from 'hooks/useClasses'
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     backgroundPosition: 'center center',
     backgroundSize: 'cover',
@@ -12,13 +11,15 @@ const styles = theme => ({
     right: 0,
     position: 'absolute',
     zIndex: 0,
-  }
-});
+  },
+})
 
-function BackgroundImage(props) {
+interface Props extends HTMLAttributes<HTMLDivElement> {
+  image: string
+  opacity: number
+}
+function BackgroundImage({ image, opacity, ...otherProps }: Props) {
   const classes = useClasses(styles)
-
-  const { image, opacity, ...otherProps } = props
 
   return (
     <div
