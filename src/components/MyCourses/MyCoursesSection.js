@@ -45,7 +45,7 @@ function MyCoursesSection(props) {
                 <Tab
                   label={t('my-courses.my-progress')}
                   {...a11yProps(0)}
-                  sx={{ color: 'white' }}
+                  sx={{ color: 'white', padding: 0 }}
                 />
                 <Tab
                   label={t('my-courses.downloads')}
