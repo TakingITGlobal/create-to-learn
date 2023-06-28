@@ -87,7 +87,7 @@ function SignUpSection() {
         <SwiperSlide>
           <InputSearchView
             value="school"
-            options={schoolData.map((x) => x.School)}
+            options={schoolData.map((x: any) => x.School)}
             formProgress={formProgress}
             setFormProgress={setFormProgress}
           />
