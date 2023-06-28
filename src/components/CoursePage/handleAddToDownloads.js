@@ -1,6 +1,8 @@
 import { createDownloadCourse, updateDownloads } from '../../util/db'
 
 //This function needs to be separated out to CourseSection since it is also used in CourseLessons
+//Can this be made into a custom hook??
+
 export const handleAddToDownloads = (
   handleCloseDrawers,
   auth,
@@ -14,20 +16,26 @@ export const handleAddToDownloads = (
   }
 
   const videoDownloadData = getVideoDataToDownload(videoInfo, videosToDownload)
-  if (!downloadsData.length) {
-    createDownloadCourse({
-      owner: auth.user.uid,
-      courseId: course.id,
-      courseUID: course.uid,
-      videos: videoDownloadData,
-    }).then(() => handleCloseDrawers('Success!  Added to your Downloads'))
-  } else {
-    const videosAlreadyAdded = downloadsData[0].videos
-    const videosToAdd = videoDownloadData.filter(
-      (video) =>
-        !videosAlreadyAdded.map((video) => video.uri).includes(video.uri),
+  const downloadedCourse = {
+    owner: auth.user.uid,
+    courseId: course.id,
+    courseUID: course.uid,
+    videos: videoDownloadData,
+  }
+  const videosAlreadyAdded = downloadsData[0].videos
+  const videosToAdd = videoDownloadData.filter(
+    (video) =>
+      !videosAlreadyAdded.map((video) => video.uri).includes(video.uri),
+  )
+  const isInDownloadsList = downloadsData.length > 0
+  const hasVideosToAdd = videosToAdd.length > 0
+
+  if (!isInDownloadsList) {
+    createDownloadCourse(downloadedCourse).then(() =>
+      handleCloseDrawers('Success!  Added to your Downloads'),
     )
-    if (videosToAdd.length) {
+  } else {
+    if (hasVideosToAdd) {
       updateDownloads(downloadsData[0].id, {
         ...downloadsData[0],
         videos: [...videosAlreadyAdded, ...videosToAdd],
