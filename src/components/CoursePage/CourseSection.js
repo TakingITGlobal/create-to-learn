@@ -21,13 +21,14 @@ import CourseLessons from './CourseLessons'
 import { useAuth } from '../../util/auth'
 import { useUserProgressByCourse, useDownloadsById } from '../../util/db'
 import getByIdVimeo from '../../util/vimeo'
-import { useTranslation } from 'react-i18next'
 import IconButton from '@mui/material/IconButton'
 import ShareIcon from '@mui/icons-material/ShareRounded'
 import ShareDrawer from '../ShareDrawer'
 import LinearProgress from '@mui/material/LinearProgress'
 import { displayTime } from '../../util/timeHelpers'
 import CheckSimpleIcon from '@mui/icons-material/Check'
+import { useTranslation } from 'react-i18next'
+import CourseCreatingButtons from './CourseCreatingButtons'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -102,24 +103,6 @@ function CourseSection({ data, courseData, courseProgress }) {
     //ToDo: eeek fix data.data.data
     getByIdVimeo(videoFormattedIds).then((data) => setVideoInfo(data.data.data))
   }, [videoFormattedIds])
-
-  const inProgressVideos = userProgressByCourse
-    ? userProgressByCourse.filter((video) => video?.progress > 0)
-    : []
-
-  const totalTimeWatched =
-    inProgressVideos.length > 1
-      ? inProgressVideos
-          .map(({ progress }) => progress)
-          .reduce((acc, curr) => acc + curr)
-      : inProgressVideos.length === 1
-      ? inProgressVideos[0].progress
-      : 0
-
-  //Check if this should be turned into hrs:minutes:seconds
-  const timeLeft = courseData.totalLength - totalTimeWatched
-
-  const percentProgress = (totalTimeWatched / courseData.totalLength) * 100
 
   return (
     <Section
@@ -241,96 +224,13 @@ function CourseSection({ data, courseData, courseProgress }) {
           setOpenShareDrawer={setOpenShareDrawer}
         />
       </Container>
-      {/* Start Creating Button */}
-      {inProgressVideos.length ? (
-        <Grid
-          container
-          sx={{
-            position: { xs: 'fixed', md: 'relative' },
-            bottom: { xs: '78px', md: '20px' },
-            left: '0',
-            right: '0',
-            padding: '10px 15px 5px 15px',
-            display: 'flex',
-            justifyContent: 'center',
-            backgroundColor: 'black',
-          }}
-        >
-          <Grid xs={8}>
-            {timeLeft > 0.5 ? (
-              <Stack
-                direction="row"
-                spacing={1}
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <LinearProgress
-                  color="primary"
-                  variant="determinate"
-                  value={percentProgress}
-                  sx={{ width: '120px' }}
-                />
-                <Typography>{displayTime(timeLeft)} left </Typography>
-              </Stack>
-            ) : (
-              <Stack direction="row" spacing={1}>
-                <CheckSimpleIcon
-                  sx={{
-                    backgroundColor: 'inherit !important',
-                    color: '#fff !important',
-                  }}
-                />
-
-                <Typography sx={{ display: 'inline-block' }}>
-                  {t('course.finished')}
-                </Typography>
-              </Stack>
-            )}
-          </Grid>
-          <Grid xs={4}>
-            <Button
-              fullWidth
-              onClick={() => setTabValue(1)}
-              sx={{
-                backgroundColor: 'white !important',
-                color: 'black',
-                borderRadius: '25px',
-              }}
-            >
-              {t('btn.continue')}
-            </Button>
-          </Grid>
-        </Grid>
-      ) : (
-        tabValue === 0 && (
-          <Box
-            sx={{
-              position: { xs: 'fixed', md: 'relative' },
-              bottom: { xs: '78px', md: '20px' },
-              left: '0',
-              right: '0',
-              padding: '10px 15px 5px 15px',
-              display: 'flex',
-              justifyContent: 'center',
-              backgroundColor: 'black',
-            }}
-          >
-            <Button
-              variant="contained"
-              size="large"
-              fullWidth
-              sx={{
-                maxWidth: '800px',
-              }}
-              onClick={() => setTabValue(1)}
-            >
-              {t('course.start-creating')}
-            </Button>
-          </Box>
-        )
+      {tabValue === 0 && (
+        <CourseCreatingButtons
+          courseData={courseData}
+          courseProgress={userProgressByCourse}
+          tabValue={tabValue}
+          setTabValue={setTabValue}
+        />
       )}
     </Section>
   )
