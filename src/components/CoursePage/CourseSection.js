@@ -103,8 +103,8 @@ function CourseSection({ data, courseData, courseProgress }) {
     getByIdVimeo(videoFormattedIds).then((data) => setVideoInfo(data.data.data))
   }, [videoFormattedIds])
 
-  const inProgressVideos = courseProgress
-    ? courseProgress.filter((video) => video?.progress > 0)
+  const inProgressVideos = userProgressByCourse
+    ? userProgressByCourse.filter((video) => video?.progress > 0)
     : []
 
   const totalTimeWatched =
@@ -246,9 +246,14 @@ function CourseSection({ data, courseData, courseProgress }) {
         <Grid
           container
           sx={{
+            position: { xs: 'fixed', md: 'relative' },
+            bottom: { xs: '78px', md: '20px' },
+            left: '0',
+            right: '0',
+            padding: '10px 15px 5px 15px',
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center',
+            backgroundColor: 'black',
           }}
         >
           <Grid xs={8}>
@@ -307,9 +312,10 @@ function CourseSection({ data, courseData, courseProgress }) {
               bottom: { xs: '78px', md: '20px' },
               left: '0',
               right: '0',
-              padding: '2px 15px 5px 15px',
+              padding: '10px 15px 5px 15px',
               display: 'flex',
               justifyContent: 'center',
+              backgroundColor: 'black',
             }}
           >
             <Button
