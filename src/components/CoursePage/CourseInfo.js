@@ -29,7 +29,6 @@ import { createWatchlistCourse, useWatchlistById } from '../../util/db'
 import { useTranslation } from 'react-i18next'
 import { categories } from '../../assets/options/categories'
 import { handleAddToDownloads } from './handleAddToDownloads'
-import Download from './Download'
 
 function CourseInfo({
   course,
@@ -82,6 +81,31 @@ function CourseInfo({
       course,
       videosToDownload,
       videoInfo,
+    )
+  }
+
+  const Download = ({ videoInfo, quality, videosToDownload }) => {
+    const videos = videoInfo.filter((video) =>
+      videosToDownload.includes(video.uri),
+    )
+    const videoDownloadInfo = videos.flatMap(({ download }) =>
+      download.filter(({ public_name }) => public_name === quality),
+    )
+
+    console.log(videoDownloadInfo, quality, videosToDownload)
+
+    return (
+      <div style={{ display: 'none' }}>
+        {videoDownloadInfo.map((video, index) =>
+          video?.link ? (
+            <iframe
+              key={`${video.link}-${index}`}
+              title={`${video.link}-${index}`}
+              src={video.link}
+            />
+          ) : null,
+        )}
+      </div>
     )
   }
 

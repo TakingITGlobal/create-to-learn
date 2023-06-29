@@ -22,19 +22,20 @@ export const handleAddToDownloads = (
     courseUID: course.uid,
     videos: videoDownloadData,
   }
-  const videosAlreadyAdded = downloadsData[0].videos
-  const videosToAdd = videoDownloadData.filter(
-    (video) =>
-      !videosAlreadyAdded.map((video) => video.uri).includes(video.uri),
-  )
+
   const isInDownloadsList = downloadsData.length > 0
-  const hasVideosToAdd = videosToAdd.length > 0
 
   if (!isInDownloadsList) {
     createDownloadCourse(downloadedCourse).then(() =>
       handleCloseDrawers('Success!  Added to your Downloads'),
     )
   } else {
+    const videosAlreadyAdded = downloadsData[0].videos
+    const videosToAdd = videoDownloadData.filter(
+      (video) =>
+        !videosAlreadyAdded.map((video) => video.uri).includes(video.uri),
+    )
+    const hasVideosToAdd = videosToAdd.length > 0
     if (hasVideosToAdd) {
       updateDownloads(downloadsData[0].id, {
         ...downloadsData[0],

@@ -45,18 +45,12 @@ function QualityDrawer({
         <Button
           startIcon={<ChevronLeft sx={{ color: 'white' }} />}
           onClick={() => {
-            setOpenDownloadDrawer(true)
-            setQualityDrawer(false)
+            handleCloseDrawer()
           }}
         >
           {t('course.quality')}
         </Button>
-        <Close
-          sx={{ color: 'white' }}
-          onClick={() => {
-            handleCloseDrawer()
-          }}
-        />
+        <Close sx={{ color: 'white' }} />
       </Box>
       <List>
         {qualityOptions.map((option, index) => (
