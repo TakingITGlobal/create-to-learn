@@ -92,8 +92,6 @@ function CourseInfo({
       download.filter(({ public_name }) => public_name === quality),
     )
 
-    console.log(videoDownloadInfo, quality, videosToDownload)
-
     return (
       <div style={{ display: 'none' }}>
         {videoDownloadInfo.map((video, index) =>
