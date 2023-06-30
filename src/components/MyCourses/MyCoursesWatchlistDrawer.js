@@ -39,11 +39,11 @@ function MyCoursesWatchlistDrawer() {
   )
 
   const emptyStateTitle = auth.user
-    ? t('my-courses.progress-empty-state-title')
+    ? t('my-courses.watchlist-empty-state-title')
     : t('my-courses.guest-progress-empty-state-title')
 
   const emptyStateSubtitle = auth.user
-    ? t('my-courses.progress-empty-state-subtitle')
+    ? t('my-courses.watchlist-empty-state-subtitle')
     : t('my-courses.guest-progress-empty-state-subtitle')
 
   const emptyStateButtonText = auth.user
