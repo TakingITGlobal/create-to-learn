@@ -1,4 +1,5 @@
-import { createDownloadCourse, updateDownloads } from '../../util/db'
+import { createDownloadCourse } from '../../util/db'
+import { saveAs } from 'file-saver'
 
 //This function needs to be separated out to CourseSection since it is also used in CourseLessons
 //Can this be made into a custom hook??
@@ -10,18 +11,31 @@ export const handleAddToDownloads = (
   course,
   videosToDownload,
   videoInfo,
+  quality,
 ) => {
   if (!auth?.user?.uid) {
     return
   }
 
-  const videoDownloadData = getVideoDataToDownload(videoInfo, videosToDownload)
+  //Find a way to collapse this with the other handleAddToDownloads
+
   const downloadedCourse = {
     owner: auth.user.uid,
     courseId: course.id,
     courseUID: course.uid,
-    videos: videoDownloadData,
   }
+
+  const videos = videoInfo.filter((video) =>
+    videosToDownload.includes(video.uri),
+  )
+  const videoDownloadInfo = videos.flatMap(({ download, name }) => {
+    return {
+      ...download.filter(({ public_name }) => public_name === '240p')[0],
+      name: name,
+    }
+  })
+
+  downloadCourse(videoDownloadInfo, course.seriesName)
 
   const isInDownloadsList = downloadsData.length > 0
 
@@ -30,33 +44,17 @@ export const handleAddToDownloads = (
       handleCloseDrawers('Success!  Added to your Downloads'),
     )
   } else {
-    const videosAlreadyAdded = downloadsData[0].videos
-    const videosToAdd = videoDownloadData.filter(
-      (video) =>
-        !videosAlreadyAdded.map((video) => video.uri).includes(video.uri),
-    )
-    const hasVideosToAdd = videosToAdd.length > 0
-    if (hasVideosToAdd) {
-      updateDownloads(downloadsData[0].id, {
-        ...downloadsData[0],
-        videos: [...videosAlreadyAdded, ...videosToAdd],
-      }).then(() => handleCloseDrawers('Success!  Added to your Downloads'))
-    } else {
-      handleCloseDrawers('Already in your downloads!')
-    }
+    handleCloseDrawers('Already in your downloads!')
   }
 }
 
-const getVideoDataToDownload = (videoInfo, videosToDownload) => {
-  const videos = videoInfo.filter((video) =>
-    videosToDownload.includes(video.uri),
-  )
-  return videos.map((video) => {
-    return {
-      videoName: video.name,
-      duration: video.duration,
-      link: video.link,
-      uri: video.uri,
-    }
+const downloadCourse = (files, name) => {
+  const zip = require('jszip')()
+
+  for (let file = 0; file < files.length; file++) {
+    zip.file(`${files[file].name}.mp4`, files[file].link, { binary: true })
+  }
+  zip.generateAsync({ type: 'blob' }).then((content) => {
+    saveAs(content, `${name}.zip`)
   })
 }

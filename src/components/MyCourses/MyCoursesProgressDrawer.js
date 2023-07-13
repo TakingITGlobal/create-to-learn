@@ -22,6 +22,7 @@ import {
   createWatchlistCourse,
   useWatchlistById,
   useDownloadsById,
+  useVideosByCourseId,
 } from '../../util/db'
 import { useTranslation } from 'react-i18next'
 import { handleAddToDownloads } from './handleAddToDownloads'
@@ -31,8 +32,6 @@ function MyCoursesProgressDrawer({
   open,
   setOpenCourseDrawer,
   inProgressVideos,
-  setCourseToDownload,
-  setDownloadVideos,
   setSnackbarMessage,
   setOpenSnackbar,
 }) {
@@ -41,10 +40,15 @@ function MyCoursesProgressDrawer({
 
   const [openVideoDrawer, setOpenVideoDrawer] = useState(false)
   const [videoInfo, setVideoInfo] = useState([])
+  const [videosToDownload, setVideosToDownload] = useState([])
 
   const { data: watchlistData } = useWatchlistById(auth.user?.uid, course.id)
 
   const { data: downloadsData } = useDownloadsById(auth.user?.uid, course.id)
+
+  const courseId = course?.id
+
+  const { data: courseVideos } = useVideosByCourseId(courseId)
 
   useEffect(() => {
     const videoId =
@@ -55,6 +59,18 @@ function MyCoursesProgressDrawer({
       setVideoInfo([data.data.data[0]]),
     )
   }, [inProgressVideos])
+
+  useEffect(() => {
+    //Get formatted video ids from videosToDownload
+    if (courseVideos) {
+      const videoIds = courseVideos
+        .map(({ ourVimeoUrl }) => `/videos/${ourVimeoUrl.match(/\d+/g)[0]}`)
+        .join(',')
+      getByIdVimeo(videoIds).then((data) => {
+        setVideosToDownload(data.data.data)
+      })
+    }
+  }, [courseVideos])
 
   const handleAddToWatchlist = () => {
     setOpenSnackbar(true)
@@ -93,11 +109,9 @@ function MyCoursesProgressDrawer({
     {
       onClick: () =>
         handleAddToDownloads(
-          videoInfo,
+          videosToDownload,
           downloadsData,
           handleSnackbar,
-          setDownloadVideos,
-          setCourseToDownload,
           auth,
           course,
         ),
@@ -134,7 +148,6 @@ function MyCoursesProgressDrawer({
               aria-label="close"
               onClick={() => {
                 setOpenCourseDrawer(false)
-                setDownloadVideos(false)
               }}
             >
               <CloseIcon sx={{ color: 'white' }} />

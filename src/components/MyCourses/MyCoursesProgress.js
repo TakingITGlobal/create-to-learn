@@ -16,12 +16,7 @@ import { useTranslation } from 'react-i18next'
 import { useInProgressCourses } from '../../hooks/useInProgressCourses'
 import { useAuth } from '../../util/auth'
 
-function MyCoursesProgress({
-  setCourseToDownload,
-  setDownloadVideos,
-  setSnackbarMessage,
-  setOpenSnackbar,
-}) {
+function MyCoursesProgress({ setSnackbarMessage, setOpenSnackbar }) {
   const auth = useAuth()
   const { t } = useTranslation()
 
@@ -104,8 +99,6 @@ function MyCoursesProgress({
                     setOpenCourseDrawer={setOpenCourseDrawer}
                     inProgressVideos={inProgressVideos}
                     completed={false}
-                    setCourseToDownload={setCourseToDownload}
-                    setDownloadVideos={setDownloadVideos}
                     setSnackbarMessage={setSnackbarMessage}
                     setOpenSnackbar={setOpenSnackbar}
                   />

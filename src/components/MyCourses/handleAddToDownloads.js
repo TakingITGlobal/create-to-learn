@@ -1,45 +1,31 @@
-import { createDownloadCourse, updateDownloads } from '../../util/db'
+import { createDownloadCourse } from '../../util/db'
+import { saveAs } from 'file-saver'
 
-const getVideoDataToDownload = (videoInfo) => {
-  return videoInfo.map((video) => {
-    return {
-      videoName: video.name,
-      duration: video.duration,
-      link: video.link,
-      uri: video.uri,
-    }
-  })
-}
-//This function needs to be separated out to CourseSection since it is also used in CourseLessons
-//It also really needs to be cleaned up a bit.
+//Find a way to collapse this with the other handleAddToDownloads
 export const handleAddToDownloads = (
-  videoInfo,
+  videosToDownload,
   downloadsData,
   handleSnackbar,
-  setDownloadVideos,
-  setCourseToDownload,
   auth,
   course,
 ) => {
-  setDownloadVideos(true)
-
   if (!auth.user.uid) {
     return
   }
 
-  const videoDownloadInfo = videoInfo.flatMap(({ download }) =>
-    download.filter(({ public_name }) => public_name === '240p'),
-  )
+  const videoDownloadInfo = videosToDownload.flatMap(({ download, name }) => {
+    return {
+      ...download.filter(({ public_name }) => public_name === '240p')[0],
+      name: name,
+    }
+  })
 
-  setCourseToDownload(videoDownloadInfo)
-
-  const videoDownloadData = getVideoDataToDownload(videoInfo)
+  downloadCourse(videoDownloadInfo, course.seriesName)
 
   const downloadedCourse = {
     owner: auth.user.uid,
     courseId: course.id,
     courseUID: course.uid,
-    videos: videoDownloadData,
   }
 
   const isInDownloadsList = downloadsData.length > 0
@@ -49,20 +35,17 @@ export const handleAddToDownloads = (
       handleSnackbar('Success!  Added to your Downloads'),
     )
   } else {
-    const videosAlreadyAdded = downloadsData[0].videos
-    const videosToAdd = videoDownloadData.filter(
-      (video) =>
-        !videosAlreadyAdded.map((video) => video.uri).includes(video.uri),
-    )
-    const hasVideosToAdd = videosToAdd.length > 0
-
-    if (hasVideosToAdd) {
-      updateDownloads(downloadsData[0].id, {
-        ...downloadsData[0],
-        videos: [...videosAlreadyAdded, ...videosToAdd],
-      }).then(() => handleSnackbar('Success!  Added to your Downloads'))
-    } else {
-      handleSnackbar('Already in your downloads!')
-    }
+    handleSnackbar('Already in your downloads!')
   }
+}
+
+const downloadCourse = (files, name) => {
+  const zip = require('jszip')()
+
+  for (let file = 0; file < files.length; file++) {
+    zip.file(`${files[file].name}.mp4`, files[file].link, { binary: true })
+  }
+  zip.generateAsync({ type: 'blob' }).then((content) => {
+    saveAs(content, `${name}.zip`)
+  })
 }

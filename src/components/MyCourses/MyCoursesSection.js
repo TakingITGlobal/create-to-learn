@@ -19,8 +19,6 @@ function MyCoursesSection(props) {
   const auth = useAuth()
 
   const [tabIndex, setTabIndex] = useState(0)
-  const [courseToDownload, setCourseToDownload] = useState(false)
-  const [downloadVideos, setDownloadVideos] = useState(false)
   const [openSnackbar, setOpenSnackbar] = useState(false)
   const [snackbarMessage, setSnackbarMessage] = useState(
     'Login to add to your watchlist',
@@ -30,20 +28,19 @@ function MyCoursesSection(props) {
     setTabIndex(newTab)
   }
 
-  const Download = () => {
-    return (
-      <div style={{ display: 'none' }}>
-        {courseToDownload.map((video, index) =>
-          video?.link ? (
-            <iframe
-              key={`${video.link}-${index}`}
-              title={`${video.link}-${index}`}
-              src={video.link}
-            />
-          ) : null,
-        )}
-      </div>
-    )
+  const handleDownload = (videoDownloadInfo) => {
+    if (!videoDownloadInfo) {
+      setOpenSnackbar(true)
+      setSnackbarMessage('Error downloading.')
+    }
+
+    videoDownloadInfo.length &&
+      videoDownloadInfo.forEach(({ link }) => {
+        const downloadLink = document.createElement('a')
+        downloadLink.href = link
+        downloadLink.download = ''
+        downloadLink.click()
+      })
   }
 
   return (
@@ -88,8 +85,6 @@ function MyCoursesSection(props) {
             </Box>
             <TabPanel tabIndex={tabIndex} index={0}>
               <MyCoursesProgress
-                setCourseToDownload={setCourseToDownload}
-                setDownloadVideos={setDownloadVideos}
                 setSnackbarMessage={setSnackbarMessage}
                 setOpenSnackbar={setOpenSnackbar}
               />
@@ -98,10 +93,14 @@ function MyCoursesSection(props) {
               <MyCoursesDownloads />
             </TabPanel>
             <TabPanel tabIndex={tabIndex} index={2}>
-              <MyCoursesWatchlistDrawer />
+              <MyCoursesWatchlistDrawer
+                setSnackbarMessage={setSnackbarMessage}
+                setOpenSnackbar={setOpenSnackbar}
+                handleDownload={handleDownload}
+              />
             </TabPanel>
           </Box>
-          {downloadVideos && <Download />}
+          {/* {downloadVideos && <Download />} */}
           <Snackbar
             open={openSnackbar}
             autoHideDuration={6000}
@@ -111,7 +110,7 @@ function MyCoursesSection(props) {
               elevation={6}
               variant="filled"
               onClose={() => setOpenSnackbar(false)}
-              severity={auth.user ? 'success' : 'warning'}
+              severity={auth?.user ? 'success' : 'warning'}
               sx={{ width: '100%' }}
             >
               {snackbarMessage}

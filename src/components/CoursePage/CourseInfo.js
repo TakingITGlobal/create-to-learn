@@ -81,29 +81,7 @@ function CourseInfo({
       course,
       videosToDownload,
       videoInfo,
-    )
-  }
-
-  const Download = ({ videoInfo, quality, videosToDownload }) => {
-    const videos = videoInfo.filter((video) =>
-      videosToDownload.includes(video.uri),
-    )
-    const videoDownloadInfo = videos.flatMap(({ download }) =>
-      download.filter(({ public_name }) => public_name === quality),
-    )
-
-    return (
-      <div style={{ display: 'none' }}>
-        {videoDownloadInfo.map((video, index) =>
-          video?.link ? (
-            <iframe
-              key={`${video.link}-${index}`}
-              title={`${video.link}-${index}`}
-              src={video.link}
-            />
-          ) : null,
-        )}
-      </div>
+      quality,
     )
   }
 
@@ -250,7 +228,7 @@ function CourseInfo({
         <CourseQualityDrawer
           setDownloadVideos={setDownloadVideos}
           setOpenDownloadDrawer={setOpenDownloadDrawer}
-          setVideosToDownload={setVideosToDownload}
+          // setVideosToDownload={setVideosToDownload}
           quality={quality}
           setQuality={setQuality}
           qualityDrawer={qualityDrawer}
@@ -258,14 +236,11 @@ function CourseInfo({
           handleAddToDownloads={handleDownloads}
           setOpenSnackbar={setOpenSnackbar}
           setSnackbarMessage={setSnackbarMessage}
+          downloadsData={downloadsData}
+          course={course}
+          videoInfo={videoInfo}
+          videosToDownload={videosToDownload}
         />
-        {downloadVideos && (
-          <Download
-            videoInfo={videoInfo}
-            quality={quality}
-            videosToDownload={videosToDownload}
-          />
-        )}
       </Box>
     </>
   )

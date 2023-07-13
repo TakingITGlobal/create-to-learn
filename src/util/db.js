@@ -179,6 +179,16 @@ export function useUserProgressByCourse(owner, videoIds) {
   )
 }
 
+export function useVideosByCourseId(courseId) {
+  return useQuery(
+    ['/Videos', courseId],
+    createQuery(() =>
+      query(collection(db, '/Videos'), where('homeSeries', '==', courseId)),
+    ),
+    { enabled: !!courseId },
+  )
+}
+
 export function useVideoProgressByVideoId(owner, videoId) {
   return useQuery(
     ['user-progress', { owner }],
