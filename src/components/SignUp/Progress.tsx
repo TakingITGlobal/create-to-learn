@@ -28,7 +28,7 @@ export const ProgressBar = ({ start, end, slot }: ProgressProps) => {
             position: { md: 'relative' },
           }}
           backButton={
-            <SwiperPrev handleClick={swiper.slidePrev}>
+            <SwiperPrev handleClick={() => swiper.slidePrev()}>
               <ArrowBack />
             </SwiperPrev>
           }
@@ -46,7 +46,7 @@ export const ProgressBar = ({ start, end, slot }: ProgressProps) => {
           <ArrowBack />
         </Link>
       ) : (
-        <SwiperPrev handleClick={swiper.slidePrev}>
+        <SwiperPrev handleClick={() => swiper.slidePrev()}>
           <ArrowBack />
         </SwiperPrev>
       )}
@@ -73,7 +73,7 @@ export const ProgressDots = (props: ProgressProps) => {
             padding: '0 1em 40px 1em',
           }}
           nextButton={
-            <SwiperNext handleClick={swiper.slideNext}>
+            <SwiperNext handleClick={() => swiper.slideNext()}>
               {t('btn.continue')}
             </SwiperNext>
           }
