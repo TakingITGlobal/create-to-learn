@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import Vimeo from '@u-wave/react-vimeo'
 import {
   createVideoProgress,
-  useVideoProgressByVideoId,
   updateVideoProgress,
   getUserProgress,
 } from '../util/db'
@@ -13,19 +12,13 @@ function Video(props) {
   const [loading, setLoading] = useState(true)
   const [startTime, setStartTime] = useState()
   const [progId, setProgId] = useState()
-  const { data, status, error } = useVideoProgressByVideoId(user?.uid, id)
 
   const handleChange = (player) => {
-    // console.log(progId.id)
-    // console.log(player.seconds)
     if (progId) {
-      // console.log('gets here')
-      // console.log(progId || 'not value')
       const complete = parseInt(player.seconds + 30) / parseInt(duration) >= 1
       updateVideoProgress(progId.id, {
         progress: player.seconds,
         complete: complete,
-        //Can remove this once we deploy, just making sure data is backwards compatible
         courseId: courseId,
         videoLink: video,
       })
@@ -44,24 +37,16 @@ function Video(props) {
   }, [progId])
 
   useEffect(() => {
-    if (status === 'success') {
-      if (data?.length > 0) {
-        setProgId(data[0])
-      } else {
-        createVideoProgress({
-          owner: user.uid,
-          videoId: id,
-          progress: 0,
-          videoLink: video,
-          courseId: courseId,
-        }).then((docRef) =>
-          getUserProgress(docRef.id).then((data) => setProgId(data)),
-        )
-      }
-    } else if (user === false) {
-      setLoading(false)
-    }
-  }, [status, data, id, user, video, courseId])
+    createVideoProgress({
+      owner: user.uid,
+      videoId: id,
+      progress: 0,
+      videoLink: video,
+      courseId: courseId,
+    }).then((docRef) =>
+      getUserProgress(docRef.id).then((data) => setProgId(data)),
+    )
+  }, [id, user, video, courseId])
 
   return (
     <>

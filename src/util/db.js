@@ -139,8 +139,9 @@ export function useVideoProgressOnce(id) {
     { enabled: !!id },
   )
 }
-export function getUserProgress(uid) {
-  return getDoc(doc(db, 'user-progress', uid)).then(format)
+export async function getUserProgress(uid) {
+  const response = await getDoc(doc(db, 'user-progress', uid))
+  return format(response)
 }
 
 // Subscribe to all items by owner
@@ -197,7 +198,6 @@ export function useVideoProgressByVideoId(owner, videoId) {
         collection(db, 'user-progress'),
         where('owner', '==', owner),
         where('videoId', '==', videoId),
-        limit(1),
       ),
     ),
     { enabled: !!owner },

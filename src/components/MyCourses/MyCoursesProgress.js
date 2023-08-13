@@ -56,7 +56,7 @@ function MyCoursesProgress({ setSnackbarMessage, setOpenSnackbar }) {
           <Typography>{t('my-courses.in-progress')}</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {notCompletedCourses.map(({ course, inProgressVideos }, i) => {
+          {notCompletedCourses.map(({ course, inProgressVideos }, index) => {
             const totalTimeWatched =
               inProgressVideos.length > 1
                 ? inProgressVideos
@@ -69,15 +69,16 @@ function MyCoursesProgress({ setSnackbarMessage, setOpenSnackbar }) {
               100 * (parseInt(totalTimeWatched) / parseInt(course.totalLength))
             const timeLeft =
               (parseInt(course.totalLength) - parseInt(totalTimeWatched)) / 60
+            const firstInProgressVideo = inProgressVideos[0] ?? null
+            const courseId = course.id
             return (
-              <Box key={i}>
+              <Box key={index}>
                 <Stack
                   direction="row"
                   justifyContent="center"
                   alignItems="center"
                 >
                   <CourseCard
-                    key={i}
                     course={course}
                     progress={{
                       percentProgress: percentProgress ?? 0,
@@ -95,9 +96,10 @@ function MyCoursesProgress({ setSnackbarMessage, setOpenSnackbar }) {
                 {openCourseDrawer === course.id ? (
                   <MyCoursesProgressDrawer
                     course={course}
-                    open={openCourseDrawer === course.id}
+                    courseId={courseId}
+                    open={openCourseDrawer === courseId}
                     setOpenCourseDrawer={setOpenCourseDrawer}
-                    inProgressVideos={inProgressVideos}
+                    inProgressVideo={firstInProgressVideo}
                     completed={false}
                     setSnackbarMessage={setSnackbarMessage}
                     setOpenSnackbar={setOpenSnackbar}

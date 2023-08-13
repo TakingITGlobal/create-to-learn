@@ -23,7 +23,6 @@ export const ProgressBar = ({ start, end, slot }: ProgressProps) => {
           activeStep={active - start}
           position="top"
           sx={{
-            border: '1px solid #ff00a2',
             padding: '1em',
             position: { md: 'relative' },
           }}

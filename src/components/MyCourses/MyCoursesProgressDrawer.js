@@ -29,9 +29,10 @@ import { handleAddToDownloads } from './handleAddToDownloads'
 
 function MyCoursesProgressDrawer({
   course,
+  courseId,
   open,
   setOpenCourseDrawer,
-  inProgressVideos,
+  inProgressVideo,
   setSnackbarMessage,
   setOpenSnackbar,
 }) {
@@ -46,44 +47,30 @@ function MyCoursesProgressDrawer({
 
   const { data: downloadsData } = useDownloadsById(auth.user?.uid, course.id)
 
-  const courseId = course?.id
-
   const { data: courseVideos } = useVideosByCourseId(courseId)
-
-  useEffect(() => {
-    const videoId =
-      inProgressVideos[0]?.videoLink &&
-      inProgressVideos[0]?.videoLink.match(/\d+/g)[0]
-
-    getByIdVimeo(`/videos/${videoId}`).then((data) =>
-      setVideoInfo([data.data.data[0]]),
-    )
-  }, [inProgressVideos])
-
-  useEffect(() => {
-    //Get formatted video ids from videosToDownload
-    if (courseVideos) {
-      const videoIds = courseVideos
-        .map(({ ourVimeoUrl }) => `/videos/${ourVimeoUrl.match(/\d+/g)[0]}`)
-        .join(',')
-      getByIdVimeo(videoIds).then((data) => {
-        setVideosToDownload(data.data.data)
-      })
-    }
-  }, [courseVideos])
 
   const handleAddToWatchlist = () => {
     setOpenSnackbar(true)
     if (!watchlistData?.length && auth.user) {
       createWatchlistCourse({
         owner: auth.user.uid,
-        courseId: course.id,
+        courseId: courseId,
         courseUID: course.uid,
       }).then(() => {
         setSnackbarMessage('Success!  Added to your watchlist')
         setOpenCourseDrawer(false)
       })
     }
+  }
+
+  const handleOpenVideoDrawer = () => {
+    const videoId =
+      inProgressVideo.videoLink && inProgressVideo.videoLink.match(/\d+/g)[0]
+    setOpenVideoDrawer(true)
+
+    getByIdVimeo(`/videos/${videoId}`).then((data) => {
+      setVideoInfo([data.data.data[0]])
+    })
   }
 
   const handleSnackbar = (title) => {
@@ -93,7 +80,9 @@ function MyCoursesProgressDrawer({
 
   const listItemOptions = [
     {
-      onClick: () => setOpenVideoDrawer(inProgressVideos[0].videoId),
+      onClick: () => {
+        handleOpenVideoDrawer()
+      },
       ariaLabel: 'continue-watching-icon',
       text: t('my-courses.continue-watching'),
       href: null,
@@ -123,7 +112,7 @@ function MyCoursesProgressDrawer({
     {
       onClick: () => setOpenCourseDrawer(false),
       ariaLabel: 'continue-watching-icon',
-      text: t('my-courses.continue-watching'),
+      text: t('my-courses.see-details'),
       href: '/course/' + course.uid,
       icon: <InfoIcon />,
     },
@@ -131,49 +120,50 @@ function MyCoursesProgressDrawer({
 
   return (
     <>
-      {!openVideoDrawer && (
-        <Drawer
-          anchor="bottom"
-          open={open}
-          onClose={() => setOpenCourseDrawer(false)}
+      <Drawer
+        anchor="bottom"
+        open={open}
+        onClose={() => setOpenCourseDrawer(false)}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+          }}
         >
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'flex-end',
+          <IconButton
+            aria-label="close"
+            onClick={() => {
+              setOpenCourseDrawer(false)
             }}
           >
-            <IconButton
-              aria-label="close"
-              onClick={() => {
-                setOpenCourseDrawer(false)
-              }}
-            >
-              <CloseIcon sx={{ color: 'white' }} />
-            </IconButton>
-          </Box>
-          <List>
-            {listItemOptions.map(
-              ({ onClick, href, text, ariaLabel, icon }, index) => (
-                <ListItem disablePadding key={index}>
-                  <ListItemButton onClick={onClick} href={href}>
-                    <ListItemIcon aria-label={ariaLabel}>{icon}</ListItemIcon>
-                    <ListItemText primary={text} />
-                  </ListItemButton>
-                </ListItem>
-              ),
-            )}
-          </List>
-        </Drawer>
+            <CloseIcon sx={{ color: 'white' }} />
+          </IconButton>
+        </Box>
+        <List>
+          {listItemOptions.map(
+            ({ onClick, href, text, ariaLabel, icon }, index) => (
+              <ListItem disablePadding key={index}>
+                <ListItemButton onClick={onClick} href={href}>
+                  <ListItemIcon aria-label={ariaLabel}>{icon}</ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            ),
+          )}
+        </List>
+      </Drawer>
+      {openVideoDrawer && (
+        <MyCoursesVideoDrawer
+          courseId={courseId}
+          setOpenVideoDrawer={setOpenVideoDrawer}
+          setOpenCourseDrawer={setOpenCourseDrawer}
+          inProgressVideo={inProgressVideo}
+          openVideoDrawer={openVideoDrawer}
+          videoInfo={videoInfo}
+        />
       )}
-      <MyCoursesVideoDrawer
-        course={course}
-        setOpenVideoDrawer={setOpenVideoDrawer}
-        inProgressVideos={inProgressVideos}
-        openVideoDrawer={openVideoDrawer}
-        videoInfo={videoInfo}
-      />
     </>
   )
 }

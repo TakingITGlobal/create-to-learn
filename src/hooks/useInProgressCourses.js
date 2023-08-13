@@ -1,4 +1,4 @@
-import { useState, useMemo, useContext } from 'react'
+import { useState, useContext, useMemo } from 'react'
 import { useUserProgressByOwner } from '../util/db'
 import { dataContext } from '../util/dataProvider'
 import { useAuth } from './../util/auth'
@@ -13,14 +13,14 @@ export const useInProgressCourses = () => {
   const [inProgressCourses, setInProgressCourses] = useState([])
 
   useMemo(() => {
-    if (progress) {
+    if (progress && !loadingCourses) {
       setInProgressVideoIds(
         progress
           .filter((item) => item.progress !== 0)
           .map((item) => item.videoId),
       )
     }
-  }, [progress])
+  }, [loadingCourses, progress])
 
   useMemo(() => {
     if (inProgressVideoIds.length && !loadingCourses) {
@@ -37,7 +37,7 @@ export const useInProgressCourses = () => {
       })
       setInProgressCourses(inProgressCourses)
     }
-  }, [inProgressVideoIds.length, progress])
+  }, [allCourses, inProgressVideoIds, loadingCourses, progress])
 
   return inProgressCourses
 }

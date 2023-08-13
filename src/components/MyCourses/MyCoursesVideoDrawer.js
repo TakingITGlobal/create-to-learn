@@ -9,19 +9,23 @@ import Video from '../Video'
 import { useAuth } from '../../util/auth'
 
 function MyCoursesVideoDrawer({
-  course,
-  inProgressVideos,
+  inProgressVideo,
   openVideoDrawer,
   setOpenVideoDrawer,
+  setOpenCourseDrawer,
   videoInfo,
+  courseId,
 }) {
   const auth = useAuth()
 
   return (
     <SwipeableDrawer
       anchor="right"
-      open={openVideoDrawer === inProgressVideos[0].videoId}
-      onClose={() => setOpenVideoDrawer(false)}
+      open={openVideoDrawer}
+      onClose={() => {
+        setOpenVideoDrawer(false)
+        setOpenCourseDrawer(false)
+      }}
     >
       <Box
         sx={{
@@ -33,7 +37,10 @@ function MyCoursesVideoDrawer({
       >
         <IconButton
           aria-label="close-icon"
-          onClick={() => setOpenVideoDrawer(false)}
+          onClick={() => {
+            setOpenVideoDrawer(false)
+            setOpenCourseDrawer(false)
+          }}
         >
           <CloseIcon sx={{ color: 'white' }} />
         </IconButton>
@@ -43,11 +50,11 @@ function MyCoursesVideoDrawer({
       </Typography>
       <Box>
         <Video
-          video={inProgressVideos[0].videoLink}
-          id={inProgressVideos[0].videoId}
+          video={inProgressVideo.videoLink}
+          id={inProgressVideo.videoId}
           user={auth.user}
           duration={videoInfo.duration}
-          courseId={course.id}
+          courseId={courseId}
         />
       </Box>
     </SwipeableDrawer>
