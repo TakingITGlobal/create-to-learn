@@ -5,7 +5,14 @@ import Button from '@mui/material/Button'
 import { Link } from '../../util/router'
 import emptyStateImage from '../../assets/images/empty-state.png'
 
-const MyCoursesEmptyState = ({ title, subtitle, buttonText, href }) => {
+interface Props {
+  title: string
+  subtitle: string
+  buttonText: string
+  href: URL
+}
+
+const MyCoursesEmptyState = ({ title, subtitle, buttonText, href }: Props) => {
   return (
     <Box
       mt={5}
