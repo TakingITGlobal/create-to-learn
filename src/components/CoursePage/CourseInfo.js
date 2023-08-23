@@ -113,8 +113,6 @@ function CourseInfo({
             }}
           />
         </Link>
-
-        {/* Regular paragraph */}
         <Typography
           variant="body2"
           color={theme.palette.text.secondary}
@@ -127,9 +125,6 @@ function CourseInfo({
           courseLength={course.totalLength}
           difficultyLevel={course.difficultyLevel}
         />
-
-        {/* Add to Watchlist button */}
-
         <Box>
           <Stack
             direction="row"
@@ -228,7 +223,6 @@ function CourseInfo({
         <CourseQualityDrawer
           setDownloadVideos={setDownloadVideos}
           setOpenDownloadDrawer={setOpenDownloadDrawer}
-          // setVideosToDownload={setVideosToDownload}
           quality={quality}
           setQuality={setQuality}
           qualityDrawer={qualityDrawer}

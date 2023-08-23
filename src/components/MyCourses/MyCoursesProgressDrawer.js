@@ -47,8 +47,6 @@ function MyCoursesProgressDrawer({
 
   const { data: downloadsData } = useDownloadsById(auth.user?.uid, course.id)
 
-  const { data: courseVideos } = useVideosByCourseId(courseId)
-
   const handleAddToWatchlist = () => {
     setOpenSnackbar(true)
     if (!watchlistData?.length && auth.user) {

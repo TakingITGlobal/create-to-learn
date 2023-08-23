@@ -100,7 +100,6 @@ function MyCoursesSection(props) {
               />
             </TabPanel>
           </Box>
-          {/* {downloadVideos && <Download />} */}
           <Snackbar
             open={openSnackbar}
             autoHideDuration={6000}

@@ -36,6 +36,7 @@ function MyCoursesProgress({ setSnackbarMessage, setOpenSnackbar }) {
     ? t('my-courses.find-course')
     : t('my-courses.create-account-sign-in')
 
+  console.log(inProgressCourses)
   const completedCourses = inProgressCourses.filter((course) =>
     course.inProgressVideos.every(({ complete }) => complete),
   )
@@ -45,6 +46,7 @@ function MyCoursesProgress({ setSnackbarMessage, setOpenSnackbar }) {
 
   //To Do: Cleanup code.  Not sure if these should be split up into two components for each accordion or just be left alone.
   //To Do: Consider moving the drawer out of the list and instead just change the courseInfo to be shown
+
   return inProgressCourses.length ? (
     <div>
       <Accordion disableGutters defaultExpanded>

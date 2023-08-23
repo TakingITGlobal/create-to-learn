@@ -59,7 +59,7 @@ function CourseVideoListItem({
   }
   const isDownloaded = (videoURI) => {
     const downloadedVideoIds =
-      downloadsData && downloadsData.length
+      downloadsData && downloadsData.length && downloadsData[0].videos
         ? downloadsData[0].videos.map((video) => video.uri)
         : []
     return downloadedVideoIds.includes(videoURI)
@@ -142,7 +142,7 @@ function CourseVideoListItem({
         alignItems="center"
         sx={{ paddingLeft: '20px', paddingTop: '20px' }}
       >
-        {isDownloaded(video.uri) ? (
+        {isDownloaded(video?.uri) ? (
           <Button
             startIcon={
               <CheckIcon sx={{ backgroundColor: '#58B97D !important' }} />

@@ -6,7 +6,13 @@ import DurationIcon from '../../assets/images/duration.svg'
 import VideoIcon from '../../assets/images/video.svg'
 import { displayMinutes } from '../../util/timeHelpers'
 
-function CourseStats({ numberOfVideos, courseLength, difficultyLevel }) {
+interface Props {
+  numberOfVideos: number
+  courseLength: number
+  difficultyLevel: 'Beginner' | 'Intermediate' | 'Advanced'
+}
+
+function CourseStats({ numberOfVideos, courseLength, difficultyLevel }: Props) {
   const courseStats = [
     {
       title: `${numberOfVideos} Videos`,
