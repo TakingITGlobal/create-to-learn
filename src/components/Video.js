@@ -16,7 +16,7 @@ function Video(props) {
   const handleChange = (player) => {
     if (progId) {
       const complete = parseInt(player.seconds + 30) / parseInt(duration) >= 1
-      console.log(duration)
+
       updateVideoProgress(progId.id, {
         progress: player.seconds,
         complete: complete,

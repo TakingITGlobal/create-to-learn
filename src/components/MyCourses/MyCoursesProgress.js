@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import IconButton from '@mui/material/IconButton'
@@ -36,7 +36,6 @@ function MyCoursesProgress({ setSnackbarMessage, setOpenSnackbar }) {
     ? t('my-courses.find-course')
     : t('my-courses.create-account-sign-in')
 
-  console.log(inProgressCourses)
   const completedCourses = inProgressCourses.filter((course) =>
     course.inProgressVideos.every(({ complete }) => complete),
   )
@@ -73,6 +72,7 @@ function MyCoursesProgress({ setSnackbarMessage, setOpenSnackbar }) {
               (parseInt(course.totalLength) - parseInt(totalTimeWatched)) / 60
             const firstInProgressVideo = inProgressVideos[0] ?? null
             const courseId = course.id
+
             return (
               <Box key={index}>
                 <Stack
@@ -141,18 +141,7 @@ function MyCoursesProgress({ setSnackbarMessage, setOpenSnackbar }) {
                       completed: true,
                     }}
                   />
-                  <IconButton onClick={() => setOpenCourseDrawer(course.id)}>
-                    <MoreVertIcon />
-                  </IconButton>
                 </Stack>
-                {openCourseDrawer === course.id ? (
-                  <MyCoursesProgressDrawer
-                    course={course}
-                    open={openCourseDrawer === course.id}
-                    setOpenCourseDrawer={setOpenCourseDrawer}
-                    inProgressVideos={inProgressVideos}
-                  />
-                ) : null}
               </Box>
             )
           })}

@@ -26,7 +26,7 @@ function MyCoursesDownloads() {
 
   const [openDrawer, setOpenDrawer] = useState(false)
 
-  const { allCourses, loadingCourses } = useContext(dataContext)
+  const { allCourses } = useContext(dataContext)
   const { data: downloadedData } = useUserDownloadsByOwner(auth?.user.uid)
 
   const downloadsCourseIds = downloadedData?.length

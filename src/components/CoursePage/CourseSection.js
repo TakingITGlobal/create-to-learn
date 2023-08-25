@@ -227,7 +227,7 @@ function CourseSection({ data, courseData, courseProgress }) {
       {tabValue === 0 && (
         <CourseCreatingButtons
           courseData={courseData}
-          courseProgress={userProgressByCourse}
+          videoProgress={userProgressByCourse}
           tabValue={tabValue}
           setTabValue={setTabValue}
         />

@@ -9,7 +9,7 @@ interface Props {
   title: string
   subtitle: string
   buttonText: string
-  href: URL
+  href: string
 }
 
 const MyCoursesEmptyState = ({ title, subtitle, buttonText, href }: Props) => {

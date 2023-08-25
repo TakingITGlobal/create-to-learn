@@ -5,29 +5,30 @@ import { useTranslation } from 'react-i18next'
 import LinearProgress from '@mui/material/LinearProgress'
 import { displayTime } from '../../util/timeHelpers'
 import CheckSimpleIcon from '@mui/icons-material/Check'
-import { CourseData, CourseProgress } from 'types/CoursePage'
+import { CourseData } from 'types/Course'
+import { VideoProgress } from 'types/Video'
 
 interface Props {
   courseData: CourseData | undefined
-  courseProgress: CourseProgress[]
+  videoProgress: VideoProgress[]
   setTabValue: Dispatch<SetStateAction<number>>
 }
 
 function CourseCreatingButtons({
   courseData,
-  courseProgress = [],
+  videoProgress = [],
   setTabValue,
 }: Props) {
   const { t } = useTranslation()
 
-  const inProgressVideos = courseProgress
-    ? courseProgress.filter((video: CourseProgress) => video?.progress > 0)
+  const inProgressVideos = videoProgress
+    ? videoProgress.filter((video: VideoProgress) => video?.progress > 0)
     : []
 
   const totalTimeWatched =
     inProgressVideos.length > 1
       ? inProgressVideos
-          .map(({ progress }: CourseProgress) => progress)
+          .map(({ progress }: VideoProgress) => progress)
           .reduce((acc: number, curr: number) => acc + curr)
       : inProgressVideos.length === 1
       ? inProgressVideos[0].progress

@@ -21,26 +21,10 @@ export type CourseData = {
   webUrl: string
 }
 
-export type CourseProgress = {
-  complete: Boolean
-  courseId: number
-  createdAt: CreatedAt
-  id: string
-  owner: string
-  progress: number
-  videoId: string
-  videoLink: string
-}
-
 type Thumbnail = {
   downloadURL: string
   lastModifiedTS: number
   name: string
   ref: string
   type: string
-}
-
-type CreatedAt = {
-  nanoseconds: number
-  seconds: number
 }
