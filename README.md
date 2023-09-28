@@ -20,7 +20,7 @@ npm install
 
 ### 3. Add environment config
 
-Update your `.env` file with values for each environment variable. This file should be provided to you securely.
+Update your `.env` file with values for each environment variable. This file should be provided to you securely through Bitwarden.
 
 ```
 API_KEY=AIzaSyBkkFF0XhNZeWuDmOfEhsgdfX1VBG7WTas
