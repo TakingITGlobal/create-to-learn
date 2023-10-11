@@ -62,11 +62,15 @@ function Navbar(props) {
             <Button component={Link} to="/my-courses">
               My Courses
             </Button>
-            {auth.user ? <>
-              <Button component={Link} to="/settings/profile">
-                My Profile 
-              </Button>
-            </> : <></>}
+            {auth.user ? (
+              <>
+                <Button component={Link} to="/settings/profile">
+                  My Profile
+                </Button>
+              </>
+            ) : (
+              <></>
+            )}
             <div className={classes.spacer} />
             <Hidden smUp={true} implementation="css">
               <IconButton
@@ -84,7 +88,6 @@ function Navbar(props) {
                   Sign in
                 </Button>
               )}
-
             </Hidden>
           </Toolbar>
         </Container>
