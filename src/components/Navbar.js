@@ -6,12 +6,6 @@ import Hidden from '@material-ui/core/Hidden'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import Button from '@material-ui/core/Button'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
-// import Divider from '@material-ui/core/Divider'
-// import NightsStayIcon from '@material-ui/icons/NightsStay'
-// import WbSunnyIcon from '@material-ui/icons/WbSunny'
 import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
@@ -20,7 +14,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import Section from './Section'
 import { Link } from './../util/router'
 import { useAuth } from './../util/auth'
-// import { useDarkMode } from './../util/theme'
 
 const useStyles = makeStyles((theme) => ({
   logo: {
@@ -49,24 +42,7 @@ function Navbar(props) {
   const classes = useStyles()
 
   const auth = useAuth()
-  // const darkMode = useDarkMode()
   const [drawerOpen, setDrawerOpen] = useState(false)
-  const [menuState, setMenuState] = useState(null)
-
-  // Use inverted logo if specified
-  // and we are in dark mode
-  // const logo =
-  //   props.logoInverted && darkMode.value ? props.logoInverted : props.logo
-
-  const handleOpenMenu = (event, id) => {
-    // Store clicked element (to anchor the menu to)
-    // and the menu id so we can tell which menu is open.
-    setMenuState({ anchor: event.currentTarget, id })
-  }
-
-  const handleCloseMenu = () => {
-    setMenuState(null)
-  }
 
   return (
     <Section bgColor={props.color} size="auto">
@@ -86,6 +62,11 @@ function Navbar(props) {
             <Button component={Link} to="/my-courses">
               My Courses
             </Button>
+            {auth.user ? <>
+              <Button component={Link} to="/settings/profile">
+                My Profile 
+              </Button>
+            </> : <></>}
             <div className={classes.spacer} />
             <Hidden smUp={true} implementation="css">
               <IconButton
@@ -104,60 +85,6 @@ function Navbar(props) {
                 </Button>
               )}
 
-              {auth.user && (
-                <>
-                  <Button
-                    color="inherit"
-                    aria-label="Account"
-                    aria-controls="account-menu"
-                    aria-haspopup="true"
-                    onClick={(event) => {
-                      handleOpenMenu(event, 'account-menu')
-                    }}
-                  >
-                    Account
-                    <ExpandMoreIcon className={classes.buttonIcon} />
-                  </Button>
-                  <Menu
-                    id="account-menu"
-                    open={
-                      menuState && menuState.id === 'account-menu'
-                        ? true
-                        : false
-                    }
-                    anchorEl={menuState && menuState.anchor}
-                    getContentAnchorEl={undefined}
-                    onClick={handleCloseMenu}
-                    onClose={handleCloseMenu}
-                    keepMounted={true}
-                    anchorOrigin={{
-                      vertical: 'bottom',
-                      horizontal: 'center',
-                    }}
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'center',
-                    }}
-                  >
-                    <MenuItem component={Link} to="/dashboard">
-                      Dashboard
-                    </MenuItem>
-                    <MenuItem component={Link} to="/settings/profile">
-                      Settings
-                    </MenuItem>
-                  </Menu>
-                </>
-              )}
-
-              {/* <IconButton
-                color="inherit"
-                onClick={darkMode.toggle}
-                style={{ opacity: 0.6 }}
-              >
-                {darkMode.value && <NightsStayIcon />}
-
-                {!darkMode.value && <WbSunnyIcon />}
-              </IconButton> */}
             </Hidden>
           </Toolbar>
         </Container>
@@ -187,18 +114,6 @@ function Navbar(props) {
               </ListItem>
             </>
           )}
-
-          {/* <ListItem>
-            <IconButton
-              color="inherit"
-              onClick={darkMode.toggle}
-              style={{ opacity: 0.6 }}
-            >
-              {darkMode.value && <NightsStayIcon />}
-
-              {!darkMode.value && <WbSunnyIcon />}
-            </IconButton>
-          </ListItem> */}
         </List>
       </Drawer>
     </Section>
