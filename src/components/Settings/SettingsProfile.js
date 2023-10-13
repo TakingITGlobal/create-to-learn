@@ -59,12 +59,16 @@ function SettingsProfile() {
         {user ? displayName : t('settings.profile')}
       </Typography>
       <Box
-        sx={{ display: 'flex', justifyContent: {xs: 'center' , md: 'flex-start'}, padding: '10px 0' }}
+        sx={{
+          display: 'flex',
+          justifyContent: { xs: 'center', md: 'flex-start' },
+          padding: '10px 0',
+        }}
       >
         {user ? <Stats /> : <SignUp />}
       </Box>
       <List
-        sx={{ width: '100%'}}
+        sx={{ width: '100%' }}
         component="nav"
         aria-labelledby="settings-profile"
       >
