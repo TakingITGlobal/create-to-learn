@@ -76,8 +76,12 @@ function Navbar(props) {
                   My Courses
                 </Button>
 
-                <Button component={Link} to="/settings/my-profile">
+                <Button component={Link} to="/settings/profile">
                   My Profile
+                </Button>
+
+                <Button component={Link} to="/settings/">
+                  Settings
                 </Button>
               </>
             ) : (
