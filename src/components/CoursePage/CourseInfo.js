@@ -234,6 +234,7 @@ function CourseInfo({
           course={course}
           videoInfo={videoInfo}
           videosToDownload={videosToDownload}
+          setVideosToDownload={setVideosToDownload}
         />
       </Box>
     </>
