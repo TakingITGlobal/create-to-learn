@@ -28,7 +28,7 @@ function SettingsProfile() {
   const settingsLinks = [
     {
       title: 'My Account',
-      link: '/settings/my-account',
+      link: '/settings/',
       icon: <AccountCircleIcon />,
     },
     // { title: 'Notifications', link: '/settings/notifications', icon:  },
