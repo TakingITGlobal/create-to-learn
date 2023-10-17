@@ -180,6 +180,7 @@ function CourseInfo({
           </List>
 
           {/* What You'll Learn List */}
+          {/* NOTE: no data to display this yet
           <Typography variant="bold" sx={{ marginTop: 2 }}>
             {t('course.what-you-learn')}
           </Typography>
@@ -193,6 +194,7 @@ function CourseInfo({
               <ListItemText disableTypography primary="Item 2" />
             </ListItem>
           </List>
+          */}
 
           {/* What You'll Need List*/}
           {course.materials && (
