@@ -32,11 +32,13 @@ function SettingsProfile() {
       icon: <AccountCircleIcon />,
     },
     // { title: 'Notifications', link: '/settings/notifications', icon:  },
+    /*
     {
       title: 'Data Usage',
       link: '/settings/data-usage',
       icon: <DataUsageIcon />,
     },
+    */
     {
       title: 'Help and Support',
       link: '/settings/help-and-support',
