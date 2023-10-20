@@ -71,7 +71,8 @@ function SettingsInterests({ showComponent, setShowComponent }) {
         >
           <Button
             fullWidth
-            color="info"
+            color="primary"
+            variant="contained"
             sx={{ borderRadius: '25px' }}
             onClick={() => {
               updateUser(auth.user.uid, { interests: interests })

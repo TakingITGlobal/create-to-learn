@@ -46,7 +46,8 @@ function SettingsDisplayName({ showComponent, setShowComponent }) {
         >
           <Button
             fullWidth
-            color="info"
+            color="primary"
+            variant="contained"
             onClick={() => {
               updateUser(auth.user.uid, { displayName: name })
               setShowComponent('nav')
