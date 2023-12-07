@@ -7,9 +7,6 @@ import Hidden from '@mui/material/Hidden'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import Button from '@mui/material/Button'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
 import Drawer from '@mui/material/Drawer'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
@@ -18,7 +15,7 @@ import Section from './Section'
 import { Link } from './../util/router'
 import { useAuth } from './../util/auth'
 
-const styles = theme => ({
+const styles = (theme) => ({
   logo: {
     height: 28,
     marginRight: theme.spacing(2),
@@ -41,31 +38,13 @@ const styles = theme => ({
 
   toolbar: {
     zIndex: 100,
-  }
-});
+  },
+})
 
 function Navbar(props) {
-
   const classes = useClasses(styles)
   const auth = useAuth()
-  // const darkMode = useDarkMode()
   const [drawerOpen, setDrawerOpen] = useState(false)
-  const [menuState, setMenuState] = useState(null)
-
-  // Use inverted logo if specified
-  // and we are in dark mode
-  // const logo =
-  //   props.logoInverted && darkMode.value ? props.logoInverted : props.logo
-
-  const handleOpenMenu = (event, id) => {
-    // Store clicked element (to anchor the menu to)
-    // and the menu id so we can tell which menu is open.
-    setMenuState({ anchor: event.currentTarget, id })
-  }
-
-  const handleCloseMenu = () => {
-    setMenuState(null)
-  }
 
   return (
     <Section bgColor={props.color} size="auto">
@@ -76,79 +55,57 @@ function Navbar(props) {
               {/* <img src={logo} alt="Logo" className={classes.logo} /> */}
               <span className={classes.logo}>CREATE TO LEARN</span>
             </Link>
-            <Button component={Link} to="/dashboard">
-              Dashboard
-            </Button>
+
+            {auth.user ? (
+              <>
+                <Button component={Link} to="/dashboard">
+                  Dashboard
+                </Button>
+              </>
+            ) : (
+              <></>
+            )}
+
             <Button component={Link} to="/browse">
               Browse
             </Button>
-            <Button component={Link} to="/my-courses">
-              My Courses
-            </Button>
-            <Button component={Link} to="/settings/my-profile">
-              My Profile
-            </Button>
+
+            {auth.user ? (
+              <>
+                <Button component={Link} to="/my-courses">
+                  My Courses
+                </Button>
+
+                <Button component={Link} to="/settings/profile">
+                  My Profile
+                </Button>
+
+                <Button component={Link} to="/settings/">
+                  Settings
+                </Button>
+              </>
+            ) : (
+              <></>
+            )}
+
             <div className={classes.spacer} />
+
             <Hidden smUp={true} implementation="css">
               <IconButton
                 onClick={() => {
                   setDrawerOpen(true)
                 }}
                 color="inherit"
-                size="large">
+                size="large"
+              >
                 <MenuIcon />
               </IconButton>
             </Hidden>
             <Hidden smDown={true} implementation="css">
               {!auth.user && (
-                <Button variant="contained" component={Link} to="/">
+                <Button variant="contained" component={Link} to="/auth/signin">
                   Sign in
                 </Button>
-              )}
-
-              {auth.user && (
-                <>
-                  <Button
-                    color="inherit"
-                    aria-label="Account"
-                    aria-controls="account-menu"
-                    aria-haspopup="true"
-                    onClick={(event) => {
-                      handleOpenMenu(event, 'account-menu')
-                    }}
-                  >
-                    Account
-                    <ExpandMoreIcon className={classes.buttonIcon} />
-                  </Button>
-                  <Menu
-                    id="account-menu"
-                    open={
-                      menuState && menuState.id === 'account-menu'
-                        ? true
-                        : false
-                    }
-                    anchorEl={menuState && menuState.anchor}
-                    getContentAnchorEl={undefined}
-                    onClick={handleCloseMenu}
-                    onClose={handleCloseMenu}
-                    keepMounted={true}
-                    anchorOrigin={{
-                      vertical: 'bottom',
-                      horizontal: 'center',
-                    }}
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'center',
-                    }}
-                  >
-                    <MenuItem component={Link} to="/dashboard">
-                      Dashboard
-                    </MenuItem>
-                    <MenuItem component={Link} to="/settings/profile">
-                      Profile
-                    </MenuItem>
-                  </Menu>
-                </>
               )}
             </Hidden>
           </Toolbar>
@@ -182,7 +139,7 @@ function Navbar(props) {
         </List>
       </Drawer>
     </Section>
-  );
+  )
 }
 
 export default Navbar

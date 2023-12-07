@@ -51,7 +51,12 @@ function CourseStats({ numberOfVideos, courseLength, difficultyLevel }: Props) {
               >
                 <img src={img} alt={alt} style={{ paddingBottom: '10px' }} />
               </SvgIcon>
-              <Typography sx={{ width: '75px', overflowWrap: 'break-word' }}>
+              <Typography
+                sx={{
+                  width: ['75px', 'max-content'],
+                  overflowWrap: 'break-word',
+                }}
+              >
                 {title}
               </Typography>
             </Box>

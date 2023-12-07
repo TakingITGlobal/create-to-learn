@@ -9,7 +9,7 @@ import InstagramIcon from '@mui/icons-material/Instagram'
 import Section from './Section'
 import { Link } from './../util/router'
 
-const styles = theme => ({
+const styles = (theme) => ({
   sticky: {
     marginTop: 'auto',
   },
@@ -86,8 +86,8 @@ const styles = theme => ({
       color: 'inherit',
       marginLeft: '0.8rem',
     },
-  }
-});
+  },
+})
 
 function Footer(props) {
   // const darkMode = useDarkMode()
@@ -161,19 +161,10 @@ function Footer(props) {
               <InstagramIcon fontSize="large" />
             </a>
           </div>
-          <span className={`${classes.item} ${classes.legal} ${classes.left}`}>
-            {props.copyright}
-            <LinkMui component={Link} to="/legal/terms-of-service">
-              Terms
-            </LinkMui>
-            <LinkMui component={Link} to="/legal/privacy-policy">
-              Privacy
-            </LinkMui>
-          </span>
         </div>
       </Container>
     </Section>
-  );
+  )
 }
 
 export default Footer

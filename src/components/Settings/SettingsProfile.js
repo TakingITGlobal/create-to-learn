@@ -28,15 +28,17 @@ function SettingsProfile() {
   const settingsLinks = [
     {
       title: 'My Account',
-      link: '/settings/my-account',
+      link: '/settings/',
       icon: <AccountCircleIcon />,
     },
     // { title: 'Notifications', link: '/settings/notifications', icon:  },
+    /*
     {
       title: 'Data Usage',
       link: '/settings/data-usage',
       icon: <DataUsageIcon />,
     },
+    */
     {
       title: 'Help and Support',
       link: '/settings/help-and-support',
@@ -59,12 +61,16 @@ function SettingsProfile() {
         {user ? displayName : t('settings.profile')}
       </Typography>
       <Box
-        sx={{ display: 'flex', justifyContent: {xs: 'center' , md: 'flex-start'}, padding: '10px 0' }}
+        sx={{
+          display: 'flex',
+          justifyContent: { xs: 'center', md: 'flex-start' },
+          padding: '10px 0',
+        }}
       >
         {user ? <Stats /> : <SignUp />}
       </Box>
       <List
-        sx={{ width: '100%'}}
+        sx={{ width: '100%' }}
         component="nav"
         aria-labelledby="settings-profile"
       >

@@ -9,6 +9,7 @@ import ListItemText from '@mui/material/ListItemText'
 import ListItemButton from '@mui/material/ListItemButton'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import IconButton from '@mui/material/IconButton'
+import ArrowForward from '@mui/icons-material/ArrowForward'
 import { languages as languageOptions } from '../../assets/options/filters'
 
 import { updateUser } from '../../util/db'
@@ -118,13 +119,15 @@ function SettingsLanguage({ showComponent, setShowComponent }) {
         >
           <Button
             fullWidth
-            color="info"
+            color="primary"
+            variant="contained"
             onClick={() => {
               updateUser(auth.user.uid, { language: languages })
               setShowComponent('nav')
             }}
           >
-            {t('settings.update')}
+            {t('settings.update')}&nbsp;
+            <ArrowForward />
           </Button>
         </Box>
       </Box>

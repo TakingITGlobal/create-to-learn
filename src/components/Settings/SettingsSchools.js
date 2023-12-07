@@ -111,7 +111,8 @@ function SettingsSchools({ showComponent, setShowComponent }) {
         >
           <Button
             fullWidth
-            color="info"
+            color="primary"
+            variant="contained"
             onClick={() => {
               updateUser(auth.user.uid, { school: school })
               setShowComponent('nav')
