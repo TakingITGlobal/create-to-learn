@@ -6,7 +6,6 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemButton from '@mui/material/ListItemButton'
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import DataUsageIcon from '@mui/icons-material/DataUsage'
@@ -20,6 +19,7 @@ import Stats from './SettingsStats'
 import { useAuth } from '../../util/auth'
 import { Link } from '../../util/router'
 import { useTranslation } from 'react-i18next'
+import { PageHeading } from 'components/PageHeading'
 
 function SettingsProfile() {
   const auth = useAuth()
@@ -57,9 +57,7 @@ function SettingsProfile() {
 
   return (
     <Container>
-      <Typography variant="h5" sx={{ fontWeight: '700' }}>
-        {user ? displayName : t('settings.profile')}
-      </Typography>
+      <PageHeading headingText={user ? displayName : t('settings.profile')} />
       <Box
         sx={{
           display: 'flex',
