@@ -1,5 +1,11 @@
 import React from 'react'
-import { Box, Button, List, ListItem } from '@mui/material'
+import {
+  Button,
+  FormControl,
+  FormLabel,
+  FormControlLabel,
+  RadioGroup,
+} from '@mui/material'
 import Drawer from '@mui/material/Drawer'
 import Radio from '@material-ui/core/Radio'
 
@@ -33,48 +39,61 @@ function QualityDrawer({
         handleCloseDrawer()
       }}
     >
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingRight: '25px',
-          marginTop: '10px',
-        }}
-      >
-        <Button
-          startIcon={<ChevronLeft sx={{ color: 'white' }} />}
-          onClick={() => {
-            handleCloseDrawer()
+      <FormControl>
+        <FormLabel
+          id="video-quality"
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            paddingRight: '25px',
+            marginTop: '10px',
           }}
         >
-          {t('course.quality')}
-        </Button>
-        <Close sx={{ color: 'white' }} />
-      </Box>
-      <List>
-        {qualityOptions.map((option, index) => (
-          <ListItem
-            key={index}
-            secondaryAction={
-              <Radio
-                checked={quality === option}
-                onChange={() => {
-                  setQuality(option)
-                }}
-                color="secondary"
-                name={`quality-${option}`}
-                inputProps={{
-                  'aria-label': `quality-${option}`,
-                }}
-                style={{ color: 'white' }}
-              />
-            }
+          <Button
+            startIcon={<ChevronLeft sx={{ color: 'white' }} />}
+            onClick={() => {
+              handleCloseDrawer()
+            }}
           >
-            {option}
-          </ListItem>
-        ))}
-      </List>
+            {t('course.quality')}
+          </Button>
+          <Close sx={{ color: 'white', '&:hover': { cursor: 'pointer' } }} />
+        </FormLabel>
+        <RadioGroup
+          aria-labelledby="video-quality"
+          defaultValue="1080p"
+          name="video-quality-group"
+          sx={{ paddingRight: '35px', marginY: '10px' }}
+        >
+          {qualityOptions.map((opt, i) => (
+            <FormControlLabel
+              key={i}
+              value={opt}
+              checked={quality === opt}
+              onChange={() => setQuality(() => opt)}
+              labelPlacement="start"
+              control={
+                <Radio
+                  color="secondary"
+                  name={`quality-${opt}`}
+                  inputProps={{
+                    'aria-label': `quality-${opt}`,
+                  }}
+                  style={{ color: 'white' }}
+                />
+              }
+              label={opt}
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' },
+              }}
+            />
+          ))}
+        </RadioGroup>
+      </FormControl>
+
       <Button
         fullWidth
         variant="contained"
@@ -88,6 +107,7 @@ function QualityDrawer({
         onClick={() => {
           setDownloadVideos(true)
           handleAddToDownloads()
+          setOpenDownloadDrawer(() => false)
         }}
       >
         {t('course.download')}

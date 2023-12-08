@@ -48,7 +48,7 @@ export default function MyAccountNav({
     showComponent === 'nav' && (
       <>
         <List
-          sx={{ width: '100%'}}
+          sx={{ width: '100%' }}
           component="nav"
           aria-labelledby="settings-my-account"
         >
@@ -59,6 +59,7 @@ export default function MyAccountNav({
               }}
               key={accLink.title}
               secondaryAction={<ChevronRightIcon />}
+              sx={{ borderBottom: '1px solid #000000' }}
             >
               <ListItemButton>
                 <Grid container>

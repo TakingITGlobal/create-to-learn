@@ -23,7 +23,7 @@ const Stats = () => {
     userProgress &&
     userProgress
       .map(({ progress }) => progress)
-      .reduce((acc, curr) => parseInt(acc) + parseInt(curr / 60))
+      .reduce((acc, curr) => parseInt(acc) + parseInt(curr / 60), 0)
 
   const coursesTaken = userProgress
     ? [
@@ -36,7 +36,7 @@ const Stats = () => {
     : []
 
   return (
-    <Box sx={{ padding: '40px 10px 10px 10px' }}>
+    <Box sx={{ padding: '10px' }}>
       <Grid container spacing={1} sx={{ width: '100%' }}>
         <Grid item xs={4}>
           <Box

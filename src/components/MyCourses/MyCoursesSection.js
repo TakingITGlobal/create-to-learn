@@ -13,6 +13,7 @@ import MyCoursesDownloads from './MyCoursesDownloads'
 import MyCoursesWatchlistDrawer from './MyCoursesWatchlistDrawer'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../../util/auth'
+import { PageHeading } from 'components/PageHeading'
 
 function MyCoursesSection(props) {
   const { t } = useTranslation()
@@ -50,73 +51,69 @@ function MyCoursesSection(props) {
       bgImage={props.bgImage}
       bgImageOpacity={props.bgImageOpacity}
     >
-      <Box mt={2}>
-        <Container>
-          <Box sx={{ paddingBottom: '7px' }}>
-            <Typography variant="h4">{t('my-courses.my-courses')}</Typography>
-          </Box>
-          <Box>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <Tabs
-                value={tabIndex}
-                textColor="secondary"
-                indicatorColor="primary"
-                onChange={handleChangeTab}
-                aria-label="my courses tabs"
-                variant="fullWidth"
-              >
-                <Tab
-                  label={t('my-courses.my-progress')}
-                  {...a11yProps(0)}
-                  sx={{ color: 'white', padding: 0 }}
-                />
-                <Tab
-                  label={t('my-courses.downloads')}
-                  {...a11yProps(1)}
-                  sx={{ color: 'white' }}
-                />
-
-                <Tab
-                  label={t('my-courses.watchlist')}
-                  {...a11yProps(2)}
-                  sx={{ color: 'white' }}
-                />
-              </Tabs>
-            </Box>
-            <TabPanel tabIndex={tabIndex} index={0}>
-              <MyCoursesProgress
-                setSnackbarMessage={setSnackbarMessage}
-                setOpenSnackbar={setOpenSnackbar}
-              />
-            </TabPanel>
-            <TabPanel tabIndex={tabIndex} index={1}>
-              <MyCoursesDownloads />
-            </TabPanel>
-            <TabPanel tabIndex={tabIndex} index={2}>
-              <MyCoursesWatchlistDrawer
-                setSnackbarMessage={setSnackbarMessage}
-                setOpenSnackbar={setOpenSnackbar}
-                handleDownload={handleDownload}
-              />
-            </TabPanel>
-          </Box>
-          <Snackbar
-            open={openSnackbar}
-            autoHideDuration={6000}
-            onClose={() => setOpenSnackbar(false)}
-          >
-            <MuiAlert
-              elevation={6}
-              variant="filled"
-              onClose={() => setOpenSnackbar(false)}
-              severity={auth?.user ? 'success' : 'warning'}
-              sx={{ width: '100%' }}
+      <Container>
+        <PageHeading headingText={t('my-courses.my-courses')} />
+        <Box>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs
+              value={tabIndex}
+              textColor="secondary"
+              indicatorColor="primary"
+              onChange={handleChangeTab}
+              aria-label="my courses tabs"
+              variant="fullWidth"
             >
-              {snackbarMessage}
-            </MuiAlert>
-          </Snackbar>
-        </Container>
-      </Box>
+              <Tab
+                label={t('my-courses.my-progress')}
+                {...a11yProps(0)}
+                sx={{ color: 'white', padding: 0 }}
+              />
+              <Tab
+                label={t('my-courses.downloads')}
+                {...a11yProps(1)}
+                sx={{ color: 'white' }}
+              />
+
+              <Tab
+                label={t('my-courses.watchlist')}
+                {...a11yProps(2)}
+                sx={{ color: 'white' }}
+              />
+            </Tabs>
+          </Box>
+          <TabPanel tabIndex={tabIndex} index={0}>
+            <MyCoursesProgress
+              setSnackbarMessage={setSnackbarMessage}
+              setOpenSnackbar={setOpenSnackbar}
+            />
+          </TabPanel>
+          <TabPanel tabIndex={tabIndex} index={1}>
+            <MyCoursesDownloads />
+          </TabPanel>
+          <TabPanel tabIndex={tabIndex} index={2}>
+            <MyCoursesWatchlistDrawer
+              setSnackbarMessage={setSnackbarMessage}
+              setOpenSnackbar={setOpenSnackbar}
+              handleDownload={handleDownload}
+            />
+          </TabPanel>
+        </Box>
+        <Snackbar
+          open={openSnackbar}
+          autoHideDuration={6000}
+          onClose={() => setOpenSnackbar(false)}
+        >
+          <MuiAlert
+            elevation={6}
+            variant="filled"
+            onClose={() => setOpenSnackbar(false)}
+            severity={auth?.user ? 'success' : 'warning'}
+            sx={{ width: '100%' }}
+          >
+            {snackbarMessage}
+          </MuiAlert>
+        </Snackbar>
+      </Container>
     </Section>
   )
 }

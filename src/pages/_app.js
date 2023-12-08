@@ -30,6 +30,7 @@ import Hidden from '@mui/material/Hidden'
 import SignUpPage from './signUp'
 import CoursePage from './course'
 import CreatorPage from './creator'
+import SettingsMyAccount from 'components/Settings/SettingsMyAccount'
 
 const LocationProvider = ({ children }) => {
   const { pathname } = useLocation()
@@ -99,6 +100,12 @@ function App(props) {
                       exact
                       path="/creator/:creatorId"
                       component={CreatorPage}
+                    />
+
+                    <Route
+                      exact
+                      path="/settings/"
+                      component={SettingsMyAccount}
                     />
 
                     <Route

@@ -6,6 +6,7 @@ import SectionHeader from '../SectionHeader'
 import { Grid, Button, Paper, Stack, Theme, useTheme } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useAuth } from 'util/auth'
 
 const styles = (theme: Theme) => ({
   container: {
@@ -33,6 +34,7 @@ function WelcomeSection(props: Props) {
   const { t } = useTranslation()
   const theme = useTheme()
   const { text, background } = theme.palette
+  const auth = useAuth();
   return (
     <Section>
       <Container maxWidth="md">
@@ -46,24 +48,26 @@ function WelcomeSection(props: Props) {
           </Paper>
 
           <Stack direction="column" width="100%" spacing={2}>
-            <Button variant="contained" component={Link} to="./sign-up">
+            <Button variant="contained" component={Link} to={auth.user ? "/dashboard" : "./sign-up"}>
               {t('get-started')}
             </Button>
 
-            <Button
-              component={Link}
-              to="/auth/signin"
-              sx={{
-                backgroundColor: text.primary,
-                borderRadius: 10,
-                color: background.default,
-                ':hover': {
-                  color: text.secondary,
-                },
-              }}
-            >
-              {t('sign-in')}
-            </Button>
+            {!auth.user ? <>
+              <Button
+                component={Link}
+                to="/auth/signin"
+                sx={{
+                  backgroundColor: text.primary,
+                  borderRadius: 10,
+                  color: background.default,
+                  ':hover': {
+                    color: text.secondary,
+                  },
+                }}
+              >
+                {t('sign-in')}
+              </Button>
+            </> : <></>}
 
             <Button
               variant="text"

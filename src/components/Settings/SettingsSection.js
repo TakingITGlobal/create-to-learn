@@ -5,7 +5,6 @@ import Alert from '@mui/material/Alert'
 import Section from '../Section'
 import ReauthModal from '../ReauthModal'
 import SettingsProfile from './SettingsProfile'
-import SettingsMyAccount from './SettingsMyAccount'
 import SettingsPassword from './SettingsPassword'
 import SettingsNotifications from './SettingsNotifications'
 import SettingsDataUsage from './SettingsDataUsage'
@@ -24,17 +23,18 @@ function SettingsSection(props) {
     show: false,
   })
 
-  const validSections = {
-    profile: true,
-    'my-account': true,
-    password: true,
-    notifications: true,
-    'data-usage': true,
-    'help-and-support': true,
-    'legal-and-about': true,
+  const { section } = props
+  const allowedSections = [
+    'profile',
+    'password',
+    'notifications',
+    'data-usage',
+    'help-and-support',
+    'legal-and-about',
+  ]
+  if (!allowedSections.includes(section)) {
+    throw new Error('invalid sections')
   }
-
-  const section = validSections[props.section] ? props.section : 'my-account'
 
   // Handle status of type "success", "error", or "requires-recent-login"
   // We don't treat "requires-recent-login" as an error as we handle it
@@ -72,9 +72,8 @@ function SettingsSection(props) {
           onDone={() => setReauthState({ show: false })}
         />
       )}
-
-      <Box mt={5} sx={{ paddingBottom: 15 }}>
-        <Container maxWidth="850px" sx={{padding: '0'}}>
+      <Box sx={{ paddingBottom: 15 }}>
+        <Container maxWidth="850px" sx={{ padding: '0' }}>
           {formAlert && (
             <Box mb={4}>
               <Alert severity={formAlert.type}>{formAlert.message}</Alert>
@@ -82,9 +81,6 @@ function SettingsSection(props) {
           )}
 
           {section === 'profile' && <SettingsProfile onStatus={handleStatus} />}
-          {section === 'my-account' && (
-            <SettingsMyAccount onStatus={handleStatus} />
-          )}
 
           {section === 'password' && (
             <SettingsPassword onStatus={handleStatus} />

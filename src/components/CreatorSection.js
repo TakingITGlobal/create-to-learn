@@ -10,6 +10,7 @@ import InstagramIcon from '@mui/icons-material/Instagram'
 import Section from './Section'
 import CourseCard from './CourseCard'
 import ShareDrawer from './ShareDrawer'
+import { PageHeading } from './PageHeading'
 
 function CreatorSection({ coursesByCreator, creator }) {
   const [openShareDrawer, setOpenShareDrawer] = useState(false)
@@ -19,7 +20,7 @@ function CreatorSection({ coursesByCreator, creator }) {
       <Container>
         <Box sx={{display: {md: 'flex'}, gap: {md: '20px'}, paddingBottom: {md: '40px'}}}>
           <Box
-            alt={`creator-${creator.name}`}
+            alt={creator.name}
             component="img"
             width="100%"
             height={{
@@ -34,9 +35,7 @@ function CreatorSection({ coursesByCreator, creator }) {
             }
           />
           <Box>
-            <Typography variant="h5" sx={{ fontWeight: '700' }}>
-              {creator.name}
-            </Typography>
+            <PageHeading headingText={creator.name} m="0.25rem 0" />
             <Box
               sx={{
                 display: 'flex',

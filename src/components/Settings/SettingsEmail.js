@@ -40,7 +40,8 @@ function SettingsEmail({ auth, showComponent, setShowComponent }) {
         >
           <Button
             fullWidth
-            color="info"
+            color="primary"
+            variant="contained"
             sx={{ borderRadius: '25px' }}
             onChange={() => auth.updateProfile({ email: email })}
           >

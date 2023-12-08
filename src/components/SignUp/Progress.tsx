@@ -1,5 +1,5 @@
 import React from 'react'
-import { MobileStepper, Container, Link } from '@mui/material'
+import { MobileStepper, Container, Link, Typography } from '@mui/material'
 import ArrowBack from '@mui/icons-material/ArrowBack'
 import { SwiperNext, SwiperPrev } from './Swipers'
 import { useSwipe } from './Swipers'
@@ -39,10 +39,12 @@ export const ProgressBar = ({ start, end, slot }: ProgressProps) => {
           variant="subtitle1"
           underline="hover"
           p="0.75rem 1.5rem 0.75em 0"
-          display="block"
+          display="flex"
         >
-          Back to Dashboard
           <ArrowBack />
+          <Typography component="span" ml="0.5em">
+            Back to Dashboard
+          </Typography>
         </Link>
       ) : (
         <SwiperPrev handleClick={() => swiper.slidePrev()}>
