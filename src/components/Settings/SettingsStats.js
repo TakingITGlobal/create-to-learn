@@ -36,7 +36,7 @@ const Stats = () => {
     : []
 
   return (
-    <Box sx={{ padding: '40px 10px 10px 10px' }}>
+    <Box sx={{ padding: '10px' }}>
       <Grid container spacing={1} sx={{ width: '100%' }}>
         <Grid item xs={4}>
           <Box

@@ -72,8 +72,7 @@ function SettingsSection(props) {
           onDone={() => setReauthState({ show: false })}
         />
       )}
-
-      <Box mt={5} sx={{ paddingBottom: 15 }}>
+      <Box sx={{ paddingBottom: 15 }}>
         <Container maxWidth="850px" sx={{ padding: '0' }}>
           {formAlert && (
             <Box mb={4}>

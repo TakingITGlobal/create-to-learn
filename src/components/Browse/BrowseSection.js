@@ -11,6 +11,7 @@ import BrowseCategoryCarousel from './BrowseCategoryCarousel'
 
 import 'react-multi-carousel/lib/styles.css'
 import { useTranslation } from 'react-i18next'
+import { PageHeading } from 'components/PageHeading'
 
 function BrowseSection(props) {
   const [openSearchDrawer, setOpenSearchDrawer] = useState(false)
@@ -30,21 +31,11 @@ function BrowseSection(props) {
       bgImageOpacity={props.bgImageOpacity}
     >
       <Container sx={{ paddingBottom: '60px' }}>
-        <Box
-          sx={{
-            paddingTop: '40px',
-            paddingBottom: '7px',
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Typography variant="h1">{t('browse.browse')}</Typography>
-
+        <PageHeading headingText={t('browse.browse')}>
           <IconButton onClick={() => setOpenSearchDrawer(true)}>
             <SearchIcon fontSize="large" />
           </IconButton>
-        </Box>
+        </PageHeading>
         <BrowseCategoryCarousel
           handleCategoryFilter={handleCategoryFilter}
           categoryFilter={categoryFilter}

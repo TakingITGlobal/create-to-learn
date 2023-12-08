@@ -1,10 +1,10 @@
 import React from 'react'
 import Container from '@mui/material/Container'
 import Section from '../Section'
-import SectionHeader from '../SectionHeader'
 import Auth from './Auth'
 import AuthFooter from './AuthFooter'
 import { useAuthTypeOptions } from '../../hooks/use-auth-type-options.hook'
+import { PageHeading } from 'components/PageHeading'
 
 function AuthSection({ bgColor, bgImage, bgImageOpacity, size }) {
   const { options } = useAuthTypeOptions()
@@ -17,12 +17,7 @@ function AuthSection({ bgColor, bgImage, bgImageOpacity, size }) {
       bgImageOpacity={bgImageOpacity}
     >
       <Container maxWidth="xs">
-        <SectionHeader
-          title={options.title}
-          subtitle=""
-          size={4}
-          textAlign="center"
-        />
+        <PageHeading headingText={options.title} textAlign="center" mb="2rem" />
         <Auth />
         <AuthFooter />
       </Container>

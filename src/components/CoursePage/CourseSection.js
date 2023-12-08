@@ -29,6 +29,7 @@ import { displayTime } from '../../util/timeHelpers'
 import CheckSimpleIcon from '@mui/icons-material/Check'
 import { useTranslation } from 'react-i18next'
 import CourseCreatingButtons from './CourseCreatingButtons'
+import { PageHeading } from 'components/PageHeading'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -128,26 +129,23 @@ function CourseSection({ data, courseData, courseProgress }) {
           }}
         >
           <IconButton
-            aria-label="close-icon"
+            aria-label="share course"
             onClick={() => setOpenShareDrawer(true)}
           >
             <ShareIcon sx={{ color: 'white' }} />
           </IconButton>
         </Box>
         {/* Series name */}
-        <Box sx={{ padding: '2em 2.5em' }}>
-          <Typography
-            variant="h1"
+        <Box sx={{ padding: '0 2.5em 2em' }}>
+          <PageHeading
+            headingText={courseData?.seriesName}
             textAlign="center"
-            color="#000"
-            sx={{ paddingBottom: { md: '20px' }, fontSize: { md: '2.75em' } }}
-          >
-            {courseData?.seriesName}
-          </Typography>
+            color="black"
+          />
 
           <CardMedia
             component="img"
-            alt={`${courseData.seriesName}-course`}
+            alt={courseData.seriesName}
             sx={{
               display: 'flex',
               alignItems: 'center',
