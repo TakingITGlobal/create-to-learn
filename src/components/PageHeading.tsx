@@ -17,7 +17,8 @@ export const PageHeading = ({
     flexWrap="wrap"
     gap="0.5rem"
     justifyContent="flex-start"
-    margin="1rem 0 0.5rem"
+    margin="0.5rem 0"
+    minHeight="3.15rem"
     {...props}
   >
     <Typography flexGrow="1" lineHeight="1.25" variant="h1">
