@@ -38,15 +38,22 @@ function Video(props) {
   }, [progId])
 
   useEffect(() => {
-    createVideoProgress({
-      owner: user.uid,
-      videoId: id,
-      progress: 0,
-      videoLink: video,
-      courseId: courseId,
-    }).then((docRef) =>
-      getUserProgress(docRef.id).then((data) => setProgId(data)),
-    )
+    if(user.uid !== undefined && user.uid !== null){
+      createVideoProgress({
+        owner: user.uid || null,
+        videoId: id,
+        progress: 0,
+        videoLink: video,
+        courseId: courseId,
+      }).then((docRef) =>
+        getUserProgress(docRef?.id).then((data) => setProgId(data)),
+      )
+    } else {
+      setStartTime(0)
+
+      setLoading(false)
+    }
+    
   }, [id, user, video, courseId])
 
   return (
