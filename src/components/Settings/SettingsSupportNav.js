@@ -87,9 +87,6 @@ export default function SupportNav({ setShowComponent }) {
         >
           {t('settings.provide-feedback')}
         </Button>
-        <Button variant="outlined" startIcon={<ForumIcon />}>
-          Chat Support
-        </Button>
       </Box>
     </>
   )
