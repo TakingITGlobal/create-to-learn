@@ -8,7 +8,7 @@ import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import DataUsageIcon from '@mui/icons-material/DataUsage'
+import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
 import HelpIcon from '@mui/icons-material/Help'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import LogoutIcon from '@mui/icons-material/Logout'
@@ -47,7 +47,7 @@ function SettingsProfile() {
     {
       title: 'Legal and About',
       link: '/settings/legal-and-about',
-      icon: <DataUsageIcon />,
+      icon: <PrivacyTipIcon />,
     },
   ]
 

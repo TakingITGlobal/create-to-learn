@@ -34,7 +34,8 @@ function SettingsInterests({ showComponent, setShowComponent }) {
       >
         <Box>
           <Box sx={{ padding: '1.5rem 0' }}>
-            <Typography variant="h5">I'm interested in...</Typography>
+            <Typography variant="h6" color={'lavender'} fontWeight='700'>I'm interested in...</Typography>
+            <Typography>Pick up to three topics you're interested in</Typography>
           </Box>
           <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap">
             {clippedCategories.splice(1).map((category, index) => {
@@ -51,6 +52,7 @@ function SettingsInterests({ showComponent, setShowComponent }) {
                   onClick={() => handleInterests(category.label)}
                   sx={{
                     fontSize: 16,
+                    fontWeight: clicked? '700' : '',
                     marginLeft: 0,
                     padding: '10px 0',
                     backgroundColor: clicked ? '#6956F1' : '#211E34',

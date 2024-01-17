@@ -24,7 +24,7 @@ function SettingsLanguage({ showComponent, setShowComponent }) {
 
   const [languages, setLanguages] = useState(auth?.user?.language ?? [])
 
-  //To Do- make this simpler!
+  //To Do - make this simpler!
   const handleLanguages = (lan) => {
     if (lan === LANGUAGE_NOT_HERE) {
       setLanguages([])
@@ -48,7 +48,7 @@ function SettingsLanguage({ showComponent, setShowComponent }) {
           height: '700px',
         }}
       >
-        <Box sx={{ padding: '1.5rem 0' }}>
+        <Box sx={{ padding: '1.5rem 0'}}>
           <Typography variant="h5" sx={{ paddingBottom: '10px' }}>
             My language is...
           </Typography>
@@ -60,9 +60,8 @@ function SettingsLanguage({ showComponent, setShowComponent }) {
         <List
           sx={{
             width: '100%',
-            maxWidth: 360,
             maxHeight: '400px',
-            overflow: 'scroll',
+            overflowY: "scroll"
           }}
           component="nav"
           aria-labelledby="settings-profile"
@@ -74,7 +73,7 @@ function SettingsLanguage({ showComponent, setShowComponent }) {
                 backgroundColor: languages.includes(language)
                   ? '#6956F1'
                   : '#211E34',
-                marginBottom: '15px',
+                marginBottom: '10px',
                 borderRadius: '5px',
               }}
               secondaryAction={

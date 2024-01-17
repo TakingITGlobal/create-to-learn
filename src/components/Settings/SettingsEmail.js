@@ -42,7 +42,7 @@ function SettingsEmail({ auth, showComponent, setShowComponent }) {
             fullWidth
             color="primary"
             variant="contained"
-            sx={{ borderRadius: '25px' }}
+            sx={{ height: '50px'}}
             onChange={() => auth.updateProfile({ email: email })}
           >
             {t('settings.update')}

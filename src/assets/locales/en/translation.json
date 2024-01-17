@@ -136,6 +136,7 @@
   "settings": {
     "profile": "Profile",
     "courses-taken": "courses taken",
+    "course-taken": "course taken",    
     "minutes-watched": "minutes watched",
     "videos-completed": "videos completed",
     "sign-out": "Sign out",

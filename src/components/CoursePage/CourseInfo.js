@@ -87,7 +87,7 @@ function CourseInfo({
 
   return (
     <>
-      <Box sx={{ padding: ' 0 1em' }}>
+      <Box sx={{ padding: ' 0 1em', height: '100%' }}>
         {/* Artist information */}
         <Link
           href={'/creator/' + creatorUID}
@@ -108,7 +108,7 @@ function CourseInfo({
           </Box>
           <ChevronRight
             sx={{
-              marginLeft: { xs: 'auto', md: '10px' },
+              marginLeft: { xs: 'auto' },
               fontSize: { md: '2.5em' },
             }}
           />

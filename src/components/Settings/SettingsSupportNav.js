@@ -35,7 +35,6 @@ export default function SupportNav({ setShowComponent }) {
       <List
         sx={{
           width: '100%',
-          maxWidth: 400,
         }}
         component="nav"
         aria-labelledby="settings-support"

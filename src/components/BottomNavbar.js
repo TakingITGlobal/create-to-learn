@@ -2,10 +2,10 @@ import React from 'react'
 import BottomNavigation from '@mui/material/BottomNavigation'
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 import Paper from '@mui/material/Paper'
-import HouseIcon from '@mui/icons-material/House'
-import PublicIcon from '@mui/icons-material/Public'
-import LibraryIcon from '@mui/icons-material/LocalLibrary'
-import AccountIcon from '@mui/icons-material/AccountCircle'
+import HomeIcon from '@mui/icons-material/Home';
+import SearchIcon from '@mui/icons-material/Search';
+import MovieIcon from '@mui/icons-material/Movie';
+import PersonIcon from '@mui/icons-material/Person';
 import { Link, useLocation } from './../util/router'
 
 export default function BottomNavbar() {
@@ -35,25 +35,25 @@ export default function BottomNavbar() {
             component={Link}
             to="/dashboard"
             label="Home"
-            icon={<HouseIcon />}
+            icon={<HomeIcon />}
           />
           <BottomNavigationAction
             component={Link}
             to="/browse"
             label="Browse"
-            icon={<PublicIcon />}
+            icon={<SearchIcon />}
           />
           <BottomNavigationAction
             component={Link}
             to="/my-courses"
             label="My Courses"
-            icon={<LibraryIcon />}
+            icon={<MovieIcon />}
           />
           <BottomNavigationAction
             component={Link}
             to="/settings/profile"
             label="Profile"
-            icon={<AccountIcon />}
+            icon={<PersonIcon />}
           />
         </BottomNavigation>
       </Paper>

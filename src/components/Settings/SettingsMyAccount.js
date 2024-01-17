@@ -17,7 +17,9 @@ import { requireAuth } from '../../util/auth'
 function SettingsMyAccount(props) {
   const auth = useAuth()
 
-  const [showComponent, setShowComponent] = useState('nav')
+  const [showComponent, setShowComponent] = useState('nav');
+  const [currentTitle, setCurrentTitle] = useState('');
+
 
   //ToDo: Make showComponent a custom hook so that we don't have to pass it in like this to each component.
 
@@ -27,6 +29,7 @@ function SettingsMyAccount(props) {
         showComponent={showComponent}
         setShowComponent={setShowComponent}
       />
+      
       <Container>
         <MyAccountNav
           auth={auth}
