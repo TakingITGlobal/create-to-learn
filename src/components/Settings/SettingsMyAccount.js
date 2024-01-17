@@ -10,6 +10,7 @@ import SettingsEmail from './SettingsEmail'
 import SettingsLanguage from './SettingsLanguage'
 import SettingsSchools from './SettingsSchools'
 import SettingsDeleteAccount from './SettingsDeleteAccount'
+import { Typography } from '@mui/material'
 
 import { useAuth } from '../../util/auth'
 import { requireAuth } from '../../util/auth'
@@ -25,10 +26,21 @@ function SettingsMyAccount(props) {
 
   return (
     <>
-      <ArrowBack
-        showComponent={showComponent}
-        setShowComponent={setShowComponent}
-      />
+      <Container sx={{
+        display: 'flex', 
+        justifyContent:'space-between',
+        alignItems: 'center'
+        }}>
+        <ArrowBack
+          showComponent={showComponent}
+          setShowComponent={setShowComponent}
+        />
+
+        <Typography fontWeight={700} variant="h5">Change based on whats clicked</Typography>
+        <div>
+          
+        </div>
+      </Container>
       
       <Container>
         <MyAccountNav

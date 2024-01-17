@@ -49,7 +49,7 @@ function SettingsLanguage({ showComponent, setShowComponent }) {
         }}
       >
         <Box sx={{ padding: '1.5rem 0'}}>
-          <Typography variant="h5" sx={{ paddingBottom: '10px' }}>
+          <Typography variant="h5" fontWeight={700} color={'lavender'} sx={{ paddingBottom: '10px' }}>
             My language is...
           </Typography>
           <Typography>Or a language I am learning</Typography>

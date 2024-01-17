@@ -91,7 +91,7 @@ function SettingsProfile() {
                 }
               >
                 <ListItemButton>
-                  <ListItemIcon>{icon}</ListItemIcon>
+                  <ListItemIcon sx={{ }}>{icon}</ListItemIcon>
                   <ListItemText sx={{ color: 'white' }}>{title}</ListItemText>
                 </ListItemButton>
               </ListItem>

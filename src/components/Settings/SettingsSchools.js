@@ -68,7 +68,7 @@ function SettingsSchools({ showComponent, setShowComponent }) {
         }}
       >
         <Box sx={{ padding: '1.5rem 0' }}>
-          <Typography variant="h6" sx={{ padding: '10px 20px 0 0' }}>
+          <Typography variant="h6" fontWeight={700} color={'lavender'} sx={{ padding: '10px 20px 0 0' }}>
             I'm attending ...
           </Typography>
           <Typography>Scroll or search to find your school </Typography>

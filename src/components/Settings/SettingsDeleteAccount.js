@@ -25,10 +25,7 @@ function SettingsDeleteAccount({ showComponent, setShowComponent }) {
         }}
       >
         <Box sx={{ padding: '1.5rem 0' }}>
-          <Typography variant="h6">{t('settings.delete-account')}</Typography>
-        </Box>
-        <Box>
-          <Typography variant="h6">
+          <Typography variant="h6" fontWeight={700} color={'lavender'}>
             {t('settings.delete-your-account')}
           </Typography>
           <Typography variant="body1">

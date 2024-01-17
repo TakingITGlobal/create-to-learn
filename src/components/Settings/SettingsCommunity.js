@@ -55,7 +55,7 @@ function SettingsCommunity({ showComponent, setShowComponent }) {
         }}
       >
         <Box sx={{ padding: '1.5rem 0' }}>
-          <Typography variant="h5" sx={{ paddingBottom: '10px' }}>
+          <Typography variant="h5" fontWeight={700} color={'lavender'} sx={{ paddingBottom: '10px' }}>
             I am ...
           </Typography>
           <Typography>
