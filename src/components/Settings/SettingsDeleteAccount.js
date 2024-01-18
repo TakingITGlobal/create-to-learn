@@ -49,50 +49,62 @@ function SettingsDeleteAccount({ showComponent, setShowComponent }) {
             fullWidth 
             onClick={() => setDialog(true)} 
             color="error">
-            {t('settings.delete-my-account')}
+            {t('settings.delete-account')}
           </Button>
         </Box>
         <Dialog onClose={() => setDialog(false)} open={dialog}>
-          <Box sx={{ paddingBottom: '10px' }}>
-            <Typography variant="h3">{t('settings.confirm-delete')}</Typography>
-          </Box>
-          <Box sx={{ paddingBottom: '20px', textAlign: 'center' }}>
-            <Typography variant="body2" color="text.secondary">
-              {t('settings.are-you-sure')}
-            </Typography>
-          </Box>
-          <Grid container>
-            <Grid item xs={6}>
-              <Button
-                variant="text"
-                size="large"
-                fullWidth
-                sx = {{
-                  padding: "16px 24px"
-                }}
-                onClick={() => {
-                  deleteUser(auth.user.uid)
-                  auth.signout()
-                  // setConfirmDeletedDialog(true)
-                }}
-              >
-                {t('settings.yes-delete')}
-              </Button>
+          <Box 
+          sx = {{
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '16px 0',
+            textAlign: 'center',
+          }}
+          >
+            <Box sx={{ paddingBottom: '16px' }}>
+              <Typography variant="h3">{t('settings.confirm-delete')}</Typography>
+            </Box>
+            <Box sx={{ paddingBottom: '20px', textAlign: 'center' }}>
+              <Typography variant="body2" color="text.secondary">
+                {t('settings.are-you-sure')}
+              </Typography>
+            </Box>
+            <Grid container>
+              <Grid item xs={6}>
+                <Button
+                  variant="text"
+                  size="large"
+                  fullWidth
+                  sx = {{
+                    padding: "8px",
+                    borderRadius: "25px",
+                    fontWeight: "500",
+                    textTransform: "none"
+                  }}
+                  onClick={() => {
+                    deleteUser(auth.user.uid)
+                    auth.signout()
+                    // setConfirmDeletedDialog(true)
+                  }}
+                >
+                  {t('settings.yes-delete')}
+                </Button>
+              </Grid>
+              <Grid item xs={6}>
+                <Button
+                  variant="contained"
+                  size="large"
+                  sx = {{
+                    padding: "8px"
+                  }}
+                  fullWidth
+                  onClick={() => setDialog(false)}
+                >
+                  {t('cancel')}
+                </Button>
+              </Grid>
             </Grid>
-            <Grid item xs={6}>
-              <Button
-                variant="contained"
-                size="large"
-                sx = {{
-                  padding: "16px 24px"
-                }}
-                fullWidth
-                onClick={() => setDialog(false)}
-              >
-                {t('cancel')}
-              </Button>
-            </Grid>
-          </Grid>
+            </Box>
         </Dialog>
         {/* To do: local storage has to be cleared when deleting a user and
       defaults to the login screen. // Would love to be able to show the

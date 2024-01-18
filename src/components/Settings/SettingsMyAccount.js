@@ -29,7 +29,8 @@ function SettingsMyAccount(props) {
       <Container sx={{
         display: 'flex', 
         justifyContent:'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        padding: '52px 0 34px 0'
         }}>
         <ArrowBack
           showComponent={showComponent}
@@ -37,8 +38,9 @@ function SettingsMyAccount(props) {
         />
 
         <Typography fontWeight={700} variant="h5">???</Typography>
-        <div>
-          
+        <div
+
+        >
         </div>
       </Container>
       
