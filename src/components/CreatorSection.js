@@ -45,7 +45,14 @@ function CreatorSection({ coursesByCreator, creator }) {
               }}
             >
               <Box>
-                <IconButton href={creator.facebookProfile ?? ''}>
+                <IconButton 
+                  href={
+                    'https://www.facebook.com/' + 
+                    creator.facebookProfile 
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <FacebookIcon fontSize="large" />
                 </IconButton>
                 <IconButton
@@ -53,6 +60,8 @@ function CreatorSection({ coursesByCreator, creator }) {
                     'https://www.instagram.com/' +
                     creator.instagramHandle.replace('@', '')
                   }
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <InstagramIcon fontSize="large" />
                 </IconButton>
