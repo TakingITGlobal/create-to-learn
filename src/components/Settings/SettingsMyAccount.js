@@ -36,7 +36,7 @@ function SettingsMyAccount(props) {
           setShowComponent={setShowComponent}
         />
 
-        <Typography fontWeight={700} variant="h5">Change based on whats clicked</Typography>
+        <Typography fontWeight={700} variant="h5">???</Typography>
         <div>
           
         </div>

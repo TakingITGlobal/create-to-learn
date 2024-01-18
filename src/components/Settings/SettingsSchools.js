@@ -122,6 +122,9 @@ function SettingsSchools({ showComponent, setShowComponent }) {
             fullWidth
             color="primary"
             variant="contained"
+            sx = {{
+              padding: "16px 24px"
+            }}
             onClick={() => {
               updateUser(auth.user.uid, { school: school })
               setShowComponent('nav')

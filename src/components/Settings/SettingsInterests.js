@@ -75,7 +75,9 @@ function SettingsInterests({ showComponent, setShowComponent }) {
             fullWidth
             color="primary"
             variant="contained"
-            sx={{ borderRadius: '25px' }}
+            sx = {{
+              padding: "16px 24px"
+            }}
             onClick={() => {
               updateUser(auth.user.uid, { interests: interests })
               setShowComponent('nav')

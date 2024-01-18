@@ -42,7 +42,13 @@ function SettingsDeleteAccount({ showComponent, setShowComponent }) {
             alignItems: 'flex-end',
           }}
         >
-          <Button fullWidth onClick={() => setDialog(true)} color="error">
+          <Button 
+            sx = {{
+              padding: "16px 24px"
+            }}
+            fullWidth 
+            onClick={() => setDialog(true)} 
+            color="error">
             {t('settings.delete-my-account')}
           </Button>
         </Box>
@@ -61,6 +67,9 @@ function SettingsDeleteAccount({ showComponent, setShowComponent }) {
                 variant="text"
                 size="large"
                 fullWidth
+                sx = {{
+                  padding: "16px 24px"
+                }}
                 onClick={() => {
                   deleteUser(auth.user.uid)
                   auth.signout()
@@ -74,6 +83,9 @@ function SettingsDeleteAccount({ showComponent, setShowComponent }) {
               <Button
                 variant="contained"
                 size="large"
+                sx = {{
+                  padding: "16px 24px"
+                }}
                 fullWidth
                 onClick={() => setDialog(false)}
               >

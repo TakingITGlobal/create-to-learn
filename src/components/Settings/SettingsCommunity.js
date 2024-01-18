@@ -139,6 +139,9 @@ function SettingsCommunity({ showComponent, setShowComponent }) {
             fullWidth
             color="primary"
             variant="contained"
+            sx = {{
+              padding: "16px 24px"
+            }}
             onClick={() => {
               updateUser(auth.user.uid, { fnmi: communities })
               setShowComponent('nav')

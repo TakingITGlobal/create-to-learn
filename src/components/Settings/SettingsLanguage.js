@@ -52,7 +52,7 @@ function SettingsLanguage({ showComponent, setShowComponent }) {
           <Typography variant="h5" fontWeight={700} color={'lavender'} sx={{ paddingBottom: '10px' }}>
             My language is...
           </Typography>
-          <Typography>Or a language I am learning</Typography>
+          <Typography color={'lavender'}>Or a language I am learning</Typography>
           <Typography>
             So that we can greet and congratulate you in the future
           </Typography>
@@ -120,13 +120,15 @@ function SettingsLanguage({ showComponent, setShowComponent }) {
             fullWidth
             color="primary"
             variant="contained"
+            sx = {{
+              padding: "16px 24px"
+            }}
             onClick={() => {
               updateUser(auth.user.uid, { language: languages })
               setShowComponent('nav')
             }}
           >
             {t('settings.update')}&nbsp;
-            <ArrowForward />
           </Button>
         </Box>
       </Box>
