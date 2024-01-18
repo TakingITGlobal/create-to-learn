@@ -20,10 +20,21 @@ function SettingsLegal(props) {
 
   return (
     <>
-      <ArrowBack
-        showComponent={showComponent}
-        setShowComponent={setShowComponent}
-      />
+      <Container sx={{
+        display: 'flex', 
+        justifyContent:'space-between',
+        alignItems: 'center',
+        padding: '52px 0 34px 0'
+        }}>
+        <ArrowBack
+          showComponent={showComponent}
+          setShowComponent={setShowComponent}
+        />
+
+        <Typography fontWeight={700} variant="h7">Legal and About</Typography>
+        <div>
+        </div>
+      </Container>
       <Container>
         {showComponent === 'nav' && (
           <LegalNav auth={auth} setShowComponent={setShowComponent} />

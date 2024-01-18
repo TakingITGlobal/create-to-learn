@@ -37,10 +37,8 @@ function SettingsMyAccount(props) {
           setShowComponent={setShowComponent}
         />
 
-        <Typography fontWeight={700} variant="h5">???</Typography>
-        <div
-
-        >
+        <Typography fontWeight={700} variant="h7">My Account</Typography>
+        <div>
         </div>
       </Container>
       

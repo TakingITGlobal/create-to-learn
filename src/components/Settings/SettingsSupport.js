@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Container from '@mui/material/Container'
 import Snackbar from '@mui/material/Snackbar'
 import MuiAlert from '@mui/material/Alert'
+import { Typography } from '@mui/material'
 import ArrowBack from '../ArrowBack'
 
 import { useAuth } from '../../util/auth'
@@ -20,10 +21,21 @@ function SettingsSupport(props) {
 
   return (
     <>
-      <ArrowBack
-        showComponent={showComponent}
-        setShowComponent={setShowComponent}
-      />
+      <Container sx={{
+        display: 'flex', 
+        justifyContent:'space-between',
+        alignItems: 'center',
+        padding: '52px 0 34px 0'
+        }}>
+        <ArrowBack
+          showComponent={showComponent}
+          setShowComponent={setShowComponent}
+        />
+
+        <Typography fontWeight={700} variant="h7">Help and Support</Typography>
+        <div>
+        </div>
+      </Container>
       <Container>
         {showComponent === 'nav' && (
           <>
