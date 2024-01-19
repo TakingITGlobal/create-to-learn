@@ -67,8 +67,14 @@ function CreatorSection({ coursesByCreator, creator }) {
                 </IconButton>
               </Box>
               <Box>
-                <IconButton onClick={() => setOpenShareDrawer(true)}>
+                <IconButton 
+                  onClick={() => setOpenShareDrawer(true)}
+                  sx = {{
+                    borderRadius: '10px'
+                  }}
+                  >
                   <ShareIcon fontSize="large" />
+                  <Typography>Share</Typography>
                 </IconButton>
               </Box>
             </Box>
