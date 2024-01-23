@@ -85,7 +85,7 @@ const DashboardCreatorsMessage = ({ creators }) => {
                 }}
                 image={
                   creator && creator.image && creator.image.length
-                    ? creator.image[0].downloadURL
+                    ? creator.image[1].downloadURL
                     : ''
                 }
               />
