@@ -18,6 +18,25 @@ function SettingsLegal(props) {
   const auth = useAuth()
   const [showComponent, setShowComponent] = useState('nav')
 
+  const myAccountLinks = [
+    {
+      id: 'privacyPolicy',
+      title: 'Privacy Policy',
+    },
+    { 
+      id: 'termsOfService', 
+      title: 'Terms of Service' 
+    },
+    { 
+      id: 'aboutCreateToLearn', 
+    title: 'About Create to Learn'
+    },
+    {
+      id: 'aboutOrganization',
+      title: 'About the Organization',
+    },
+  ];
+
   return (
     <>
       <Container sx={{
@@ -31,7 +50,7 @@ function SettingsLegal(props) {
           setShowComponent={setShowComponent}
         />
 
-        <Typography fontWeight={700} variant="h7">Legal and About</Typography>
+          <Typography fontWeight={700} variant="h7">{myAccountLinks.find(link => link.id === showComponent)?.title || "Legal and About"}</Typography>
         <div>
         </div>
       </Container>
@@ -69,11 +88,14 @@ function LegalNav({ setShowComponent }) {
   return (
     <>
       <List>
-        <Typography variant="h6">Legal</Typography>
+        <Typography variant="h6" padding="12px">Legal</Typography>
         <ListItem
           button
           onClick={() => {
             setShowComponent('privacyPolicy')
+          }}
+          sx = {{
+            borderBottom: '1px solid #333'
           }}
         >
           <ListItemText>Privacy Policy</ListItemText>
@@ -88,6 +110,9 @@ function LegalNav({ setShowComponent }) {
           onClick={() => {
             setShowComponent('termsOfService')
           }}
+          sx = {{
+            borderBottom: '1px solid #333'
+          }}
         >
           <ListItemText>Terms of Service</ListItemText>
           <ListItemSecondaryAction>
@@ -96,11 +121,14 @@ function LegalNav({ setShowComponent }) {
             </IconButton>
           </ListItemSecondaryAction>
         </ListItem>
-        <Typography variant="h6">About</Typography>
+        <Typography variant="h6" marginTop="32px" padding="12px">About</Typography>
         <ListItem
           button
           onClick={() => {
             setShowComponent('aboutCreateToLearn')
+          }}
+          sx = {{
+            borderBottom: '1px solid #333'
           }}
         >
           <ListItemText>About Create to Learn</ListItemText>
@@ -114,6 +142,9 @@ function LegalNav({ setShowComponent }) {
           button
           onClick={() => {
             setShowComponent('aboutOrganization')
+          }}
+          sx = {{
+            borderBottom: '1px solid #333'
           }}
         >
           <ListItemText>About the Organization</ListItemText>

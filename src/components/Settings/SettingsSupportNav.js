@@ -46,6 +46,7 @@ export default function SupportNav({ setShowComponent }) {
               setShowComponent(accLink.id)
             }}
             key={accLink.title}
+            sx={{ borderBottom: '1px solid #333'}}
           >
             <ListItemText>{accLink.title}</ListItemText>
 

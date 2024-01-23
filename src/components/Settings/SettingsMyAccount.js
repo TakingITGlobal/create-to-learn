@@ -24,24 +24,30 @@ function SettingsMyAccount(props) {
     {
       id: 'displayName',
       title: 'Display Name',
-      userInfo: auth?.user?.displayName ?? auth.user?.name,
     },
-    { id: 'email', title: 'Email', userInfo: auth?.user?.email },
-    { id: 'school', title: 'School', userInfo: auth?.user?.school },
+    { 
+      id: 'email', 
+      title: 'Email' 
+    },
+    { 
+      id: 'school', 
+    title: 'School'
+    },
     {
       id: 'interests',
       title: 'Interests',
-      userInfo: auth?.user?.interests.join(','),
     },
     {
       id: 'language',
       title: 'Language',
-      userInfo: auth?.user?.language && auth?.user?.language.join(','),
     },
     {
       id: 'communities',
       title: 'Communities',
-      userInfo: auth?.user?.fnmi && auth?.user?.fnmi.join(','),
+    },
+    {
+      id: 'deleteAccount',
+      title: 'Delete Account',
     },
   ];
 

@@ -60,9 +60,10 @@ export default function MyAccountNav({
               }}
               key={accLink.title}
               secondaryAction={<ChevronRightIcon />}
-              sx={{ borderBottom: '1px solid #000000' }}
+              sx={{ borderBottom: '1px solid #333' }}
             >
-              <ListItemButton>
+              <ListItemButton 
+              >
                 <Grid container>
                   <Grid item xs={accLink.userInfo ? 7 : 12} >
                     <Typography fontWeight={700}>{accLink.title}</Typography>

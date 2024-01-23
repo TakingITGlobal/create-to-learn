@@ -19,6 +19,38 @@ function SettingsSupport(props) {
     'Thank you for your feedback!',
   )
 
+  const myAccountLinks = [
+    {
+      id: 'verifyEmail',
+      title: 'Verify Email for new account',
+    },
+    { 
+      id: 'findCourse', 
+      title: 'Find specific course'
+    },
+    { 
+      id: 'requestCourse', 
+      title: 'Request a new course' 
+    },
+    { 
+      id: 'createCourse', 
+      title: 'Want to create a course myself' 
+    },
+    { 
+      id: 'faqs', 
+      title: 'Frequently Asked Questions' 
+    },
+    { 
+      id: 'bugReport', 
+      title: 'Report a Bug' 
+    },
+    { 
+      id: 'provideFeedback', 
+      title: 'Provide Feedback' 
+    },
+
+  ]
+
   return (
     <>
       <Container sx={{
@@ -32,7 +64,7 @@ function SettingsSupport(props) {
           setShowComponent={setShowComponent}
         />
 
-        <Typography fontWeight={700} variant="h7">Help and Support</Typography>
+        <Typography fontWeight={700} variant="h7">{myAccountLinks.find(link => link.id === showComponent)?.title || "Help and Support"}</Typography>
         <div>
         </div>
       </Container>
