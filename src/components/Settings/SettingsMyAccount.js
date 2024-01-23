@@ -19,8 +19,31 @@ function SettingsMyAccount(props) {
   const auth = useAuth()
 
   const [showComponent, setShowComponent] = useState('nav');
-  const [currentTitle, setCurrentTitle] = useState('');
 
+  const myAccountLinks = [
+    {
+      id: 'displayName',
+      title: 'Display Name',
+      userInfo: auth?.user?.displayName ?? auth.user?.name,
+    },
+    { id: 'email', title: 'Email', userInfo: auth?.user?.email },
+    { id: 'school', title: 'School', userInfo: auth?.user?.school },
+    {
+      id: 'interests',
+      title: 'Interests',
+      userInfo: auth?.user?.interests.join(','),
+    },
+    {
+      id: 'language',
+      title: 'Language',
+      userInfo: auth?.user?.language && auth?.user?.language.join(','),
+    },
+    {
+      id: 'communities',
+      title: 'Communities',
+      userInfo: auth?.user?.fnmi && auth?.user?.fnmi.join(','),
+    },
+  ];
 
   //ToDo: Make showComponent a custom hook so that we don't have to pass it in like this to each component.
 
@@ -36,8 +59,7 @@ function SettingsMyAccount(props) {
           showComponent={showComponent}
           setShowComponent={setShowComponent}
         />
-
-        <Typography fontWeight={700} variant="h7">My Account</Typography>
+          <Typography fontWeight={700} variant="h7">{myAccountLinks.find(link => link.id === showComponent)?.title || "My Account"}</Typography>
         <div>
         </div>
       </Container>
