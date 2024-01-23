@@ -18,7 +18,7 @@ const BrowseCourseCard = ({ course, progress }) => {
 
   return (
     <Box sx={{ padding: '10px 0' }}>
-      <ButtonBase href={'/course/' + course.uid}>
+      <ButtonBase href={'/tutorial/' + course.uid}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 2, sm: 2, md: 3 }}>
           <Grid item xs={6}>
             <Box
