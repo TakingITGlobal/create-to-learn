@@ -7,7 +7,7 @@ import {
 } from '../util/db'
 
 function Video(props) {
-  const { video, user, id, duration, courseId } = props
+  const { video, user, videoProgress, id, duration, courseId } = props
 
   const [loading, setLoading] = useState(true)
   const [startTime, setStartTime] = useState()
@@ -38,16 +38,30 @@ function Video(props) {
   }, [progId])
 
   useEffect(() => {
-    createVideoProgress({
-      owner: user.uid,
-      videoId: id,
-      progress: 0,
-      videoLink: video,
-      courseId: courseId,
-    }).then((docRef) =>
-      getUserProgress(docRef.id).then((data) => setProgId(data)),
-    )
-  }, [id, user, video, courseId])
+    if(user.uid !== undefined && user.uid !== null){
+      
+      if(videoProgress !== null) {
+        setProgId(videoProgress);
+      } else {
+        createVideoProgress({
+          owner: user.uid || null,
+          videoId: id,
+          progress: 0,
+          videoLink: video,
+          courseId: courseId,
+        }).then((docRef) =>
+          getUserProgress(docRef?.id).then((data) => setProgId(data)),
+        )
+      }
+      
+      
+    } else {
+      setStartTime(0)
+
+      setLoading(false)
+    }
+    
+  }, [id, user, video, courseId])// eslint-disable-next-line react-hooks/exhaustive-deps 
 
   return (
     <>

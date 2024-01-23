@@ -190,20 +190,6 @@ export function useVideosByCourseId(courseId) {
   )
 }
 
-export function useVideoProgressByVideoId(owner, videoId) {
-  return useQuery(
-    ['user-progress', { owner }],
-    createQuery(() =>
-      query(
-        collection(db, 'user-progress'),
-        where('owner', '==', owner),
-        where('videoId', '==', videoId),
-      ),
-    ),
-    { enabled: !!owner },
-  )
-}
-
 export function useUserWatchlistByOwner(owner) {
   return useQuery(
     ['user-watchlist', { owner }],

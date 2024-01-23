@@ -73,6 +73,12 @@ function CourseLessons({
           <Video
             video={videoToShow.link}
             id={videoToShow.videoId}
+            videoProgress={
+              courseProgress &&
+              courseProgress.find(
+                (video) => video.videoId === videoToShow.videoId,
+              )
+            }
             user={auth.user}
             duration={videoToShow.duration}
             courseId={courseId}
