@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Helmet } from 'react-helmet'
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -17,6 +18,9 @@ function CreatorSection({ coursesByCreator, creator }) {
 
   return (
     <Section>
+    <Helmet>
+      <title>{creator.name} | Creators | Create to Learn</title>
+    </Helmet>
       <Container>
         <Box sx={{display: {md: 'flex'}, gap: {md: '20px'}, paddingBottom: {md: '40px'}}}>
           <Box

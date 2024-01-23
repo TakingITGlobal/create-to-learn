@@ -21,7 +21,7 @@ function CoursePage(props) {
 
   return (
     <>
-      <Meta title="Course" />
+      <Meta title="Course | Create to Learn" />
       {data && (
         <CourseSection
           bgColor="default"

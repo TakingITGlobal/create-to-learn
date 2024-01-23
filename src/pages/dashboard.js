@@ -5,7 +5,7 @@ import DashboardSection from './../components/Dashboard/DashboardSection'
 function DashboardPage(props) {
   return (
     <>
-      <Meta title="Dashboard" />
+      <Meta title="Dashboard | Create to Learn" />
       <DashboardSection
         bgColor="default"
         size="medium"
