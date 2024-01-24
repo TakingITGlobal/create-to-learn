@@ -21,7 +21,7 @@ function CreatorSection({ coursesByCreator, creator }) {
     <Helmet>
       <title>{creator.name} | Creators | Create to Learn</title>
     </Helmet>
-      <Container>
+      <Container sx = {{ paddingBottom:'90px'}}>
         <Box sx={{display: {md: 'flex'}, gap: {md: '20px'}, paddingBottom: {md: '40px'}}}>
           <Box
             alt={creator.name}
