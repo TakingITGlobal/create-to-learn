@@ -117,6 +117,7 @@ function MyCoursesDownloads() {
       buttonText={emptyStateButtonText}
       href={'/browse'}
     />
+
   )
 }
 

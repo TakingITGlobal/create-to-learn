@@ -49,6 +49,7 @@ const MyCoursesEmptyState = ({ title, subtitle, buttonText, href }: Props) => {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'center',
+          paddingBottom: '90px'
         }}
       >
         <Button variant="contained" size="large" component={Link} to={href}>
