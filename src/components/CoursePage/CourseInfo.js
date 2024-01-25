@@ -30,6 +30,7 @@ import { useTranslation } from 'react-i18next'
 import { categories } from '../../assets/options/categories'
 import { handleAddToDownloads } from './handleAddToDownloads'
 
+
 function CourseInfo({
   course,
   setOpenSnackbar,

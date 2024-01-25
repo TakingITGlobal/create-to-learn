@@ -30,6 +30,8 @@ import CheckSimpleIcon from '@mui/icons-material/Check'
 import { useTranslation } from 'react-i18next'
 import CourseCreatingButtons from './CourseCreatingButtons'
 import { PageHeading } from 'components/PageHeading'
+import { Helmet } from 'react-helmet'
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -113,6 +115,9 @@ function CourseSection({ data, courseData, courseProgress }) {
           'linear-gradient(180deg, rgba(11, 9, 25, 0) 0%, rgba(11, 9, 25, 0.11) 200px, rgba(11, 9, 25, 0.64) 400px, #0B0919 600px)',
       }}
     >
+    <Helmet>
+      <title>{courseData?.seriesName} | Create to Learn</title>
+    </Helmet>
       <Container
         sx={{
           padding: '0',

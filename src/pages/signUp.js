@@ -5,7 +5,7 @@ import SignUpSection from 'components/SignUp/SignUpSection'
 function SignUpPage() {
   return (
     <>
-      <Meta title="Sign Up" />
+      <Meta title="Sign Up | Create to Learn" />
       <SignUpSection />
     </>
   )

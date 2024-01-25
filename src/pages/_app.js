@@ -92,7 +92,7 @@ function App(props) {
 
                     <Route
                       exact
-                      path="/course/:courseId"
+                      path="/tutorial/:courseId"
                       component={CoursePage}
                     />
 
