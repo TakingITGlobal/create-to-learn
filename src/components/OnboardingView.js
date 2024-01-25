@@ -447,14 +447,17 @@ export function EmailView() {
     swiper.slideNext()
   }
   return (
-    <Box sx={{ padding: '50px 1em 1em 1em' }}>
+    <Box sx={{ 
+      display: 'flex',
+      justifyContent: 'center',
+      padding: '50px 1em 1em 1em'
+      }}>
       <Grid container item className={classes.gridColumn} md={6}>
         {formAlert && (
           <Box mb={3}>
             <Alert severity={formAlert.type}>{formAlert.message}</Alert>
           </Box>
         )}
-
         <AuthForm
           type="signup"
           buttonAction="Sign Up"
