@@ -11,7 +11,7 @@ export const SwiperNext = ({ children, handleClick }: SwiperProp) => {
   return (
     <Button
       color="info"
-      sx={{ backgroundColor: 'white !important', color: 'black !important' }}
+      sx={{ backgroundColor: '#6956f1 !important', color: 'white !important' }}
       fullWidth
       onClick={handleClick}
     >
