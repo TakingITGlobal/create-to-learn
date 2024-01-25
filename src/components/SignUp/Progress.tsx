@@ -4,6 +4,8 @@ import ArrowBack from '@mui/icons-material/ArrowBack'
 import { SwiperNext, SwiperPrev } from './Swipers'
 import { useSwipe } from './Swipers'
 import { useTranslation } from 'react-i18next'
+import ArrowForward from '@mui/icons-material/ArrowForward'
+
 
 interface ProgressProps {
   start: number
@@ -76,6 +78,7 @@ export const ProgressDots = (props: ProgressProps) => {
           nextButton={
             <SwiperNext handleClick={() => swiper.slideNext()}>
               {t('btn.continue')}
+              <ArrowForward/>
             </SwiperNext>
           }
           backButton={undefined}
