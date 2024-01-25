@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Helmet } from 'react-helmet'
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -17,6 +18,9 @@ function CreatorSection({ coursesByCreator, creator }) {
 
   return (
     <Section>
+    <Helmet>
+      <title>{creator.name} | Creators | Create to Learn</title>
+    </Helmet>
       <Container>
         <Box sx={{display: {md: 'flex'}, gap: {md: '20px'}, paddingBottom: {md: '40px'}}}>
           <Box
@@ -45,7 +49,14 @@ function CreatorSection({ coursesByCreator, creator }) {
               }}
             >
               <Box>
-                <IconButton href={creator.facebookProfile ?? ''}>
+                <IconButton 
+                  href={
+                    'https://www.facebook.com/' + 
+                    creator.facebookProfile 
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <FacebookIcon fontSize="large" />
                 </IconButton>
                 <IconButton
@@ -53,13 +64,21 @@ function CreatorSection({ coursesByCreator, creator }) {
                     'https://www.instagram.com/' +
                     creator.instagramHandle.replace('@', '')
                   }
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <InstagramIcon fontSize="large" />
                 </IconButton>
               </Box>
               <Box>
-                <IconButton onClick={() => setOpenShareDrawer(true)}>
+                <IconButton 
+                  onClick={() => setOpenShareDrawer(true)}
+                  sx = {{
+                    borderRadius: '10px'
+                  }}
+                  >
                   <ShareIcon fontSize="large" />
+                  <Typography>Share</Typography>
                 </IconButton>
               </Box>
             </Box>

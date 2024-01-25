@@ -65,7 +65,7 @@ function Video(props) {
 
   return (
     <>
-      {!loading && (
+      {(
         <Vimeo
           video={video}
           responsive

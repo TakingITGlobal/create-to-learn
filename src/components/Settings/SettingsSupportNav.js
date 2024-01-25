@@ -35,7 +35,6 @@ export default function SupportNav({ setShowComponent }) {
       <List
         sx={{
           width: '100%',
-          maxWidth: 400,
         }}
         component="nav"
         aria-labelledby="settings-support"
@@ -47,6 +46,7 @@ export default function SupportNav({ setShowComponent }) {
               setShowComponent(accLink.id)
             }}
             key={accLink.title}
+            sx={{ borderBottom: '1px solid #333'}}
           >
             <ListItemText>{accLink.title}</ListItemText>
 
@@ -86,9 +86,6 @@ export default function SupportNav({ setShowComponent }) {
           onClick={() => setShowComponent('provideFeedback')}
         >
           {t('settings.provide-feedback')}
-        </Button>
-        <Button variant="outlined" startIcon={<ForumIcon />}>
-          Chat Support
         </Button>
       </Box>
     </>

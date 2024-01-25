@@ -42,7 +42,8 @@ export default function MyAccountNav({
       title: 'Communities',
       userInfo: auth?.user?.fnmi && auth?.user?.fnmi.join(','),
     },
-  ]
+  ];
+
 
   return (
     showComponent === 'nav' && (
@@ -59,15 +60,16 @@ export default function MyAccountNav({
               }}
               key={accLink.title}
               secondaryAction={<ChevronRightIcon />}
-              sx={{ borderBottom: '1px solid #000000' }}
+              sx={{ borderBottom: '1px solid #333' }}
             >
-              <ListItemButton>
+              <ListItemButton 
+              >
                 <Grid container>
-                  <Grid item xs={accLink.userInfo ? 7 : 12}>
-                    <Typography>{accLink.title}</Typography>
+                  <Grid item xs={accLink.userInfo ? 7 : 12} >
+                    <Typography fontWeight={700}>{accLink.title}</Typography>
                   </Grid>
                   {accLink.userInfo && (
-                    <Grid item xs={5}>
+                    <Grid item xs={5} textAlign={'right'}>
                       <Typography noWrap> {accLink.userInfo}</Typography>
                     </Grid>
                   )}
@@ -81,8 +83,11 @@ export default function MyAccountNav({
                 setShowComponent('deleteAccount')
               }}
             >
-              <ListItemText>{t('settings.delete-account')}</ListItemText>
-              <EastIcon />
+            <Grid container>
+              <Typography fontWeight={700}>{t('settings.delete-account')}</Typography>
+              <EastIcon sx={{marginLeft:'10px'}}/>
+            </Grid>
+
             </ListItemButton>
           </ListItem>
         </List>

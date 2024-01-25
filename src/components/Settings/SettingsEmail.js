@@ -25,7 +25,6 @@ function SettingsEmail({ auth, showComponent, setShowComponent }) {
         </Box>
         <TextField
           id="Email"
-          label="Email"
           variant="outlined"
           defaultValue={auth.user.email}
           onChange={(e) => setEmail(e.targetValue)}
@@ -42,7 +41,9 @@ function SettingsEmail({ auth, showComponent, setShowComponent }) {
             fullWidth
             color="primary"
             variant="contained"
-            sx={{ borderRadius: '25px' }}
+            sx = {{
+              padding: "16px 24px"
+            }}
             onChange={() => auth.updateProfile({ email: email })}
           >
             {t('settings.update')}

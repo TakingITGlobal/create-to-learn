@@ -313,9 +313,11 @@ export function InputPillView(props) {
               label={val}
               clickable
               style={{
+                fontSize: 16,
                 marginLeft: 0,
                 backgroundColor: data.includes(val) ? '#6956F1' : '#211E34',
-                padding: '5px !important',
+                fontWeight: data.includes(val) ? '700' : '',
+                padding: '16px !important',
               }}
               onClick={() => onChange(val)}
               variant="default"
@@ -445,14 +447,17 @@ export function EmailView() {
     swiper.slideNext()
   }
   return (
-    <Box sx={{ padding: '50px 1em 1em 1em' }}>
+    <Box sx={{ 
+      display: 'flex',
+      justifyContent: 'center',
+      padding: '50px 1em 1em 1em'
+      }}>
       <Grid container item className={classes.gridColumn} md={6}>
         {formAlert && (
           <Box mb={3}>
             <Alert severity={formAlert.type}>{formAlert.message}</Alert>
           </Box>
         )}
-
         <AuthForm
           type="signup"
           buttonAction="Sign Up"

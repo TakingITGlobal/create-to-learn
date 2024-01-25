@@ -55,7 +55,7 @@ function SettingsCommunity({ showComponent, setShowComponent }) {
         }}
       >
         <Box sx={{ padding: '1.5rem 0' }}>
-          <Typography variant="h5" sx={{ paddingBottom: '10px' }}>
+          <Typography variant="h5" fontWeight={700} color={'lavender'} sx={{ paddingBottom: '10px' }}>
             I am ...
           </Typography>
           <Typography>
@@ -63,7 +63,7 @@ function SettingsCommunity({ showComponent, setShowComponent }) {
           </Typography>
         </Box>
         <List
-          sx={{ width: '100%', maxWidth: 360 }}
+          sx={{ width: '100%' }}
           component="nav"
           aria-labelledby="settings-profile"
         >
@@ -139,6 +139,9 @@ function SettingsCommunity({ showComponent, setShowComponent }) {
             fullWidth
             color="primary"
             variant="contained"
+            sx = {{
+              padding: "16px 24px"
+            }}
             onClick={() => {
               updateUser(auth.user.uid, { fnmi: communities })
               setShowComponent('nav')

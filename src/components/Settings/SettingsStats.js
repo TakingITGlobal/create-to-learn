@@ -37,12 +37,13 @@ const Stats = () => {
 
   return (
     <Box sx={{ padding: '10px' }}>
-      <Grid container spacing={1} sx={{ width: '100%' }}>
+      <Grid container spacing={1}>
         <Grid item xs={4}>
           <Box
             sx={{
               padding: '0 2.5px',
               backgroundColor: '#715FF2',
+              height: '100%',
               color: 'black',
             }}
           >
@@ -58,10 +59,12 @@ const Stats = () => {
                   style={{ paddingBottom: '10px' }}
                 />
               </SvgIcon>
-              <Typography variant="h6">{coursesTaken.length}</Typography>
+              <Typography variant="h5" fontWeight={700}>{coursesTaken.length}</Typography>
               {/* To do: Only write course taken if there is only one */}
-              <Typography variant="body2">
-                {t('settings.courses-taken')}
+              <Typography variant="body2" fontWeight={700} lineHeight={1}>
+                {coursesTaken.length === 1
+                ? t('settings.course-taken')
+                : t('settings.courses-taken')}
               </Typography>
             </Box>
           </Box>
@@ -86,8 +89,8 @@ const Stats = () => {
                   style={{ paddingBottom: '10px' }}
                 />
               </SvgIcon>
-              <Typography variant="h6">{minutesWatched}</Typography>
-              <Typography variant="body2">
+              <Typography variant="h5" fontWeight={700}>{minutesWatched}</Typography>
+              <Typography variant="body2" fontWeight={700} lineHeight={1}>
                 {t('settings.minutes-watched')}
               </Typography>
             </Box>
@@ -113,8 +116,8 @@ const Stats = () => {
                   style={{ paddingBottom: '10px' }}
                 />
               </SvgIcon>
-              <Typography variant="h5">{completedVideos}</Typography>
-              <Typography variant="body2">
+              <Typography variant="h5" fontWeight={700}>{completedVideos}</Typography>
+              <Typography variant="body2" fontWeight={700} lineHeight={1}>
                 {t('settings.videos-completed')}
               </Typography>
             </Box>

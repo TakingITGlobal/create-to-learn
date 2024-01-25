@@ -5,7 +5,7 @@ import FaqSection from '../components/Unused/FaqSection'
 function FaqPage(props) {
   return (
     <>
-      <Meta title="Faq" />
+      <Meta title="FAQ - Create to Learn" />
       <FaqSection
         bgColor="default"
         size="medium"

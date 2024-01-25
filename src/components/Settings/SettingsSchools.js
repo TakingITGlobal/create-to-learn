@@ -40,12 +40,15 @@ function SettingsSchools({ showComponent, setShowComponent }) {
   const Row = ({ data, index }) => (
     <ButtonBase
       onClick={() => setSchool(data[index])}
-      sx={{ width: '100%', fontSize: 16, textAlign: 'start' }}
+      sx={{ 
+        width: '100%', 
+        fontSize: 16,
+        textAlign: 'start' }}
     >
       <Paper
         sx={{
           margin: '5px 0',
-          height: '70px',
+          padding: '20px',
           width: '100%',
           backgroundColor: school === data[index] ? '#6956F1' : '#211E34',
         }}
@@ -65,12 +68,17 @@ function SettingsSchools({ showComponent, setShowComponent }) {
         }}
       >
         <Box sx={{ padding: '1.5rem 0' }}>
-          <Typography variant="h5" sx={{ paddingBottom: '10px' }}>
+          <Typography variant="h6" fontWeight={700} color={'lavender'} sx={{ padding: '10px 20px 0 0' }}>
             I'm attending ...
           </Typography>
           <Typography>Scroll or search to find your school </Typography>
           <Box sx={{ paddingTop: '40px' }}>
-            <Typography>Search your school</Typography>
+            <Typography sx={{
+              fontWeight: 700,
+              marginBottom: '5px',
+            }}>
+              Search your school
+            </Typography>
           </Box>
           <TextField
             onInput={(e) => onChange(e)}
@@ -80,6 +88,7 @@ function SettingsSchools({ showComponent, setShowComponent }) {
               borderRadius: '8px',
               width: '100%',
             }}
+            placeholder='Find your school'
             value={search}
             InputProps={{
               startAdornment: (
@@ -113,6 +122,9 @@ function SettingsSchools({ showComponent, setShowComponent }) {
             fullWidth
             color="primary"
             variant="contained"
+            sx = {{
+              padding: "16px 24px"
+            }}
             onClick={() => {
               updateUser(auth.user.uid, { school: school })
               setShowComponent('nav')

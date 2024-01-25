@@ -8,10 +8,16 @@ import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import DataUsageIcon from '@mui/icons-material/DataUsage'
+import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
 import HelpIcon from '@mui/icons-material/Help'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import LogoutIcon from '@mui/icons-material/Logout'
+import { useState } from 'react'
+
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid'
+import Dialog from '@mui/material/Dialog'
+import Button from '@mui/material/Button'
 
 import SignUp from '../SignUp'
 import Stats from './SettingsStats'
@@ -24,6 +30,9 @@ import { PageHeading } from 'components/PageHeading'
 function SettingsProfile() {
   const auth = useAuth()
   const { t } = useTranslation()
+
+
+  const [dialog, setDialog] = useState(false)
 
   const settingsLinks = [
     {
@@ -47,7 +56,7 @@ function SettingsProfile() {
     {
       title: 'Legal and About',
       link: '/settings/legal-and-about',
-      icon: <DataUsageIcon />,
+      icon: <PrivacyTipIcon />,
     },
   ]
 
@@ -57,7 +66,11 @@ function SettingsProfile() {
 
   return (
     <Container>
-      <PageHeading headingText={user ? displayName : t('settings.profile')} />
+      <PageHeading 
+      sx ={{
+        paddingTop: '52px'
+      }}
+      headingText={user ? displayName : t('settings.profile')} />
       <Box
         sx={{
           display: 'flex',
@@ -91,7 +104,7 @@ function SettingsProfile() {
                 }
               >
                 <ListItemButton>
-                  <ListItemIcon>{icon}</ListItemIcon>
+                  <ListItemIcon sx={{ }}>{icon}</ListItemIcon>
                   <ListItemText sx={{ color: 'white' }}>{title}</ListItemText>
                 </ListItemButton>
               </ListItem>
@@ -105,7 +118,7 @@ function SettingsProfile() {
               borderRadius: '5px',
             }}
           >
-            <ListItemButton onClick={() => auth.signout()}>
+            <ListItemButton onClick={() => setDialog(true)}>
               <ListItemIcon>
                 <LogoutIcon />
               </ListItemIcon>
@@ -113,6 +126,63 @@ function SettingsProfile() {
                 {t('settings.sign-out')}
               </ListItemText>
             </ListItemButton>
+          <Dialog 
+            onClose={() => setDialog(false)} 
+            open={dialog}
+            fullWidth={ true }
+            maxWidth= { "xs" }
+          >
+            <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              padding: "16px 0",
+              justifyContent: 'center',
+              alignItems:'center'
+            }}
+            >
+              <Box sx={{ paddingBottom: '16px' }}>
+                <Typography variant="h3">{t('settings.sign-out')}</Typography>
+              </Box>
+              <Box sx={{ paddingBottom: '24px', textAlign: 'center' }}>
+                <Typography variant="body2" color="text.secondary">
+                  {t('settings.are-you-sure-sign-out')}
+                </Typography>
+              </Box>
+              <Grid container>
+                <Grid item xs={6}>
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    sx = {{
+                      padding: "8px",
+                      textTransform: "none"
+                    }}
+                    onClick={() => {
+                      auth.signout()
+                    }}
+                  >
+                    {t('settings.yes-sign-out')}
+                  </Button>
+                </Grid>
+                <Grid item xs={6}>
+                  <Button
+                    variant="text"
+                    size="large"
+                    sx = {{
+                      padding: "8px",
+                      borderRadius: "25px"
+                    }}
+                    fullWidth
+                    onClick={() => setDialog(false)}
+                  >
+                    {t('cancel')}
+                  </Button>
+                </Grid>
+              </Grid>
+            </Box>
+          </Dialog>
+
           </ListItem>
         )}
       </List>
