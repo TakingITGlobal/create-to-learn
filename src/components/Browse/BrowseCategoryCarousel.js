@@ -11,26 +11,46 @@ import { categories } from '../../assets/options/categories'
 
 const responsive = {
   desktop: {
-    breakpoint: { max: 3000, min: 1024 },
+    breakpoint: {
+      max: 3000,
+      min: 1024
+    },
     items: 5,
-    partialVisibilityGutter: 60,
+    partialVisibilityGutter: 40
   },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 4,
-    partialVisibilityGutter: 50,
-  },
+
   mobile: {
-    breakpoint: { max: 464, min: 0 },
+    breakpoint: {
+      max: 464,
+      min: 0
+    },
     items: 3,
-    partialVisibilityGutter: 10,
+    partialVisibilityGutter: 40
   },
+
+  smallest: {
+    breakpoint: {
+      max: 380,
+      min: 0
+    },
+    items: 2,
+    partialVisibilityGutter: 40
+  },
+
+  tablet: {
+    breakpoint: {
+      max: 1024,
+      min: 720,
+    },
+    items: 5,
+    partialVisibilityGutter: 30
+  }
 }
 
 function BrowseCategoryCarousel({ handleCategoryFilter, categoryFilter }) {
   const theme = useTheme()
   return (
-    <Box sx={{ padding: '10px 0' }}>
+    <Box sx={{ padding: '10px' }}>
       <MultiCarousel
         initialSlide={5}
         keyBoardControl
@@ -38,7 +58,7 @@ function BrowseCategoryCarousel({ handleCategoryFilter, categoryFilter }) {
         responsive={responsive}
         swipeable
         infinite
-        removeArrowOnDeviceType={['tablet', 'mobile']}
+        removeArrowOnDeviceType={['tablet', 'mobile', 'smallest']}
         additionalTransfrom={0}
       >
         {categories.map((category, index) => (
@@ -50,10 +70,11 @@ function BrowseCategoryCarousel({ handleCategoryFilter, categoryFilter }) {
                 alt={category}
                 sx={{
                   display: 'flex',
-                  width: {xs:'100px', md: '150px'},
-                  height: {xs:'100px', md: '150px'},
+                  width: {xs:'18vw', sm: '100px', md: '150px'},
+                  height: {xs:'18vw', sm:'100px', md: '150px'},
                   backgroundColor: '#211E34',
-                  padding: '10px',
+                  padding:'10px',
+                  borderRadius:'4px',
                   border:
                     categoryFilter === category.label ? ' 1px solid' : 'none',
                   borderColor: 'white',
@@ -66,6 +87,7 @@ function BrowseCategoryCarousel({ handleCategoryFilter, categoryFilter }) {
                 fontSize: {md: '0.85em'},
                 textAlign: 'center',
                 marginTop: '0!important',
+                padding: '5px 0',
                 color:  categoryFilter === category.label ? theme.palette.text.primary : theme.palette.text.secondary,
               }}
             >
