@@ -313,9 +313,11 @@ export function InputPillView(props) {
               label={val}
               clickable
               style={{
+                fontSize: 16,
                 marginLeft: 0,
                 backgroundColor: data.includes(val) ? '#6956F1' : '#211E34',
-                padding: '5px !important',
+                fontWeight: data.includes(val) ? '700' : '',
+                padding: '16px !important',
               }}
               onClick={() => onChange(val)}
               variant="default"
