@@ -24,7 +24,7 @@ function SettingsLanguage({ showComponent, setShowComponent }) {
 
   const [languages, setLanguages] = useState(auth?.user?.language ?? [])
 
-  //To Do- make this simpler!
+  //To Do - make this simpler!
   const handleLanguages = (lan) => {
     if (lan === LANGUAGE_NOT_HERE) {
       setLanguages([])
@@ -48,11 +48,11 @@ function SettingsLanguage({ showComponent, setShowComponent }) {
           height: '700px',
         }}
       >
-        <Box sx={{ padding: '1.5rem 0' }}>
-          <Typography variant="h5" sx={{ paddingBottom: '10px' }}>
+        <Box sx={{ padding: '1.5rem 0'}}>
+          <Typography variant="h5" fontWeight={700} color={'lavender'} sx={{ paddingBottom: '10px' }}>
             My language is...
           </Typography>
-          <Typography>Or a language I am learning</Typography>
+          <Typography color={'lavender'}>Or a language I am learning</Typography>
           <Typography>
             So that we can greet and congratulate you in the future
           </Typography>
@@ -60,9 +60,8 @@ function SettingsLanguage({ showComponent, setShowComponent }) {
         <List
           sx={{
             width: '100%',
-            maxWidth: 360,
             maxHeight: '400px',
-            overflow: 'scroll',
+            overflowY: "scroll"
           }}
           component="nav"
           aria-labelledby="settings-profile"
@@ -74,7 +73,7 @@ function SettingsLanguage({ showComponent, setShowComponent }) {
                 backgroundColor: languages.includes(language)
                   ? '#6956F1'
                   : '#211E34',
-                marginBottom: '15px',
+                marginBottom: '10px',
                 borderRadius: '5px',
               }}
               secondaryAction={
@@ -121,13 +120,15 @@ function SettingsLanguage({ showComponent, setShowComponent }) {
             fullWidth
             color="primary"
             variant="contained"
+            sx = {{
+              padding: "16px 24px"
+            }}
             onClick={() => {
               updateUser(auth.user.uid, { language: languages })
               setShowComponent('nav')
             }}
           >
             {t('settings.update')}&nbsp;
-            <ArrowForward />
           </Button>
         </Box>
       </Box>

@@ -31,7 +31,6 @@ function SettingsDisplayName({ showComponent, setShowComponent }) {
         </Box>
         <TextField
           id="displayName"
-          label="DisplayName"
           variant="outlined"
           defaultValue={name}
           onChange={(e) => setName(e.target.value)}
@@ -48,6 +47,9 @@ function SettingsDisplayName({ showComponent, setShowComponent }) {
             fullWidth
             color="primary"
             variant="contained"
+            sx = {{
+              padding: "16px 24px"
+            }}
             onClick={() => {
               updateUser(auth.user.uid, { displayName: name })
               setShowComponent('nav')
