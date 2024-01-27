@@ -31,56 +31,36 @@ const styles = (theme) => ({
   },
   scrollBox: {
     overflowY: 'scroll',
-    height: '40vh',
+    height: '50vh',
     textAlign: 'left',
     gap: 8,
   },
 })
 
-function InputView(props) {
+function TitleSection({ value }) {
   const { t } = useTranslation()
-  const swiper = useSwiper()
-  const [cur, setCur] = useState(0)
-
-  const { data, value, formProgress, setFormProgress } = props
-  const required = props.required ? props.required : false
-
-  useEffect(() => {
-    swiper.on('slideChange', (swipe) => {
-      setCur(swipe.activeIndex)
-    })
-  }, [swiper])
-
-  function handleFormProgress() {
-    if (formProgress <= cur) setFormProgress((formProgress) => formProgress + 1)
-  }
-  const setLocal = (id, val) => {
-    localStorage.setItem(id, val)
-    handleFormProgress()
-    swiper.slideNext()
-  }
 
   return (
     <Box
       sx={{
-        padding: '50px 1em 1em 1em',
+        padding: '50px 1em 1.5em 1.5em',
         maxWidth: { md: '850px' },
         margin: { md: '0 auto' },
       }}
     >
-      <Stack direction="column" sx={{ pb: '40px' }}>
+      <Stack direction="column">
         <Typography variant="decorative">
-          {t(`onboarding.${props.value}.header`)}
+          {t(`onboarding.${value}.header`)}
         </Typography>
         <Typography variant="secondary" sx={{ color: '#D2CCFB' }}>
-          {t(`onboarding.${props.value}.header2`)}
+          {t(`onboarding.${value}.header2`)}
         </Typography>
         <Typography variant="secondary">
-          {t(`onboarding.${props.value}.subheader`)}
+          {t(`onboarding.${value}.subheader`)}
         </Typography>
       </Stack>
 
-      <Grid
+      {/* <Grid
         sx={{ maxHeight: '350px', overflow: 'scroll', padding: '20px 0' }}
         container
       >
@@ -108,7 +88,7 @@ function InputView(props) {
         ) : (
           <Box style={{ height: 36.5 }} />
         )}
-      </Stack>
+      </Stack> */}
     </Box>
   )
 }
@@ -192,6 +172,7 @@ export function WindowView(props) {
 export function InputSelectView(props) {
   const { multi, value, options } = props
   const classes = useClasses(styles)
+
   const cols = props.cols ? props.cols : 1
 
   const [data, setData] = useState(multi ? [] : '')
@@ -204,89 +185,86 @@ export function InputSelectView(props) {
       : setData(e.target.value)
   }
 
-  return (
-    <InputView data={data} {...props}>
-      {multi ? (
-        <Grid
-          container
-          sx={{
-            gap: '10px',
-            justifyContent: 'space-between',
-            marginBottom: '2em',
-          }}
-        >
-          {options?.map((val, i) => (
-            <Box
-              as="div"
-              key={i}
-              className={classes.btnInput}
-              sx={{
-                flex: `0 1 calc(calc(100% / ${cols}) - (10px * ${cols - 1}))`,
-              }}
+  return multi ? (
+    <Box>
+      <TitleSection value={value} />
+      <Grid
+        container
+        sx={{
+          gap: '10px',
+          padding: '1em',
+        }}
+      >
+        {options?.map((val, i) => (
+          <Box
+            as="div"
+            key={i}
+            className={classes.btnInput}
+            sx={{
+              flex: `0 1 calc(calc(100% / ${cols}) - (10px * ${cols - 1}))`,
+            }}
+          >
+            <input
+              onChange={onChange}
+              type="checkbox"
+              value={val}
+              name={value}
+              id={val}
+              hidden
+            />
+            <Button
+              variant="selection"
+              component="label"
+              fullWidth
+              htmlFor={val}
+              className={data.includes(val) ? 'active' : ''}
             >
-              <input
-                onChange={onChange}
-                type="checkbox"
-                value={val}
-                name={value}
-                id={val}
-                hidden
-              />
-              <Button
-                variant="selection"
-                component="label"
-                fullWidth
-                htmlFor={val}
-                className={data.includes(val) ? 'active' : ''}
-              >
-                {val}
-                <Check />
-              </Button>
-            </Box>
-          ))}
-        </Grid>
-      ) : (
-        <Grid
-          container
-          style={{ gap: '10px', justifyContent: 'space-between' }}
-        >
-          {options?.map((val, i) => (
-            <Box
-              as="div"
-              key={i}
-              className={classes.btnInput}
-              sx={{
-                flex: `0 1 calc(calc(100% / ${cols}) - (10px * ${cols - 1}))`,
-              }}
+              {val}
+              <Check />
+            </Button>
+          </Box>
+        ))}
+      </Grid>
+    </Box>
+  ) : (
+    <Box>
+      <Grid container style={{ gap: '10px', justifyContent: 'space-between' }}>
+        {options?.map((val, i) => (
+          <Box
+            as="div"
+            key={i}
+            className={classes.btnInput}
+            sx={{
+              flex: `0 1 calc(calc(100% / ${cols}) - (10px * ${cols - 1}))`,
+            }}
+          >
+            <input
+              onChange={onChange}
+              type="radio"
+              value={val}
+              name={value}
+              id={val}
+              hidden
+            />
+            <Button
+              variant="selection"
+              component="label"
+              fullWidth
+              htmlFor={val}
+              size="small"
             >
-              <input
-                onChange={onChange}
-                type="radio"
-                value={val}
-                name={value}
-                id={val}
-                hidden
-              />
-              <Button
-                variant="selection"
-                component="label"
-                fullWidth
-                htmlFor={val}
-                size="small"
-              >
-                {val}
-                <Check />
-              </Button>
-            </Box>
-          ))}
-        </Grid>
-      )}
-    </InputView>
+              {val}
+              <Check />
+            </Button>
+          </Box>
+        ))}
+      </Grid>
+    </Box>
   )
 }
 
 export function InputPillView(props) {
-  const { value, options } = props
+  const { options, value } = props
 
   const [data, setData] = useState([])
 
@@ -297,13 +275,15 @@ export function InputPillView(props) {
   }
 
   return (
-    <InputView data={data} {...props}>
+    <Box>
+      <TitleSection value={value} />
       <Grid
         container
         sx={{
           gap: '10px',
           justifyContent: 'space-between',
-          marginBottom: '2em',
+          marginTop: '2em',
+          padding: '1.5em',
         }}
       >
         {options?.map((val, i) => (
@@ -324,7 +304,7 @@ export function InputPillView(props) {
           </Box>
         ))}
       </Grid>
-    </InputView>
+    </Box>
   )
 }
 
@@ -336,16 +316,17 @@ export function InputTextView(props) {
   }
 
   return (
-    <InputView data={data} {...props}>
+    <>
+      <TitleSection value={props.value} />
       <Grid container item className={classes.gridColumn} onChange={onChange}>
         <TextField variant="outlined" fullWidth />
       </Grid>
-    </InputView>
+    </>
   )
 }
 
 export function InputSearchView(props) {
-  const { value, formProgress, options } = props
+  const { value, options } = props
 
   const classes = useClasses(styles)
   const { t } = useTranslation()
@@ -385,50 +366,54 @@ export function InputSearchView(props) {
     </div>
   )
   return (
-    <InputView data={data} {...props}>
-      <Stack direction="column" sx={{ padding: '10px 0' }}>
-        {data.length > 0 && (
-          <Button variant="contained" size="small">
-            {data}
-          </Button>
-        )}
-      </Stack>
+    <>
+      <TitleSection value={value} />
 
-      <TextField variant="outlined" onChange={onInputChange} fullWidth />
-
-      <Grid container item className={classes.gridColumn}>
-        <Grid className={classes.scrollBox}>
-          <Box sx={{ padding: '10px 0' }}>
-            <input
-              type="radio"
-              value="other"
-              id="other"
-              name={value}
-              hidden
-              onChange={onChange}
-            />
-            <Button
-              variant="selection"
-              component="label"
-              htmlFor="other"
-              size="small"
-              fullWidth
-            >
-              {t('btn.missing', { value: value })}
+      <Box sx={{ margin: '1.5em' }}>
+        <Stack direction="column">
+          {data.length > 0 && (
+            <Button variant="contained" size="small">
+              {data}
             </Button>
-          </Box>
-          <List
-            itemData={filtered}
-            itemCount={filtered.length}
-            height={420}
-            itemSize={65}
-            width="100%"
-          >
-            {Row}
-          </List>
+          )}
+        </Stack>
+
+        <TextField variant="outlined" onChange={onInputChange} fullWidth />
+
+        <Grid className={classes.gridColumn}>
+          <Grid className={classes.scrollBox}>
+            <Box sx={{ padding: '10px 0' }}>
+              <input
+                type="radio"
+                value="other"
+                id="other"
+                name={value}
+                hidden
+                onChange={onChange}
+              />
+              <Button
+                variant="selection"
+                component="label"
+                htmlFor="other"
+                size="small"
+                fullWidth
+              >
+                {t('btn.missing', { value: value })}
+              </Button>
+            </Box>
+            <List
+              itemData={filtered}
+              itemCount={filtered.length}
+              height={420}
+              itemSize={65}
+              width="100%"
+            >
+              {Row}
+            </List>
+          </Grid>
         </Grid>
-      </Grid>
-    </InputView>
+      </Box>
+    </>
   )
 }
 

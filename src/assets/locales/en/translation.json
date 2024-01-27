@@ -54,23 +54,17 @@
       "subheader": "Scroll or search to find your school",
       "header": "I'm attending",
       "header2": "",
-      "skip-btn": "Prefer not to say"
+      "skip-btn": "I'm not attending school"
     },
     "interests": {
-      "subheader": "Tell us more about you, so we can personalize your experience",
-      "header": "I am..",
+      "subheader": "Pick three topics you're interested in",
+      "header": "I am interested in..",
       "header2": "",
       "skip-btn": "Prefer not to say"
     },
     "email": {
       "subheader": "Tell us more about you, so we can personalize your experience",
-      "header": "I am..",
-      "header2": "",
-      "skip-btn": "Prefer not to say"
-    },
-    "displayName": {
-      "subheader": "Tell us more about you, so we can personalize your experience",
-      "header": "I am..",
+      "header": "I want to be a.",
       "header2": "",
       "skip-btn": "Prefer not to say"
     }

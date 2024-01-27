@@ -1,5 +1,13 @@
 import React from 'react'
-import { MobileStepper, Container, Link, Typography } from '@mui/material'
+import {
+  MobileStepper,
+  Container,
+  Link,
+  Typography,
+  Box,
+  Button,
+  Stack,
+} from '@mui/material'
 import ArrowBack from '@mui/icons-material/ArrowBack'
 import { SwiperNext, SwiperPrev } from './Swipers'
 import { useSwipe } from './Swipers'
@@ -9,6 +17,10 @@ interface ProgressProps {
   start: number
   end: number
   slot: string
+}
+
+interface ContinueButtonProps {
+  translationKeys: string[]
 }
 
 export const ProgressBar = ({ start, end, slot }: ProgressProps) => {
@@ -81,6 +93,42 @@ export const ProgressDots = (props: ProgressProps) => {
           backButton={undefined}
         />
       ) : null}
+    </Container>
+  )
+}
+
+export const ContinueButtons = ({ translationKeys }: ContinueButtonProps) => {
+  const { t } = useTranslation()
+
+  const { active, swiper } = useSwipe()
+  return (
+    <Container slot={'container-end'}>
+      <Box
+        sx={{
+          display: 'flext',
+          alignItems: 'center',
+          justifyContent: 'center',
+          margin: '0 .25em',
+        }}
+      >
+        <Stack
+          spacing={2}
+          sx={{
+            flexDirection: { xs: 'column', md: 'row' },
+          }}
+        >
+          {active >= 4 && active <= 7 ? (
+            <SwiperNext handleClick={() => swiper.slideNext()}>
+              {t('btn.continue')}
+            </SwiperNext>
+          ) : null}
+          {active >= 4 && active <= 6 ? (
+            <Button variant="text" onClick={() => swiper.slideNext()}>
+              {t(`onboarding.${translationKeys[active - 4]}.skip-btn`)}
+            </Button>
+          ) : null}
+        </Stack>
+      </Box>
     </Container>
   )
 }

@@ -22,7 +22,7 @@ import juggling from 'assets/images/juggling.png'
 import gardening from 'assets/images/gardening.png'
 import toolbelt from 'assets/images/toolbelt.png'
 import { categories } from 'assets/options/categories'
-import { ProgressDots, ProgressBar } from './Progress'
+import { ProgressDots, ProgressBar, ContinueButtons } from './Progress'
 
 const SlotStart = 'container-start'
 const SlotEnd = 'container-end'
@@ -34,11 +34,17 @@ function SignUpSection() {
   const [formProgress, setFormProgress] = useState(0)
 
   const categoryOptions = categories.slice(1).map(({ label }) => label)
-
+  const translationKeys = [
+    'fnmi',
+    'language',
+    'school',
+    'interests',
+    'displayName',
+  ]
   return (
     <Section size="auto">
-      <Swiper modules={[A11y, Keyboard]} autoHeight={true}>
-        <SwiperSlide style={{ height: '600px' }}>
+      <Swiper modules={[A11y, Keyboard]}>
+        <SwiperSlide>
           <WelcomeView
             image={welcome}
             formProgress={formProgress}
@@ -107,18 +113,16 @@ function SignUpSection() {
 
         <SwiperSlide>
           <InputTextView
-            value="displayName"
+            value="screen-6"
             formProgress={formProgress}
             setFormProgress={setFormProgress}
           />
         </SwiperSlide>
 
         <SwiperSlide>
-          <FinishView
-            values={['fnmi', 'language', 'school', 'interests', 'displayName']}
-          />
+          <FinishView values={translationKeys} />
         </SwiperSlide>
-
+        <ContinueButtons translationKeys={translationKeys} />
         <ProgressDots start={1} end={welcomeLength} slot={SlotEnd} />
       </Swiper>
     </Section>
