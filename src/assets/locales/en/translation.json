@@ -57,7 +57,7 @@
       "skip-btn": "I'm not attending school"
     },
     "interests": {
-      "subheader": "Pick three topics you're interested in",
+      "subheader": "Pick up to three topics you're interested in",
       "header": "I am interested in..",
       "header2": "",
       "skip-btn": "Prefer not to say"
@@ -65,6 +65,12 @@
     "email": {
       "subheader": "Tell us more about you, so we can personalize your experience",
       "header": "I want to be a.",
+      "header2": "",
+      "skip-btn": "Prefer not to say"
+    },
+    "displayName": {
+      "subheader": "This is your name on the app",
+      "header": "I want to be called ...",
       "header2": "",
       "skip-btn": "Prefer not to say"
     }

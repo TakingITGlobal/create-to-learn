@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Section from '../Section'
 import { useTranslation } from 'react-i18next'
 import { A11y, Keyboard } from 'swiper'
@@ -22,39 +22,39 @@ import juggling from 'assets/images/juggling.png'
 import gardening from 'assets/images/gardening.png'
 import toolbelt from 'assets/images/toolbelt.png'
 import { categories } from 'assets/options/categories'
-import { ProgressDots, ProgressBar, ContinueButtons } from './Progress'
+import { ProgressDots, ProgressBar } from './Progress'
+import { ContinueButtons } from './ContinueButtons'
 
 const SlotStart = 'container-start'
 const SlotEnd = 'container-end'
 
 function SignUpSection() {
   const { t } = useTranslation()
-  const welcomeLength = 3
-  const inputLength = 4
-  const [formProgress, setFormProgress] = useState(0)
-
-  const categoryOptions = categories.slice(1).map(({ label }) => label)
   const translationKeys = [
     'fnmi',
     'language',
     'school',
     'interests',
+    'email',
     'displayName',
   ]
+  const categoryOptions = categories.slice(1).map(({ label }) => label)
+
+  const fnmiOptions = ['Inuit', 'Métis', 'First Nations', 'None of the above']
+  const languageOptions = ['Cree', 'Inuktitut', 'Ojibwe', 'English']
+  const welcomeLength = 3
+  const progressSlides = 7
+
   return (
     <Section size="auto">
       <Swiper modules={[A11y, Keyboard]}>
         <SwiperSlide>
-          <WelcomeView
-            image={welcome}
-            formProgress={formProgress}
-            setFormProgress={setFormProgress}
-          />
+          <WelcomeView image={welcome} />
         </SwiperSlide>
 
         <ProgressBar
           start={welcomeLength}
-          end={welcomeLength + inputLength + 1}
+          end={progressSlides + welcomeLength}
           slot={SlotStart}
         />
         <SwiperSlide>
@@ -71,40 +71,21 @@ function SignUpSection() {
 
         {/* Input Views */}
         <SwiperSlide>
-          <InputSelectView
-            value="fnmi"
-            options={['Inuit', 'Métis', 'First Nations', 'None of the above']}
-            formProgress={formProgress}
-            setFormProgress={setFormProgress}
-            multi
-          />
+          <InputSelectView value="fnmi" options={fnmiOptions} />
         </SwiperSlide>
 
         <SwiperSlide>
-          <InputSelectView
-            value="language"
-            options={['Cree', 'Inuktitut', 'Ojibwe', 'English']}
-            formProgress={formProgress}
-            setFormProgress={setFormProgress}
-            multi
-          />
+          <InputSelectView value="language" options={languageOptions} />
         </SwiperSlide>
 
         <SwiperSlide>
           <InputSearchView
             value="school"
             options={schoolData.map((x: any) => x.School)}
-            formProgress={formProgress}
-            setFormProgress={setFormProgress}
           />
         </SwiperSlide>
         <SwiperSlide>
-          <InputPillView
-            value="interests"
-            options={categoryOptions}
-            formProgress={formProgress}
-            setFormProgress={setFormProgress}
-          />
+          <InputPillView value="interests" options={categoryOptions} />
         </SwiperSlide>
 
         <SwiperSlide>
@@ -112,17 +93,17 @@ function SignUpSection() {
         </SwiperSlide>
 
         <SwiperSlide>
-          <InputTextView
-            value="screen-6"
-            formProgress={formProgress}
-            setFormProgress={setFormProgress}
-          />
+          <InputTextView value="displayName" />
         </SwiperSlide>
 
         <SwiperSlide>
           <FinishView values={translationKeys} />
         </SwiperSlide>
-        <ContinueButtons translationKeys={translationKeys} />
+        <ContinueButtons
+          translationKeys={translationKeys}
+          numOfSlides={progressSlides + welcomeLength}
+          welcomeLength={welcomeLength}
+        />
         <ProgressDots start={1} end={welcomeLength} slot={SlotEnd} />
       </Swiper>
     </Section>

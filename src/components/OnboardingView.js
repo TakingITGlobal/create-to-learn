@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import useClasses from '../hooks/useClasses'
 import {
   Grid,
@@ -31,7 +31,7 @@ const styles = (theme) => ({
   },
   scrollBox: {
     overflowY: 'scroll',
-    height: '50vh',
+    height: '40vh',
     textAlign: 'left',
     gap: 8,
   },
@@ -59,48 +59,15 @@ function TitleSection({ value }) {
           {t(`onboarding.${value}.subheader`)}
         </Typography>
       </Stack>
-
-      {/* <Grid
-        sx={{ maxHeight: '350px', overflow: 'scroll', padding: '20px 0' }}
-        container
-      >
-        {props.children}
-      </Grid>
-      <Stack
-        spacing={2}
-        sx={{ flexDirection: { xs: 'column', md: 'row' }, padding: '20px 0' }}
-      >
-        <Button
-          color="info"
-          sx={{
-            backgroundColor: 'white !important',
-            color: 'black !important',
-          }}
-          onClick={() => setLocal(value, data)}
-          disabled={!data.length > 0}
-        >
-          {t('btn.continue')}
-        </Button>
-        {!required ? (
-          <Button variant="text" onClick={() => setLocal(value, '')}>
-            {t(`onboarding.${value}.skip-btn`)}
-          </Button>
-        ) : (
-          <Box style={{ height: 36.5 }} />
-        )}
-      </Stack> */}
     </Box>
   )
 }
 
-export function WelcomeView(props) {
+export function WelcomeView({ image }) {
   const swiper = useSwiper()
   const { t } = useTranslation()
 
-  const { setFormProgress, formProgress } = props
-
   const setLocal = () => {
-    setFormProgress(formProgress + 1)
     swiper.slideNext()
   }
   return (
@@ -121,7 +88,7 @@ export function WelcomeView(props) {
           height: '300px',
           borderRadius: '24px',
         }}
-        image={props.image}
+        image={image}
       />
       <Stack
         sx={{
@@ -170,22 +137,25 @@ export function WindowView(props) {
 }
 
 export function InputSelectView(props) {
-  const { multi, value, options } = props
+  const { value, options } = props
   const classes = useClasses(styles)
+  const [data, setData] = useState([])
 
   const cols = props.cols ? props.cols : 1
 
-  const [data, setData] = useState(multi ? [] : '')
-
   function onChange(e) {
-    multi
-      ? !data.includes(e.target.value)
-        ? setData([...data, e.target.value])
-        : setData(data.filter((x) => x !== e.target.value))
-      : setData(e.target.value)
+    let arr
+    if (!data.includes(e.target.value)) {
+      arr = [...data, e.target.value]
+      setData(arr)
+    } else {
+      arr = data.filter((x) => x !== e.target.value)
+      setData(arr)
+    }
+    localStorage.setItem(value, arr)
   }
 
-  return multi ? (
+  return (
     <Box>
       <TitleSection value={value} />
       <Grid
@@ -220,41 +190,7 @@ export function InputSelectView(props) {
               className={data.includes(val) ? 'active' : ''}
             >
               {val}
-              <Check />
-            </Button>
-          </Box>
-        ))}
-      </Grid>
-    </Box>
-  ) : (
-    <Box>
-      <Grid container style={{ gap: '10px', justifyContent: 'space-between' }}>
-        {options?.map((val, i) => (
-          <Box
-            as="div"
-            key={i}
-            className={classes.btnInput}
-            sx={{
-              flex: `0 1 calc(calc(100% / ${cols}) - (10px * ${cols - 1}))`,
-            }}
-          >
-            <input
-              onChange={onChange}
-              type="radio"
-              value={val}
-              name={value}
-              id={val}
-              hidden
-            />
-            <Button
-              variant="selection"
-              component="label"
-              fullWidth
-              htmlFor={val}
-              size="small"
-            >
-              {val}
-              <Check />
+              {data.includes(val) ? <Check /> : null}
             </Button>
           </Box>
         ))}
@@ -269,9 +205,15 @@ export function InputPillView(props) {
   const [data, setData] = useState([])
 
   function onChange(val) {
-    !data.includes(val)
-      ? setData([...data, val])
-      : setData(data.filter((x) => x !== val))
+    let arr
+    if (!data.includes(val)) {
+      arr = [...data, val]
+      setData(arr)
+    } else {
+      arr = data.filter((x) => x !== val)
+      setData(arr)
+    }
+    localStorage.setItem(value, arr)
   }
 
   return (
@@ -308,20 +250,29 @@ export function InputPillView(props) {
   )
 }
 
-export function InputTextView(props) {
+export function InputTextView({ value }) {
   const classes = useClasses(styles)
   const [data, setData] = useState('')
+
   function onChange(e) {
-    setData(e.target.value)
+    const val = e.target.value
+    setData(val)
+    localStorage.setItem(value, val)
   }
 
   return (
-    <>
-      <TitleSection value={props.value} />
-      <Grid container item className={classes.gridColumn} onChange={onChange}>
+    <Box>
+      <TitleSection value={value} />
+      <Grid
+        container
+        item
+        className={classes.gridColumn}
+        onChange={onChange}
+        sx={{ padding: '1.5em' }}
+      >
         <TextField variant="outlined" fullWidth />
       </Grid>
-    </>
+    </Box>
   )
 }
 
@@ -340,7 +291,9 @@ export function InputSearchView(props) {
     setInputValue(e.target.value)
   }
   function onChange(e) {
+    const val = e.target.value
     setData(e.target.value)
+    localStorage.setItem(value, val)
   }
   const Row = ({ data, index, style, e }) => (
     <div>
