@@ -378,10 +378,17 @@ export function EmailView() {
   const handleFormAlert = (data) => {
     setFormAlert(data)
   }
-  const handleAuth = (email) => {
-    localStorage.setItem('email', email)
-    swiper.slideNext()
+  
+  const handleAuth = (userData) => {
+    const email = userData.email
+    if (email) {
+      localStorage.setItem('email', email);
+      swiper.slideNext();
+    } else {
+      console.error("Email is missing in userData");
+    }
   }
+
   return (
     <Box sx={{ padding: '50px 1em 1em 1em' }}>
       <Grid container item className={classes.gridColumn} md={6}>
