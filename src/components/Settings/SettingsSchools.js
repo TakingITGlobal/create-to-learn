@@ -3,6 +3,8 @@ import React, { useState, useMemo, useCallback } from 'react'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
+import Slide from '@mui/material/Slide';
+
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
 import SearchIcon from '@mui/icons-material/Search'
@@ -60,6 +62,13 @@ function SettingsSchools({ showComponent, setShowComponent }) {
 
   return (
     showComponent === 'school' && (
+      <Slide
+      direction="left"
+      in={showComponent}
+      timeout={500}
+      mountOnEnter
+      unmountOnExit
+    >
       <Box
         sx={{
           display: 'flex',
@@ -134,6 +143,7 @@ function SettingsSchools({ showComponent, setShowComponent }) {
           </Button>
         </Box>
       </Box>
+    </Slide>
     )
   )
 }

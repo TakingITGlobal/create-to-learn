@@ -10,6 +10,7 @@ import ListItemButton from '@mui/material/ListItemButton'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import IconButton from '@mui/material/IconButton'
 import ArrowForward from '@mui/icons-material/ArrowForward'
+import Slide from '@mui/material/Slide'
 import { languages as languageOptions } from '../../assets/options/filters'
 
 import { updateUser } from '../../util/db'
@@ -41,97 +42,105 @@ function SettingsLanguage({ showComponent, setShowComponent }) {
 
   return (
     showComponent === 'language' && (
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: '700px',
-        }}
+      <Slide
+      direction="left"
+      in={showComponent}
+      timeout={500}
+      mountOnEnter
+      unmountOnExit
       >
-        <Box sx={{ padding: '1.5rem 0'}}>
-          <Typography variant="h5" fontWeight={700} color={'lavender'} sx={{ paddingBottom: '10px' }}>
-            My language is...
-          </Typography>
-          <Typography color={'lavender'}>Or a language I am learning</Typography>
-          <Typography>
-            So that we can greet and congratulate you in the future
-          </Typography>
-        </Box>
-        <List
+        <Box
           sx={{
-            width: '100%',
-            maxHeight: '400px',
-            overflowY: "scroll"
+            display: 'flex',
+            flexDirection: 'column',
+            height: '700px',
           }}
-          component="nav"
-          aria-labelledby="settings-profile"
         >
-          {languageOptions.map((language, index) => (
+          <Box sx={{ padding: '1.5rem 0'}}>
+            <Typography variant="h5" fontWeight={700} color={'lavender'} sx={{ paddingBottom: '10px' }}>
+              My language is...
+            </Typography>
+            <Typography color={'lavender'}>Or a language I am learning</Typography>
+            <Typography>
+              So that we can greet and congratulate you in the future
+            </Typography>
+          </Box>
+          <List
+            sx={{
+              width: '100%',
+              maxHeight: '400px',
+              overflowY: "scroll"
+            }}
+            component="nav"
+            aria-labelledby="settings-profile"
+          >
+            {languageOptions.map((language, index) => (
+              <ListItem
+                key={index}
+                sx={{
+                  backgroundColor: languages.includes(language)
+                    ? '#6956F1'
+                    : '#211E34',
+                  marginBottom: '10px',
+                  borderRadius: '5px',
+                }}
+                secondaryAction={
+                  languages.includes(language) && (
+                    <IconButton size="large">
+                      <CheckCircleIcon />
+                    </IconButton>
+                  )
+                }
+              >
+                <ListItemButton onClick={() => handleLanguages(language)}>
+                  <ListItemText>{language}</ListItemText>
+                </ListItemButton>
+              </ListItem>
+            ))}
             <ListItem
-              key={index}
               sx={{
-                backgroundColor: languages.includes(language)
-                  ? '#6956F1'
-                  : '#211E34',
-                marginBottom: '10px',
+                backgroundColor: !languages.length ? '#6956F1' : '#211E34',
+                marginBottom: '15px',
                 borderRadius: '5px',
               }}
               secondaryAction={
-                languages.includes(language) && (
+                !languages.length && (
                   <IconButton size="large">
                     <CheckCircleIcon />
                   </IconButton>
                 )
               }
             >
-              <ListItemButton onClick={() => handleLanguages(language)}>
-                <ListItemText>{language}</ListItemText>
+              <ListItemButton onClick={() => handleLanguages(LANGUAGE_NOT_HERE)}>
+                <ListItemText>My language is not here</ListItemText>
               </ListItemButton>
             </ListItem>
-          ))}
-          <ListItem
+          </List>
+          <Box
             sx={{
-              backgroundColor: !languages.length ? '#6956F1' : '#211E34',
-              marginBottom: '15px',
-              borderRadius: '5px',
-            }}
-            secondaryAction={
-              !languages.length && (
-                <IconButton size="large">
-                  <CheckCircleIcon />
-                </IconButton>
-              )
-            }
-          >
-            <ListItemButton onClick={() => handleLanguages(LANGUAGE_NOT_HERE)}>
-              <ListItemText>My language is not here</ListItemText>
-            </ListItemButton>
-          </ListItem>
-        </List>
-        <Box
-          sx={{
-            display: 'flex',
-            padding: '1.5rem 0',
-            flexGrow: 1,
-            alignItems: 'flex-end',
-          }}
-        >
-          <Button
-            fullWidth
-            color="primary"
-            variant="contained"
-            sx = {{
-              padding: "16px 24px"
-            }}
-            onClick={() => {
-              updateUser(auth.user.uid, { language: languages })
-              setShowComponent('nav')
+              display: 'flex',
+              padding: '1.5rem 0',
+              flexGrow: 1,
+              alignItems: 'flex-end',
             }}
           >
-            {t('settings.update')}&nbsp;
-          </Button>
+            <Button
+              fullWidth
+              color="primary"
+              variant="contained"
+              sx = {{
+                padding: "16px 24px"
+              }}
+              onClick={() => {
+                updateUser(auth.user.uid, { language: languages })
+                setShowComponent('nav')
+              }}
+            >
+              {t('settings.update')}&nbsp;
+            </Button>
+          </Box>
         </Box>
-      </Box>
+      </Slide>
     )
   )
 }

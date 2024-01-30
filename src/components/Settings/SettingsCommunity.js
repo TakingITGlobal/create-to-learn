@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import Typography from '@mui/material/Typography'
+import Slide from '@mui/material/Slide'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import List from '@mui/material/List'
@@ -47,110 +48,118 @@ function SettingsCommunity({ showComponent, setShowComponent }) {
 
   return (
     showComponent === 'communities' && (
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: '700px',
-        }}
+      <Slide
+      direction="left"
+      in={showComponent}
+      timeout={500}
+      mountOnEnter
+      unmountOnExit
       >
-        <Box sx={{ padding: '1.5rem 0' }}>
-          <Typography variant="h5" fontWeight={700} color={'lavender'} sx={{ paddingBottom: '10px' }}>
-            I am ...
-          </Typography>
-          <Typography>
-            Tell us more about you, so we can personalize your experience.
-          </Typography>
-        </Box>
-        <List
-          sx={{ width: '100%' }}
-          component="nav"
-          aria-labelledby="settings-profile"
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            height: '700px',
+          }}
         >
-          {culturalGroups.map((community, index) => (
+          <Box sx={{ padding: '1.5rem 0' }}>
+            <Typography variant="h5" fontWeight={700} color={'lavender'} sx={{ paddingBottom: '10px' }}>
+              I am ...
+            </Typography>
+            <Typography>
+              Tell us more about you, so we can personalize your experience.
+            </Typography>
+          </Box>
+          <List
+            sx={{ width: '100%' }}
+            component="nav"
+            aria-labelledby="settings-profile"
+          >
+            {culturalGroups.map((community, index) => (
+              <ListItem
+                key={index}
+                sx={{
+                  backgroundColor: communities.includes(community)
+                    ? '#6956F1'
+                    : '#211E34',
+                  marginBottom: '15px',
+                  borderRadius: '5px',
+                }}
+                secondaryAction={
+                  communities.includes(community) && (
+                    <IconButton size="large">
+                      <CheckCircleIcon />
+                    </IconButton>
+                  )
+                }
+              >
+                <ListItemButton onClick={() => handleCommunity(community)}>
+                  <ListItemText>{community}</ListItemText>
+                </ListItemButton>
+              </ListItem>
+            ))}
             <ListItem
-              key={index}
               sx={{
-                backgroundColor: communities.includes(community)
-                  ? '#6956F1'
-                  : '#211E34',
+                backgroundColor: communities.includes('') ? '#6956F1' : '#211E34',
                 marginBottom: '15px',
                 borderRadius: '5px',
               }}
               secondaryAction={
-                communities.includes(community) && (
+                communities.includes('') && (
                   <IconButton size="large">
                     <CheckCircleIcon />
                   </IconButton>
                 )
               }
             >
-              <ListItemButton onClick={() => handleCommunity(community)}>
-                <ListItemText>{community}</ListItemText>
+              <ListItemButton onClick={() => handleCommunity(NONE_OF_THE_ABOVE)}>
+                <ListItemText>{t('settings.none-of-the-above')}</ListItemText>
               </ListItemButton>
             </ListItem>
-          ))}
-          <ListItem
+            <ListItem
+              sx={{
+                backgroundColor: !communities.length ? '#6956F1' : '#211E34',
+                marginBottom: '15px',
+                borderRadius: '5px',
+              }}
+              secondaryAction={
+                !communities.length && (
+                  <IconButton size="large">
+                    <CheckCircleIcon />
+                  </IconButton>
+                )
+              }
+            >
+              <ListItemButton onClick={() => handleCommunity(PREFER_NOT_TO_SAY)}>
+                <ListItemText>{t('settings.prefer-not-to-say')}</ListItemText>
+              </ListItemButton>
+            </ListItem>
+          </List>
+          <Box
             sx={{
-              backgroundColor: communities.includes('') ? '#6956F1' : '#211E34',
-              marginBottom: '15px',
-              borderRadius: '5px',
-            }}
-            secondaryAction={
-              communities.includes('') && (
-                <IconButton size="large">
-                  <CheckCircleIcon />
-                </IconButton>
-              )
-            }
-          >
-            <ListItemButton onClick={() => handleCommunity(NONE_OF_THE_ABOVE)}>
-              <ListItemText>{t('settings.none-of-the-above')}</ListItemText>
-            </ListItemButton>
-          </ListItem>
-          <ListItem
-            sx={{
-              backgroundColor: !communities.length ? '#6956F1' : '#211E34',
-              marginBottom: '15px',
-              borderRadius: '5px',
-            }}
-            secondaryAction={
-              !communities.length && (
-                <IconButton size="large">
-                  <CheckCircleIcon />
-                </IconButton>
-              )
-            }
-          >
-            <ListItemButton onClick={() => handleCommunity(PREFER_NOT_TO_SAY)}>
-              <ListItemText>{t('settings.prefer-not-to-say')}</ListItemText>
-            </ListItemButton>
-          </ListItem>
-        </List>
-        <Box
-          sx={{
-            display: 'flex',
-            padding: '1.5rem 0',
-            flexGrow: 1,
-            alignItems: 'flex-end',
-          }}
-        >
-          <Button
-            fullWidth
-            color="primary"
-            variant="contained"
-            sx = {{
-              padding: "16px 24px"
-            }}
-            onClick={() => {
-              updateUser(auth.user.uid, { fnmi: communities })
-              setShowComponent('nav')
+              display: 'flex',
+              padding: '1.5rem 0',
+              flexGrow: 1,
+              alignItems: 'flex-end',
             }}
           >
-            {t('settings.update')}
-          </Button>
+            <Button
+              fullWidth
+              color="primary"
+              variant="contained"
+              sx = {{
+                padding: "16px 24px"
+              }}
+              onClick={() => {
+                updateUser(auth.user.uid, { fnmi: communities })
+                setShowComponent('nav')
+              }}
+            >
+              {t('settings.update')}
+            </Button>
+          </Box>
         </Box>
-      </Box>
+      </Slide>
     )
   )
 }
