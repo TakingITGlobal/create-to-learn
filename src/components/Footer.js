@@ -53,6 +53,7 @@ const styles = (theme) => ({
 
   link: {
     color: 'inherit',
+    textDecoration: 'None',
     lineHeight: 1,
     '&:not(:last-of-type)': {
       marginRight: '1.2rem',
@@ -116,28 +117,33 @@ function Footer(props) {
             className={`${classes.item} ${classes.right} ${classes.smallLinks}`}
           >
             <Typography>
-              <LinkMui component={Link} to="/about" className={classes.link}>
+              <a
+                href="https://www.tigweb.org/about/"
+                target="_blank"
+                rel="noreferrer"
+                className={classes.link}
+              >
                 About
-              </LinkMui>
+              </a>
               <LinkMui component={Link} to="/faq" className={classes.link}>
                 FAQ
               </LinkMui>
               <LinkMui component={Link} to="/contact" className={classes.link}>
                 Contact
               </LinkMui>
-              <LinkMui
+              {/* <LinkMui
                 href="https://medium.com"
                 target="_blank"
                 rel="noreferrer"
                 className={classes.link}
               >
                 Blog
-              </LinkMui>
+              </LinkMui> */}
             </Typography>
           </div>
           <div className={`${classes.item} ${classes.right} ${classes.social}`}>
             <a
-              href="https://twitter.com/divjoy"
+              href="https://twitter.com/takingitglobal"
               target="_blank"
               rel="noreferrer"
               className={classes.link}
@@ -145,7 +151,7 @@ function Footer(props) {
               <TwitterIcon fontSize="large" />
             </a>
             <a
-              href="https://facebook.com/DivjoyOfficial"
+              href="https://facebook.com/takingitglobal"
               target="_blank"
               rel="noreferrer"
               className={classes.link}
@@ -153,7 +159,7 @@ function Footer(props) {
               <FacebookIcon fontSize="large" />
             </a>
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/create2learn"
               target="_blank"
               rel="noreferrer"
               className={classes.link}
