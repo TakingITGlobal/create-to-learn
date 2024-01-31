@@ -1,17 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Container from '@mui/material/Container'
 import SwipeableViews from 'react-swipeable-views'
-import {
-  AppBar,
-  Box,
-  Tab,
-  Tabs,
-  Typography,
-  useTheme,
-  Grid,
-  Stack,
-  Button,
-} from '@mui/material'
+import { AppBar, Box, Tab, Tabs, Typography, useTheme } from '@mui/material'
 import CardMedia from '@mui/material/CardMedia'
 import Snackbar from '@mui/material/Snackbar'
 import MuiAlert from '@mui/material/Alert'
@@ -24,14 +14,10 @@ import getByIdVimeo from '../../util/vimeo'
 import IconButton from '@mui/material/IconButton'
 import ShareIcon from '@mui/icons-material/ShareRounded'
 import ShareDrawer from '../ShareDrawer'
-import LinearProgress from '@mui/material/LinearProgress'
-import { displayTime } from '../../util/timeHelpers'
-import CheckSimpleIcon from '@mui/icons-material/Check'
 import { useTranslation } from 'react-i18next'
 import CourseCreatingButtons from './CourseCreatingButtons'
 import { PageHeading } from 'components/PageHeading'
-import { Helmet } from 'react-helmet'
-
+import Meta from '../Meta'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -56,7 +42,7 @@ function a11yProps(index) {
   }
 }
 
-function CourseSection({ data, courseData, courseProgress }) {
+function CourseSection({ courseData }) {
   const theme = useTheme()
   const auth = useAuth()
   const { t } = useTranslation()
@@ -74,15 +60,23 @@ function CourseSection({ data, courseData, courseProgress }) {
     palette[Math.floor(Math.random() * palette.length)],
   )
 
+  const {
+    seriesName,
+    creator,
+    description,
+    thumbnail,
+    videos,
+    id,
+    uid,
+    videoLinks,
+  } = courseData
+
   const { data: userProgressByCourse } = useUserProgressByCourse(
     auth.user?.uid,
-    courseData.videos,
+    videos,
   )
 
-  const { data: downloadsData } = useDownloadsById(
-    auth.user?.uid,
-    courseData.id,
-  )
+  const { data: downloadsData } = useDownloadsById(auth.user?.uid, id)
 
   const handleCloseSnackbar = (event, reason) => {
     if (reason === 'clickaway') {
@@ -91,9 +85,9 @@ function CourseSection({ data, courseData, courseProgress }) {
     setOpenSnackbar(false)
   }
 
-  const videoLinks = courseData?.videoLinks?.split(',')
-  const videoIds = videoLinks?.length
-    ? videoLinks.map((link) => {
+  const videoLinksArray = videoLinks?.split(',')
+  const videoIds = videoLinksArray?.length
+    ? videoLinksArray.map((link) => {
         const videoId = link.match('([a-z0-9]+)(?:/?$)')
         return videoId && videoId[0]
       })
@@ -107,6 +101,8 @@ function CourseSection({ data, courseData, courseProgress }) {
     getByIdVimeo(videoFormattedIds).then((data) => setVideoInfo(data.data.data))
   }, [videoFormattedIds])
 
+  const courseImage = thumbnail[0]?.downloadURL
+
   return (
     <Section
       style={{
@@ -115,9 +111,11 @@ function CourseSection({ data, courseData, courseProgress }) {
           'linear-gradient(180deg, rgba(11, 9, 25, 0) 0%, rgba(11, 9, 25, 0.11) 200px, rgba(11, 9, 25, 0.64) 400px, #0B0919 600px)',
       }}
     >
-    <Helmet>
-      <title>{courseData?.seriesName} | Create to Learn</title>
-    </Helmet>
+      <Meta
+        title={`${seriesName} - ${creator} - Create to Learn`}
+        description={description}
+        image={courseImage}
+      />
       <Container
         sx={{
           padding: '0',
@@ -143,14 +141,14 @@ function CourseSection({ data, courseData, courseProgress }) {
         {/* Series name */}
         <Box sx={{ padding: '0 2.5em 2em' }}>
           <PageHeading
-            headingText={courseData?.seriesName}
+            headingText={seriesName}
             textAlign="center"
             color="black"
           />
 
           <CardMedia
             component="img"
-            alt={courseData.seriesName}
+            alt={seriesName}
             sx={{
               display: 'flex',
               alignItems: 'center',
@@ -158,7 +156,7 @@ function CourseSection({ data, courseData, courseProgress }) {
               borderRadius: '6px',
               objectFit: 'cover',
             }}
-            image={courseData.thumbnail[0]?.downloadURL}
+            image={courseImage}
           />
         </Box>
 
@@ -197,9 +195,9 @@ function CourseSection({ data, courseData, courseProgress }) {
           <TabPanel value={tabValue} index={1} dir={theme.direction}>
             <CourseLessons
               videoInfo={videoInfo}
-              videoIds={courseData.videos}
-              courseId={courseData.id}
-              courseUID={courseData.uid}
+              videoIds={videos}
+              courseId={id}
+              courseUID={uid}
               courseProgress={userProgressByCourse}
               downloadsData={downloadsData}
             />
@@ -221,8 +219,8 @@ function CourseSection({ data, courseData, courseProgress }) {
           </MuiAlert>
         </Snackbar>
         <ShareDrawer
-          url={`https://create-to-learn.netlify.app/course/${courseData.uid}`}
-          title={`Share the ${courseData.seriesName} course page`}
+          url={`https://create-to-learn.netlify.app/course/${uid}`}
+          title={`Share the ${seriesName} course page`}
           openShareDrawer={openShareDrawer}
           setOpenShareDrawer={setOpenShareDrawer}
         />

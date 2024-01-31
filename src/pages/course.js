@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Meta from './../components/Meta'
 import CourseSection from './../components/CoursePage/CourseSection'
 import { useRouter } from './../util/router'
 import { useCourseByUID } from '../util/db'
@@ -21,7 +20,6 @@ function CoursePage(props) {
 
   return (
     <>
-      <Meta title="Course | Create to Learn" />
       {data && (
         <CourseSection
           bgColor="default"
