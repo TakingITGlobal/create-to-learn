@@ -4,6 +4,7 @@ import Snackbar from '@mui/material/Snackbar'
 import MuiAlert from '@mui/material/Alert'
 import { Typography } from '@mui/material'
 import ArrowBack from '../ArrowBack'
+import Slide from '@mui/material/Slide'
 
 import { useAuth } from '../../util/auth'
 
@@ -68,44 +69,53 @@ function SettingsSupport(props) {
         <div>
         </div>
       </Container>
-      <Container>
-        {showComponent === 'nav' && (
-          <>
-            <SupportNav auth={auth} setShowComponent={setShowComponent} />
-          </>
-        )}
-        {showComponent === 'verifyEmail' && <div>Verify email support...</div>}
-        {showComponent === 'findCourse' && <div>Find a course support...</div>}
-        {showComponent === 'createCourse' && <div>Create a course..</div>}
-        {showComponent === 'faqs' && <div>Faqs</div>}
-        <SettingsFeedbackForm
-          showComponent={showComponent}
-          setShowComponent={setShowComponent}
-          setOpenSnackbar={setOpenSnackbar}
-          setSnackbarMessage={setSnackbarMessage}
-        />
-        <SettingsBugReportForm
-          showComponent={showComponent}
-          setShowComponent={setShowComponent}
-          setOpenSnackbar={setOpenSnackbar}
-          setSnackbarMessage={setSnackbarMessage}
-        />
-        <Snackbar
-          open={openSnackbar}
-          autoHideDuration={1200}
-          onClose={() => setOpenSnackbar(false)}
-        >
-          <MuiAlert
-            elevation={6}
-            variant="filled"
+      <Slide
+      direction="left"
+      in={showComponent}
+      timeout={600}
+      mountOnEnter
+      unmountOnExit
+      >
+        <Container>
+          {showComponent === 'nav' && (
+            <>
+              <SupportNav auth={auth} setShowComponent={setShowComponent} />
+            </>
+          )}
+          {showComponent === 'verifyEmail' && <div>Verify email support...</div>}
+          {showComponent === 'findCourse' && <div>Find a course support...</div>}
+          {showComponent === 'createCourse' && <div>Create a course..</div>}
+          {showComponent === 'faqs' && <div>Faqs</div>}
+          
+          <SettingsFeedbackForm
+            showComponent={showComponent}
+            setShowComponent={setShowComponent}
+            setOpenSnackbar={setOpenSnackbar}
+            setSnackbarMessage={setSnackbarMessage}
+          />
+          <SettingsBugReportForm
+            showComponent={showComponent}
+            setShowComponent={setShowComponent}
+            setOpenSnackbar={setOpenSnackbar}
+            setSnackbarMessage={setSnackbarMessage}
+          />
+          <Snackbar
+            open={openSnackbar}
+            autoHideDuration={1200}
             onClose={() => setOpenSnackbar(false)}
-            severity={'success'}
-            sx={{ width: '100%' }}
           >
-            {snackbarMessage}
-          </MuiAlert>
-        </Snackbar>
-      </Container>
+            <MuiAlert
+              elevation={6}
+              variant="filled"
+              onClose={() => setOpenSnackbar(false)}
+              severity={'success'}
+              sx={{ width: '100%' }}
+            >
+              {snackbarMessage}
+            </MuiAlert>
+          </Snackbar>
+        </Container>
+      </Slide>
     </>
   )
 }
