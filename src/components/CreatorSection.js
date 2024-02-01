@@ -12,15 +12,18 @@ import Section from './Section'
 import CourseCard from './CourseCard'
 import ShareDrawer from './ShareDrawer'
 import { PageHeading } from './PageHeading'
+import Meta from './Meta'
 
 function CreatorSection({ coursesByCreator, creator }) {
   const [openShareDrawer, setOpenShareDrawer] = useState(false)
 
   return (
     <Section>
-    <Helmet>
-      <title>{creator.name} | Creators | Create to Learn</title>
-    </Helmet>
+    <Meta
+      title={`${creator.name} - Creators - Create to Learn)`}
+      description={`${creator.pleaseIncludeAShort23SentenceBioThatWeCanUseWhenPromotingYourContent}`}
+      image={creator.image}
+    />
       <Container>
         <Box sx={{display: {md: 'flex'}, gap: {md: '20px'}, paddingBottom: {md: '40px'}}}>
           <Box

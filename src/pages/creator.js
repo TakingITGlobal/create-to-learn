@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import Meta from './../components/Meta'
 import CreatorSection from './../components/CreatorSection'
 import { useRouter } from './../util/router'
 import { dataContext } from '../util/dataProvider'
@@ -29,7 +28,6 @@ function CreatorPage(props) {
 
   return (
     <>
-      <Meta title="Creator" />
       {!loadingCourses && !loadingCreators && (
         <CreatorSection coursesByCreator={coursesByCreator} creator={creator} />
       )}
