@@ -6,6 +6,8 @@ import TextField from '@mui/material/TextField'
 
 import { useTranslation } from 'react-i18next'
 
+import Slide from '@mui/material/Slide'
+
 function SettingsEmail({ auth, showComponent, setShowComponent }) {
   const { t } = useTranslation()
 
@@ -13,6 +15,13 @@ function SettingsEmail({ auth, showComponent, setShowComponent }) {
 
   return (
     showComponent === 'email' && (
+    <Slide
+      direction="left"
+      in={showComponent}
+      timeout={500}
+      mountOnEnter
+      unmountOnExit
+    >
       <Box
         sx={{
           display: 'flex',
@@ -50,6 +59,7 @@ function SettingsEmail({ auth, showComponent, setShowComponent }) {
           </Button>
         </Box>
       </Box>
+    </Slide>
     )
   )
 }
