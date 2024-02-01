@@ -8,12 +8,9 @@ function Meta(props) {
 
   // Meta values that are the same across all pages
   const globalMeta = {
-    // Site name
     siteName: 'Create To Learn',
-    // Your production domain (example: https://myapp.com)
-    domain: '',
-    // Your Twitter handle (example: @divjoy)
-    twitterHandle: '',
+    domain: 'https://app.createtolearn.ca/',
+    twitterHandle: '@takingitglobal',
   }
 
   // Default meta values for current page (override with props)
