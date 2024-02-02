@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import CreatorSection from './../components/CreatorSection'
 import { useRouter } from './../util/router'
 import { dataContext } from '../util/dataProvider'
+import Meta from 'components/Meta'
 
 function CreatorPage(props) {
   const router = useRouter()
@@ -28,6 +29,11 @@ function CreatorPage(props) {
 
   return (
     <>
+      <Meta
+        title={`${creator.name} - Creators - Create to Learn)`}
+        description={`${creator.pleaseIncludeAShort23SentenceBioThatWeCanUseWhenPromotingYourContent}`}
+        image={creator.image}
+      />
       {!loadingCourses && !loadingCreators && (
         <CreatorSection coursesByCreator={coursesByCreator} creator={creator} />
       )}
