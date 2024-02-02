@@ -9,7 +9,7 @@ function Meta(props) {
   // Meta values that are the same across all pages
   const globalMeta = {
     siteName: 'Create To Learn',
-    domain: 'https://app.createtolearn.ca/',
+    domain: 'https://app.createtolearn.ca',
     twitterHandle: '@takingitglobal',
   }
 
@@ -43,14 +43,14 @@ function Meta(props) {
       <meta property="og:site_name" content={meta.siteName} key="og-site-name" />
       <meta property="og:type" content="website" key="og-type" />
       {meta.domain && <meta property="og:url" content={`${meta.domain}${router.pathname}${router.location.search}`} key="og-url" />}
-      {meta.domain && meta.image && <meta property="og:image" content={`${meta.domain}${meta.image}`} key="og-image" />}
+      {meta.domain && meta.image && <meta property="og:image" content={`${meta.image}`} key="og-image" />}
 
       {/* Twitter */}
       <meta name="twitter:title" content={meta.title} key="twitter-title" />
       <meta name="twitter:description" content={meta.description} key="twitter-description"/>
       <meta name="twitter:card" content="summary_large_image" key="twitter-card" />
       {meta.twitterHandle && <meta name="twitter:site" content={meta.twitterHandle} key="twitter-site" />}
-      {meta.domain && meta.image && <meta name="twitter:image" content={`${meta.domain}${meta.image}`} key="twitter-image" />}
+      {meta.domain && meta.image && <meta name="twitter:image" content={`${meta.image}`} key="twitter-image" />}
     </Helmet>
   );
 }

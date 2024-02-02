@@ -18,7 +18,7 @@ const BrowseCourseCard = ({ course, progress }) => {
 
   return (
     <Box sx={{ padding: '10px 0' }}>
-      <ButtonBase href={'/tutorial/' + course.uid}>
+      <ButtonBase href={'tutorial/' + course.uid}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 2, sm: 2, md: 3 }}>
           <Grid item xs={6}>
             <Box
@@ -37,14 +37,28 @@ const BrowseCourseCard = ({ course, progress }) => {
           <Grid item xs={6}>
             <Box>
               <Box>
-                <Typography variant="bold" sx={{fontSize: {md: '1.4em'}}}>
+                <Typography variant="bold" sx={{ fontSize: { md: '1.4em' } }}>
                   {course.seriesName}
                 </Typography>
               </Box>
               <Box>
                 <>
-                  <Typography variant="body2" sx={{color: theme.palette.text.secondary, fontSize: {md: '1.1em'}}}>{course.creator}</Typography>
-                  <Typography variant="body2" sx={{color: theme.palette.text.secondary, fontSize: {md: '1.1em'}}}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: theme.palette.text.secondary,
+                      fontSize: { md: '1.1em' },
+                    }}
+                  >
+                    {course.creator}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: theme.palette.text.secondary,
+                      fontSize: { md: '1.1em' },
+                    }}
+                  >
                     {course.videos && course.videos.length}{' '}
                     {course.videos.length === 1 ? t('video') : t('videos')}
                   </Typography>
