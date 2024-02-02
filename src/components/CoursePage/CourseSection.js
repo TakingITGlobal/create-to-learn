@@ -204,7 +204,7 @@ function CourseSection({ courseData }) {
           </MuiAlert>
         </Snackbar>
         <ShareDrawer
-          url={`https://create-to-learn.netlify.app/tutorial/${uid}`}
+          url={`https://app.createtolearn.ca/tutorial/${uid}`}
           title={`Share the ${seriesName} course page`}
           openShareDrawer={openShareDrawer}
           setOpenShareDrawer={setOpenShareDrawer}
