@@ -5,7 +5,7 @@ import PricingSection from '../components/Unused/PricingSection'
 function PricingPage(props) {
   return (
     <>
-      <Meta title="Pricing | Create to Learn" />
+      <Meta title="Pricing - Create to Learn" />
       <PricingSection
         bgColor="default"
         size="medium"

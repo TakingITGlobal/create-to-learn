@@ -5,7 +5,8 @@ import ContactSection from '../components/Unused/ContactSection'
 function ContactPage(props) {
   return (
     <>
-      <Meta title="Contact | Create to Learn" />
+      <Meta 
+        title="Contact - Create to Learn" />
       <ContactSection
         bgColor="default"
         size="medium"
