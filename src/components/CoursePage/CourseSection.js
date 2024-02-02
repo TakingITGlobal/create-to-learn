@@ -17,7 +17,6 @@ import ShareDrawer from '../ShareDrawer'
 import { useTranslation } from 'react-i18next'
 import CourseCreatingButtons from './CourseCreatingButtons'
 import { PageHeading } from 'components/PageHeading'
-import Meta from '../Meta'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -60,16 +59,7 @@ function CourseSection({ courseData }) {
     palette[Math.floor(Math.random() * palette.length)],
   )
 
-  const {
-    seriesName,
-    creator,
-    description,
-    thumbnail,
-    videos,
-    id,
-    uid,
-    videoLinks,
-  } = courseData
+  const { seriesName, thumbnail, videos, id, uid, videoLinks } = courseData
 
   const { data: userProgressByCourse } = useUserProgressByCourse(
     auth.user?.uid,
@@ -111,11 +101,6 @@ function CourseSection({ courseData }) {
           'linear-gradient(180deg, rgba(11, 9, 25, 0) 0%, rgba(11, 9, 25, 0.11) 200px, rgba(11, 9, 25, 0.64) 400px, #0B0919 600px)',
       }}
     >
-      <Meta
-        title={`${seriesName} - ${creator} - Create to Learn`}
-        description={description}
-        image={courseImage}
-      />
       <Container
         sx={{
           padding: '0',
