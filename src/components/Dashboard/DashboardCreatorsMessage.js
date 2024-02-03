@@ -124,7 +124,7 @@ const DashboardCreatorsMessage = ({ creators }) => {
                     }}
                     //Make this better
                     href={
-                      '/course/' +
+                      '/tutorial/' +
                       creator.seriesName
                         .trim()
                         .replace("'", '')

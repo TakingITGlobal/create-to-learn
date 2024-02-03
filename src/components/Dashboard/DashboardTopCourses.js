@@ -38,7 +38,11 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
 
   return courses.length ? (
     <>
-      <Typography variant="sectionTitle" pt={{xs: "20px", md: "75px"}} pb="20px">
+      <Typography
+        variant="sectionTitle"
+        pt={{ xs: '20px', md: '75px' }}
+        pb="20px"
+      >
         {icon}
         {title}
       </Typography>
@@ -68,7 +72,7 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
                   justifyContent: 'flex-start',
                   backgroundColor: theme.palette.background.secondary,
                 }}
-                href={'/course/' + course.uid}
+                href={'/tutorial/' + course.uid}
               >
                 <CardMedia
                   component="img"

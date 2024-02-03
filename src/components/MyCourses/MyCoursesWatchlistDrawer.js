@@ -94,7 +94,7 @@ function MyCoursesWatchlistDrawer() {
                   </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                  <ListItemButton href={'/course/' + course.uid}>
+                  <ListItemButton href={'/tutorial/' + course.uid}>
                     <ListItemIcon aria-label="info-icon">
                       <InfoIcon />
                     </ListItemIcon>
