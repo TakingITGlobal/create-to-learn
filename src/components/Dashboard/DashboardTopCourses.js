@@ -58,6 +58,7 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
                 margin: '0 10px',
               }}
             >
+            {/* Gray Box Area of the Card */}
               <CardActionArea
                 sx={{
                   height: '100%',
@@ -68,8 +69,9 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
                   justifyContent: 'flex-start',
                   backgroundColor: theme.palette.background.secondary,
                 }}
-                href={'/course/' + course.uid}
+                href={'/tutorial/' + course.uid}
               >
+              {/* Image of the Card */}
                 <CardMedia
                   component="img"
                   alt={`${course.seriesName}-course`}
@@ -77,12 +79,12 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
                     display: 'flex',
                     alignItems: 'center',
                     width: '100%',
-                    height: '200px',
                     borderRadius: '6px',
                     objectFit: 'cover',
                   }}
                   image={course.thumbnail[0]?.downloadURL}
                 />
+                {/* Words in Card*/}
                 <CardContent
                   sx={{
                     display: 'flex',
@@ -90,11 +92,29 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
                     padding: '10px 0 0 0',
                   }}
                 >
-                  <Box componant="div">
-                    <Typography component="h3" variant="bold">
+                  <Box sx={{ display:'flex', flexDirection:'column' }}>
+                    <Typography 
+                      component="h3" 
+                      variant="bold"
+                      sx = {{
+                        maxWidth: '250px',
+                        whiteSpace: 'nowrap',
+                        textOverflow: 'ellipsis',
+                        overflow: 'hidden',
+                      }}
+                    >
                       {course.seriesName}
                     </Typography>
-                    <Typography variant="body" component="p">
+                    <Typography 
+                      variant="body" 
+                      component="p"
+                      sx = {{
+                        maxWidth: '250px',
+                        whiteSpace: 'nowrap',
+                        textOverflow: 'ellipsis',
+                        overflow: 'hidden',
+                      }}
+                    >
                       {course.creator}
                     </Typography>
                     <Stack direction="row">
