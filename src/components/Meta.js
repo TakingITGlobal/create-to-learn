@@ -18,9 +18,10 @@ function Meta(props) {
     // Page title
     title: 'Create To Learn',
     // Page description
-    description: 'Create To Learn',
+    description:
+      'Create to Learn is pleased to offer this free online learning resource in partnership with imagineNATIVE.',
     // Social share image (create this file in /public/images/)
-    image: '/images/social.png',
+    image: '/images/welcome.png',
     // Page type (see https://ogp.me/#types)
     type: 'website',
   }
