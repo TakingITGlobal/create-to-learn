@@ -1,3 +1,6 @@
+// WelcomeSection is no longer used because it is redundant to the sign-up section. Now index.js redirects you to the sign up section
+// Leaving this here in case if it will be necessary for the future, but feel free to delete it
+
 import React from 'react'
 import useClasses from 'hooks/useClasses'
 import Container from '@mui/material/Container'
@@ -7,6 +10,7 @@ import { Grid, Button, Paper, Stack, Theme, useTheme } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from 'util/auth'
+import Typography from '@mui/material/Typography'
 
 const styles = (theme: Theme) => ({
   container: {
@@ -41,13 +45,13 @@ function WelcomeSection(props: Props) {
         <Grid container direction="column" alignItems="center">
           <SectionHeader title={props.title} textAlign="center" />
 
-          <Paper elevation={2} sx={{ marginBottom: '20px' }}>
-            <Link component={Button} to="./sign-up">
-              <img src={props.image} alt="logo" className={classes.image} />
-            </Link>
-          </Paper>
+          <img src={props.image} alt="logo" className={classes.image} />
+
 
           <Stack direction="column" width="100%" spacing={2}>
+            <Typography variant="body1" color="text.primary" sx={{ textAlign:'center', padding:'20px 0'}}>
+              {t('do-not-require-account')}
+            </Typography>
             <Button variant="contained" component={Link} to={auth.user ? "/dashboard" : "./sign-up"}>
               {t('get-started')}
             </Button>

@@ -1,15 +1,15 @@
 import React from 'react'
 import Meta from './../components/Meta'
-import WelcomeSection from 'components/Home/WelcomeSection'
 import { useTranslation } from 'react-i18next'
+import SignUpSection from 'components/SignUp/SignUpSection'
+
 
 function IndexPage() {
   const { t } = useTranslation()
   return (
     <>
       <Meta />
-      <WelcomeSection
-        image="https://www.kadencewp.com/wp-content/uploads/2020/10/alogo-2.png"
+      <SignUpSection 
         title={t('create-to-learn')}
       />
     </>

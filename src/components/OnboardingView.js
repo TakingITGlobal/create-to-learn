@@ -21,6 +21,13 @@ import { useRouter } from '../util/router'
 import { useAuth } from '../util/auth'
 import AuthForm from './auth/AuthForm'
 import { Link } from 'react-router-dom'
+import Container from '@mui/material/Container'
+import Section from './Section'
+import SectionHeader from './SectionHeader'
+
+interface Props {
+  title: string
+}
 
 const styles = (theme) => ({
   gridColumn: {
@@ -63,6 +70,14 @@ function TitleSection({ value }) {
   )
 }
 
+const stylesWelcome = (theme: Theme) => ({
+  container: {
+    padding: `0 ${theme.spacing(2)}`,
+  },
+
+  signIn: {},
+})
+
 export function WelcomeView({ image }) {
   const swiper = useSwiper()
   const { t } = useTranslation()
@@ -71,43 +86,37 @@ export function WelcomeView({ image }) {
     swiper.slideNext()
   }
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        height: '75vh',
-      }}
-    >
-      <CardMedia
-        component="img"
-        alt=""
-        sx={{
-          width: '300px',
-          height: '300px',
-          borderRadius: '24px',
-        }}
-        image={image}
-      />
-      <Stack
-        sx={{
-          width: '90%',
-          gap: '5px',
-          flexDirection: { xs: 'column', md: 'row' },
-        }}
-      >
-        <Button fullWidth variant="contained" onClick={() => setLocal()}>
-          {t('get-started')}
-        </Button>
-        <Button fullWidth color="info" component={Link} to="/auth/signin">
-          {t('sign-in')}
-        </Button>
-      </Stack>
-      <Button fullWidth component={Link} to="/dashboard">
-        {t('let-me-browse')}
-      </Button>
-    </Box>
+    <Section>
+      <Container maxWidth="md">
+        <Grid container direction="column" alignItems="center">
+          <SectionHeader title={t('create-to-learn')} textAlign="center"/>
+          <CardMedia
+            component="img"
+            alt=""
+            sx={{
+              width: '300px',
+              height: '300px',
+              borderRadius: '24px',
+            }}
+            image={image}
+          />
+          <Stack direction="column" width="100%" spacing={2}>
+            <Typography variant="body1" color="text.primary" sx={{ textAlign:'center', padding:'20px 0'}}>
+              {t('do-not-require-account')}
+            </Typography>
+            <Button fullWidth variant="contained" onClick={() => setLocal()}>
+              {t('get-started')}
+            </Button>
+            <Button fullWidth color="info" component={Link} to="/auth/signin">
+              {t('sign-in')}
+            </Button>
+          </Stack>
+          <Button fullWidth component={Link} to="/dashboard">
+            {t('let-me-browse')}
+          </Button>
+        </Grid>
+      </Container>
+    </Section>
   )
 }
 

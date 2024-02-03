@@ -29,6 +29,7 @@ const SlotStart = 'container-start'
 const SlotEnd = 'container-end'
 
 function SignUpSection() {
+
   const { t } = useTranslation()
   const translationKeys = [
     'fnmi',

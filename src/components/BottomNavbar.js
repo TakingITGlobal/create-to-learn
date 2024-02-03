@@ -13,7 +13,7 @@ export default function BottomNavbar() {
   const { pathname } = useLocation()
 
   return (
-    pathname !== '/sign-up' && (
+    pathname !== '/sign-up' && pathname !== '/' && (
       <Paper
         sx={{
           position: 'fixed',
