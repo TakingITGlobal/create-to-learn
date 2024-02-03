@@ -319,13 +319,20 @@ export const c2learn = (mode) => ({
               padding: '2px',
               fontSize: '1.1em',
               display: 'none',
+              '&:hover': {
+                backgroundColor: '#211E34',
+              },
+            },
+            '&:hover': {
+              backgroundColor: '#211E34',
             },
             '&.active': {
               '&:hover': {
                 backgroundColor: '#6956F1',
-                color: '#fff',
                 '.MuiSvgIcon-root': {
                   display: 'block',
+                  color: 'black',
+                  backgroundColor: 'white',
                 },
               },
             },
