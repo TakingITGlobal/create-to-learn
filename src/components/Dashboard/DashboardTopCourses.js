@@ -14,25 +14,28 @@ import 'react-multi-carousel/lib/styles.css'
 
 import { useTranslation } from 'react-i18next'
 
-const responsive = {
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 3,
-    partialVisibilityGutter: 60,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 2,
-    partialVisibilityGutter: 50,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-    partialVisibilityGutter: 100,
-  },
-}
 
 const DashboardTopCourses = ({ title, courses, icon }) => {
+  const coursesLength = courses.length;
+
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+      partialVisibilityGutter: coursesLength < 4 ? 0 : 60, 
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      partialVisibilityGutter: 50,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      partialVisibilityGutter: 100,
+    },
+  }
+
   const theme = useTheme()
   const { t } = useTranslation()
 
@@ -56,6 +59,8 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
               sx={{
                 padding: '0',
                 margin: '0 10px',
+                display: 'flex',
+                justifyContent:'flex-start',
               }}
             >
             {/* Gray Box Area of the Card */}
@@ -97,7 +102,7 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
                       component="h3" 
                       variant="bold"
                       sx = {{
-                        maxWidth: '250px',
+                        maxWidth: {xs:'53vw', sm:'25vw', md:'20vw'},
                         whiteSpace: 'nowrap',
                         textOverflow: 'ellipsis',
                         overflow: 'hidden',
@@ -109,7 +114,7 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
                       variant="body" 
                       component="p"
                       sx = {{
-                        maxWidth: '250px',
+                        maxWidth: {sm:'30vw', md:'20vw'},
                         whiteSpace: 'nowrap',
                         textOverflow: 'ellipsis',
                         overflow: 'hidden',
@@ -121,8 +126,17 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
                       <Typography variant="subtitle1" component="p">
                         {course.difficultyLevel}
                       </Typography>
-                      <>&#183;</>
-                      <Typography variant="subtitle1" component="p">
+                      <Box padding={'0 3px'}>&#183;</Box>
+                      <Typography 
+                        variant="subtitle1" 
+                        component="p"
+                        sx = {{
+                          maxWidth: {sm:'30vw', md:'20vw'},
+                          whiteSpace: 'nowrap',
+                          textOverflow: 'ellipsis',
+                          overflow: 'hidden',
+                      }}  
+                      >
                         {course.videos.length} {t('videos')}
                       </Typography>
                     </Stack>
