@@ -80,7 +80,6 @@ function CourseVideoListItem({
         courseUID: courseUID,
         videos: videoDownloadData,
       }).then(() => {
-        window.location.href = link
         setOpenDownloadDrawer(false)
       })
     } else {
@@ -97,6 +96,7 @@ function CourseVideoListItem({
       } else {
         setOpenDownloadDrawer(false)
       }
+      window.location.href = link
     }
   }
 
@@ -148,6 +148,7 @@ function CourseVideoListItem({
               <CheckIcon sx={{ backgroundColor: '#58B97D !important' }} />
             }
             sx={{ color: '#BCE3CB' }}
+            disabled
           >
             {t('course.downloaded')}
           </Button>

@@ -15,18 +15,20 @@ function CreatorPage(props) {
     allCreators.length &&
     allCreators.filter((creator) => creator?.uid === creatorId)
 
-  const creator = creatorResults.length ? creatorResults[0] : []
+  const creator = creatorResults.length ? creatorResults[0] : {}
 
   const coursesByCreator =
     allCourses.length &&
     allCourses.filter((course) => course.creator === creator.name)
+
+  const creatorImage = creator?.image && creator.image[0].downloadURL
 
   return (
     <>
       <Meta
         title={`${creator.name} - Creators - Create to Learn`}
         description={`${creator.pleaseIncludeAShort23SentenceBioThatWeCanUseWhenPromotingYourContent}`}
-        image={creator.image[0]?.downloadURL}
+        image={creatorImage}
       />
       {!loadingCourses && !loadingCreators && (
         <CreatorSection coursesByCreator={coursesByCreator} creator={creator} />
