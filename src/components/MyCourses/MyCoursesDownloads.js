@@ -84,7 +84,7 @@ function MyCoursesDownloads() {
               </Box>
               <List>
                 <ListItem disablePadding>
-                  <ListItemButton href={'/course/' + course.uid}>
+                  <ListItemButton href={'/tutorial/' + course.uid}>
                     <ListItemIcon aria-label="info-icon">
                       <InfoIcon />
                     </ListItemIcon>
