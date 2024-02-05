@@ -24,9 +24,9 @@ function CreatorPage(props) {
   return (
     <>
       <Meta
-        title={`${creator.name} - Creators - Create to Learn)`}
+        title={`${creator.name} - Creators - Create to Learn`}
         description={`${creator.pleaseIncludeAShort23SentenceBioThatWeCanUseWhenPromotingYourContent}`}
-        image={creator.image?.downloadURL}
+        image={creator.image[0]?.downloadURL}
       />
       {!loadingCourses && !loadingCreators && (
         <CreatorSection coursesByCreator={coursesByCreator} creator={creator} />
