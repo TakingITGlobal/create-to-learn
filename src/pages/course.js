@@ -15,7 +15,7 @@ function CoursePage(props) {
   const seriesName = course?.seriesName
   const description = course?.description
   const creator = course?.creator
-  const courseImage = course?.thumbnail[0].downloadUrl
+  const courseImage = course?.thumbnail[0].downloadURL
 
   return (
     <>
