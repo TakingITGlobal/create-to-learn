@@ -4,7 +4,7 @@ import Meta from './../components/Meta'
 function NotFoundPage(props) {
   return (
     <>
-      <Meta title="404" />
+      <Meta title="404 - Create to Learn" />
       <div
         style={{
           padding: '50px',

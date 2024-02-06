@@ -8,7 +8,7 @@ function LegalPage(props) {
 
   return (
     <>
-      <Meta title="Legal | Create to Learn" />
+      <Meta title="Legal - Create to Learn" />
       <LegalSection
         bgColor="default"
         size="normal"
