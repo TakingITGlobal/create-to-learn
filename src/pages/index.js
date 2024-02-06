@@ -11,6 +11,7 @@ function IndexPage() {
       <Meta />
       <SignUpSection 
         title={t('create-to-learn')}
+        startSignUp={0}
       />
     </>
   )

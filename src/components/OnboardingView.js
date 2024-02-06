@@ -25,10 +25,6 @@ import Container from '@mui/material/Container'
 import Section from './Section'
 import SectionHeader from './SectionHeader'
 
-interface Props {
-  title: string
-}
-
 const styles = (theme) => ({
   gridColumn: {
     flexDirection: 'column',
@@ -70,13 +66,6 @@ function TitleSection({ value }) {
   )
 }
 
-const stylesWelcome = (theme: Theme) => ({
-  container: {
-    padding: `0 ${theme.spacing(2)}`,
-  },
-
-  signIn: {},
-})
 
 export function WelcomeView({ image }) {
   const swiper = useSwiper()
@@ -85,6 +74,7 @@ export function WelcomeView({ image }) {
   const setLocal = () => {
     swiper.slideNext()
   }
+
   return (
     <Section>
       <Container maxWidth="md">
