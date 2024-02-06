@@ -53,8 +53,8 @@ export const c2learn = (mode) => ({
   breakpoints: {
     values: {
       xs: 0,
-      sm: 600,
-      md: 960,
+      sm: 464,
+      md: 1024,
       lg: 1200,
       xl: 1920,
     },

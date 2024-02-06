@@ -121,6 +121,7 @@ const DashboardCreatorsMessage = ({ creators }) => {
                       borderColor: '#000',
                       color: '#000',
                       padding: '0.5em',
+                      textAlign: 'center',
                     }}
                     //Make this better
                     href={
