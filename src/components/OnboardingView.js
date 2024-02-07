@@ -74,7 +74,8 @@ const stylesWelcome = (theme: Theme) => ({
   signIn: {},
 })
 
-export function WelcomeView({ image }) {
+
+export function WelcomeView({ image, startSignUp }) {
   const swiper = useSwiper()
   const { t } = useTranslation()
 
@@ -97,13 +98,31 @@ export function WelcomeView({ image }) {
             image={image}
           />
           <Stack direction="column" width="100%" spacing={2}>
-            <Typography variant="body1" color="text.primary" sx={{ textAlign:'center', padding:'20px 0'}}>
+            {/* If startSignUp = 0, then show the button */}
+            <Typography 
+              variant="body1" 
+              color="text.primary" 
+              sx={{ 
+                textAlign:'center', 
+                padding:'20px 0',
+                display: startSignUp === 0 ? 'block' : 'none',
+              }}
+              >
               {t('do-not-require-account')}
             </Typography>
             <Button fullWidth variant="contained" onClick={() => setLocal()}>
               {t('get-started')}
             </Button>
-            <Button fullWidth color="info" component={Link} to="/auth/signin">
+            {/* If startSignUp = 0, then show the button */}
+            <Button 
+              fullWidth 
+              color="info" 
+              component={Link} 
+              to="/auth/signin"
+              sx={{
+                display: startSignUp === 0 ? 'block' : 'none', // Show if startSignUp === 0
+              }}
+            >
               {t('sign-in')}
             </Button>
           </Stack>

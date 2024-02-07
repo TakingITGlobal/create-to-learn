@@ -28,7 +28,11 @@ import { ContinueButtons } from './ContinueButtons'
 const SlotStart = 'container-start'
 const SlotEnd = 'container-end'
 
-function SignUpSection() {
+interface SignUpSectionProps {
+  startSignUp: number;
+}
+
+function SignUpSection({ startSignUp }: SignUpSectionProps) {
 
   const { t } = useTranslation()
   const translationKeys = [
@@ -50,7 +54,7 @@ function SignUpSection() {
     <Section size="auto">
       <Swiper modules={[A11y, Keyboard]}>
         <SwiperSlide>
-          <WelcomeView image={welcome} />
+          <WelcomeView image={welcome} startSignUp={startSignUp}/>
         </SwiperSlide>
 
         <ProgressBar
