@@ -66,13 +66,6 @@ function TitleSection({ value }) {
   )
 }
 
-const stylesWelcome = (theme: Theme) => ({
-  container: {
-    padding: `0 ${theme.spacing(2)}`,
-  },
-
-  signIn: {},
-})
 
 
 export function WelcomeView({ image, startSignUp }) {
@@ -82,6 +75,7 @@ export function WelcomeView({ image, startSignUp }) {
   const setLocal = () => {
     swiper.slideNext()
   }
+
   return (
     <Section>
       <Container maxWidth="md">
