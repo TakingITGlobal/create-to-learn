@@ -8,7 +8,7 @@ function SettingsPage(props) {
 
   return (
     <>
-      <Meta title="Settings | Create to Learn" />
+      <Meta title="Settings - Create to Learn" />
       <SettingsSection
         bgColor="default"
         bgImage=""

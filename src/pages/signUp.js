@@ -6,7 +6,7 @@ function SignUpPage() {
   return (
     <>
       <Meta title="Sign Up | Create to Learn" />
-      <SignUpSection />
+      <SignUpSection startSignUp={1}/>
     </>
   )
 }

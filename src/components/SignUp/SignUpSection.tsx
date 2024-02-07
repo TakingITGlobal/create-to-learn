@@ -24,11 +24,17 @@ import toolbelt from 'assets/images/toolbelt.png'
 import { categories } from 'assets/options/categories'
 import { ProgressDots, ProgressBar } from './Progress'
 import { ContinueButtons } from './ContinueButtons'
+import { useSwiper } from 'swiper/react'
+
 
 const SlotStart = 'container-start'
 const SlotEnd = 'container-end'
 
-function SignUpSection() {
+interface SignUpSectionProps {
+  startSignUp: number;
+}
+
+function SignUpSection({ startSignUp }: SignUpSectionProps) {
 
   const { t } = useTranslation()
   const translationKeys = [
@@ -46,21 +52,43 @@ function SignUpSection() {
   const welcomeLength = 3
   const progressSlides = 7
 
+  const swiper = useSwiper()
+
+  const setLocal = () => {
+    swiper.slideNext()
+  }
+
   return (
     <Section size="auto">
       <Swiper modules={[A11y, Keyboard]}>
         <SwiperSlide>
-          <WelcomeView image={welcome} />
+          <WelcomeView image={welcome} startSignUp={startSignUp}/>
         </SwiperSlide>
 
-        <ProgressBar
-          start={welcomeLength}
-          end={progressSlides + welcomeLength}
-          slot={SlotStart}
-        />
-        <SwiperSlide>
-          <WindowView image={juggling} text={t('onboarding.screen-1')} />
-        </SwiperSlide>
+            <ProgressBar
+            start={welcomeLength}
+            end={progressSlides + welcomeLength}
+            slot={SlotStart}
+            />
+
+            <SwiperSlide>
+              <WindowView image={juggling} text={t('onboarding.screen-1')} />
+            </SwiperSlide>
+          </>
+        ) : startSignUp === 1 ? (
+          <>
+          
+            <ProgressBar
+            start={welcomeLength}
+            end={progressSlides + welcomeLength}
+            slot={SlotStart}
+            />
+
+            <SwiperSlide>
+              <WindowView image={juggling} text={t('onboarding.screen-1')} />
+            </SwiperSlide>
+          </>
+        ) : null }
 
         <SwiperSlide>
           <WindowView image={gardening} text={t('onboarding.screen-2')} />
