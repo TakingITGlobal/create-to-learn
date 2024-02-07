@@ -25,10 +25,6 @@ import Container from '@mui/material/Container'
 import Section from './Section'
 import SectionHeader from './SectionHeader'
 
-interface Props {
-  title: string
-}
-
 const styles = (theme) => ({
   gridColumn: {
     flexDirection: 'column',
