@@ -28,16 +28,8 @@ function MyCoursesVideoDrawer({
 }: Props) {
   const auth = useAuth()
 
-  return (
-    <SwipeableDrawer
-      anchor="right"
-      onOpen={() => setOpenVideoDrawer(true)}
-      open={openVideoDrawer}
-      onClose={() => {
-        setOpenVideoDrawer(false)
-        setOpenCourseDrawer(false)
-      }}
-    >
+  const list = () => (
+    <>
       <Box
         sx={{
           display: 'flex',
@@ -68,6 +60,20 @@ function MyCoursesVideoDrawer({
           courseId={courseId}
         />
       </Box>
+    </>  
+  );
+
+  return (
+    <SwipeableDrawer
+      anchor="right"
+      onOpen={() => setOpenVideoDrawer(true)}
+      open={openVideoDrawer}
+      onClose={() => {
+        setOpenVideoDrawer(false)
+        setOpenCourseDrawer(false)
+      }}
+    >
+      {list()}
     </SwipeableDrawer>
   )
 }
