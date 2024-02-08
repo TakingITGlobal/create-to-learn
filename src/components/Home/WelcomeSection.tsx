@@ -51,7 +51,7 @@ function WelcomeSection({ startSignUp }: SignUpSectionProps) {
   const progressSlides = 7
 
   return (
-    <Section size="auto">
+    <Section size="sm">
       <Swiper modules={[A11y, Keyboard]}>
         <SwiperSlide>
           <WelcomeView image={welcome} startSignUp={startSignUp} />

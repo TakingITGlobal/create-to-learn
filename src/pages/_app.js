@@ -134,8 +134,6 @@ function App(props) {
                       bgImageOpacity={1}
                       description="A short description of what you do here"
                       copyright={`© ${new Date().getFullYear()} Company`}
-                      logo="https://uploads.divjoy.com/logo.svg"
-                      logoInverted="https://uploads.divjoy.com/logo-white.svg"
                       sticky={true}
                     />
                   </Hidden>

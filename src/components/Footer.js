@@ -39,8 +39,7 @@ const styles = (theme) => ({
     height: 28,
     marginRight: theme.spacing(2),
     paddingTop: 0,
-    fontFamily: 'Bebas Neue,sans-serif',
-    color: theme.primary,
+    color: theme.palette.primary.main,
     fontSize: 30,
     fontWeight: 700,
     whiteSpace: 'nowrap',
@@ -109,8 +108,8 @@ function Footer(props) {
         <div className={classes.wrapper}>
           <div className={`${classes.item} ${classes.left}`}>
             <Link to="/" style={{ textDecoration: 'none' }}>
-              {/* <img src={logo} alt="Logo" className={classes.brand} /> */}
-              <span className={classes.logo}>CREATE TO LEARN</span>
+              {/* <img src={logo} alt="Logo" className={classes.brand} /> 
+              <span className={classes.logo}>CREATE TO LEARN</span>*/}
             </Link>
           </div>
           <div

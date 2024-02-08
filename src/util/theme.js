@@ -54,6 +54,7 @@ export const c2learn = (mode) => ({
     values: {
       xs: 0,
       sm: 464,
+      tbsm: 724,
       md: 1024,
       lg: 1200,
       xl: 1920,
@@ -285,7 +286,7 @@ export const c2learn = (mode) => ({
           color: 'black',
           borderRadius: '25px',
           '&:active, &:hover': {
-            color: '#fff',
+            color: '#fff'
           },
         },
         secondary: {
@@ -298,6 +299,10 @@ export const c2learn = (mode) => ({
         text: {
           color: '#fff',
           borderRadius: '0',
+          '&:active, &:hover': {
+            color: '#6956f1',
+            background: 'none'
+          },
         },
         outline: {
           borderWidth: '2px',

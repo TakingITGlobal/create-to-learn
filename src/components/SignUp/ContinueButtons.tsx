@@ -24,10 +24,17 @@ export const ContinueButtons = ({
     <Container slot={'container-end'}>
       <Box
         sx={{
-          display: 'flext',
-          alignItems: 'center',
+          display: 'flex',
+          alignItems: 'flex-start',
           justifyContent: 'center',
           margin: '0 .25em',
+          position: 'fixed',
+          bottom: '0',
+          left: '0',
+          width: '100%',
+          background: '#080610',
+          zIndex: '2',
+          padding: '14px 10px'
         }}
       >
         <Stack

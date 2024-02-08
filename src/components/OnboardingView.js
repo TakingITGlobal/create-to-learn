@@ -34,7 +34,7 @@ const styles = (theme) => ({
   },
   scrollBox: {
     overflowY: 'scroll',
-    height: '40vh',
+    height: '400px',
     textAlign: 'left',
     gap: 8,
   },
@@ -78,7 +78,7 @@ export function WelcomeView({ image, startSignUp }) {
 
   return (
     <Section>
-      <Container maxWidth="md">
+      <Container maxWidth="sm">
         <Grid container direction="column" alignItems="center">
           <SectionHeader title={t('create-to-learn')} textAlign="center"/>
           <CardMedia
@@ -241,7 +241,7 @@ export function InputPillView(props) {
         container
         sx={{
           gap: '10px',
-          justifyContent: 'space-between',
+          justifyContent: 'flex-start',
           marginTop: '2em',
           padding: '1.5em',
         }}
@@ -415,7 +415,7 @@ export function EmailView() {
       justifyContent: 'center',
       padding: '50px 1em 1em 1em'
       }}>
-      <Grid container item className={classes.gridColumn} md={6}>
+      <Grid container item className={classes.gridColumn}>
         {formAlert && (
           <Box mb={3}>
             <Alert severity={formAlert.type}>{formAlert.message}</Alert>

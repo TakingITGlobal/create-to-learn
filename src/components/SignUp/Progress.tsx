@@ -25,7 +25,7 @@ export const ProgressBar = ({ start, end, slot }: ProgressProps) => {
           activeStep={active - start}
           position="top"
           sx={{
-            padding: '1em',
+            padding: '0em',
             position: { md: 'relative' },
           }}
           backButton={
