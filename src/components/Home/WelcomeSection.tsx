@@ -1,85 +1,116 @@
 import React from 'react'
-import useClasses from 'hooks/useClasses'
-import Container from '@mui/material/Container'
 import Section from '../Section'
-import SectionHeader from '../SectionHeader'
-import { Grid, Button, Paper, Stack, Theme, useTheme } from '@mui/material'
-import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { useAuth } from 'util/auth'
+import { A11y, Keyboard } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+import 'swiper/css/a11y'
+import 'swiper/css/keyboard'
+import {
+  InputSearchView,
+  InputSelectView,
+  InputTextView,
+  WindowView,
+  WelcomeView,
+  EmailView,
+  FinishView,
+  InputPillView,
+} from '../OnboardingView'
+import schoolData from 'assets/options/schools.json'
+import welcome from 'assets/images/welcome2.png'
+import juggling from 'assets/images/juggling.png'
+import gardening from 'assets/images/gardening.png'
+import toolbelt from 'assets/images/toolbelt.png'
+import { categories } from 'assets/options/categories'
+import { ProgressDots, ProgressBar } from 'components/SignUp/Progress'
+import { ContinueButtons } from 'components/SignUp/ContinueButtons'
 
-const styles = (theme: Theme) => ({
-  container: {
-    padding: `0 ${theme.spacing(2)}`,
-  },
+const SlotStart = 'container-start'
+const SlotEnd = 'container-end'
 
-  image: {
-    margin: '0 auto',
-    maxWidth: '570px',
-    display: 'block',
-    height: 'auto',
-    width: '100%',
-  },
-
-  signIn: {},
-})
-
-interface Props {
-  title: string
-  image: string
+interface SignUpSectionProps {
+  startSignUp: number;
 }
 
-function WelcomeSection(props: Props) {
-  const classes = useClasses(styles)
+function WelcomeSection({ startSignUp }: SignUpSectionProps) {
+
   const { t } = useTranslation()
-  const theme = useTheme()
-  const { text, background } = theme.palette
-  const auth = useAuth();
+  const translationKeys = [
+    'fnmi',
+    'language',
+    'school',
+    'interests',
+    'email',
+    'displayName',
+  ]
+  const categoryOptions = categories.slice(1).map(({ label }) => label)
+
+  const fnmiOptions = ['Inuit', 'Métis', 'First Nations', 'None of the above']
+  const languageOptions = ['Cree', 'Inuktitut', 'Ojibwe', 'English']
+  const welcomeLength = 3
+  const progressSlides = 7
+
   return (
-    <Section>
-      <Container maxWidth="md">
-        <Grid container direction="column" alignItems="center">
-          <SectionHeader title={props.title} textAlign="center" />
+    <Section size="auto">
+      <Swiper modules={[A11y, Keyboard]}>
+        <SwiperSlide>
+          <WelcomeView image={welcome} startSignUp={startSignUp} />
+        </SwiperSlide>
 
-          <Paper elevation={2} sx={{ marginBottom: '20px' }}>
-            <Link component={Button} to="./sign-up">
-              <img src={props.image} alt="logo" className={classes.image} />
-            </Link>
-          </Paper>
+        <ProgressBar
+          start={welcomeLength}
+          end={progressSlides + welcomeLength}
+          slot={SlotStart}
+        />
+        <SwiperSlide>
+          <WindowView image={juggling} text={t('onboarding.screen-1')} />
+        </SwiperSlide>
 
-          <Stack direction="column" width="100%" spacing={2}>
-            <Button variant="contained" component={Link} to={auth.user ? "/dashboard" : "./sign-up"}>
-              {t('get-started')}
-            </Button>
+        <SwiperSlide>
+          <WindowView image={gardening} text={t('onboarding.screen-2')} />
+        </SwiperSlide>
 
-            {!auth.user ? <>
-              <Button
-                component={Link}
-                to="/auth/signin"
-                sx={{
-                  backgroundColor: text.primary,
-                  borderRadius: 10,
-                  color: background.default,
-                  ':hover': {
-                    color: text.secondary,
-                  },
-                }}
-              >
-                {t('sign-in')}
-              </Button>
-            </> : <></>}
+        <SwiperSlide>
+          <WindowView image={toolbelt} text={t('onboarding.screen-3')} />
+        </SwiperSlide>
 
-            <Button
-              variant="text"
-              component={Link}
-              to="./dashboard"
-              sx={{ textTransform: 'none' }}
-            >
-              {t('let-me-browse')}
-            </Button>
-          </Stack>
-        </Grid>
-      </Container>
+        {/* Input Views */}
+        <SwiperSlide>
+          <InputSelectView value="fnmi" options={fnmiOptions} />
+        </SwiperSlide>
+
+        <SwiperSlide>
+          <InputSelectView value="language" options={languageOptions} />
+        </SwiperSlide>
+
+        <SwiperSlide>
+          <InputSearchView
+            value="school"
+            options={schoolData.map((x: any) => x.School)}
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <InputPillView value="interests" options={categoryOptions} />
+        </SwiperSlide>
+
+        <SwiperSlide>
+          <EmailView />
+        </SwiperSlide>
+
+        <SwiperSlide>
+          <InputTextView value="displayName" />
+        </SwiperSlide>
+
+        <SwiperSlide>
+          <FinishView values={translationKeys} />
+        </SwiperSlide>
+        <ContinueButtons
+          translationKeys={translationKeys}
+          numOfSlides={progressSlides + welcomeLength}
+          welcomeLength={welcomeLength}
+        />
+        <ProgressDots start={1} end={welcomeLength} slot={SlotEnd} />
+      </Swiper>
     </Section>
   )
 }

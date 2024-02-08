@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
@@ -9,14 +9,24 @@ import { updateUser } from '../../util/db'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../../util/auth'
 
+import Slide from '@mui/material/Slide'
+
 function SettingsDisplayName({ showComponent, setShowComponent }) {
   const { t } = useTranslation()
   const auth = useAuth()
 
   const [name, setName] = useState(auth.user.displayName ?? auth.user.name)
 
+
   return (
     showComponent === 'displayName' && (
+      <Slide
+      direction="left"
+      in={showComponent === 'displayName'}
+      timeout={600}
+      mountOnEnter
+      unmountOnExit
+    >
       <Box
         sx={{
           display: 'flex',
@@ -29,6 +39,7 @@ function SettingsDisplayName({ showComponent, setShowComponent }) {
             {t('settings.change-display-name')}
           </Typography>
         </Box>
+        
         <TextField
           id="displayName"
           variant="outlined"
@@ -59,6 +70,7 @@ function SettingsDisplayName({ showComponent, setShowComponent }) {
           </Button>
         </Box>
       </Box>
+    </Slide>
     )
   )
 }

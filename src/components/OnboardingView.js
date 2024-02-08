@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import useClasses from '../hooks/useClasses'
 import {
   Grid,
@@ -21,6 +21,9 @@ import { useRouter } from '../util/router'
 import { useAuth } from '../util/auth'
 import AuthForm from './auth/AuthForm'
 import { Link } from 'react-router-dom'
+import Container from '@mui/material/Container'
+import Section from './Section'
+import SectionHeader from './SectionHeader'
 
 const styles = (theme) => ({
   gridColumn: {
@@ -37,130 +40,92 @@ const styles = (theme) => ({
   },
 })
 
-function InputView(props) {
+function TitleSection({ value }) {
   const { t } = useTranslation()
-  const swiper = useSwiper()
-  const [cur, setCur] = useState(0)
-
-  const { data, value, formProgress, setFormProgress } = props
-  const required = props.required ? props.required : false
-
-  useEffect(() => {
-    swiper.on('slideChange', (swipe) => {
-      setCur(swipe.activeIndex)
-    })
-  }, [swiper])
-
-  function handleFormProgress() {
-    if (formProgress <= cur) setFormProgress((formProgress) => formProgress + 1)
-  }
-  const setLocal = (id, val) => {
-    localStorage.setItem(id, val)
-    handleFormProgress()
-    swiper.slideNext()
-  }
 
   return (
     <Box
       sx={{
-        padding: '50px 1em 1em 1em',
+        padding: '50px 1em 1.5em 1.5em',
         maxWidth: { md: '850px' },
         margin: { md: '0 auto' },
       }}
     >
-      <Stack direction="column" sx={{ pb: '40px' }}>
+      <Stack direction="column">
         <Typography variant="decorative">
-          {t(`onboarding.${props.value}.header`)}
+          {t(`onboarding.${value}.header`)}
         </Typography>
         <Typography variant="secondary" sx={{ color: '#D2CCFB' }}>
-          {t(`onboarding.${props.value}.header2`)}
+          {t(`onboarding.${value}.header2`)}
         </Typography>
         <Typography variant="secondary">
-          {t(`onboarding.${props.value}.subheader`)}
+          {t(`onboarding.${value}.subheader`)}
         </Typography>
-      </Stack>
-
-      <Grid
-        sx={{ maxHeight: '350px', overflow: 'scroll', padding: '20px 0' }}
-        container
-      >
-        {props.children}
-      </Grid>
-      <Stack
-        spacing={2}
-        sx={{ flexDirection: { xs: 'column', md: 'row' }, padding: '20px 0' }}
-      >
-        <Button
-          color="info"
-          sx={{
-            backgroundColor: 'white !important',
-            color: 'black !important',
-          }}
-          onClick={() => setLocal(value, data)}
-          disabled={!data.length > 0}
-        >
-          {t('btn.continue')}
-        </Button>
-        {!required ? (
-          <Button variant="text" onClick={() => setLocal(value, '')}>
-            {t(`onboarding.${value}.skip-btn`)}
-          </Button>
-        ) : (
-          <Box style={{ height: 36.5 }} />
-        )}
       </Stack>
     </Box>
   )
 }
 
-export function WelcomeView(props) {
+
+
+export function WelcomeView({ image, startSignUp }) {
   const swiper = useSwiper()
   const { t } = useTranslation()
 
-  const { setFormProgress, formProgress } = props
-
   const setLocal = () => {
-    setFormProgress(formProgress + 1)
     swiper.slideNext()
   }
+
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        height: '75vh',
-      }}
-    >
-      <CardMedia
-        component="img"
-        alt=""
-        sx={{
-          width: '300px',
-          height: '300px',
-          borderRadius: '24px',
-        }}
-        image={props.image}
-      />
-      <Stack
-        sx={{
-          width: '90%',
-          gap: '5px',
-          flexDirection: { xs: 'column', md: 'row' },
-        }}
-      >
-        <Button fullWidth variant="contained" onClick={() => setLocal()}>
-          {t('get-started')}
-        </Button>
-        <Button fullWidth color="info" component={Link} to="/auth/signin">
-          {t('sign-in')}
-        </Button>
-      </Stack>
-      <Button fullWidth component={Link} to="/dashboard">
-        {t('let-me-browse')}
-      </Button>
-    </Box>
+    <Section>
+      <Container maxWidth="md">
+        <Grid container direction="column" alignItems="center">
+          <SectionHeader title={t('create-to-learn')} textAlign="center"/>
+          <CardMedia
+            component="img"
+            alt=""
+            sx={{
+              width: '300px',
+              height: '300px',
+              borderRadius: '24px',
+            }}
+            image={image}
+          />
+          <Stack direction="column" width="100%" spacing={2}>
+            {/* If startSignUp = 0, then show the button */}
+            <Typography 
+              variant="body1" 
+              color="text.primary" 
+              sx={{ 
+                textAlign:'center', 
+                padding:'20px 0',
+                display: startSignUp === 0 ? 'block' : 'none',
+              }}
+              >
+              {t('do-not-require-account')}
+            </Typography>
+            <Button fullWidth variant="contained" onClick={() => setLocal()}>
+              {t('get-started')}
+            </Button>
+            {/* If startSignUp = 0, then show the button */}
+            <Button 
+              fullWidth 
+              color="info" 
+              component={Link} 
+              to="/auth/signin"
+              sx={{
+                display: startSignUp === 0 ? 'block' : 'none', // Show if startSignUp === 0
+              }}
+            >
+              {t('sign-in')}
+            </Button>
+          </Stack>
+          <Button fullWidth component={Link} to="/dashboard">
+            {t('let-me-browse')}
+          </Button>
+        </Grid>
+      </Container>
+    </Section>
   )
 }
 
@@ -190,120 +155,95 @@ export function WindowView(props) {
 }
 
 export function InputSelectView(props) {
-  const { multi, value, options } = props
+  const { value, options } = props
   const classes = useClasses(styles)
+  const [data, setData] = useState([])
+
   const cols = props.cols ? props.cols : 1
 
-  const [data, setData] = useState(multi ? [] : '')
-
   function onChange(e) {
-    multi
-      ? !data.includes(e.target.value)
-        ? setData([...data, e.target.value])
-        : setData(data.filter((x) => x !== e.target.value))
-      : setData(e.target.value)
+    let arr
+    if (!data.includes(e.target.value)) {
+      arr = [...data, e.target.value]
+      setData(arr)
+    } else {
+      arr = data.filter((x) => x !== e.target.value)
+      setData(arr)
+    }
+    localStorage.setItem(value, arr)
   }
 
   return (
-    <InputView data={data} {...props}>
-      {multi ? (
-        <Grid
-          container
-          sx={{
-            gap: '10px',
-            justifyContent: 'space-between',
-            marginBottom: '2em',
-          }}
-        >
-          {options?.map((val, i) => (
-            <Box
-              as="div"
-              key={i}
-              className={classes.btnInput}
-              sx={{
-                flex: `0 1 calc(calc(100% / ${cols}) - (10px * ${cols - 1}))`,
-              }}
+    <Box>
+      <TitleSection value={value} />
+      <Grid
+        container
+        sx={{
+          gap: '10px',
+          padding: '1em',
+        }}
+      >
+        {options?.map((val, i) => (
+          <Box
+            as="div"
+            key={i}
+            className={classes.btnInput}
+            sx={{
+              flex: `0 1 calc(calc(100% / ${cols}) - (10px * ${cols - 1}))`,
+            }}
+          >
+            <input
+              onChange={onChange}
+              type="checkbox"
+              value={val}
+              name={value}
+              id={val}
+              hidden
+            />
+            <Button
+              variant="selection"
+              component="label"
+              fullWidth
+              htmlFor={val}
+              className={data.includes(val) ? 'active' : ''}
             >
-              <input
-                onChange={onChange}
-                type="checkbox"
-                value={val}
-                name={value}
-                id={val}
-                hidden
-              />
-              <Button
-                variant="selection"
-                component="label"
-                fullWidth
-                htmlFor={val}
-                className={data.includes(val) ? 'active' : ''}
-              >
-                {val}
-                <Check />
-              </Button>
-            </Box>
-          ))}
-        </Grid>
-      ) : (
-        <Grid
-          container
-          style={{ gap: '10px', justifyContent: 'space-between' }}
-        >
-          {options?.map((val, i) => (
-            <Box
-              as="div"
-              key={i}
-              className={classes.btnInput}
-              sx={{
-                flex: `0 1 calc(calc(100% / ${cols}) - (10px * ${cols - 1}))`,
-              }}
-            >
-              <input
-                onChange={onChange}
-                type="radio"
-                value={val}
-                name={value}
-                id={val}
-                hidden
-              />
-              <Button
-                variant="selection"
-                component="label"
-                fullWidth
-                htmlFor={val}
-                size="small"
-              >
-                {val}
-                <Check />
-              </Button>
-            </Box>
-          ))}
-        </Grid>
-      )}
-    </InputView>
+              {val}
+              {data.includes(val) ? <Check /> : null}
+            </Button>
+          </Box>
+        ))}
+      </Grid>
+    </Box>
   )
 }
 
 export function InputPillView(props) {
-  const { value, options } = props
+  const { options, value } = props
 
   const [data, setData] = useState([])
 
   function onChange(val) {
-    !data.includes(val)
-      ? setData([...data, val])
-      : setData(data.filter((x) => x !== val))
+    let arr
+    if (!data.includes(val)) {
+      arr = [...data, val]
+      setData(arr)
+    } else {
+      arr = data.filter((x) => x !== val)
+      setData(arr)
+    }
+    localStorage.setItem(value, arr)
   }
 
   return (
-    <InputView data={data} {...props}>
+    <Box>
+      <TitleSection value={value} />
       <Grid
         container
         sx={{
           gap: '10px',
           justifyContent: 'space-between',
-          marginBottom: '2em',
+          marginTop: '2em',
+          padding: '1.5em',
         }}
       >
         {options?.map((val, i) => (
@@ -326,28 +266,38 @@ export function InputPillView(props) {
           </Box>
         ))}
       </Grid>
-    </InputView>
+    </Box>
   )
 }
 
-export function InputTextView(props) {
+export function InputTextView({ value }) {
   const classes = useClasses(styles)
   const [data, setData] = useState('')
+
   function onChange(e) {
-    setData(e.target.value)
+    const val = e.target.value
+    setData(val)
+    localStorage.setItem(value, val)
   }
 
   return (
-    <InputView data={data} {...props}>
-      <Grid container item className={classes.gridColumn} onChange={onChange}>
+    <Box>
+      <TitleSection value={value} />
+      <Grid
+        container
+        item
+        className={classes.gridColumn}
+        onChange={onChange}
+        sx={{ padding: '1.5em' }}
+      >
         <TextField variant="outlined" fullWidth />
       </Grid>
-    </InputView>
+    </Box>
   )
 }
 
 export function InputSearchView(props) {
-  const { value, formProgress, options } = props
+  const { value, options } = props
 
   const classes = useClasses(styles)
   const { t } = useTranslation()
@@ -361,7 +311,9 @@ export function InputSearchView(props) {
     setInputValue(e.target.value)
   }
   function onChange(e) {
+    const val = e.target.value
     setData(e.target.value)
+    localStorage.setItem(value, val)
   }
   const Row = ({ data, index, style, e }) => (
     <div>
@@ -387,50 +339,54 @@ export function InputSearchView(props) {
     </div>
   )
   return (
-    <InputView data={data} {...props}>
-      <Stack direction="column" sx={{ padding: '10px 0' }}>
-        {data.length > 0 && (
-          <Button variant="contained" size="small">
-            {data}
-          </Button>
-        )}
-      </Stack>
+    <>
+      <TitleSection value={value} />
 
-      <TextField variant="outlined" onChange={onInputChange} fullWidth />
-
-      <Grid container item className={classes.gridColumn}>
-        <Grid className={classes.scrollBox}>
-          <Box sx={{ padding: '10px 0' }}>
-            <input
-              type="radio"
-              value="other"
-              id="other"
-              name={value}
-              hidden
-              onChange={onChange}
-            />
-            <Button
-              variant="selection"
-              component="label"
-              htmlFor="other"
-              size="small"
-              fullWidth
-            >
-              {t('btn.missing', { value: value })}
+      <Box sx={{ margin: '1.5em' }}>
+        <Stack direction="column">
+          {data.length > 0 && (
+            <Button variant="contained" size="small">
+              {data}
             </Button>
-          </Box>
-          <List
-            itemData={filtered}
-            itemCount={filtered.length}
-            height={420}
-            itemSize={65}
-            width="100%"
-          >
-            {Row}
-          </List>
+          )}
+        </Stack>
+
+        <TextField variant="outlined" onChange={onInputChange} fullWidth />
+
+        <Grid className={classes.gridColumn}>
+          <Grid className={classes.scrollBox}>
+            <Box sx={{ padding: '10px 0' }}>
+              <input
+                type="radio"
+                value="other"
+                id="other"
+                name={value}
+                hidden
+                onChange={onChange}
+              />
+              <Button
+                variant="selection"
+                component="label"
+                htmlFor="other"
+                size="small"
+                fullWidth
+              >
+                {t('btn.missing', { value: value })}
+              </Button>
+            </Box>
+            <List
+              itemData={filtered}
+              itemCount={filtered.length}
+              height={420}
+              itemSize={65}
+              width="100%"
+            >
+              {Row}
+            </List>
+          </Grid>
         </Grid>
-      </Grid>
-    </InputView>
+      </Box>
+    </>
   )
 }
 
@@ -442,10 +398,17 @@ export function EmailView() {
   const handleFormAlert = (data) => {
     setFormAlert(data)
   }
-  const handleAuth = (email) => {
-    localStorage.setItem('email', email)
-    swiper.slideNext()
+  
+  const handleAuth = (userData) => {
+    const email = userData.email
+    if (email) {
+      localStorage.setItem('email', email);
+      swiper.slideNext();
+    } else {
+      console.error("Email is missing in userData");
+    }
   }
+
   return (
     <Box sx={{ 
       display: 'flex',

@@ -35,24 +35,11 @@ export const ProgressBar = ({ start, end, slot }: ProgressProps) => {
           }
           nextButton={undefined}
         />
-      ) : active === 0 ? (
-        <Link
-          href="/dashboard"
-          variant="subtitle1"
-          underline="hover"
-          p="0.75rem 1.5rem 0.75em 0"
-          display="flex"
-        >
-          <ArrowBack />
-          <Typography component="span" ml="0.5em">
-            Back to Dashboard
-          </Typography>
-        </Link>
-      ) : (
+      ) : active !== 0 ? (
         <SwiperPrev handleClick={() => swiper.slidePrev()}>
           <ArrowBack />
         </SwiperPrev>
-      )}
+      ) : null }
     </Container>
   )
 }

@@ -15,10 +15,17 @@ import { Typography } from '@mui/material'
 import { useAuth } from '../../util/auth'
 import { requireAuth } from '../../util/auth'
 
+import Slide from '@mui/material/Slide';
+
+
 function SettingsMyAccount(props) {
   const auth = useAuth()
 
   const [showComponent, setShowComponent] = useState('nav');
+
+
+  console.log('showComponent value:', showComponent);
+
 
   const myAccountLinks = [
     {
@@ -54,12 +61,12 @@ function SettingsMyAccount(props) {
   //ToDo: Make showComponent a custom hook so that we don't have to pass it in like this to each component.
 
   return (
-    <>
+      <>
       <Container sx={{
         display: 'flex', 
         justifyContent:'space-between',
         alignItems: 'center',
-        padding: '52px 0 34px 0'
+        padding: '52px 0 34px 0',
         }}>
         <ArrowBack
           showComponent={showComponent}
@@ -69,45 +76,52 @@ function SettingsMyAccount(props) {
         <div>
         </div>
       </Container>
-      
-      <Container>
-        <MyAccountNav
-          auth={auth}
-          showComponent={showComponent}
-          setShowComponent={setShowComponent}
-        />
-        <SettingsDisplayName
-          auth={auth}
-          showComponent={showComponent}
-          setShowComponent={setShowComponent}
-        />
-        <SettingsEmail
-          auth={auth}
-          showComponent={showComponent}
-          setShowComponent={setShowComponent}
-        />
-        <SettingsSchools
-          showComponent={showComponent}
-          setShowComponent={setShowComponent}
-        />
-        <SettingsInterests
-          showComponent={showComponent}
-          setShowComponent={setShowComponent}
-        />
-        <SettingsLanguage
-          showComponent={showComponent}
-          setShowComponent={setShowComponent}
-        />
-        <SettingsCommunity
-          showComponent={showComponent}
-          setShowComponent={setShowComponent}
-        />
-        <SettingsDeleteAccount
-          auth={auth}
-          showComponent={showComponent}
-          setShowComponent={setShowComponent}
-        />
-      </Container>
+      <Slide
+        direction="left"
+        in={showComponent}
+        timeout={500}
+        mountOnEnter
+        unmountOnExit
+      >
+        <Container>
+          <MyAccountNav
+            auth={auth}
+            showComponent={showComponent}
+            setShowComponent={setShowComponent}
+          />
+          <SettingsDisplayName
+            auth={auth}
+            showComponent={showComponent}
+            setShowComponent={setShowComponent}
+          />
+          <SettingsEmail
+            auth={auth}
+            showComponent={showComponent}
+            setShowComponent={setShowComponent}
+          />
+          <SettingsSchools
+            showComponent={showComponent}
+            setShowComponent={setShowComponent}
+          />
+          <SettingsInterests
+            showComponent={showComponent}
+            setShowComponent={setShowComponent}
+          />
+          <SettingsLanguage
+            showComponent={showComponent}
+            setShowComponent={setShowComponent}
+          />
+          <SettingsCommunity
+            showComponent={showComponent}
+            setShowComponent={setShowComponent}
+          />
+          <SettingsDeleteAccount
+            auth={auth}
+            showComponent={showComponent}
+            setShowComponent={setShowComponent}
+          />
+        </Container>
+      </Slide>
     </>
   )
 }

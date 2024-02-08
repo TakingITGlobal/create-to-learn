@@ -111,7 +111,7 @@ function MyCoursesProgressDrawer({
       onClick: () => setOpenCourseDrawer(false),
       ariaLabel: 'continue-watching-icon',
       text: t('my-courses.see-details'),
-      href: '/course/' + course.uid,
+      href: '/tutoria/' + course.uid,
       icon: <InfoIcon />,
     },
   ]

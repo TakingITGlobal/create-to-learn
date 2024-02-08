@@ -14,7 +14,7 @@ function VerifiedPage(props) {
   }, [])
   auth.parseHash(window.location.hash)
   return <>
-    <Meta title="Verified Page | Create to Learn" />
+    <Meta title="Verified Page - Create to Learn" />
     <Section>
       <Container>
         <h1>Your account has been verified! You can close this tab</h1>

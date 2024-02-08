@@ -1,19 +1,26 @@
-import React from 'react'
-import Meta from './../components/Meta'
-import WelcomeSection from 'components/Home/WelcomeSection'
-import { useTranslation } from 'react-i18next'
+import React from 'react';
+import { Redirect } from 'react-router-dom';
+import Meta from './../components/Meta';
+import { useTranslation } from 'react-i18next';
+import WelcomeSection from 'components/Home/WelcomeSection';
+import { BrowserView, MobileView } from 'react-device-detect';
 
 function IndexPage() {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <>
       <Meta />
-      <WelcomeSection
-        image="https://www.kadencewp.com/wp-content/uploads/2020/10/alogo-2.png"
-        title={t('create-to-learn')}
-      />
+      <BrowserView>
+        <Redirect to="/dashboard" />
+      </BrowserView>
+      <MobileView>
+        <WelcomeSection 
+          title={t('create-to-learn')}
+          startSignUp={0}
+        />
+      </MobileView>
     </>
-  )
+  );
 }
 
-export default IndexPage
+export default IndexPage;

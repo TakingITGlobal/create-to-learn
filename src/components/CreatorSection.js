@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Helmet } from 'react-helmet'
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -18,11 +17,14 @@ function CreatorSection({ coursesByCreator, creator }) {
 
   return (
     <Section>
-    <Helmet>
-      <title>{creator.name} | Creators | Create to Learn</title>
-    </Helmet>
       <Container>
-        <Box sx={{display: {md: 'flex'}, gap: {md: '20px'}, paddingBottom: {md: '40px'}}}>
+        <Box
+          sx={{
+            display: { md: 'flex' },
+            gap: { md: '20px' },
+            paddingBottom: { md: '40px' },
+          }}
+        >
           <Box
             alt={creator.name}
             component="img"
@@ -31,7 +33,7 @@ function CreatorSection({ coursesByCreator, creator }) {
               xs: '350px',
               sm: '500px',
             }}
-            sx={{ objectFit: 'cover', objectPosition: 'center top'}}
+            sx={{ objectFit: 'cover', objectPosition: 'center top' }}
             src={
               creator.image && creator.image.length
                 ? creator.image[0].downloadURL
@@ -49,11 +51,8 @@ function CreatorSection({ coursesByCreator, creator }) {
               }}
             >
               <Box>
-                <IconButton 
-                  href={
-                    'https://www.facebook.com/' + 
-                    creator.facebookProfile 
-                  }
+                <IconButton
+                  href={'https://www.facebook.com/' + creator.facebookProfile}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -71,12 +70,12 @@ function CreatorSection({ coursesByCreator, creator }) {
                 </IconButton>
               </Box>
               <Box>
-                <IconButton 
+                <IconButton
                   onClick={() => setOpenShareDrawer(true)}
-                  sx = {{
-                    borderRadius: '10px'
+                  sx={{
+                    borderRadius: '10px',
                   }}
-                  >
+                >
                   <ShareIcon fontSize="large" />
                   <Typography>Share</Typography>
                 </IconButton>
@@ -92,14 +91,14 @@ function CreatorSection({ coursesByCreator, creator }) {
             </Box>
           </Box>
         </Box>
-          {coursesByCreator.length && (
-            <Box>
-              <Typography variant="h6">More from {creator.name}</Typography>
-              <CourseCard course={coursesByCreator[0]} />
-            </Box>
-          )}
+        {coursesByCreator.length && (
+          <Box>
+            <Typography variant="h6">More from {creator.name}</Typography>
+            <CourseCard course={coursesByCreator[0]} />
+          </Box>
+        )}
         <ShareDrawer
-          url={`https://create-to-learn.netlify.app/creator/${creator.uid}`}
+          url={`https://app.createtolearn.ca/creator/${creator.uid}`}
           title={`Share ${creator.name}'s page`}
           openShareDrawer={openShareDrawer}
           setOpenShareDrawer={setOpenShareDrawer}

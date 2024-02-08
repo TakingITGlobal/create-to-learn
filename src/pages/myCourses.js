@@ -5,7 +5,7 @@ import MyCoursesSection from '../components/MyCourses/MyCoursesSection'
 function MyCoursesPage(props) {
   return (
     <>
-      <Meta title="My Courses | Create to Learn" />
+      <Meta title="My Courses - Create to Learn" />
       <MyCoursesSection />
     </>
   )

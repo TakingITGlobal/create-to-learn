@@ -16,6 +16,7 @@
   "course-page": "Go to course page",
   "start": "Start now",
   "help-us-know-you": "It helps us know you better, show you things you like, and track your progress",
+  "do-not-require-account": "We don’t require an account but if you sign up it helps us to know you better and track your progress!",
   "sign-up": "Sign up or sign in",
   "cancel": "Cancel",
   "community": "Community",
@@ -54,23 +55,23 @@
       "subheader": "Scroll or search to find your school",
       "header": "I'm attending",
       "header2": "",
-      "skip-btn": "Prefer not to say"
+      "skip-btn": "I'm not attending school"
     },
     "interests": {
-      "subheader": "Tell us more about you, so we can personalize your experience",
-      "header": "I am..",
+      "subheader": "Pick up to three topics you're interested in",
+      "header": "I am interested in..",
       "header2": "",
       "skip-btn": "Prefer not to say"
     },
     "email": {
       "subheader": "Tell us more about you, so we can personalize your experience",
-      "header": "I am..",
+      "header": "I want to be a.",
       "header2": "",
       "skip-btn": "Prefer not to say"
     },
     "displayName": {
-      "subheader": "Tell us more about you, so we can personalize your experience",
-      "header": "I am..",
+      "subheader": "This is your name on the app",
+      "header": "I want to be called ...",
       "header2": "",
       "skip-btn": "Prefer not to say"
     }

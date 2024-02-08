@@ -38,7 +38,7 @@ function DashboardVideo({ course }) {
         }}
       >
         <Typography variant="bold"> {course.seriesName}</Typography>
-        <IconButton sx={{ color: 'white' }} href={`/course/${course.uid}`}>
+        <IconButton sx={{ color: 'white' }} href={`/tutorial/${course.uid}`}>
           <EastIcon />
         </IconButton>
       </Stack>

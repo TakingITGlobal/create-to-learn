@@ -53,8 +53,8 @@ export const c2learn = (mode) => ({
   breakpoints: {
     values: {
       xs: 0,
-      sm: 600,
-      md: 960,
+      sm: 464,
+      md: 1024,
       lg: 1200,
       xl: 1920,
     },
@@ -314,18 +314,26 @@ export const c2learn = (mode) => ({
             color: '#ccc',
             '.MuiSvgIcon-root': {
               color: '#000',
-              backgroundColor: '#fff',
               borderRadius: '99em',
               marginLeft: '14px',
               padding: '2px',
               fontSize: '1.1em',
               display: 'none',
+              '&:hover': {
+                backgroundColor: '#211E34',
+              },
             },
-            '&.active, &:hover': {
-              backgroundColor: '#6956F1',
-              color: '#fff',
-              '.MuiSvgIcon-root': {
-                display: 'block',
+            '&:hover': {
+              backgroundColor: '#211E34',
+            },
+            '&.active': {
+              '&:hover': {
+                backgroundColor: '#6956F1',
+                '.MuiSvgIcon-root': {
+                  display: 'block',
+                  color: 'black',
+                  backgroundColor: 'white',
+                },
               },
             },
           },

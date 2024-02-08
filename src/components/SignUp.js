@@ -6,14 +6,27 @@ import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
 import { Link } from './../util/router'
 import { useTranslation } from 'react-i18next'
+import signupIMG from '../assets/images/signup-or-signin.png';
+
 
 function SignUp({ setDismissed = null, showDismissButton = false }) {
   const { t } = useTranslation()
 
   return (
     <Paper variant="elevation" elevation="1">
-      <Box sx={{ paddingBottom: '10px' }}>
+      <Box sx={{ 
+        display: 'flex',
+        justifyContent: 'space-between',
+        paddingBottom: '8px',
+        alignItems: 'center',
+        }}>
         <Typography variant="h3">{t('sign-up')}</Typography>
+        <img
+          src={signupIMG}
+          alt="cultural-teachings-icon"
+          height={'56px'}
+          width={'101px'}
+        />
       </Box>
       <Box sx={{ paddingBottom: '20px' }}>
         <Typography variant="body2" color="text.secondary">

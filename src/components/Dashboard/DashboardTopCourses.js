@@ -14,31 +14,38 @@ import 'react-multi-carousel/lib/styles.css'
 
 import { useTranslation } from 'react-i18next'
 
-const responsive = {
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 3,
-    partialVisibilityGutter: 60,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 2,
-    partialVisibilityGutter: 50,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-    partialVisibilityGutter: 100,
-  },
-}
 
 const DashboardTopCourses = ({ title, courses, icon }) => {
+  const coursesLength = courses.length;
+
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+      partialVisibilityGutter: coursesLength < 4 ? 0 : 60, 
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      partialVisibilityGutter: 50,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      partialVisibilityGutter: 100,
+    },
+  }
+
   const theme = useTheme()
   const { t } = useTranslation()
 
   return courses.length ? (
     <>
-      <Typography variant="sectionTitle" pt={{xs: "20px", md: "75px"}} pb="20px">
+      <Typography
+        variant="sectionTitle"
+        pt={{ xs: '20px', md: '75px' }}
+        pb="20px"
+      >
         {icon}
         {title}
       </Typography>
@@ -56,8 +63,11 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
               sx={{
                 padding: '0',
                 margin: '0 10px',
+                display: 'flex',
+                justifyContent:'flex-start',
               }}
             >
+            {/* Gray Box Area of the Card */}
               <CardActionArea
                 sx={{
                   height: '100%',
@@ -68,8 +78,9 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
                   justifyContent: 'flex-start',
                   backgroundColor: theme.palette.background.secondary,
                 }}
-                href={'/course/' + course.uid}
+                href={'/tutorial/' + course.uid}
               >
+              {/* Image of the Card */}
                 <CardMedia
                   component="img"
                   alt={`${course.seriesName}-course`}
@@ -77,12 +88,12 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
                     display: 'flex',
                     alignItems: 'center',
                     width: '100%',
-                    height: '200px',
                     borderRadius: '6px',
                     objectFit: 'cover',
                   }}
                   image={course.thumbnail[0]?.downloadURL}
                 />
+                {/* Words in Card*/}
                 <CardContent
                   sx={{
                     display: 'flex',
@@ -90,19 +101,46 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
                     padding: '10px 0 0 0',
                   }}
                 >
-                  <Box componant="div">
-                    <Typography component="h3" variant="bold">
+                  <Box sx={{ display:'flex', flexDirection:'column' }}>
+                    <Typography 
+                      component="h3" 
+                      variant="bold"
+                      sx = {{
+                        maxWidth: {xs:'53vw', sm:'25vw', md:'20vw'},
+                        whiteSpace: 'nowrap',
+                        textOverflow: 'ellipsis',
+                        overflow: 'hidden',
+                      }}
+                    >
                       {course.seriesName}
                     </Typography>
-                    <Typography variant="body" component="p">
+                    <Typography 
+                      variant="body" 
+                      component="p"
+                      sx = {{
+                        maxWidth: {sm:'30vw', md:'20vw'},
+                        whiteSpace: 'nowrap',
+                        textOverflow: 'ellipsis',
+                        overflow: 'hidden',
+                      }}
+                    >
                       {course.creator}
                     </Typography>
                     <Stack direction="row">
                       <Typography variant="subtitle1" component="p">
                         {course.difficultyLevel}
                       </Typography>
-                      <>&#183;</>
-                      <Typography variant="subtitle1" component="p">
+                      <Box padding={'0 3px'}>&#183;</Box>
+                      <Typography 
+                        variant="subtitle1" 
+                        component="p"
+                        sx = {{
+                          maxWidth: {sm:'30vw', md:'20vw'},
+                          whiteSpace: 'nowrap',
+                          textOverflow: 'ellipsis',
+                          overflow: 'hidden',
+                      }}  
+                      >
                         {course.videos.length} {t('videos')}
                       </Typography>
                     </Stack>
