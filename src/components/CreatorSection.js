@@ -17,7 +17,11 @@ function CreatorSection({ coursesByCreator, creator }) {
 
   return (
     <Section>
-      <Container>
+      <Container 
+        sx = {{
+          paddingBottom: '100px'
+        }}
+      >
         <Box
           sx={{
             display: { md: 'flex' },

@@ -51,7 +51,11 @@ function MyCoursesSection(props) {
       bgImage={props.bgImage}
       bgImageOpacity={props.bgImageOpacity}
     >
-      <Container>
+      <Container
+      sx = {{
+        paddingBottom: '100px'
+      }}
+      >
         <PageHeading headingText={t('my-courses.my-courses')} />
         <Box>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
