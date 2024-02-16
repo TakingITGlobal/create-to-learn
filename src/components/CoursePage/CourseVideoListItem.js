@@ -231,7 +231,7 @@ function CourseVideoListItem({
           }}
         >
           <Box sx={{ paddingTop: '10px' }}>
-            <Typography>Download</Typography>
+            <Typography>{t('course.quality')}</Typography>
           </Box>
           <IconButton onClick={() => setOpenDownloadDrawer(false)}>
             <CloseIcon sx={{ color: 'white' }} />
@@ -240,7 +240,11 @@ function CourseVideoListItem({
         {video?.download && (
           <>
             <List>
-              {video?.download.map(({ link, public_name }) => (
+              {video?.download.sort((a, b) => {
+                  if (a.publicName > b.publicName) return 1; 
+                  else if (a.publicName < b.publicName) return -1; 
+                  else return 0; // no change in order}
+                }).map(({ link, public_name }) => (
                 <ListItem
                   secondaryAction={
                     <Radio

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -95,10 +95,15 @@ function CreatorSection({ coursesByCreator, creator }) {
             </Box>
           </Box>
         </Box>
-        {coursesByCreator.length && (
+        {coursesByCreator.length > 0 && (
           <Box>
             <Typography variant="h6">More from {creator.name}</Typography>
-            <CourseCard course={coursesByCreator[0]} />
+            {coursesByCreator.map((course, i) => (
+              <Fragment key={i}>
+                <CourseCard course={course} />
+              </Fragment>    
+            ))}
+            
           </Box>
         )}
         <ShareDrawer

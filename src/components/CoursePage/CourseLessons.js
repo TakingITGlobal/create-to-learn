@@ -18,7 +18,6 @@ function CourseLessons({
 
   const [openCourseDrawer, setOpenCourseDrawer] = useState(false)
   const [videoToShow, setVideoToShow] = useState(false)
-
   return (
     <>
       <List variant="progress">
