@@ -19,6 +19,7 @@ import {
   deleteDoc,
   serverTimestamp,
   limit,
+  getDocs,
 } from 'firebase/firestore'
 import { firebaseApp } from './firebase'
 
@@ -139,9 +140,57 @@ export function useVideoProgressOnce(id) {
     { enabled: !!id },
   )
 }
-export async function getUserProgress(uid) {
-  const response = await getDoc(doc(db, 'user-progress', uid))
-  return format(response)
+
+
+export const saveVideoProgress = async (data) => {
+  const progressRef = collection(db, 'user-progress');
+  const q = query(progressRef, where('owner', '==', data.owner), where('videoId', '==', data.videoId));
+  const querySnapshot = await getDocs(q);
+
+  if (querySnapshot.empty) {
+    // No existing progress, create a new document
+    await addDoc(progressRef, {
+      ...data,
+      createdAt: serverTimestamp(),
+    });
+  } else {
+    // Update the existing document with new progress
+    querySnapshot.forEach((docSnapshot) => {
+      const docRef = doc(db, 'user-progress', docSnapshot.id);
+      updateDoc(docRef, { progress: data.progress, completed: data.completed });
+    });
+  }
+};
+
+// Function to load video progress
+export const loadVideoProgress = async (owner, videoId) => {
+  const progressRef = collection(db, 'user-progress');
+  const q = query(progressRef, where('owner', '==', owner), where('videoId', '==', videoId));
+  const querySnapshot = await getDocs(q);
+  if (!querySnapshot.empty) {
+    const doc = querySnapshot.docs[0].data();
+    return doc;
+  }
+
+  return null;
+};
+
+export const getVideosByIds = async (ids) => {
+  try {
+    const videosRef = collection(db, 'Videos');
+    const videosQuery = query(videosRef, where("id", "in", ids));
+   
+    const querySnapshot = await getDocs(videosQuery);
+
+    const videos = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+    return videos;
+  } catch (error) {
+    console.error("Error fetching videos: ", error);
+    throw error; 
+  }
 }
 
 // Subscribe to all items by owner
