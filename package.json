@@ -1,9 +1,9 @@
 {
-  "name": "my-divjoy-project",
+  "name": "create-to-learn",
   "version": "0.1.0",
   "private": true,
   "keywords": [
-    "divjoy"
+    "create"
   ],
   "dependencies": {
     "@analytics/google-analytics": "0.2.2",

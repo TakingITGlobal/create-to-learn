@@ -15,7 +15,7 @@ import {
   EmailView,
   FinishView,
   InputPillView,
-} from '../OnboardingView'
+} from './../SignUp/Views'
 import schoolData from 'assets/options/schools.json'
 import welcome from 'assets/images/welcome2.png'
 import juggling from 'assets/images/juggling.png'

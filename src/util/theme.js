@@ -343,6 +343,38 @@ export const c2learn = (mode) => ({
             },
           },
         },
+        {
+          props: { variant: 'multi-selection' },
+          style: {
+            justifyContent: 'space-between',
+            backgroundColor: '#211E34',
+            borderRadius: '0.75em',
+            padding: '1.125em 1.5em',
+            color: '#ccc',
+            '.MuiSvgIcon-root': {
+              color: '#000',
+              borderRadius: '99em',
+              marginLeft: '14px',
+              padding: '2px',
+              fontSize: '1.1em',
+              display: 'none',
+              '&:hover': {
+                backgroundColor: '#211E34',
+              },
+            },
+            '&:hover': {
+              backgroundColor: '#211E34',
+            },
+            '&.active': {
+              backgroundColor: '#6956F1',
+              '.MuiSvgIcon-root': {
+                display: 'block',
+                color: 'black',
+                backgroundColor: 'white',
+              },
+            },
+          },
+        },
       ],
     },
     MuiBottomNavigation: {
