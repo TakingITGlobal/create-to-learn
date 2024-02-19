@@ -61,7 +61,7 @@ function SettingsMyAccount(props) {
   //ToDo: Make showComponent a custom hook so that we don't have to pass it in like this to each component.
 
   return (
-      <>
+    <div style={{ marginLeft: '360px' }}>
       <Container sx={{
         display: 'flex', 
         justifyContent:'space-between',
@@ -79,7 +79,7 @@ function SettingsMyAccount(props) {
       <Slide
         direction="left"
         in={showComponent}
-        timeout={500}
+        timeout={600}
         mountOnEnter
         unmountOnExit
       >
@@ -122,7 +122,7 @@ function SettingsMyAccount(props) {
           />
         </Container>
       </Slide>
-    </>
+    </div>
   )
 }
 

@@ -2,6 +2,9 @@ import React from 'react'
 import useClasses from '../hooks/useClasses'
 import Box from '@mui/material/Box'
 import BackgroundImage from './BackgroundImage'
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+
 
 const styles = (theme) => ({
   root: {
@@ -48,6 +51,8 @@ const styles = (theme) => ({
 })
 
 function Section(props) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const classes = useClasses(styles)
   const {
     bgColor = 'default',
@@ -71,7 +76,7 @@ function Section(props) {
   return (
     <Box
       component="section"
-      py={verticalPadding}
+      marginLeft = {isMobile ? 0 : '360px'}
       className={classes.root + (className ? ` ${className}` : '')}
       {...otherProps}
     >
