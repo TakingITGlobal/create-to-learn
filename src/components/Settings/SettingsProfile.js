@@ -74,7 +74,7 @@ function SettingsProfile() {
       <Box
         sx={{
           display: 'flex',
-          justifyContent: { xs: 'center', md: 'flex-start' },
+          justifyContent: user ? { xs: 'center', md: 'flex-start' } : 'center',
           padding: '10px 0',
         }}
       >

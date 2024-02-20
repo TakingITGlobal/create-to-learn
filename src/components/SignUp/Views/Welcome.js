@@ -52,6 +52,7 @@ export default function WelcomeView({ image, startSignUp }) {
               to="/auth/signin"
               sx={{
                 display: startSignUp === 0 ? 'block' : 'none', // Show if startSignUp === 0
+                textAlign: 'center'
               }}
             >
               {t('sign-in')}

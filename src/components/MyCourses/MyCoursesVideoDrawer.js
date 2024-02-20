@@ -19,6 +19,7 @@ function MyCoursesVideoDrawer({
   const auth = useAuth()
 
   return (
+    <>
     <SwipeableDrawer
       anchor="right"
       open={openVideoDrawer}
@@ -58,6 +59,7 @@ function MyCoursesVideoDrawer({
         />
       </Box>
     </SwipeableDrawer>
+    </>
   )
 }
 

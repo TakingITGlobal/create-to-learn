@@ -20,10 +20,11 @@ function SignUp({ setDismissed = null, showDismissButton = false }) {
         paddingBottom: '8px',
         alignItems: 'center',
         }}>
-        <Typography variant="h3">{t('sign-up')}</Typography>
+        <Typography variant="h3">{t('sign-up-or')}</Typography>
         <img
           src={signupIMG}
-          alt="cultural-teachings-icon"
+          alt=""
+          role="presentation"
           height={'56px'}
           width={'101px'}
         />

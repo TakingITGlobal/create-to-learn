@@ -132,37 +132,28 @@ function CourseSection({ courseData }) {
         backgroundColor: randomColor,
         backgroundImage:
           'linear-gradient(180deg, rgba(11, 9, 25, 0) 0%, rgba(11, 9, 25, 0.11) 200px, rgba(11, 9, 25, 0.64) 400px, #0B0919 600px)',
+        marginTop: '-10px'
       }}
     >
       <Container
         sx={{
-          padding: '0',
           paddingBottom: { xs: '120px', md: '80px' },
           maxWidth: { xs: '100%', md: '850px' },
         }}
       >
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'flex-end',
-            alignItems: 'flex-end',
-          }}
-        >
+          <PageHeading
+            headingText={seriesName}
+            color="black"
+          >
           <IconButton
             aria-label="share course"
             onClick={() => setOpenShareDrawer(true)}
           >
             <ShareIcon sx={{ color: 'white' }} />
           </IconButton>
-        </Box>
+          </PageHeading>
         {/* Series name */}
         <Box sx={{ padding: '0 2.5em 2em' }}>
-          <PageHeading
-            headingText={seriesName}
-            textAlign="center"
-            color="black"
-          />
 
           <CardMedia
             component="img"

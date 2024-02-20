@@ -8,6 +8,12 @@ import FacebookIcon from '@mui/icons-material/Facebook'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import Section from './Section'
 import { Link } from './../util/router'
+import Box from '@mui/material/Box'
+import TakingITGlobalLogo from '../assets/images/TakingITGlobal-Logo.png';
+import LenovoLogo from '../assets/images/Lenovo-Logo.png';
+import ImagineNativeLogo from '../assets/images/ImagineNative-logo.png';
+import CanadaLogo from '../assets/images/Canada-logo.png'
+
 
 const styles = (theme) => ({
   sticky: {
@@ -96,6 +102,7 @@ function Footer(props) {
   // const logo =
   //   props.logoInverted && darkMode.value ? props.logoInverted : props.logo
   const classes = useClasses(styles)
+
   return (
     <Section
       bgColor={props.bgColor}
@@ -103,71 +110,58 @@ function Footer(props) {
       bgImage={props.bgImage}
       bgImageOpacity={props.bgImageOpacity}
       className={props.sticky && classes.sticky}
+      sx = {{
+        padding: {lg:'30px 160px'},
+        textAlign: 'center'
+      }}
     >
-      <Container>
-        <div className={classes.wrapper}>
-          <div className={`${classes.item} ${classes.left}`}>
-            <Link to="/" style={{ textDecoration: 'none' }}>
-              {/* <img src={logo} alt="Logo" className={classes.brand} /> 
-              <span className={classes.logo}>CREATE TO LEARN</span>*/}
-            </Link>
+        <Box
+        sx = {{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '40px',
+        }}
+        >
+          <div style = {{ width: '30%'}}>
+            <img
+              src={TakingITGlobalLogo}
+              alt="TakingITGlobal Logo"
+              width='100%'
+              height='100%'
+            />
           </div>
-          <div
-            className={`${classes.item} ${classes.right} ${classes.smallLinks}`}
-          >
-            <Typography>
-              <a
-                href="https://www.tigweb.org/about/"
-                target="_blank"
-                rel="noreferrer"
-                className={classes.link}
-              >
-                About
-              </a>
-              <LinkMui component={Link} to="/faq" className={classes.link}>
-                FAQ
-              </LinkMui>
-              <LinkMui component={Link} to="/contact" className={classes.link}>
-                Contact
-              </LinkMui>
-              {/* <LinkMui
-                href="https://medium.com"
-                target="_blank"
-                rel="noreferrer"
-                className={classes.link}
-              >
-                Blog
-              </LinkMui> */}
-            </Typography>
+          <div style = {{ width: '15%'}}>
+            <img
+              src={ImagineNativeLogo}
+              alt="Imagine Native"
+              width='100%'
+              height='100%'
+            />
           </div>
-          <div className={`${classes.item} ${classes.right} ${classes.social}`}>
-            <a
-              href="https://twitter.com/takingitglobal"
-              target="_blank"
-              rel="noreferrer"
-              className={classes.link}
-            >
-              <TwitterIcon fontSize="large" />
-            </a>
-            <a
-              href="https://facebook.com/takingitglobal"
-              target="_blank"
-              rel="noreferrer"
-              className={classes.link}
-            >
-              <FacebookIcon fontSize="large" />
-            </a>
-            <a
-              href="https://www.instagram.com/create2learn"
-              target="_blank"
-              rel="noreferrer"
-              className={classes.link}
-            >
-              <InstagramIcon fontSize="large" />
-            </a>
+          <div style = {{ width: '20%'}}>
+            <img
+              src={CanadaLogo}
+              alt="Canada Logo"
+              width='100%'
+              height='100%'
+            />
           </div>
-        </div>
-      </Container>
+          <div style = {{ width: '30%'}}>
+            <img
+              src={LenovoLogo}
+              alt="Lenovo Logo"
+              width='100%'
+              height='100%'
+            />
+          </div>
+        </Box>
+        <Typography sx={{ padding: '16px 0 60px 0'}} fontWeight= {'400'}>
+          Create to Learn is a program of TakingITGlobal, in partnership with imagineNATIVE, with support from Lenovo Foundation and the Government of Canada’s CanCode and Supports for Student Learning programs.
+        </Typography>
+        <Typography color="text.secondary" fontWeight= {'400'}>
+          © 2022 TakingITGlobal
+        </Typography>
     </Section>
   )
 }

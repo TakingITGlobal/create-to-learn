@@ -70,8 +70,8 @@ function BrowseCategoryCarousel({ handleCategoryFilter, categoryFilter }) {
                 alt={category}
                 sx={{
                   display: 'flex',
-                  width: {xs:'18vw', sm: '100px', md: '150px'},
-                  height: {xs:'18vw', sm:'100px', md: '150px'},
+                  width: {xs:'18vw', sm: '12vw', md: '8vw'},
+                  height: {xs:'18vw', sm:'12vw', md: '8vw'},
                   backgroundColor: '#211E34',
                   padding:'10px',
                   borderRadius:'4px',
