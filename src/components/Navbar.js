@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import { useState } from 'react'
 // MUI
 import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
@@ -12,6 +13,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import ListItemButton from '@mui/material/ListItemButton';
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid'
+import Dialog from '@mui/material/Dialog'
 // Icons
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
@@ -22,6 +27,7 @@ import XIcon from '@mui/icons-material/X';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import YouTubeIcon from '@mui/icons-material/YouTube';
+import LogoutIcon from '@mui/icons-material/Logout'
 // Other
 import Section from './Section';
 import { Link } from './../util/router';
@@ -33,7 +39,6 @@ const styles = (theme) => ({
   logo: {
     fontFamily: '"Manrope", "Helvetica", "Arial", sans-serif',
     height: 28,
-    paddingTop: 0,
     color: '#B4ABF8',
     fontSize: 30,
     fontWeight: 700,
@@ -50,13 +55,6 @@ const styles = (theme) => ({
     },
   },
 
-  spacer: {
-    flexGrow: 1,
-  },
-
-  toolbar: {
-    zIndex: 100,
-  },
 })
 
 function Navbar(props) {
@@ -69,6 +67,8 @@ function Navbar(props) {
   const hideDrawerOnPages = ['/', '/sign-up']
   const shouldHideDrawer = hideDrawerOnPages.includes(location.pathname)
 
+  const [dialog, setDialog] = useState(false)
+
   // Lower Nav Links
   const secondNavItems = [
     { text: 'About', link: '/about' },
@@ -80,9 +80,7 @@ function Navbar(props) {
 
   return (
     <Section bgColor={props.color} size="auto">
-      <AppBar position="static" color="transparent" elevation={0}>
         <Container disableGutters={true}>
-          <Toolbar className={classes.toolbar}>
           {!shouldHideDrawer && (
             <Drawer
               sx={{
@@ -98,7 +96,7 @@ function Navbar(props) {
               variant="permanent"
               anchor="left"
             >
-              <Link to="/dashboard" style={{ textAlign:'center', textDecoration: 'none'}}>
+              <Link to="/dashboard" style={{ textDecoration: 'none', padding: '12px 24px' }}>
                 {/* <img src={logo} alt="Logo" className={classes.logo} /> */}
                 <span className={classes.logo}>
                   CREATE TO LEARN
@@ -110,28 +108,9 @@ function Navbar(props) {
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
-                  paddingTop: '60px',
-                  paddingBottom: '20px',
-                  gap: '20px'
+                  padding: '20px 0',
                 }}
               >
-                {auth.user ? (
-                  <>
-                  </>
-                ) : (
-                  <Button 
-                      component={Link} 
-                      to="/sign-up"
-                      sx = {{
-                        gap: '10px',
-                        background: '#6956F1',
-                        borderRadius: '100px'
-                      }}
-                    >
-                      {t('sign-up')}
-                    </Button>                
-                  )}
-
                 {auth.user ? (
                   <>
                     <Button 
@@ -214,18 +193,125 @@ function Navbar(props) {
               <Divider color={'white'}/>
                 
               {/* Secondary Nav Items */}
-              <List sx = {{ marginTop: '46px'}}>
+              <List sx = {{ marginTop: '20px'}}>
               {secondNavItems.map((item, index) => (
                 <ListItem key={item.text} disablePadding>
-                  <ListItemButton component={Link} to={item.link}>
+                  <ListItemButton component={Link} to={item.link} sx={{ padding: '6px 24px'}}>
                     <ListItemText primary={item.text} />
                   </ListItemButton>
                 </ListItem>
               ))}
               </List>
-                
+
               {/* Social Media Icons */}
               <div style={{ marginTop: 'auto' }}>
+                <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  paddingBottom: '20px',
+                }}>
+                {auth.user ? (
+                  <>
+                  <Button
+                        onClick={() => setDialog(true)}
+                        component={Link} 
+                        to="/settings/profile"
+                        sx = {{
+                          gap: '10px',
+                          background: '#6956F1',
+                          borderRadius: '100px',
+                          marginBottom: '20px',
+                        }}
+                      >
+                        <LogoutIcon />
+                        {t('settings.sign-out')}
+                  </Button>
+                  <Dialog 
+                  onClose={() => setDialog(false)} 
+                  open={dialog}
+                  fullWidth={ true }
+                  maxWidth= { "xs" }
+                  >
+                  <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    padding: "16px 0",
+                    justifyContent: 'center',
+                    alignItems:'center'
+                  }}
+                  >
+                    <Box sx={{ paddingBottom: '16px' }}>
+                      <Typography variant="h3">{t('settings.sign-out')}</Typography>
+                    </Box>
+                    <Box sx={{ paddingBottom: '24px', textAlign: 'center' }}>
+                      <Typography variant="body2" color="text.secondary">
+                        {t('settings.are-you-sure-sign-out')}
+                      </Typography>
+                    </Box>
+                    <Grid container>
+                      <Grid item xs={6}>
+                        <Button
+                          variant="contained"
+                          fullWidth
+                          sx = {{
+                            padding: "8px",
+                            textTransform: "none"
+                          }}
+                          onClick={() => {
+                            auth.signout()
+                          }}
+                        >
+                          {t('settings.yes-sign-out')}
+                        </Button>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Button
+                          variant="text"
+                          size="large"
+                          sx = {{
+                            padding: "8px",
+                            borderRadius: "25px"
+                          }}
+                          fullWidth
+                          onClick={() => setDialog(false)}
+                        >
+                          {t('cancel')}
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </Box>
+                </Dialog> 
+                </>   
+                  ) : (
+                    <>
+                    <Button 
+                        component={Link} 
+                        to="/sign-up"
+                        sx = {{
+                          background: '#6956F1',
+                          borderRadius: '100px',
+                          marginBottom: '20px',
+                        }}
+                      >
+                        {t('sign-up')}
+                      </Button>
+                      <Button 
+                        component={Link} 
+                        to="/auth/signin"
+                        sx = {{
+                          background: 'white',
+                          borderRadius: '100px',
+                          color: 'black',
+                          marginBottom: '20px',
+                        }}
+                      >
+                        {t('sign-in')}
+                      </Button>
+                    </>                
+                    )}
+                </div>
                 <a
                   href="https://facebook.com/takingitglobal"
                   target="_blank"
@@ -264,20 +350,7 @@ function Navbar(props) {
 
             </Drawer>
           )}
-          
-            <div className={classes.spacer} />
-
-            <Hidden smDown={true} implementation="css">
-              {!auth.user && (
-                <Button variant="contained" component={Link} to="/auth/signin">
-                  Sign in
-                </Button>
-              )}
-            </Hidden>
-          </Toolbar>
         </Container>
-      </AppBar>
-
     </Section>
   )
 }

@@ -2,8 +2,10 @@ import React from 'react'
 import useClasses from '../hooks/useClasses'
 import Box from '@mui/material/Box'
 import BackgroundImage from './BackgroundImage'
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery'
+import { useTheme } from '@mui/material/styles'
+import { useLocation } from 'react-router-dom'
+
 
 
 const styles = (theme) => ({
@@ -52,6 +54,11 @@ const styles = (theme) => ({
 
 function Section(props) {
   const theme = useTheme();
+  const location = useLocation();
+  const pathname = location.pathname;
+  const pathsToCheck = ['/', '/sign-up']
+  const isIndex = pathsToCheck.includes(pathname)
+
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const classes = useClasses(styles)
   const {
@@ -76,7 +83,7 @@ function Section(props) {
   return (
     <Box
       component="section"
-      marginLeft = {isMobile ? 0 : '360px'}
+      marginLeft = {isMobile || isIndex ? 0 : '360px'}
       className={classes.root + (className ? ` ${className}` : '')}
       {...otherProps}
     >
