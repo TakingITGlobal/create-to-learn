@@ -84,8 +84,8 @@ const DashboardCreatorsMessage = ({ creators }) => {
                   borderRadius: '24px',
                 }}
                 image={
-                  creator && creator.image && creator.image.length
-                    ? creator.image[1].downloadURL
+                  creator && creator.image && creator.image.length > 0
+                    ? creator?.image[0].downloadURL
                     : ''
                 }
               />

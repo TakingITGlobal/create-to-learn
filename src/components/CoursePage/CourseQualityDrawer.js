@@ -23,7 +23,8 @@ function QualityDrawer({
   handleAddToDownloads,
 }) {
   const { t } = useTranslation()
-  const qualityOptions = ['240p', '360p', '540p', '720p', '1080p']
+  const qualityOptions = [ '1080p', '720p', '540p', '360p', '240p'];
+    
 
   const handleCloseDrawer = () => {
     setQualityDrawer(false)
