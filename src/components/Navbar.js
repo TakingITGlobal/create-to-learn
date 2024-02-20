@@ -214,75 +214,75 @@ function Navbar(props) {
                 {auth.user ? (
                   <>
                   <Button
-                        onClick={() => setDialog(true)}
-                        component={Link} 
-                        to="/settings/profile"
-                        sx = {{
-                          gap: '10px',
-                          background: '#6956F1',
-                          borderRadius: '100px',
-                          marginBottom: '20px',
-                        }}
-                      >
-                        <LogoutIcon />
-                        {t('settings.sign-out')}
+                    onClick={() => setDialog(true)}
+                    component={Link} 
+                    to="/settings/profile"
+                    sx = {{
+                      gap: '10px',
+                      background: '#6956F1',
+                      borderRadius: '100px',
+                      marginBottom: '20px',
+                    }}
+                  >
+                    <LogoutIcon />
+                    {t('settings.sign-out')}
                   </Button>
                   <Dialog 
-                  onClose={() => setDialog(false)} 
-                  open={dialog}
-                  fullWidth={ true }
-                  maxWidth= { "xs" }
+                    onClose={() => setDialog(false)} 
+                    open={dialog}
+                    fullWidth={ true }
+                    maxWidth= { "xs" }
                   >
-                  <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    padding: "16px 0",
-                    justifyContent: 'center',
-                    alignItems:'center'
-                  }}
-                  >
-                    <Box sx={{ paddingBottom: '16px' }}>
-                      <Typography variant="h3">{t('settings.sign-out')}</Typography>
-                    </Box>
-                    <Box sx={{ paddingBottom: '24px', textAlign: 'center' }}>
-                      <Typography variant="body2" color="text.secondary">
-                        {t('settings.are-you-sure-sign-out')}
-                      </Typography>
-                    </Box>
-                    <Grid container>
-                      <Grid item xs={6}>
-                        <Button
-                          variant="contained"
-                          fullWidth
-                          sx = {{
-                            padding: "8px",
-                            textTransform: "none"
-                          }}
-                          onClick={() => {
-                            auth.signout()
-                          }}
-                        >
-                          {t('settings.yes-sign-out')}
-                        </Button>
+                    <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      padding: "16px 0",
+                      justifyContent: 'center',
+                      alignItems:'center'
+                    }}
+                    >
+                      <Box sx={{ paddingBottom: '16px' }}>
+                        <Typography variant="h3">{t('settings.sign-out')}</Typography>
+                      </Box>
+                      <Box sx={{ paddingBottom: '24px', textAlign: 'center' }}>
+                        <Typography variant="body2" color="text.secondary">
+                          {t('settings.are-you-sure-sign-out')}
+                        </Typography>
+                      </Box>
+                      <Grid container>
+                        <Grid item xs={6}>
+                          <Button
+                            variant="contained"
+                            fullWidth
+                            sx = {{
+                              padding: "8px",
+                              textTransform: "none"
+                            }}
+                            onClick={() => {
+                              auth.signout()
+                            }}
+                          >
+                            {t('settings.yes-sign-out')}
+                          </Button>
+                        </Grid>
+                        <Grid item xs={6}>
+                          <Button
+                            variant="text"
+                            size="large"
+                            sx = {{
+                              padding: "8px",
+                              borderRadius: "25px"
+                            }}
+                            fullWidth
+                            onClick={() => setDialog(false)}
+                          >
+                            {t('cancel')}
+                          </Button>
+                        </Grid>
                       </Grid>
-                      <Grid item xs={6}>
-                        <Button
-                          variant="text"
-                          size="large"
-                          sx = {{
-                            padding: "8px",
-                            borderRadius: "25px"
-                          }}
-                          fullWidth
-                          onClick={() => setDialog(false)}
-                        >
-                          {t('cancel')}
-                        </Button>
-                      </Grid>
-                    </Grid>
-                  </Box>
-                </Dialog> 
+                    </Box>
+                  </Dialog> 
                 </>   
                   ) : (
                     <>

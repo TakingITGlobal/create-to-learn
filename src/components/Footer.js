@@ -126,7 +126,7 @@ function Footer(props) {
           <div style = {{ width: '30%'}}>
             <img
               src={TakingITGlobalLogo}
-              alt="cultural-teachings-icon"
+              alt="TakingITGlobal Logo"
               width='100%'
               height='100%'
             />
@@ -134,7 +134,7 @@ function Footer(props) {
           <div style = {{ width: '15%'}}>
             <img
               src={ImagineNativeLogo}
-              alt="cultural-teachings-icon"
+              alt="Imagine Native"
               width='100%'
               height='100%'
             />
@@ -142,7 +142,7 @@ function Footer(props) {
           <div style = {{ width: '20%'}}>
             <img
               src={CanadaLogo}
-              alt="cultural-teachings-icon"
+              alt="Canada Logo"
               width='100%'
               height='100%'
             />
@@ -150,7 +150,7 @@ function Footer(props) {
           <div style = {{ width: '30%'}}>
             <img
               src={LenovoLogo}
-              alt="cultural-teachings-icon"
+              alt="Lenovo Logo"
               width='100%'
               height='100%'
             />

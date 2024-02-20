@@ -23,7 +23,8 @@ function SignUp({ setDismissed = null, showDismissButton = false }) {
         <Typography variant="h3">{t('sign-up-or')}</Typography>
         <img
           src={signupIMG}
-          alt="Sign Up"
+          alt=""
+          role="presentation"
           height={'56px'}
           width={'101px'}
         />
