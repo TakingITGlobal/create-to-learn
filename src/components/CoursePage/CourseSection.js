@@ -132,11 +132,11 @@ function CourseSection({ courseData }) {
         backgroundColor: randomColor,
         backgroundImage:
           'linear-gradient(180deg, rgba(11, 9, 25, 0) 0%, rgba(11, 9, 25, 0.11) 200px, rgba(11, 9, 25, 0.64) 400px, #0B0919 600px)',
+        marginTop: '-10px'
       }}
     >
       <Container
         sx={{
-          paddingTop: '10px',
           paddingBottom: { xs: '120px', md: '80px' },
           maxWidth: { xs: '100%', md: '850px' },
         }}

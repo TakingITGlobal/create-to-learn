@@ -84,6 +84,7 @@ function Section(props) {
     <Box
       component="section"
       marginLeft = {isMobile || isIndex ? 0 : '360px'}
+      paddingTop = '10px'
       className={classes.root + (className ? ` ${className}` : '')}
       {...otherProps}
     >
