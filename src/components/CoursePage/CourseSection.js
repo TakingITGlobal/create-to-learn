@@ -9,7 +9,7 @@ import Section from '../Section'
 import CourseInfo from './CourseInfo'
 import CourseLessons from './CourseLessons'
 import { useAuth } from '../../util/auth'
-import { useUserProgressByCourse, useDownloadsById, useVideosByCourseId, getVideosByIds } from '../../util/db'
+import { useUserProgressByCourse, useDownloadsById, useVideosByIds } from '../../util/db'
 import getByIdVimeo from '../../util/vimeo'
 import IconButton from '@mui/material/IconButton'
 import ShareIcon from '@mui/icons-material/ShareRounded'
@@ -75,7 +75,7 @@ function CourseSection({ courseData }) {
     videos,
   )
   
-
+  const { data: videosData } = useVideosByIds(videos.map(item => Number(item)));
   const { data: downloadsData } = useDownloadsById(auth.user?.uid, id);
 
   const handleCloseSnackbar = (event, reason) => {
@@ -91,39 +91,37 @@ function CourseSection({ courseData }) {
 
   useEffect(() => {
     async function fetchData(){
-
-      const videosData = await getVideosByIds(videos.map(item => Number(item)));
-
-      const videoIds = videosData.map(video => {
-        const vId = video.ourVimeoUrl.match('([a-z0-9]+)(?:/?$)')
-        return vId && vId[0]
-      });
-
-      const videoFormattedIds =
-        videoIds && videoIds.map((id) => `/videos/${id}`).join(',');
-
-      getByIdVimeo(videoFormattedIds)
-      .then((data) => {
-        const pulledData = data.data.data;
-
-        const combinedData = videosData.map(x => {
-          const newItem = pulledData.find(y => y.link === x.ourVimeoUrl);
-          return {
-            ...x,
-            ...newItem
-          };
-        }).sort((a, b) => {
-          if (a.series < b.series) return -1;
-          if (a.series > b.series) return 1;
-          return 0;
+      if(videosData?.length > 0) {
+        const videoIds = videosData.map(video => {
+          const vId = video.ourVimeoUrl.match('([a-z0-9]+)(?:/?$)')
+          return vId && vId[0]
         });
-        
-        setVideoInfo(combinedData);
-      });
-
+  
+        const videoFormattedIds =
+          videoIds && videoIds.map((id) => `/videos/${id}`).join(',');
+  
+        getByIdVimeo(videoFormattedIds)
+        .then((data) => {
+          const pulledData = data.data.data;
+  
+          const combinedData = videosData.map(x => {
+            const newItem = pulledData.find(y => y.link === x.ourVimeoUrl);
+            return {
+              ...x,
+              ...newItem
+            };
+          }).sort((a, b) => {
+            if (a.series < b.series) return -1;
+            if (a.series > b.series) return 1;
+            return 0;
+          });
+          
+          setVideoInfo(combinedData);
+        });
+      }
     }
     fetchData();
-  },[]);
+  },[videosData]);
 
 
   return (

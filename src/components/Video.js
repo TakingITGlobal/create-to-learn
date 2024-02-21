@@ -5,8 +5,9 @@ import { debounce } from 'lodash';
 import { loadVideoProgress, saveVideoProgress } from 'util/db';
 
 export default function Video(props) {
-  const { video, user, videoProgress, id, duration, courseId } = props;
+  const { video, user,  id,  courseId } = props;
 
+  const [docId, setDocId] = useState(null);
   const [progress, setProgress] = useState(0);
   const [completed, setCompleted] = useState(false);
 
@@ -22,39 +23,40 @@ export default function Video(props) {
       videoLink: video
     }
     if(user.uid !== undefined) {
-      saveVideoProgress(data)
-        .then(() => localStorage.setItem(`video-progress-${id}`, newProgress.toString()))
+      saveVideoProgress(docId, data)
+        .then(() => localStorage.setItem(`video-progress-${id}`, JSON.stringify(data)))
         .catch(err => console.error("Failed to save video progress:", err));
     } else {
-      localStorage.setItem(`video-progress-${id}`, newProgress.toString())
+      localStorage.setItem(`video-progress-${id}`, JSON.stringify(data))
     }
     
-  }, 2000), [user.uid, id]);
+  }, 3000), [user.uid, id, completed, docId]);
 
   useEffect(() => {
     setLoading(true);
-    console.log(id);
-    console.log(user.uid)
+
     if(user?.uid !== undefined) {
       loadVideoProgress(user.uid, id )
         .then((loadedProgress) => {
           if (loadedProgress !== null) {
             setProgress(loadedProgress.progress);
-            localStorage.setItem(`video-progress-${id}`, loadedProgress.toString());
+            setDocId(loadedProgress.docId);
+            console.log(loadedProgress);
+            localStorage.setItem(`video-progress-${id}`, JSON.stringify(loadedProgress));
 
             if(loadedProgress.completed) setCompleted(loadedProgress.completed)
           } else {
             // Load from localStorage if no progress was found in Firestore
-            const progressFromLocalStorage = localStorage.getItem(`video-progress-${id}`);
+            const progressFromLocalStorage = JSON.parse(localStorage.getItem(`video-progress-${id}`));
             if (progressFromLocalStorage) {
-              setProgress(parseInt(progressFromLocalStorage, 10));
+              setProgress(parseInt(progressFromLocalStorage.progress, 10));
             }
           }
         })
         .catch(err => console.error("Failed to load video progress:", err))
         .finally(() => setLoading(false));
     } else {
-      const progressFromLocalStorage = localStorage.getItem(`video-progress-${id}`);
+      const progressFromLocalStorage = JSON.parse(localStorage.getItem(`video-progress-${id}`));
       if (progressFromLocalStorage) {
         setProgress(parseInt(progressFromLocalStorage, 10));
       }
