@@ -22,6 +22,8 @@ import { displayTime } from '../../util/timeHelpers'
 import { createDownloadCourse, updateDownloads } from '../../util/db'
 import { useAuth } from '../../util/auth'
 
+const qualityOptions = [ '1080p', '720p', '540p', '360p', '240p', 'source'];
+
 function CourseVideoListItem({
   video,
   videoId,
@@ -99,7 +101,6 @@ function CourseVideoListItem({
       window.location.href = link
     }
   }
-
   return (
     <Paper elevation="1">
       <Grid container sx={{ display: 'flex', paddingBottom: '20px' }}>
@@ -237,33 +238,38 @@ function CourseVideoListItem({
             <CloseIcon sx={{ color: 'white' }} />
           </IconButton>
         </Box>
-        {video?.download && (
+        {video?.download !== undefined && (
           <>
             <List>
-              {video?.download.sort((a, b) => {
-                  if (a.publicName > b.publicName) return 1; 
-                  else if (a.publicName < b.publicName) return -1; 
-                  else return 0; // no change in order}
-                }).map(({ link, public_name }) => (
-                <ListItem
-                  secondaryAction={
-                    <Radio
-                      checked={downloadSuccess.includes(link)}
-                      onChange={() => {
-                        setDownloadSuccess(link)
+              {qualityOptions.map(option => {
+                  const download = video?.download?.find(x => x.public_name === option);
+                  if(!download || download === undefined) return;
+                  const {link, public_name} = download;
+                  return (
+                    <ListItem
+                      sx={{
+                        textTransform: 'capitalize'
                       }}
-                      color="secondary"
-                      name={`download-${public_name}`}
-                      inputProps={{
-                        'aria-label': `download-${public_name}`,
-                      }}
-                      style={{ color: 'white' }}
-                    />
-                  }
-                >
-                  {public_name}
-                </ListItem>
-              ))}
+                      secondaryAction={
+                        <Radio
+                          checked={downloadSuccess.includes(link)}
+                          onChange={() => {
+                            setDownloadSuccess(link)
+                          }}
+                          color="secondary"
+                          name={`download-${public_name}`}
+                          inputProps={{
+                            'aria-label': `download-${public_name}`,
+                          }}
+                          style={{ color: 'white' }}
+                        />
+                      }
+                    >
+                      {public_name}
+                    </ListItem>
+                  )
+                }
+              )}
             </List>
             <Button
               fullWidth

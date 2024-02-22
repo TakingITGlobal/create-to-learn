@@ -67,9 +67,6 @@ function SettingsProfile() {
   return (
     <Container>
       <PageHeading 
-      sx ={{
-        paddingTop: '52px'
-      }}
       headingText={user ? displayName : t('settings.profile')} />
       <Box
         sx={{
