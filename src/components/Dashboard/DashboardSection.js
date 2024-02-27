@@ -57,7 +57,7 @@ function DashboardSection(props) {
     : []
 
   const featuredCourses = allCourses.length
-    ? allCourses.filter(({ featured }) => featured === 'checked').slice(0, 5)
+    ? allCourses.filter(({ featured }) => featured === 'checked')
     : []
 
   const coursesByCategory = (categoryLabel) => {
@@ -66,7 +66,9 @@ function DashboardSection(props) {
       .slice(0, 5)
   }
 
-  const spotlightVideoCourse = allCourses.length && allCourses[0]
+  const spotlightVideoCourse = featuredCourses.length > 0 ? featuredCourses.reduce((prev, current) => {
+    return new Date(current.added) > new Date(prev.added) ? current : prev;
+  }) : null
 
   const interests =
     auth?.user && auth?.user?.interests.length > 0
@@ -91,8 +93,24 @@ function DashboardSection(props) {
       ) : (
         <Container sx={{ paddingBottom: '100px' }}>
           <DashboardGreeting />
-          <DashboardVideo course={spotlightVideoCourse} />
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <DashboardVideo 
+            course={spotlightVideoCourse} 
+            title={t('dashboard.featured-video')}
+            icon={
+              <SvgIcon
+                fontSize="large"
+                component="div"
+                sx={{ paddingBottom: '10px' }}
+              >
+                <img
+                  src={StudentsAreAlsoViewingIcon}
+                  alt="writing-icon"
+                  style={{ paddingBottom: '10px' }}
+                />
+              </SvgIcon>
+            }
+            />
+          <Box sx={{ display: 'flex', marginBottom: '40px' }}>
             {!dismissSignUp && !auth.user && (
               <SignUp
                 setDismissed={setDismissSignUp}
@@ -132,7 +150,7 @@ function DashboardSection(props) {
                 />
               </SvgIcon>
             }
-            courses={featuredCourses}
+            courses={featuredCourses.slice(0, 5)}
           />
         </Container>
       )}
