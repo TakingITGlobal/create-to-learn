@@ -57,7 +57,7 @@ function DashboardSection(props) {
     : []
 
   const featuredCourses = allCourses.length
-    ? allCourses.filter(({ featured }) => featured === 'checked').slice(0, 5)
+    ? allCourses.filter(({ featured }) => featured === 'checked')
     : []
 
   const coursesByCategory = (categoryLabel) => {
@@ -66,7 +66,9 @@ function DashboardSection(props) {
       .slice(0, 5)
   }
 
-  const spotlightVideoCourse = allCourses.length && featuredCourses[0]
+  const spotlightVideoCourse = featuredCourses.length > 0 ? featuredCourses.reduce((prev, current) => {
+    return new Date(current.added) > new Date(prev.added) ? current : prev;
+  }) : null
 
   const interests =
     auth?.user && auth?.user?.interests.length > 0
@@ -148,7 +150,7 @@ function DashboardSection(props) {
                 />
               </SvgIcon>
             }
-            courses={featuredCourses}
+            courses={featuredCourses.slice(0, 5)}
           />
         </Container>
       )}

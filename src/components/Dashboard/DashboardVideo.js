@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Vimeo from '@u-wave/react-vimeo'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import EastIcon from '@mui/icons-material/East'
 import useClasses from '../../hooks/useClasses'
+import { useTranslation } from 'react-i18next'
 import CardActionArea from '@mui/material/CardActionArea'
 
 const styles = (theme) => ({
@@ -12,7 +13,8 @@ const styles = (theme) => ({
 
 function DashboardVideo({ course, title, icon }) {
   const classes = useClasses(styles)
-
+  const {t} = useTranslation();
+  
   return (
 
   <Box sx={{ padding: '30px 0', maxWidth: '920px' }}>
@@ -47,7 +49,7 @@ function DashboardVideo({ course, title, icon }) {
         }}
         href={`/tutorial/${course.uid}`}
       >
-        <Typography variant="bold"> {course.seriesName} Series</Typography>
+        <Typography variant="bold"> {course.seriesName} {t("by")} {course.creator}</Typography>
         <EastIcon />
       </CardActionArea>
     </Box>
