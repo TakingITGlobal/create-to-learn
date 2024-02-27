@@ -64,7 +64,7 @@ export default function Video(props) {
     }
     
   }, [user.uid, id]);
-  console.log(video)
+ 
   return (
     <>
       {!loading ? (
