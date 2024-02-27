@@ -23,6 +23,7 @@
   "community": "Community",
   "dismiss": "Dismiss",
   "add-to-watchlist": "Add to watchlist",
+  "featured-course": "Featured Course",
   "btn": {
     "prev": "Prev",
     "next": "Next",
@@ -166,5 +167,6 @@
     "message": "Message",
     "report-bug": "Report a Bug",
     "tell-us-more": "Tell us a little more about the issue"
-  }
+  },
+  "by": "by"
 }

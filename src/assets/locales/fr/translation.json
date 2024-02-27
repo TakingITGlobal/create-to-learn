@@ -5,6 +5,7 @@
   "sign-in": "Sign In",
   "or-sign-in": "Or go to sign In",
   "let-me-browse": "Let me browse first",
+  "featured-course": "Featured Course",
   "btn": {
     "prev": "Prev",
     "next": "Next",
@@ -57,5 +58,6 @@
       "header2": "",
       "skip-btn": "Prefer not to say"
     }
-  }
+  },
+  "by": "by"
 }
