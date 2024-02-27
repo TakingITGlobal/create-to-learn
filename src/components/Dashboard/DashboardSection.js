@@ -66,7 +66,7 @@ function DashboardSection(props) {
       .slice(0, 5)
   }
 
-  const spotlightVideoCourse = allCourses.length && allCourses[0]
+  const spotlightVideoCourse = allCourses.length && featuredCourses[0]
 
   const interests =
     auth?.user && auth?.user?.interests.length > 0
@@ -91,8 +91,24 @@ function DashboardSection(props) {
       ) : (
         <Container sx={{ paddingBottom: '100px' }}>
           <DashboardGreeting />
-          <DashboardVideo course={spotlightVideoCourse} />
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <DashboardVideo 
+            course={spotlightVideoCourse} 
+            title={t('dashboard.featured-video')}
+            icon={
+              <SvgIcon
+                fontSize="large"
+                component="div"
+                sx={{ paddingBottom: '10px' }}
+              >
+                <img
+                  src={StudentsAreAlsoViewingIcon}
+                  alt="writing-icon"
+                  style={{ paddingBottom: '10px' }}
+                />
+              </SvgIcon>
+            }
+            />
+          <Box sx={{ display: 'flex', marginBottom: '40px' }}>
             {!dismissSignUp && !auth.user && (
               <SignUp
                 setDismissed={setDismissSignUp}

@@ -80,6 +80,7 @@
   "dashboard": {
     "creators-message": "A message from your creators",
     "students-also-viewing": "Students are also viewing",
+    "featured-video": "Featured Video",
     "error": "Uh oh! An error has occurred."
   },
   "browse": {
