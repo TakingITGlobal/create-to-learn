@@ -5,7 +5,7 @@ import { debounce } from 'lodash';
 import { loadVideoProgress, saveVideoProgress } from 'util/db';
 
 export default function Video(props) {
-  const { video, user,  id,  courseId } = props;
+  const { video, user,  id,  courseId, duration } = props;
 
   const [docId, setDocId] = useState(null);
   const [progress, setProgress] = useState(0);
@@ -64,7 +64,7 @@ export default function Video(props) {
     }
     
   }, [user.uid, id]);
-
+ 
   return (
     <>
       {!loading ? (
@@ -74,7 +74,7 @@ export default function Video(props) {
           width="100vw"
           onTimeUpdate={({ seconds }) => debouncedSaveProgress(Math.floor(seconds))}
           onEnd={() => setCompleted(true)}
-          start={progress}
+          start={duration >= progress ? progress : 0}
           style={{
             paddingTop: '2em',
             borderRadius: '6px',

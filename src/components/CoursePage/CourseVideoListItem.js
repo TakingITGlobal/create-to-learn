@@ -98,8 +98,9 @@ function CourseVideoListItem({
       } else {
         setOpenDownloadDrawer(false)
       }
-      window.location.href = link
     }
+    window.location.href = link 
+    
   }
   return (
     <Paper elevation="1">
