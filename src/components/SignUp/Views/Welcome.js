@@ -1,8 +1,9 @@
-import { Button, CardMedia, Container, Grid, Link, Stack, Typography } from '@mui/material'
+import { Button, CardMedia, Container, Grid, Stack, Typography } from '@mui/material'
 import Section from 'components/Section'
 import SectionHeader from 'components/SectionHeader'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 import { useSwiper } from 'swiper/react'
 
 export default function WelcomeView({ image, startSignUp }) {
