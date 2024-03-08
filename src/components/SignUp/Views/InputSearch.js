@@ -55,7 +55,7 @@ export default function InputSearchView(props) {
           size="small"
           fullWidth
           className={classNames({ 'active': active})}
-          sx={{ marginBottom: '5px', height: 76, padding: '1rem' }}
+          sx={{ marginBottom: '5px', height: 76, padding: '1rem', textAlign: 'left' }}
         >
           {isLast ? t('btn.missing', { value: value }) : cur}
           <Check />
@@ -87,6 +87,7 @@ export default function InputSearchView(props) {
               height={420}
               itemSize={84}
               width="100%"
+              sx={{textAlign: 'left'}}
             >
               {Row}
             </List>
