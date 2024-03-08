@@ -36,8 +36,8 @@ const BrowseCourseDrawerContent = ({
 
   return (
     <>
-      <Box>
-        <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+      <Box mt={1}>
+        <Typography variant="h3" sx={{ fontWeight: 'bold' }} mb="10px">
           {t('featured')}
         </Typography>
         <Stack direction="row" spacing={1}>
@@ -55,8 +55,8 @@ const BrowseCourseDrawerContent = ({
           <Chip label="New" clickable variant="default" />
         </Stack>
       </Box>
-      <Box mt={2}>
-        <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+      <Box mt={3}>
+        <Typography variant="h3" sx={{ fontWeight: 'bold' }} mb="10px">
           {t('community')}
         </Typography>
         <Stack
@@ -64,7 +64,7 @@ const BrowseCourseDrawerContent = ({
           spacing={1}
           sx={{
             flexWrap: 'wrap',
-            gap: 2,
+            gap: 1,
           }}
         >
           {culturalGroups &&
@@ -94,11 +94,16 @@ const BrowseCourseDrawerContent = ({
             })}
         </Stack>
       </Box>
-      <Box mt={2}>
-        <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+      <Box mt={3}>
+        <Typography variant="h3" sx={{ fontWeight: 'bold' }} mb="10px">
           {t('browse.difficulty')}
         </Typography>
-        <Stack direction="row" spacing={1}>
+        <Stack direction="row" spacing={1}
+         sx={{
+          flexWrap: 'wrap',
+          gap: 1,
+        }}
+        >
           {difficultyLevels.map((level, index) => {
             const clicked = difficultyLevelFilter.includes(level)
             return (
@@ -125,8 +130,8 @@ const BrowseCourseDrawerContent = ({
           })}
         </Stack>
       </Box>
-      <Box mt={2}>
-        <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+      <Box mt={3}>
+        <Typography variant="h3" sx={{ fontWeight: 'bold' }} mb="10px">
           {t('duration')}
         </Typography>
         <Stack
@@ -134,7 +139,7 @@ const BrowseCourseDrawerContent = ({
           spacing={1}
           sx={{
             flexWrap: 'wrap',
-            gap: 2,
+            gap: 1,
           }}
         >
           {durations.map((duration, index) => {
@@ -164,8 +169,8 @@ const BrowseCourseDrawerContent = ({
         </Stack>
       </Box>
 
-      <Box mt={2}>
-        <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+      <Box mt={3}>
+        <Typography variant="h3" sx={{ fontWeight: 'bold' }} mb="10px">
           {t('browse.materials')}
         </Typography>
         <Stack
@@ -173,7 +178,7 @@ const BrowseCourseDrawerContent = ({
           spacing={1}
           sx={{
             flexWrap: 'wrap',
-            gap: 2,
+            gap: 1,
           }}
         >
           {materials.map((material, index) => {

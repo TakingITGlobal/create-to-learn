@@ -110,14 +110,16 @@ function DashboardSection(props) {
               </SvgIcon>
             }
             />
-          <Box sx={{ display: 'flex', marginBottom: '40px' }}>
-            {!dismissSignUp && !auth.user && (
+           {!dismissSignUp && !auth.user && (
+            <Box sx={{ display: 'flex', marginBottom: '20px' }}>
+
               <SignUp
                 setDismissed={setDismissSignUp}
                 showDismissButton={true}
               />
-            )}
-          </Box>
+
+            </Box>
+          )}
           <DashboardCreatorSpotlight
             creators={allCreators
               .filter((creator) => creator.featured === 'checked')

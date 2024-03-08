@@ -79,9 +79,10 @@ function Navbar(props) {
 
 
   return (
+    <>
+    {!shouldHideDrawer && (
     <Section bgColor={props.color} size="auto">
         <Container disableGutters={true}>
-          {!shouldHideDrawer && (
             <Drawer
               sx={{
                 width: drawerWidth,
@@ -89,14 +90,14 @@ function Navbar(props) {
                 '& .MuiDrawer-paper': {
                   width: drawerWidth,
                   boxSizing: 'border-box',
-                  backgroundColor: '#2a2936',
+                  backgroundColor: '#0a0919',
                   borderRadius: '0'
                 },
               }}
               variant="permanent"
               anchor="left"
             >
-              <Link to="/dashboard" style={{ textDecoration: 'none', padding: '12px 24px' }}>
+              <Link to="/dashboard" style={{ textDecoration: 'none', padding: '12px 10px' }}>
                 {/* <img src={logo} alt="Logo" className={classes.logo} /> */}
                 <span className={classes.logo}>
                   CREATE TO LEARN
@@ -108,7 +109,8 @@ function Navbar(props) {
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
-                  padding: '20px 0',
+                  padding: '20px 0 40px',
+                  gap: '20px'
                 }}
               >
                 {auth.user ? (
@@ -120,6 +122,7 @@ function Navbar(props) {
                         display: 'flex',
                         justifyContent: 'left',
                         gap: '10px',
+                        paddingLeft: '10px'
                       }}
                     >
                       <HomeIcon />
@@ -137,6 +140,7 @@ function Navbar(props) {
                     display: 'flex',
                     justifyContent: 'left',
                     gap: '10px',
+                    paddingLeft: '10px'
                   }}
                 >
                   <SearchIcon />
@@ -152,6 +156,7 @@ function Navbar(props) {
                         display: 'flex',
                         justifyContent: 'left',
                         gap: '10px',
+                        paddingLeft: '10px'
                       }}
                     >
                       <MovieIcon />
@@ -165,6 +170,7 @@ function Navbar(props) {
                         display: 'flex',
                         justifyContent: 'left',
                         gap: '10px',
+                        paddingLeft: '10px'
                       }}
                     >
                       <PersonIcon />
@@ -178,6 +184,7 @@ function Navbar(props) {
                         display: 'flex',
                         justifyContent: 'left',
                         gap: '10px',
+                        paddingLeft: '10px'
                       }}
                     >
                       <SettingsIcon />
@@ -190,13 +197,13 @@ function Navbar(props) {
                 )}
               </List>
                 
-              <Divider color={'white'}/>
+              <Divider color={'#4e4d60'}/>
                 
               {/* Secondary Nav Items */}
               <List sx = {{ marginTop: '20px'}}>
               {secondNavItems.map((item, index) => (
                 <ListItem key={item.text} disablePadding>
-                  <ListItemButton component={Link} to={item.link} sx={{ padding: '6px 24px'}}>
+                  <ListItemButton component={Link} to={item.link} sx={{ padding: '6px 15px'}}>
                     <ListItemText primary={item.text} />
                   </ListItemButton>
                 </ListItem>
@@ -219,9 +226,11 @@ function Navbar(props) {
                     to="/settings/profile"
                     sx = {{
                       gap: '10px',
-                      background: '#6956F1',
                       borderRadius: '100px',
                       marginBottom: '20px',
+                      border: '1px solid #fff',
+                      maxWidth: '220px',
+                      marginLeft: '10px'
                     }}
                   >
                     <LogoutIcon />
@@ -293,6 +302,7 @@ function Navbar(props) {
                           background: '#6956F1',
                           borderRadius: '100px',
                           marginBottom: '20px',
+                          maxWidth: '220px'
                         }}
                       >
                         {t('sign-up')}
@@ -305,6 +315,7 @@ function Navbar(props) {
                           borderRadius: '100px',
                           color: 'black',
                           marginBottom: '20px',
+                          maxWidth: '220px'
                         }}
                       >
                         {t('sign-in')}
@@ -312,46 +323,55 @@ function Navbar(props) {
                     </>                
                     )}
                 </div>
-                <a
-                  href="https://facebook.com/takingitglobal"
-                  target="_blank"
-                  rel="noreferrer"
-                  className={classes.link}
-                >
-                  <FacebookIcon fontSize="large" />
-                </a>
-                <a
-                  href="https://www.instagram.com/create2learn"
-                  target="_blank"
-                  rel="noreferrer"
-                  className={classes.link}
-                >
-                  <InstagramIcon fontSize="large" />
-                </a>
+                <Box
+                    sx={{
+                      display: 'flex',
+                      paddingLeft: '10px'
+                    }}
+                    >
+                  <a
+                    href="https://facebook.com/takingitglobal"
+                    target="_blank"
+                    rel="noreferrer"
+                    className={classes.link}
+                  >
+                    <FacebookIcon fontSize="large" />
+                  </a>
+                  <a
+                    href="https://www.instagram.com/create2learn"
+                    target="_blank"
+                    rel="noreferrer"
+                    className={classes.link}
+                  >
+                    <InstagramIcon fontSize="large" />
+                  </a>
 
-                <a
-                  href="https://www.youtube.com/user/takeitglobal"
-                  target="_blank"
-                  rel="noreferrer"
-                  className={classes.link}
-                >
-                  <YouTubeIcon fontSize="large" />
-                </a>
-                
-                <a
-                  href="https://twitter.com/takingitglobal"
-                  target="_blank"
-                  rel="noreferrer"
-                  className={classes.link}
-                >
-                  <XIcon fontSize="large" />
-                </a>
+                  <a
+                    href="https://www.youtube.com/user/takeitglobal"
+                    target="_blank"
+                    rel="noreferrer"
+                    className={classes.link}
+                  >
+                    <YouTubeIcon fontSize="large" />
+                  </a>
+                  
+                  <a
+                    href="https://twitter.com/takingitglobal"
+                    target="_blank"
+                    rel="noreferrer"
+                    className={classes.link}
+                  >
+                    <XIcon fontSize="large" />
+                  </a>
+                </Box>
               </div>
 
             </Drawer>
-          )}
+
         </Container>
     </Section>
+    )}
+    </>
   )
 }
 

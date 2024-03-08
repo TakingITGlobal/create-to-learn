@@ -25,9 +25,8 @@ export default function InputPillView(props) {
       <Grid
         container
         sx={{
-          gap: '10px',
+          gap: '14px 10px',
           justifyContent: 'flex-start',
-          marginTop: '2em',
           padding: '1.5em',
         }}
       >
@@ -38,11 +37,12 @@ export default function InputPillView(props) {
               label={val}
               clickable
               style={{
-                fontSize: 16,
+                fontSize: 15,
+                fontWeight: 700,
                 marginLeft: 0,
+                padding: '18px 8px',
+
                 backgroundColor: data.includes(val) ? '#6956F1' : '#211E34',
-                fontWeight: data.includes(val) ? '700' : '',
-                padding: '16px !important',
               }}
               onClick={() => onChange(val)}
               variant="default"

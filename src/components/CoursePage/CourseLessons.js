@@ -43,7 +43,7 @@ function CourseLessons({
                 />
               </ListItem>
             )
-          })}
+        })}
       </List>
       {videoToShow && (
         <SwipeableDrawer

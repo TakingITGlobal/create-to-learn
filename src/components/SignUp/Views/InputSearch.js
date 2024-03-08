@@ -6,6 +6,7 @@ import { Box, Button, Grid, Stack, TextField } from '@mui/material'
 import { FixedSizeList as List } from 'react-window'
 import { Check } from '@mui/icons-material'
 import TitleSection from './TitleSection'
+import Typography from '@mui/material/Typography'
 
 export default function InputSearchView(props) {
   const { value, options } = props
@@ -54,7 +55,7 @@ export default function InputSearchView(props) {
           size="small"
           fullWidth
           className={isActive ? 'active' : ''}
-          sx={{ marginBottom: '5px', height: 76 }}
+          sx={{ marginBottom: '5px', height: 76, padding: '1rem' }}
         >
           {isLast ? t('btn.missing', { value: value }) : data[index]}
           <Check />
@@ -65,13 +66,10 @@ export default function InputSearchView(props) {
   return (
     <>
       <TitleSection value={value} />
-
-      <Box sx={{ marginBottom: '1.5em', display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <Box sx={{ marginBottom: '1.5em', display: 'flex', flexDirection: 'column', gap: 2, padding: '0 1.5em' }}>
         <Stack direction="column">
           {selected.length > 0 ? (
-            <Button variant="contained" size="small" sx={{height: 76}}>
-              {selected}
-            </Button>
+            <Typography color={'#a095ff'}>{selected}</Typography>
           ) :
           (
             <span style={{height: 76}}/>

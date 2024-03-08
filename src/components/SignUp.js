@@ -66,7 +66,7 @@ function SignUp({ setDismissed = null, showDismissButton = false }) {
         component={Link}
         fullWidth
         to="/auth/signin"
-        sx={{marginTop: '1em', textTransform: 'none', fontWeight: '500', borderTop: '1px solid #ccc'}}
+        sx={{marginTop: '1.4em', textTransform: 'none', fontWeight: '500', borderTop: '1px solid #4e4d60'}}
       >
         {t('or-sign-in')}
       </Button>

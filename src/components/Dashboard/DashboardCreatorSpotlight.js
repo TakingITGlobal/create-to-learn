@@ -40,7 +40,6 @@ const DashboardCreatorSpotlight = ({ creators }) => {
           />
         </SvgIcon>
         Creator Spotlight
-        <ChevronRight />
       </Typography>
 
       <MultiCarousel ssr partialVisible responsive={responsive} swipeable>

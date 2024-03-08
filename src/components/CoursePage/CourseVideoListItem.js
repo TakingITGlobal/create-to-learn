@@ -104,7 +104,7 @@ function CourseVideoListItem({
   }
   return (
     <Paper elevation="1">
-      <Grid container sx={{ display: 'flex', paddingBottom: '20px' }}>
+      <Grid container sx={{ display: 'flex', paddingBottom: '20px', borderRadius: '6px' }}>
         <Grid item xs={8}>
           <Typography variant="bold">{video.name}</Typography>
         </Grid>

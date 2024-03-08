@@ -42,7 +42,7 @@ const BrowseDrawer = ({
           display: 'flex',
           flexDirection: 'column',
           width: '300px',
-          padding: '10px',
+          padding: '0px 10px 10px',
         }}
       >
         <Box
@@ -53,7 +53,7 @@ const BrowseDrawer = ({
             justifyContent: 'space-between',
           }}
         >
-          <Typography variant="h5">Filters</Typography>
+          <Typography variant="h2" sx={{fontSize: '1.75em', fontWeight: '600'}} mt="0">Filters</Typography>
           <IconButton aria-label="close" onClick={() => setOpenDrawer(false)}>
             <CloseIcon sx={{ color: 'white' }} />
           </IconButton>

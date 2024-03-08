@@ -17,7 +17,7 @@ export const ProgressBar = ({ start, end, slot }: ProgressProps) => {
   const { active, swiper } = useSwipe()
 
   return (
-    <Container slot={slot} sx={{ padding: '1em' }}>
+    <Container slot={slot} sx={{ padding: '0 1em' }}>
       {active > start ? (
         <MobileStepper
           variant="progress"
@@ -25,8 +25,9 @@ export const ProgressBar = ({ start, end, slot }: ProgressProps) => {
           activeStep={active - start}
           position="top"
           sx={{
-            padding: '0em',
-            position: { md: 'relative' },
+            padding: '0',
+            marginRight: '10px',
+            position: 'relative',
           }}
           backButton={
             <SwiperPrev handleClick={() => swiper.slidePrev()}>

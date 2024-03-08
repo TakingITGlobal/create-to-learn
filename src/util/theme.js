@@ -388,7 +388,7 @@ export const c2learn = (mode) => ({
       styleOverrides: {
         root: {
           paddingTop: '10px',
-          paddingBottom: '30px',
+          paddingBottom: '18px',
           textAlign: 'center',
           '&.Mui-selected': {
             fontSize: '0.625em',

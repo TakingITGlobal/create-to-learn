@@ -146,6 +146,7 @@ function CourseInfo({
                 variant="text"
                 startIcon={<BookmarkBorder />}
                 onClick={() => handleAddToWatchlist()}
+                sx={{paddingLeft: '0' }}
               >
                 {t('add-to-watchlist')}
               </Button>
@@ -165,12 +166,12 @@ function CourseInfo({
           </Typography>
           <List>
             {topics.map(({ label, icon }, index) => (
-              <ListItem key={index}>
+              <ListItem key={index} sx={{ paddingLeft: '0' }}>
                 <ListItemIcon>
                   <SvgIcon
                     fontSize="large"
                     component="div"
-                    sx={{ paddingBottom: '10px' }}
+                    sx={{ paddingBottom: '10px'}}
                   >
                     {icon}
                   </SvgIcon>

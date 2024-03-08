@@ -24,6 +24,7 @@ export default function WelcomeView({ image, startSignUp }) {
             sx={{
               width: '300px',
               height: '300px',
+              marginBottom: '18px',
               borderRadius: '24px',
             }}
             image={image}
@@ -35,7 +36,7 @@ export default function WelcomeView({ image, startSignUp }) {
               color="text.primary" 
               sx={{ 
                 textAlign:'center', 
-                padding:'20px 0',
+                padding:'0 0 15px',
                 display: startSignUp === 0 ? 'block' : 'none',
               }}
               >
@@ -58,7 +59,7 @@ export default function WelcomeView({ image, startSignUp }) {
               {t('sign-in')}
             </Button>
           </Stack>
-          <Button fullWidth component={Link} to="/dashboard">
+          <Button fullWidth component={Link} to="/dashboard" sx={{marginTop: '14px'}}>
             {t('let-me-browse')}
           </Button>
         </Grid>

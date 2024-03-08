@@ -117,7 +117,6 @@ function CourseCreatingButtons({
         padding: '10px 15px 5px 15px',
         display: 'flex',
         justifyContent: 'center',
-        backgroundColor: 'black',
       }}
     >
       <Button
