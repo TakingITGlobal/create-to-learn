@@ -55,6 +55,7 @@
     "react-swipeable-views-utils": "^0.14.0",
     "react-window": "^1.8.8",
     "swiper": "^9.2.4",
+    "timers-browserify": "^2.0.12",
     "use-local-storage-state": "9.0.2"
   },
   "engines": {

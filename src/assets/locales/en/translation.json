@@ -76,6 +76,10 @@
       "header": "I want to be called ...",
       "header2": "",
       "skip-btn": "Prefer not to say"
+    },
+    "final": {
+      "header": "Personalizing For You",
+      "header2": "We're looking for videos we think you'll love."
     }
   },
   "dashboard": {

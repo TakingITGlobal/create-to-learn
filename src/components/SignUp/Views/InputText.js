@@ -1,19 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { styles } from './Styles'
 import useClasses from 'hooks/useClasses'
 import TitleSection from './TitleSection'
 import { Box, Grid, TextField } from '@mui/material'
-
+import { debounce } from 'lodash';
+import { useData } from 'util/signupProvider'
 
 export default function InputTextView({ value }) {
   const classes = useClasses(styles)
-  const [data, setData] = useState('')
+  const { updateData } = useData();
+  const [text, setText] = useState('')
 
-  function onChange(e) {
-    const val = e.target.value
-    setData(val)
-    localStorage.setItem(value, val)
-  }
+  useEffect(() => {
+    updateData(value, text);
+  }, [value, text, updateData])
+  const handleChange = debounce((val) => {
+    setText(val);
+  }, 500);
 
   return (
     <Box>
@@ -22,7 +25,7 @@ export default function InputTextView({ value }) {
         container
         item
         className={classes.gridColumn}
-        onChange={onChange}
+        onChange={(e) => handleChange(e.target.value)}
         sx={{ padding: '1.5em' }}
       >
         <TextField variant="outlined" fullWidth />

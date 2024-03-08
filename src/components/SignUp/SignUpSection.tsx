@@ -25,6 +25,7 @@ import { categories } from 'assets/options/categories'
 import { ProgressDots, ProgressBar } from './Progress'
 import { ContinueButtons } from './ContinueButtons'
 import Container from '@mui/material/Container'
+import { DataProvider } from 'util/signupProvider'
 
 const SlotStart = 'container-start'
 const SlotEnd = 'container-end'
@@ -52,69 +53,71 @@ function SignUpSection({ startSignUp }: SignUpSectionProps) {
   const progressSlides = 7
 
   return (
-    <Section size="auto">
-      <Container style={{maxWidth: '468px', paddingTop: '10vh'}}>
-        <Swiper modules={[A11y, Keyboard]}>
-          <SwiperSlide>
-            <WelcomeView image={welcome} startSignUp={startSignUp}/>
-          </SwiperSlide>
+    <DataProvider>
+      <Section size="auto">
+        <Container style={{maxWidth: '468px', paddingTop: '10vh'}}>
+          <Swiper modules={[A11y, Keyboard]}>
+            <SwiperSlide>
+              <WelcomeView image={welcome} startSignUp={startSignUp}/>
+            </SwiperSlide>
 
-          <ProgressBar
-            start={welcomeLength}
-            end={progressSlides + welcomeLength}
-            slot={SlotStart}
-          />
-          <SwiperSlide style={{justifyContent: 'center'}}>
-            <WindowView image={juggling} text={t('onboarding.screen-1')} />
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <WindowView image={gardening} text={t('onboarding.screen-2')} />
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <WindowView image={toolbelt} text={t('onboarding.screen-3')} />
-          </SwiperSlide>
-
-          {/* Input Views */}
-          <SwiperSlide>
-            <InputSelectView value="fnmi" options={fnmiOptions} />
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <InputSelectView value="language" options={languageOptions} />
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <InputSearchView
-              value="school"
-              options={schoolData.map((x: any) => x.School)}
+            <ProgressBar
+              start={welcomeLength}
+              end={progressSlides + welcomeLength}
+              slot={SlotStart}
             />
-          </SwiperSlide>
-          <SwiperSlide>
-            <InputPillView value="interests" options={categoryOptions} />
-          </SwiperSlide>
+            <SwiperSlide style={{justifyContent: 'center'}}>
+              <WindowView image={juggling} text={t('onboarding.screen-1')} />
+            </SwiperSlide>
 
-          <SwiperSlide>
-            <EmailView />
-          </SwiperSlide>
+            <SwiperSlide>
+              <WindowView image={gardening} text={t('onboarding.screen-2')} />
+            </SwiperSlide>
 
-          <SwiperSlide>
-            <InputTextView value="displayName" />
-          </SwiperSlide>
+            <SwiperSlide>
+              <WindowView image={toolbelt} text={t('onboarding.screen-3')} />
+            </SwiperSlide>
 
-          <SwiperSlide>
-            <FinishView values={translationKeys} />
-          </SwiperSlide>
-          <ContinueButtons
-            translationKeys={translationKeys}
-            numOfSlides={progressSlides + welcomeLength}
-            welcomeLength={welcomeLength}
-          />
-          <ProgressDots start={1} end={welcomeLength} slot={SlotEnd} />
-        </Swiper>
-      </Container>
-    </Section>
+            {/* Input Views */}
+            <SwiperSlide>
+              <InputSelectView value="fnmi" options={fnmiOptions} />
+            </SwiperSlide>
+
+            <SwiperSlide>
+              <InputSelectView value="language" options={languageOptions} />
+            </SwiperSlide>
+
+            <SwiperSlide>
+              <InputSearchView
+                value="school"
+                options={schoolData.map((x: any) => x.School)}
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <InputPillView value="interests" options={categoryOptions} />
+            </SwiperSlide>
+
+            <SwiperSlide>
+              <EmailView />
+            </SwiperSlide>
+
+            <SwiperSlide>
+              <InputTextView value="displayName" />
+            </SwiperSlide>
+
+            <SwiperSlide>
+              <FinishView />
+            </SwiperSlide>
+            <ContinueButtons
+              translationKeys={translationKeys}
+              numOfSlides={progressSlides + welcomeLength}
+              welcomeLength={welcomeLength}
+            />
+            <ProgressDots start={1} end={welcomeLength} slot={SlotEnd} />
+          </Swiper>
+        </Container>
+      </Section>
+    </DataProvider>
   )
 }
 

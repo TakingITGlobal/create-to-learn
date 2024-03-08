@@ -1,24 +1,28 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TitleSection from './TitleSection'
 import { Grid, Box, Chip } from '@mui/material'
+import { useData } from 'util/signupProvider'
 
 export default function InputPillView(props) {
   const { options, value } = props
+  const { updateData } = useData();
 
-  const [data, setData] = useState([])
+  const [selected, setSelected] = useState([])
 
-  function onChange(val) {
+  useEffect(() => {
+    updateData(value, selected);
+  }, [value, selected, updateData]);
+
+  const handleSelectedChange = (val) => {
     let arr
-    if (!data.includes(val)) {
-      arr = [...data, val]
-      setData(arr)
+    if (!selected.includes(val)) {
+      arr = [...selected, val];
+      setSelected(arr);
     } else {
-      arr = data.filter((x) => x !== val)
-      setData(arr)
+      arr = selected.filter((x) => x !== val);
+      setSelected(arr);
     }
-    localStorage.setItem(value, arr)
   }
-
   return (
     <Box>
       <TitleSection value={value} />
@@ -31,7 +35,9 @@ export default function InputPillView(props) {
           padding: '1.5em',
         }}
       >
-        {options?.map((val, i) => (
+        {options?.map((val, i) => {
+          const active = selected.includes(val);
+          return (
           <Box as="div" key={i}>
             <Chip
               key={i}
@@ -40,16 +46,16 @@ export default function InputPillView(props) {
               style={{
                 fontSize: 16,
                 marginLeft: 0,
-                backgroundColor: data.includes(val) ? '#6956F1' : '#211E34',
-                fontWeight: data.includes(val) ? '700' : '',
+                backgroundColor: active ? '#6956F1' : '#211E34',
+                fontWeight: active ? '700' : '',
                 padding: '16px !important',
               }}
-              onClick={() => onChange(val)}
+              onClick={() => handleSelectedChange(val)}
               variant="default"
-              disabled={data.length === 3 && !data.includes(val)}
+              disabled={selected.length >= 3 && !active}
             />
           </Box>
-        ))}
+        )})}
       </Grid>
     </Box>
   )

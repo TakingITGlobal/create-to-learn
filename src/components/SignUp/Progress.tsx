@@ -60,7 +60,7 @@ export const ProgressDots = (props: ProgressProps) => {
           sx={{
             flexDirection: 'column',
             gap: '30px',
-            padding: '0 1em 40px 1em',
+            padding: '20px 1em 20px 1em',
           }}
           nextButton={
             <SwiperNext handleClick={() => swiper.slideNext()}>
