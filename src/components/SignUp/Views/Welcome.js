@@ -5,6 +5,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { useSwiper } from 'swiper/react'
+import { AsyncImage } from 'loadable-image'
 
 export default function WelcomeView({ image, startSignUp }) {
   const swiper = useSwiper()
@@ -19,17 +20,22 @@ export default function WelcomeView({ image, startSignUp }) {
       <Container maxWidth="sm">
         <Grid container direction="column" alignItems="center">
           <SectionHeader title={t('create-to-learn')} textAlign="center"/>
-          <CardMedia
-            component="img"
-            alt=""
-            sx={{
-              width: '300px',
-              height: '300px',
+
+          <AsyncImage
+            src={image}
+            alt="Beautiful abstract welcome art"
+            style={{
+              width: 300,
+              height: 300,
               marginBottom: '18px',
               borderRadius: '24px',
             }}
-            image={image}
+            width='300'
+            height="300"
+            loader={<div style={{ background: 'primary' }}/>}
+            error={<div style={{ background: '#eee' }}/>}
           />
+          
           <Stack direction="column" width="100%" spacing={2}>
             {/* If startSignUp = 0, then show the button */}
             <Typography 
