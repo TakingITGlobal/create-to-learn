@@ -15,7 +15,7 @@ import {
   EmailView,
   FinishView,
   InputPillView,
-} from './../SignUp/Views'
+} from '../SignUp/Views'
 import schoolData from 'assets/options/schools.json'
 import welcome from 'assets/images/welcome2.png'
 import juggling from 'assets/images/juggling.png'
@@ -24,6 +24,9 @@ import toolbelt from 'assets/images/toolbelt.png'
 import { categories } from 'assets/options/categories'
 import { ProgressDots, ProgressBar } from 'components/SignUp/Progress'
 import { ContinueButtons } from 'components/SignUp/ContinueButtons'
+
+import Container from '@mui/material/Container'
+import { DataProvider } from 'util/signupProvider'
 
 const SlotStart = 'container-start'
 const SlotEnd = 'container-end'
