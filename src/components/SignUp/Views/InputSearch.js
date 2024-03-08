@@ -1,63 +1,63 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { styles } from './Styles'
 import useClasses from 'hooks/useClasses'
 import { useTranslation } from 'react-i18next'
 import { Box, Button, Grid, Stack, TextField } from '@mui/material'
 import { FixedSizeList as List } from 'react-window'
 import { Check } from '@mui/icons-material'
+import { debounce } from 'lodash';
 import TitleSection from './TitleSection'
+import { useData } from 'util/signupProvider'
+import classNames from 'classnames'
 import Typography from '@mui/material/Typography'
 
 export default function InputSearchView(props) {
   const { value, options } = props
+  const { t } = useTranslation()
+  const { updateData } = useData();
 
   const classes = useClasses(styles)
-  const { t } = useTranslation()
-  const [inputValue, setInputValue] = useState('');
 
+  const [inputValue, setInputValue] = useState('');
+  const [selected, setSelected] = useState('');
   const filtered = inputValue !== '' ? 
     [...options.filter((x) =>
       x.toLowerCase().includes(inputValue.toLowerCase()),),'other'] 
     : []
 
-  const [selected, setSelected] = useState('')
-
-  function onInputChange(e) {
-    let val = e.target.value;
-    if(val.length > 2 ) setInputValue(e.target.value);
+  
+  useEffect(() => {
+    updateData(value, selected);
+  }, [selected, value, updateData]);
+ 
+  const handleTextChange = debounce((val) => {
+    if(val.length > 2 ) setInputValue(val);
     else {
       setInputValue('');
     }
-    
+  }, 300);
+
+  const handleSelectChange = (val) => {
+    setSelected(val);
   }
-  function onChange(e) {
-    const val = e.target.value
-    setSelected(e.target.value)
-    localStorage.setItem(value, val)
-  }
+  
   const Row = ({ data, index, style, e }) => {
     const isLast = data.length - 1 === index;
-    const isActive = data[index] === selected;
+    const cur = data[index];
+    const active = cur === selected;
+    
     return (
       <div style={style}>
-        <input
-          onChange={onChange}
-          type="radio"
-          value={data[index]}
-          name={value}
-          id={data[index]}
-          hidden
-        />
         <Button
+          onClick={() => handleSelectChange(cur)}
           variant="multi-selection"
-          component="label"
-          htmlFor={data[index]}
+          id={cur}
           size="small"
           fullWidth
-          className={isActive ? 'active' : ''}
+          className={classNames({ 'active': active})}
           sx={{ marginBottom: '5px', height: 76, padding: '1rem' }}
         >
-          {isLast ? t('btn.missing', { value: value }) : data[index]}
+          {isLast ? t('btn.missing', { value: value }) : cur}
           <Check />
         </Button>
       </div>
@@ -68,7 +68,7 @@ export default function InputSearchView(props) {
       <TitleSection value={value} />
       <Box sx={{ marginBottom: '1.5em', display: 'flex', flexDirection: 'column', gap: 2, padding: '0 1.5em' }}>
         <Stack direction="column">
-          {selected.length > 0 ? (
+          {selected ? (
             <Typography color={'#a095ff'}>{selected}</Typography>
           ) :
           (
@@ -77,30 +77,10 @@ export default function InputSearchView(props) {
         }
         </Stack>
 
-        <TextField variant="outlined" onChange={onInputChange} fullWidth />
+        <TextField variant="outlined" onChange={(e) => handleTextChange(e.target.value)} fullWidth />
 
         <Grid className={classes.gridColumn}>
           <Grid className={classes.scrollBox}>
-            {/* <Box sx={{ padding: '10px 0' }}>
-              <input
-                type="radio"
-                value="other"
-                id="other"
-                name={value}
-                hidden
-                onChange={onChange}
-              />
-              <Button
-                variant="selection"
-                component="label"
-                htmlFor="other"
-                size="small"
-                fullWidth
-              
-              >
-                {t('btn.missing', { value: value })}
-              </Button>
-            </Box> */}
             <List
               itemData={filtered}
               itemCount={filtered.length}

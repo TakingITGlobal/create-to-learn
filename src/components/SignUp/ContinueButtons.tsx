@@ -53,7 +53,13 @@ export const ContinueButtons = ({
             </SwiperNext>
           ) : null}
           {active > welcomeLength && active < interestsSlideIndex ? (
-            <Button variant="text" onClick={() => swiper.slideNext()}>
+            <Button 
+              variant="text" 
+              onClick={() => swiper.slideNext()}
+              sx={{
+                marginY: '8px!important'
+              }}
+            >
               {t(`onboarding.${translationKeys[active - 4]}.skip-btn`)}
             </Button>
           ) : null}
