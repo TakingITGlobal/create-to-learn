@@ -70,7 +70,9 @@ function CourseVideoListItem({
   //ToDo: abstract this function to courseSection because it is used in both tabs of the Course Page
   const handleAddToDownloads = (link) => {
     if (!auth.user.uid) {
-      return
+      setOpenDownloadDrawer(false);
+      window.location.href = link; 
+      return;
     }
 
     const videoDownloadData = getVideoDataToDownload(video)
@@ -149,8 +151,8 @@ function CourseVideoListItem({
             startIcon={
               <CheckIcon sx={{ backgroundColor: '#58B97D !important' }} />
             }
+            onClick={() => setOpenDownloadDrawer(true)}
             sx={{ color: '#BCE3CB' }}
-            disabled
           >
             {t('course.downloaded')}
           </Button>
