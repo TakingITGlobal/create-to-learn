@@ -47,7 +47,8 @@ export default function InputPillView(props) {
                 fontWeight: 700,
                 marginLeft: 0,
                 padding: '18px 8px',
-                backgroundColor: data.includes(val) ? '#6956F1' : '#211E34',
+                backgroundColor: active ? '#6956F1' : '#211E34',
+                fontWeight: active ? '700' : '',
               }}
               onClick={() => handleSelectedChange(val)}
               variant="default"
