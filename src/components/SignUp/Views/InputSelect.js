@@ -1,30 +1,37 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { styles } from './Styles'
 import useClasses from 'hooks/useClasses'
 import TitleSection from './TitleSection'
 import { Box, Button, Grid } from '@mui/material'
 import { Check } from '@mui/icons-material'
 import classNames from 'classnames'
+import { useData } from 'util/signupProvider'
 
 export default function InputSelectView(props) {
-  const { value, options } = props
+  const { updateData} = useData();
+  const { value, options } = props;
+
   const classes = useClasses(styles)
-  const [data, setData] = useState([])
+  const [ checkedItems, setCheckedItems] = useState([])
+  
 
   const cols = props.cols ? props.cols : 1
 
-  function onChange(e) {
-    let arr
-    if (!data.includes(e.target.value)) {
-      arr = [...data, e.target.value]
-      setData(arr)
+  useEffect(() => {
+    updateData(value, checkedItems);
+  }, [checkedItems, value, updateData]);
+
+
+  const handleCheckboxChange = (id) => {
+    const isSelected = checkedItems.includes(id);
+    if (isSelected) {
+      setCheckedItems(currentItems => currentItems.filter(item => item !== id));  
     } else {
-      arr = data.filter((x) => x !== e.target.value)
-      setData(arr)
+      setCheckedItems(currentItems => [...currentItems, id]);
     }
-    localStorage.setItem(value, arr)
   }
   
+
   return (
     <Box>
       <TitleSection value={value} />
@@ -35,34 +42,26 @@ export default function InputSelectView(props) {
           padding: '1em',
         }}
       >
-        {options?.map((val, i) => {
-          const isActive = data.includes(val);
+        {options?.map((option, i) => {
+          const active = checkedItems.includes(option)
           return (
             <Box
               as="div"
-              key={i}
+              key={option}
               className={classes.btnInput}
               sx={{
                 flex: `0 1 calc(calc(100% / ${cols}) - (10px * ${cols - 1}))`,
               }}
             >
-              <input
-                onChange={onChange}
-                type="checkbox"
-                value={val}
-                name={value}
-                id={val}
-                hidden
-              />
               <Button
+                onClick={() => handleCheckboxChange(option)}
                 variant="multi-selection"
-                component="label"
+                id={option}
                 fullWidth
-                htmlFor={val}
-                className={classNames({ 'active': isActive})}
+                className={classNames({ 'active': active})}
               >
-                {val}
-                {isActive ? <Check /> : null}
+                {option}
+                {active ? <Check /> : null}
               </Button>
             </Box>
           )})}
@@ -70,4 +69,3 @@ export default function InputSelectView(props) {
     </Box>
   )
 }
-

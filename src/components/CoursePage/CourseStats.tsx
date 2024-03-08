@@ -41,9 +41,10 @@ function CourseStats({ numberOfVideos, courseLength, difficultyLevel }: Props) {
               padding: '2px 7px',
               backgroundColor: '#FFFFFF1C',
               height: '115px',
+              borderRadius: '5px'
             }}
           >
-            <Box sx={{ padding: '10px' }}>
+            <Box sx={{ padding: '10px'}}>
               <SvgIcon
                 fontSize="large"
                 component="div"

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom';
 import useClasses from '../hooks/useClasses'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
@@ -102,8 +103,14 @@ function Footer(props) {
   // const logo =
   //   props.logoInverted && darkMode.value ? props.logoInverted : props.logo
   const classes = useClasses(styles)
+  
+  const location = useLocation()
+  const hideDrawerOnPages = ['/', '/sign-up']
+  const shouldHideDrawer = hideDrawerOnPages.includes(location.pathname)
 
   return (
+    <>
+    {!shouldHideDrawer && (
     <Section
       bgColor={props.bgColor}
       size={props.size}
@@ -163,6 +170,8 @@ function Footer(props) {
           © 2022 TakingITGlobal
         </Typography>
     </Section>
+    )}
+    </>
   )
 }
 

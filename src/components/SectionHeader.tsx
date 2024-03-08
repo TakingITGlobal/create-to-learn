@@ -8,7 +8,7 @@ const styles = () => ({
   root: {
     // Add bottom margin if element below
     '&:not(:last-child)': {
-      marginBottom: '2rem',
+      marginBottom: '.5rem'
     },
   },
 
@@ -36,7 +36,7 @@ function SectionHeader({ subtitle, title, className, ...rest }: Props) {
   }
 
   return (
-    <Box component="header" className={cx([classes.root, className])} {...rest}>
+    <Box component="header" className={cx([classes.root, className])} {...rest} >
       {title && (
         <Typography variant="h1" gutterBottom={subtitle ? true : false}>
           {title}

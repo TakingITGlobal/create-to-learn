@@ -27,20 +27,22 @@ export const ContinueButtons = ({
           display: 'flex',
           alignItems: 'flex-start',
           justifyContent: 'center',
-          margin: '0 .25em',
+          margin: '0',
           position: 'fixed',
           bottom: '0',
           left: '0',
           width: '100%',
-          background: '#080610',
           zIndex: '2',
-          padding: '14px 10px'
+          padding: '14px 10px',
+          background: 'rgb(12, 9, 25, .7)',
+          backdropFilter: 'blur(2px)'
         }}
       >
         <Stack
-          spacing={2}
+          spacing={1}
           sx={{
-            flexDirection: { xs: 'column', md: 'row' },
+            alignItems: 'center',
+            flexDirection:'column',
           }}
         >
           {active > welcomeLength &&
@@ -51,7 +53,13 @@ export const ContinueButtons = ({
             </SwiperNext>
           ) : null}
           {active > welcomeLength && active < interestsSlideIndex ? (
-            <Button variant="text" onClick={() => swiper.slideNext()}>
+            <Button 
+              variant="text" 
+              onClick={() => swiper.slideNext()}
+              sx={{
+                marginY: '8px!important'
+              }}
+            >
               {t(`onboarding.${translationKeys[active - 4]}.skip-btn`)}
             </Button>
           ) : null}

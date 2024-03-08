@@ -135,7 +135,7 @@ function CourseSection({ courseData }) {
     >
       <Container
         sx={{
-          paddingBottom: { xs: '120px', md: '80px' },
+          paddingBottom: { xs: '180px', md: '80px' },
           maxWidth: { xs: '100%', md: '850px' },
         }}
       >
@@ -147,7 +147,7 @@ function CourseSection({ courseData }) {
             aria-label="share course"
             onClick={() => setOpenShareDrawer(true)}
           >
-            <ShareIcon sx={{ color: 'white' }} />
+            <ShareIcon sx={{ color: 'black' }} />
           </IconButton>
           </PageHeading>
         {/* Series name */}
@@ -162,6 +162,7 @@ function CourseSection({ courseData }) {
               width: '100%',
               borderRadius: '6px',
               objectFit: 'cover',
+              padding: '0'
             }}
             image={courseImage}
           />

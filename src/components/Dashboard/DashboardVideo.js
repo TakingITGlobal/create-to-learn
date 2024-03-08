@@ -17,10 +17,9 @@ function DashboardVideo({ course, title, icon }) {
   
   return (
 
-  <Box sx={{ padding: '30px 0', maxWidth: '920px' }}>
+  <Box sx={{ padding: '30px 0 20px', maxWidth: '920px' }}>
     <Typography
         variant="sectionTitle"
-        pt={{ xs: '20px', md: '75px' }}
         pb="20px"
       >
         {icon}

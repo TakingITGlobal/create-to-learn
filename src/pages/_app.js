@@ -59,7 +59,6 @@ function App(props) {
           <CssBaseline />
           <DataProvider>
             <AuthProvider>
-              <Chat />
               <Router>
                 <LocationProvider>
                   <Hidden mdDown>

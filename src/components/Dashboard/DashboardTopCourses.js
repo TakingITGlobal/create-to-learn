@@ -43,7 +43,7 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
     <>
       <Typography
         variant="sectionTitle"
-        pt={{ xs: '20px', md: '75px' }}
+        pt={{ xs: '30px', md: '40px' }}
         pb="20px"
       >
         {icon}
@@ -55,6 +55,7 @@ const DashboardTopCourses = ({ title, courses, icon }) => {
         partialVisible={true}
         responsive={responsive}
         swipeable
+        customTransition={'transform 300ms linear'}
       >
         {courses.map((course, i) => {
           return (

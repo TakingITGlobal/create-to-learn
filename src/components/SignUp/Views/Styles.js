@@ -8,5 +8,6 @@ export const styles = (theme) => ({
   scrollBox: {
     textAlign: 'left',
     gap: 8,
+    paddingBottom: '120px'
   },
 })

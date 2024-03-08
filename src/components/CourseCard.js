@@ -48,6 +48,7 @@ const BrowseCourseCard = ({ course, progress }) => {
                     sx={{
                       color: theme.palette.text.secondary,
                       fontSize: { md: '1.1em' },
+                      marginBottom: '10px'
                     }}
                   >
                     {course.creator}
@@ -75,7 +76,8 @@ const BrowseCourseCard = ({ course, progress }) => {
                         </Button>
                       </Box>
                     ) : (
-                      <>
+                      <Grid sx={{ alignItems: 'center',
+                      gap: '20px', gridTemplateColumns: '2fr 1fr'}}>
                         <LinearProgress
                           variant="determinate"
                           value={progress.percentProgress}
@@ -86,7 +88,7 @@ const BrowseCourseCard = ({ course, progress }) => {
                             : ''}{' '}
                           {progress.timeLeft.minutes} min left
                         </Typography>
-                      </>
+                      </Grid>
                     ))}
                 </>
               </Box>
