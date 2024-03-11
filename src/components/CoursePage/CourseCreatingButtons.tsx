@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { Box, Typography, Grid, Stack, Button } from '@mui/material'
-
+import Container from '@mui/material/Container'
 import { useTranslation } from 'react-i18next'
 import LinearProgress from '@mui/material/LinearProgress'
 import { displayTime } from '../../util/timeHelpers'
@@ -46,6 +46,7 @@ function CourseCreatingButtons({
     : 0
 
   return inProgressVideos.length ? (
+    <Container sx={{ maxWidth: '850px !important'}}>
     <Grid
       container
       sx={{
@@ -55,26 +56,28 @@ function CourseCreatingButtons({
         right: '0',
         padding: '10px 15px 5px 15px',
         display: 'flex',
-        justifyContent: 'center',
-        backgroundColor: 'black',
+        justifyContent: 'space-between',
+        flex: 'auto 180px',
+
       }}
     >
-      <Grid xs={8} sx={{ paddingTop: '10px' }}>
+      <Grid xs={8} sx={{ paddingTop: '10px', paddingRight: '5px'}}>
         {timeLeft > 0.5 ? (
           <Stack
             direction="row"
             spacing={1}
             sx={{
               display: 'flex',
-              justifyContent: 'center',
+              justifyContent: 'flex-start',
               alignItems: 'center',
+
             }}
           >
             <LinearProgress
               color="primary"
               variant="determinate"
               value={percentProgress}
-              sx={{ width: '120px', paddingTop: '5px' }}
+              sx={{ width: {xs: '50%', md:'70%'}, paddingTop: '5px' }}
             />
             <Typography>{displayTime(timeLeft)} left </Typography>
           </Stack>
@@ -107,6 +110,7 @@ function CourseCreatingButtons({
         </Button>
       </Grid>
     </Grid>
+    </Container>
   ) : (
     <Box
       sx={{

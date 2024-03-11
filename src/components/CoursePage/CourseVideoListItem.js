@@ -144,7 +144,7 @@ function CourseVideoListItem({
         spacing={1}
         alignItems="center"
        
-        sx={{ paddingLeft: '0px', paddingTop: '20px', justifyContent: 'spaceBetween' }}
+        sx={{ paddingLeft: '0px', paddingTop: '20px', justifyContent: 'space-between' }}
       >
         {isDownloaded(video?.uri) ? (
           <Button
