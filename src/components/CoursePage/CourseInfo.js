@@ -88,7 +88,7 @@ function CourseInfo({
 
   return (
     <>
-      <Box sx={{ padding: ' 0 1em', height: '100%' }}>
+      <Box sx={{ height: '100%' }}>
         {/* Artist information */}
         <Link
           href={'/creator/' + creatorUID}

@@ -105,8 +105,8 @@ function CourseVideoListItem({
     
   }
   return (
-    <Paper elevation="1">
-      <Grid container sx={{ display: 'flex', paddingBottom: '20px', borderRadius: '5px !important' }}>
+    <Paper elevation="1" sx={{borderRadius: '5px !important'}}>
+      <Grid container sx={{ display: 'flex', paddingBottom: '20px' }}>
         <Grid item xs={8}>
           <Typography variant="bold">{video.name}</Typography>
         </Grid>
@@ -143,8 +143,8 @@ function CourseVideoListItem({
         direction="row"
         spacing={1}
         alignItems="center"
-        justifyContent="spaceBetween"
-        sx={{ paddingLeft: '0px', paddingTop: '20px' }}
+       
+        sx={{ paddingLeft: '0px', paddingTop: '20px', justifyContent: 'spaceBetween' }}
       >
         {isDownloaded(video?.uri) ? (
           <Button
@@ -166,6 +166,7 @@ function CourseVideoListItem({
                 sx={{
                   backgroundColor: 'inherit !important',
                   color: '#fff !important',
+                  marginRight: '0'
                 }}
               />
             }
