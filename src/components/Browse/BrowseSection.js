@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
-import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import SearchIcon from '@mui/icons-material/Search'
 import BrowseTabs from './BrowseTabs'

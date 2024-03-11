@@ -17,28 +17,29 @@ const BrowseCourseCard = ({ course, progress }) => {
   const showProgress = progress && progress?.percentProgress > 0
 
   return (
-    <Box sx={{ padding: '10px 0' }}>
+    <Box sx={{ padding: '10px 0 30px' }}>
       <ButtonBase href={'/tutorial/' + course.uid}>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 2, sm: 2, md: 3 }}>
-          <Grid item xs={6}>
+        <Grid container rowSpacing={1} sx={{ gap: '15px', display: 'grid', gridTemplateColumns: {sm: '', md: '1fr 1fr'} }}>
+          <Grid item sx={{ paddingLeft: '0'}}>
             <Box
               component="img"
               src={course.thumbnail[0]?.downloadURL}
               loading="lazy"
               alt={course.seriesName}
-              style={{
+              sx={{
                 top: 0,
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
-                borderRadius: '6px'
+                borderRadius: '6px',
+                paddingLeft: '0'
               }}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item>
             <Box>
               <Box>
-                <Typography variant="bold" sx={{ paddingTop: '20px', fontSize: { md: '1.4em' } }}>
+                <Typography variant="bold" sx={{fontSize: { md: '1.4em' }, paddingTop: {md: '20px'} }}>
                   {course.seriesName}
                 </Typography>
               </Box>
@@ -77,12 +78,12 @@ const BrowseCourseCard = ({ course, progress }) => {
                     </Box>
                   ) : (
                     <Grid sx={{ alignItems: 'center',
-                    gap: '20px', gridTemplateColumns: '2fr 1fr'}}>
+                    gap: '20px', gridTemplateColumns: '2fr 1fr', display: 'grid'}}>
                       <LinearProgress
                         variant="determinate"
                         value={progress.percentProgress}
                       />
-                      <Typography>
+                      <Typography sx={{textAlign: 'right'}}>
                         {progress.timeLeft.hours > 0
                           ? `${progress.timeLeft.hours} hrs`
                           : ''}{' '}
