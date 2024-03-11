@@ -1,6 +1,6 @@
 import React from 'react'
 import Meta from './../components/Meta'
-import ContactSection from '../components/Unused/ContactSection'
+import ContactSection from '../components/ContentPages/ContactSection'
 
 function ContactPage(props) {
   return (
@@ -9,7 +9,7 @@ function ContactPage(props) {
         title="Contact - Create to Learn" />
       <ContactSection
         bgColor="default"
-        size="medium"
+        size="large"
         bgImage=""
         bgImageOpacity={1}
         title="Contact Us"

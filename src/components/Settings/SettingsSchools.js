@@ -45,18 +45,16 @@ function SettingsSchools({ showComponent, setShowComponent }) {
       sx={{ 
         width: '100%', 
         fontSize: 16,
-        textAlign: 'start' }}
+        textAlign: 'left',
+        margin: '5px 0',
+        padding: '20px',
+        width: '100%',
+        justifyContent: 'flex-start',
+        backgroundColor: school === data[index] ? '#6956F1' : '#211E34',
+        borderRadius: '5px'
+       }}
     >
-      <Paper
-        sx={{
-          margin: '5px 0',
-          padding: '20px',
-          width: '100%',
-          backgroundColor: school === data[index] ? '#6956F1' : '#211E34',
-        }}
-      >
-        {data[index]}
-      </Paper>
+      {data[index]}
     </ButtonBase>
   )
 
@@ -77,27 +75,20 @@ function SettingsSchools({ showComponent, setShowComponent }) {
         }}
       >
         <Box sx={{ padding: '1.5rem 0' }}>
-          <Typography variant="h6" fontWeight={700} color={'lavender'} sx={{ padding: '10px 20px 0 0' }}>
-            I'm attending ...
-          </Typography>
+          <h1 variant="h3" fontWeight={700} color={'lavender'} sx={{ padding: '10px 20px 0 0' }}>
+            Change School
+          </h1>
           <Typography>Scroll or search to find your school </Typography>
           <Box sx={{ paddingTop: '40px' }}>
-            <Typography sx={{
-              fontWeight: 700,
-              marginBottom: '5px',
-            }}>
-              Search your school
-            </Typography>
           </Box>
           <TextField
             onInput={(e) => onChange(e)}
             id="filled-start-adornment"
             sx={{
-              backgroundColor: '#2B2937',
               borderRadius: '8px',
               width: '100%',
             }}
-            placeholder='Find your school'
+            label="Search your school"
             value={search}
             InputProps={{
               startAdornment: (
@@ -110,7 +101,7 @@ function SettingsSchools({ showComponent, setShowComponent }) {
           />
         </Box>
         <FixedSizeList
-          height={650}
+          height={450}
           width="100%"
           itemSize={50}
           itemData={filteredSchools}

@@ -87,7 +87,6 @@ const BrowseTabs = ({ categoryFilter, setCategoryFilter }) => {
             indicatorColor="primary"
             onChange={handleChangeTab}
             aria-label="browse tabs"
-            sx={{paddingBottom: '15px'}}
           >
             <Tab label={t('courses')} {...a11yProps(0)} />
             <Tab label={t('creators')} {...a11yProps(1)} />

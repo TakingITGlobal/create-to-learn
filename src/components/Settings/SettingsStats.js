@@ -36,7 +36,7 @@ const Stats = () => {
     : []
 
   return (
-    <Box sx={{ padding: '10px' }}>
+    <Box sx={{ padding: '0px' }}>
       <Grid container spacing={1}>
         <Grid item xs={4}>
           <Box
@@ -45,13 +45,14 @@ const Stats = () => {
               backgroundColor: '#715FF2',
               height: '100%',
               color: 'black',
+              borderRadius: '5px'
             }}
           >
             <Box sx={{ padding: '10px' }}>
               <SvgIcon
                 fontSize="large"
                 component="div"
-                sx={{ paddingBottom: '10px' }}
+                sx={{ paddingBottom: '0px' }}
               >
                 <img
                   src={CompletedIcon}
@@ -61,7 +62,11 @@ const Stats = () => {
               </SvgIcon>
               <Typography variant="h5" fontWeight={700}>{coursesTaken.length}</Typography>
               {/* To do: Only write course taken if there is only one */}
-              <Typography variant="body2" fontWeight={700} lineHeight={1}>
+              <Typography variant="body" fontWeight={700} lineHeight={1.2}
+              sx={{
+                maxWidth: '100px',
+                display: 'inline-block'
+              }}>
                 {coursesTaken.length === 1
                 ? t('settings.course-taken')
                 : t('settings.courses-taken')}
@@ -75,13 +80,14 @@ const Stats = () => {
               padding: '0 2.5px',
               backgroundColor: '#58B97D',
               color: 'black',
+              borderRadius: '5px'
             }}
           >
             <Box sx={{ padding: '10px' }}>
               <SvgIcon
                 fontSize="large"
                 component="div"
-                sx={{ paddingBottom: '10px' }}
+                sx={{ paddingBottom: '0px' }}
               >
                 <img
                   src={DurationIcon}
@@ -90,7 +96,10 @@ const Stats = () => {
                 />
               </SvgIcon>
               <Typography variant="h5" fontWeight={700}>{minutesWatched}</Typography>
-              <Typography variant="body2" fontWeight={700} lineHeight={1}>
+              <Typography variant="body" fontWeight={700} lineHeight={1.2} 
+                sx={{
+                display: 'inline-block'
+              }}>
                 {t('settings.minutes-watched')}
               </Typography>
             </Box>
@@ -102,13 +111,14 @@ const Stats = () => {
               padding: '0 2.5px',
               backgroundColor: '#A864EC',
               color: 'black',
+              borderRadius: '5px'
             }}
           >
             <Box sx={{ padding: '10px' }}>
               <SvgIcon
                 fontSize="large"
                 component="div"
-                sx={{ paddingBottom: '10px' }}
+                sx={{ paddingBottom: '0px' }}
               >
                 <img
                   src={VideoIcon}
@@ -117,7 +127,10 @@ const Stats = () => {
                 />
               </SvgIcon>
               <Typography variant="h5" fontWeight={700}>{completedVideos}</Typography>
-              <Typography variant="body2" fontWeight={700} lineHeight={1}>
+              <Typography variant="body" fontWeight={700} lineHeight={1.2} 
+              sx={{
+                display: 'inline-block'
+              }}>
                 {t('settings.videos-completed')}
               </Typography>
             </Box>

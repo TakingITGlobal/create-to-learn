@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
@@ -29,13 +28,14 @@ function SettingsEmail({ auth, showComponent, setShowComponent }) {
           height: '700px',
         }}
       >
-        <Box sx={{ padding: '1.5rem 0' }}>
-          <Typography variant="h6">{t('settings.change-email')}</Typography>
-        </Box>
         <TextField
           id="Email"
           variant="outlined"
+          label={t('settings.change-email')}
           defaultValue={auth.user.email}
+          InputLabelProps={{
+            shrink: true,
+          }}
           onChange={(e) => setEmail(e.targetValue)}
         />
         <Box

@@ -1,4 +1,9 @@
-export const languages = `French
+export const languages = `Cree
+Inuktitut
+Ojibwe
+English`
+
+/*French
 Spanish
 Italian
 German
@@ -334,4 +339,4 @@ Stoney
 Tlingit
 Tsimshian languages
 Wakashan languages
-Dene`
+Dene */

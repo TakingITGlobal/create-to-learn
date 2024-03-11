@@ -25,7 +25,6 @@ function SettingsLanguage({ showComponent, setShowComponent }) {
 
   const [languages, setLanguages] = useState(auth?.user?.language ?? [])
 
-  //To Do - make this simpler!
   const handleLanguages = (lan) => {
     if (lan === LANGUAGE_NOT_HERE) {
       setLanguages([])
@@ -57,10 +56,10 @@ function SettingsLanguage({ showComponent, setShowComponent }) {
           }}
         >
           <Box sx={{ padding: '1.5rem 0'}}>
-            <Typography variant="h5" fontWeight={700} color={'lavender'} sx={{ paddingBottom: '10px' }}>
+            <h1 variant="h3" fontWeight={700} color={'lavender'}>
               My language is...
-            </Typography>
-            <Typography color={'lavender'}>Or a language I am learning</Typography>
+            </h1>
+            <Typography color={'lavender'} sx={{ paddingBottom: '10px' }}>Or a language I am learning</Typography>
             <Typography>
               So that we can greet and congratulate you in the future
             </Typography>
@@ -75,7 +74,7 @@ function SettingsLanguage({ showComponent, setShowComponent }) {
             aria-labelledby="settings-profile"
           >
             {languageOptions.map((language, index) => (
-              <ListItem
+              <ListItem disablePadding
                 key={index}
                 sx={{
                   backgroundColor: languages.includes(language)
@@ -92,7 +91,7 @@ function SettingsLanguage({ showComponent, setShowComponent }) {
                   )
                 }
               >
-                <ListItemButton onClick={() => handleLanguages(language)}>
+                <ListItemButton onClick={() => handleLanguages(language)} sx={{padding: '16px 20px'}}>
                   <ListItemText>{language}</ListItemText>
                 </ListItemButton>
               </ListItem>

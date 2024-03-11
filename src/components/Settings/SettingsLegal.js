@@ -44,7 +44,7 @@ function SettingsLegal(props) {
         display: 'flex', 
         justifyContent:'space-between',
         alignItems: 'center',
-        padding: '52px 0 34px 0'
+        padding: '20px 0 34px 0'
         }}>
         <ArrowBack
           showComponent={showComponent}
@@ -75,9 +75,6 @@ function SettingsLegal(props) {
           <AboutOrganization setShowComponent={setShowComponent} />
         )}
 
-        <Box sx={{ fontWeight: 300, color: 'grey' }}>
-          <Typography>Version 5.5.0</Typography>
-        </Box>
       </Container>
     </>
   )
@@ -93,75 +90,76 @@ function LegalNav({ setShowComponent }) {
     timeout={600}
     mountOnEnter
     unmountOnExit
-    >
-      <List>
-        <Typography variant="h6" padding="12px">Legal</Typography>
-        <ListItem
-          button
-          onClick={() => {
-            setShowComponent('privacyPolicy')
-          }}
-          sx = {{
-            borderBottom: '1px solid #333'
-          }}
-        >
-          <ListItemText>Privacy Policy</ListItemText>
-          <ListItemSecondaryAction>
-            <IconButton size="large">
+    > 
+      <Box>
+        <Typography variant="h2" paddingTop="20px">Legal</Typography>
+        <List>
+          <ListItem
+            button
+            onClick={() => {
+              setShowComponent('privacyPolicy')
+            }}
+            sx = {{
+              borderBottom: '1px solid #333',
+              padding: '18px 10px 18px 10px'
+            }}
+          >
+            <ListItemText>Privacy Policy</ListItemText>
+            <ListItemSecondaryAction>
               <ChevronRightIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
-        <ListItem
-          button
-          onClick={() => {
-            setShowComponent('termsOfService')
-          }}
-          sx = {{
-            borderBottom: '1px solid #333'
-          }}
-        >
-          <ListItemText>Terms of Service</ListItemText>
-          <ListItemSecondaryAction>
-            <IconButton size="large">
+            </ListItemSecondaryAction>
+          </ListItem>
+          <ListItem
+            button
+            onClick={() => {
+              setShowComponent('termsOfService')
+            }}
+            sx = {{
+              borderBottom: '1px solid #333',
+              padding: '18px 10px 18px 10px'
+            }}
+          >
+            <ListItemText>Terms of Service</ListItemText>
+            <ListItemSecondaryAction>
               <ChevronRightIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
-        <Typography variant="h6" marginTop="32px" padding="12px">About</Typography>
-        <ListItem
-          button
-          onClick={() => {
-            setShowComponent('aboutCreateToLearn')
-          }}
-          sx = {{
-            borderBottom: '1px solid #333'
-          }}
-        >
-          <ListItemText>About Create to Learn</ListItemText>
-          <ListItemSecondaryAction>
-            <IconButton size="large">
+            </ListItemSecondaryAction>
+          </ListItem>
+        </List>
+
+        <Typography variant="h2" marginTop="32px" padding="12px 0">About</Typography>
+        <List>
+          <ListItem
+            button
+            onClick={() => {
+              setShowComponent('aboutCreateToLearn')
+            }}
+            sx = {{
+              borderBottom: '1px solid #333',
+              padding: '18px 10px 18px 10px'
+            }}
+          >
+            <ListItemText>About Create to Learn</ListItemText>
+            <ListItemSecondaryAction>
               <ChevronRightIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
-        <ListItem
-          button
-          onClick={() => {
-            setShowComponent('aboutOrganization')
-          }}
-          sx = {{
-            borderBottom: '1px solid #333'
-          }}
-        >
-          <ListItemText>About the Organization</ListItemText>
-          <ListItemSecondaryAction>
-            <IconButton size="large">
+            </ListItemSecondaryAction>
+          </ListItem>
+          <ListItem
+            button
+            onClick={() => {
+              setShowComponent('aboutOrganization')
+            }}
+            sx = {{
+              borderBottom: '1px solid #333',
+              padding: '18px 10px 18px 10px'
+            }}
+          >
+            <ListItemText>About the Organization</ListItemText>
+            <ListItemSecondaryAction>
               <ChevronRightIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
-      </List>
+            </ListItemSecondaryAction>
+          </ListItem>
+        </List>
+      </Box>
     </Slide>
   )
 }

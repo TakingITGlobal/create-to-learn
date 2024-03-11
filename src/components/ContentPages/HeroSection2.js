@@ -2,7 +2,8 @@ import React from 'react'
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import Section from '../Section'
-import SectionHeader from '../SectionHeader'
+import { PageHeading } from 'components/PageHeading'
+import Typography from '@mui/material/Typography'
 
 function HeroSection2(props) {
   return (
@@ -13,12 +14,12 @@ function HeroSection2(props) {
       bgImageOpacity={props.bgImageOpacity}
     >
       <Container>
-        <Box textAlign="center">
-          <SectionHeader
-            title={props.title}
-            subtitle={props.subtitle}
-            size={4}
+        <Box>
+          <PageHeading
+            headingText={props.title}
+            sx={{paddingBottom: '10px'}}
           />
+          <Typography sx={{maxWidth: '860px'}}>{props.subtitle}</Typography>
         </Box>
       </Container>
     </Section>

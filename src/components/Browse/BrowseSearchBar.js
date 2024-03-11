@@ -16,7 +16,7 @@ const BrowseSearchBar = ({ setSearch, search, setOpenSearchDrawer }) => {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: '40px 20px',
+        padding: '40px 0',
       }}
     >
       <TextField

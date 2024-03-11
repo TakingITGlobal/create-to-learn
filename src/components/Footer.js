@@ -118,57 +118,67 @@ function Footer(props) {
       bgImageOpacity={props.bgImageOpacity}
       className={props.sticky && classes.sticky}
       sx = {{
-        padding: {lg:'30px 160px'},
-        textAlign: 'center'
+        textAlign: 'center',
       }}
     >
+      <Container>
         <Box
-        sx = {{
-          display: 'flex',
-          justifyContent: 'center',
+         sx = {{
+          maxWidth: '790px',
+          textAlign: 'center',
           alignItems: 'center',
-          gap: '40px',
-        }}
-        >
-          <div style = {{ width: '30%'}}>
-            <img
-              src={TakingITGlobalLogo}
-              alt="TakingITGlobal Logo"
-              width='100%'
-              height='100%'
-            />
-          </div>
-          <div style = {{ width: '15%'}}>
-            <img
-              src={ImagineNativeLogo}
-              alt="Imagine Native"
-              width='100%'
-              height='100%'
-            />
-          </div>
-          <div style = {{ width: '20%'}}>
-            <img
-              src={CanadaLogo}
-              alt="Canada Logo"
-              width='100%'
-              height='100%'
-            />
-          </div>
-          <div style = {{ width: '30%'}}>
-            <img
-              src={LenovoLogo}
-              alt="Lenovo Logo"
-              width='100%'
-              height='100%'
-            />
-          </div>
+          margin: '50px auto 50px'
+        }}>
+          <Box
+          sx = {{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '40px',
+            textAlign: 'center'
+          }}
+          >
+            <div style = {{ width: '30%'}}>
+              <img
+                src={TakingITGlobalLogo}
+                alt="TakingITGlobal Logo"
+                width='100%'
+                height='100%'
+              />
+            </div>
+            <div style = {{ width: '15%'}}>
+              <img
+                src={ImagineNativeLogo}
+                alt="Imagine Native"
+                width='100%'
+                height='100%'
+              />
+            </div>
+            <div style = {{ width: '20%'}}>
+              <img
+                src={CanadaLogo}
+                alt="Canada Logo"
+                width='100%'
+                height='100%'
+              />
+            </div>
+            <div style = {{ width: '30%'}}>
+              <img
+                src={LenovoLogo}
+                alt="Lenovo Logo"
+                width='100%'
+                height='100%'
+              />
+            </div>
+          </Box>
+          <Typography sx={{ padding: '16px 0 40px 0'}} fontWeight= {'400'}>
+            Create to Learn is a program of TakingITGlobal, in partnership with imagineNATIVE, with support from Lenovo Foundation and the Government of Canada’s CanCode and Supports for Student Learning programs.
+          </Typography>
+          <Typography color="text.secondary" fontWeight= {'400'}>
+            © 2022 TakingITGlobal
+          </Typography>
         </Box>
-        <Typography sx={{ padding: '16px 0 60px 0'}} fontWeight= {'400'}>
-          Create to Learn is a program of TakingITGlobal, in partnership with imagineNATIVE, with support from Lenovo Foundation and the Government of Canada’s CanCode and Supports for Student Learning programs.
-        </Typography>
-        <Typography color="text.secondary" fontWeight= {'400'}>
-          © 2022 TakingITGlobal
-        </Typography>
+      </Container>  
     </Section>
     )}
     </>

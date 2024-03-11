@@ -31,66 +31,65 @@ const BrowseCourseCard = ({ course, progress }) => {
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
+                borderRadius: '6px'
               }}
             />
           </Grid>
           <Grid item xs={6}>
             <Box>
               <Box>
-                <Typography variant="bold" sx={{ fontSize: { md: '1.4em' } }}>
+                <Typography variant="bold" sx={{ paddingTop: '20px', fontSize: { md: '1.4em' } }}>
                   {course.seriesName}
                 </Typography>
               </Box>
               <Box>
-                <>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: theme.palette.text.secondary,
-                      fontSize: { md: '1.1em' },
-                      marginBottom: '10px'
-                    }}
-                  >
-                    {course.creator}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: theme.palette.text.secondary,
-                      fontSize: { md: '1.1em' },
-                    }}
-                  >
-                    {course.videos && course.videos.length}{' '}
-                    {course.videos.length === 1 ? t('video') : t('videos')}
-                  </Typography>
-                  {showProgress &&
-                    (progress.completed ? (
-                      <Box sx={{ paddingLeft: 0 }}>
-                        <Button
-                          startIcon={
-                            <CheckIcon sx={{ fill: '#58B97D !important' }} />
-                          }
-                          sx={{ color: '#BCE3CB', paddingLeft: '5px' }}
-                        >
-                          {t('my-courses.completed')}
-                        </Button>
-                      </Box>
-                    ) : (
-                      <Grid sx={{ alignItems: 'center',
-                      gap: '20px', gridTemplateColumns: '2fr 1fr'}}>
-                        <LinearProgress
-                          variant="determinate"
-                          value={progress.percentProgress}
-                        />
-                        <Typography>
-                          {progress.timeLeft.hours > 0
-                            ? `${progress.timeLeft.hours} hrs`
-                            : ''}{' '}
-                          {progress.timeLeft.minutes} min left
-                        </Typography>
-                      </Grid>
-                    ))}
-                </>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: theme.palette.text.secondary,
+                    fontSize: { md: '1.1em' },
+                    marginBottom: '10px'
+                  }}
+                >
+                  {course.creator}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: theme.palette.text.secondary,
+                    fontSize: { md: '1.1em' },
+                  }}
+                >
+                  {course.videos && course.videos.length}{' '}
+                  {course.videos.length === 1 ? t('video') : t('videos')}
+                </Typography>
+                {showProgress &&
+                  (progress.completed ? (
+                    <Box sx={{ paddingLeft: 0 }}>
+                      <Button
+                        startIcon={
+                          <CheckIcon sx={{ fill: '#58B97D !important' }} />
+                        }
+                        sx={{ color: '#BCE3CB', paddingLeft: '5px' }}
+                      >
+                        {t('my-courses.completed')}
+                      </Button>
+                    </Box>
+                  ) : (
+                    <Grid sx={{ alignItems: 'center',
+                    gap: '20px', gridTemplateColumns: '2fr 1fr'}}>
+                      <LinearProgress
+                        variant="determinate"
+                        value={progress.percentProgress}
+                      />
+                      <Typography>
+                        {progress.timeLeft.hours > 0
+                          ? `${progress.timeLeft.hours} hrs`
+                          : ''}{' '}
+                        {progress.timeLeft.minutes} min left
+                      </Typography>
+                    </Grid>
+                  ))}
               </Box>
             </Box>
           </Grid>

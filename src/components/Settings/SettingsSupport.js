@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import Container from '@mui/material/Container'
 import Snackbar from '@mui/material/Snackbar'
 import MuiAlert from '@mui/material/Alert'
 import { Typography } from '@mui/material'
 import ArrowBack from '../ArrowBack'
 import Slide from '@mui/material/Slide'
-
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
 import { useAuth } from '../../util/auth'
 
 import SettingsFeedbackForm from './SettingsFeedbackForm'
@@ -53,12 +53,12 @@ function SettingsSupport(props) {
   ]
 
   return (
-    <>
-      <Container sx={{
+    <Container>
+      <Box sx={{
         display: 'flex', 
         justifyContent:'space-between',
         alignItems: 'center',
-        padding: '52px 0 34px 0'
+        padding: '20px 0 34px 0'
         }}>
         <ArrowBack
           showComponent={showComponent}
@@ -68,7 +68,7 @@ function SettingsSupport(props) {
         <Typography fontWeight={700} variant="h7">{myAccountLinks.find(link => link.id === showComponent)?.title || "Help and Support"}</Typography>
         <div>
         </div>
-      </Container>
+      </Box>
       <Slide
       direction="left"
       in={showComponent}
@@ -76,7 +76,7 @@ function SettingsSupport(props) {
       mountOnEnter
       unmountOnExit
       >
-        <Container>
+        <div>
           {showComponent === 'nav' && (
             <>
               <SupportNav auth={auth} setShowComponent={setShowComponent} />
@@ -85,7 +85,6 @@ function SettingsSupport(props) {
           {showComponent === 'verifyEmail' && <div>Verify email support...</div>}
           {showComponent === 'findCourse' && <div>Find a course support...</div>}
           {showComponent === 'createCourse' && <div>Create a course..</div>}
-          {showComponent === 'faqs' && <div>Faqs</div>}
           
           <SettingsFeedbackForm
             showComponent={showComponent}
@@ -114,9 +113,9 @@ function SettingsSupport(props) {
               {snackbarMessage}
             </MuiAlert>
           </Snackbar>
-        </Container>
+        </div>
       </Slide>
-    </>
+    </Container>
   )
 }
 

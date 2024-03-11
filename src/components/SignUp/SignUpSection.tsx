@@ -26,6 +26,7 @@ import { ProgressDots, ProgressBar } from './Progress'
 import { ContinueButtons } from './ContinueButtons'
 import Container from '@mui/material/Container'
 import { DataProvider } from 'util/signupProvider'
+import { languages as languageOptions } from 'assets/options/filters'
 
 const SlotStart = 'container-start'
 const SlotEnd = 'container-end'
@@ -48,7 +49,7 @@ function SignUpSection({ startSignUp }: SignUpSectionProps) {
   const categoryOptions = categories.slice(1).map(({ label }) => label)
 
   const fnmiOptions = ['Inuit', 'Métis', 'First Nations', 'None of the above']
-  const languageOptions = ['Cree', 'Inuktitut', 'Ojibwe', 'English']
+  const languages = languageOptions
   const welcomeLength = 3
   const progressSlides = 7
 
@@ -89,7 +90,7 @@ function SignUpSection({ startSignUp }: SignUpSectionProps) {
             </SwiperSlide>
 
             <SwiperSlide>
-              <InputSelectView value="language" options={languageOptions} />
+              <InputSelectView value="language" options={languages} />
             </SwiperSlide>
 
             <SwiperSlide>

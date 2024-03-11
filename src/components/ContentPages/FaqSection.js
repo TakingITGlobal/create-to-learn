@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import Section from '../Section'
-import SectionHeader from '../SectionHeader'
+import { PageHeading } from 'components/PageHeading'
 
 const styles = (theme) => ({
   accordion: {
@@ -71,14 +71,13 @@ function FaqSection(props) {
       bgColor={props.bgColor}
       size={props.size}
       bgImage={props.bgImage}
-      bgImageOpacity={props.bgImageOpacity}
+      bgImageOpacity={props.bgImageOpacity} 
+      sx={{minHeight: '50vh'}}
     >
-      <Container maxWidth="md">
-        <SectionHeader
-          title={props.title}
-          subtitle={props.subtitle}
-          size={4}
-          textAlign="center"
+      <Container>
+        <PageHeading
+          headingText={props.title}
+          sx={{paddingBottom: '10px'}}
         />
 
         {items.map((item, index) => (

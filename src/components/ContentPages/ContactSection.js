@@ -1,8 +1,9 @@
 import React from 'react'
 import Container from '@mui/material/Container'
 import Section from '../Section'
-import SectionHeader from '../SectionHeader'
 import Contact from './Contact'
+import { PageHeading } from 'components/PageHeading'
+import Typography from '@mui/material/Typography'
 
 function ContactSection(props) {
   return (
@@ -12,13 +13,11 @@ function ContactSection(props) {
       bgImage={props.bgImage}
       bgImageOpacity={props.bgImageOpacity}
     >
-      <Container maxWidth="md">
-        <SectionHeader
-          title={props.title}
-          subtitle={props.subtitle}
-          size={4}
-          textAlign="center"
+      <Container>
+        <PageHeading
+          headingText={props.title}
         />
+        <Typography variant="body">{props.subtitle}</Typography>
         <Contact
           showNameField={props.showNameField}
           buttonText={props.buttonText}

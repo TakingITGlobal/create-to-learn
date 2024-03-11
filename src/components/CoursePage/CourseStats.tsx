@@ -38,9 +38,8 @@ function CourseStats({ numberOfVideos, courseLength, difficultyLevel }: Props) {
         <Grid item xs={4} key={index}>
           <Box
             sx={{
-              padding: '2px 7px',
+              padding: '12px 7px 16px',
               backgroundColor: '#FFFFFF1C',
-              height: '115px',
               borderRadius: '5px'
             }}
           >
