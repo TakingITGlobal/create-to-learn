@@ -50,7 +50,8 @@ function CourseCreatingButtons({
       container
       sx={{
         position: { xs: 'fixed', md: 'relative' },
-        bottom: { xs: '78px', md: '20px' },
+        bottom: { xs: '66px', md: '20px' },
+        backgroundColor: {xs:'#0a0919', md: 'none'},
         left: '0',
         right: '0',
         padding: '10px 15px 5px 15px',
@@ -111,12 +112,13 @@ function CourseCreatingButtons({
     <Box
       sx={{
         position: { xs: 'fixed', md: 'relative' },
-        bottom: { xs: '78px', md: '20px' },
         left: '0',
         right: '0',
         padding: '10px 15px 5px 15px',
         display: 'flex',
         justifyContent: 'center',
+        bottom: { xs: '66px', md: '20px' },
+        backgroundColor: {xs:'#0a0919', md: 'none'}
       }}
     >
       <Button
