@@ -39,7 +39,7 @@ const BrowseCourseCard = ({ course, progress }) => {
           <Grid item>
             <Box>
               <Box>
-                <Typography variant="bold" sx={{fontSize: { md: '1.4em' }, paddingTop: {md: '20px'} }}>
+                <Typography variant="bold" sx={{fontSize: { md: '1.4em' }, paddingTop: {md: '25px'} }}>
                   {course.seriesName}
                 </Typography>
               </Box>
@@ -83,7 +83,7 @@ const BrowseCourseCard = ({ course, progress }) => {
                         variant="determinate"
                         value={progress.percentProgress}
                       />
-                      <Typography sx={{textAlign: 'right'}}>
+                      <Typography sx={{textAlign: 'right', marginRight: '10px'}}>
                         {progress.timeLeft.hours > 0
                           ? `${progress.timeLeft.hours} hrs`
                           : ''}{' '}
