@@ -30,6 +30,7 @@ function BrowseSearchDrawer({ openSearchDrawer, setOpenSearchDrawer }) {
       open={openSearchDrawer}
       onOpen={(event) => setOpenSearchDrawer(true)}
       onClose={(event) => setOpenSearchDrawer(false)}
+      elevation={0}
       style={{ backgroundColor: 'rgba(0,0,0,0.75)' }}
     >
       <Box sx={{
@@ -39,11 +40,7 @@ function BrowseSearchDrawer({ openSearchDrawer, setOpenSearchDrawer }) {
         width: '100%',
         minWidth: '40vw'
       }}>
-        <Box
-          sx={{
-            display: 'inline-block',
-          }}
-        >
+        <Box>
           <BrowseSearchBar
             setSearch={setSearch}
             search={search}

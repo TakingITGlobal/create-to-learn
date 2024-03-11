@@ -126,7 +126,6 @@ export const c2learn = (mode) => ({
         root: {
           padding: '1rem',
           borderRadius: '12px',
-          backgroundImage: 'none'
         },
       },
     },

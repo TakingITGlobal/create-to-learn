@@ -50,14 +50,15 @@ function CourseLessons({
           anchor="right"
           open={openCourseDrawer}
           onClose={() => setOpenCourseDrawer(false)}
+          elevation={0}
           style={{ backgroundColor: 'rgba(0,0,0,0.75)' }}
         >
           <Box sx={{
             background: '#0B0919',
             backgroundImage: 'none',
-            maxWidth: '500px',
+            maxWidth: '700px',
             width: '100%',
-            minWidth: '40vw'
+            minWidth: '50vw'
           }}>
             <Box
               sx={{
