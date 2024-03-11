@@ -50,38 +50,47 @@ function CourseLessons({
           anchor="right"
           open={openCourseDrawer}
           onClose={() => setOpenCourseDrawer(false)}
+          style={{ backgroundColor: 'rgba(0,0,0,0.75)' }}
         >
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'flex-end',
-              alignItems: 'flex-end',
-            }}
-          >
-            <IconButton
-              aria-label="close-icon"
-              onClick={() => setOpenCourseDrawer(false)}
+          <Box sx={{
+            background: '#0B0919',
+            backgroundImage: 'none',
+            maxWidth: '500px',
+            width: '100%',
+            minWidth: '40vw'
+          }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'flex-end',
+                alignItems: 'flex-end',
+              }}
             >
-              <CloseIcon sx={{ color: 'white' }} />
-            </IconButton>
-          </Box>
-          <Typography align="center" variant="h1">
-            {videoToShow.name}
-          </Typography>
-          <Video
-            video={videoToShow.link}
-            id={videoToShow.videoId}
-            videoProgress={
-              courseProgress &&
-              courseProgress.find(
-                (video) => video.videoId === videoToShow.videoId,
-              )
-            }
-            user={auth.user}
-            duration={videoToShow.duration}
-            courseId={courseId}
-          />
+              <IconButton
+                aria-label="close-icon"
+                onClick={() => setOpenCourseDrawer(false)}
+              >
+                <CloseIcon sx={{ color: 'white' }} />
+              </IconButton>
+            </Box>
+            <Typography align="center" variant="h1">
+              {videoToShow.name}
+            </Typography>
+            <Video
+              video={videoToShow.link}
+              id={videoToShow.videoId}
+              videoProgress={
+                courseProgress &&
+                courseProgress.find(
+                  (video) => video.videoId === videoToShow.videoId,
+                )
+              }
+              user={auth.user}
+              duration={videoToShow.duration}
+              courseId={courseId}
+            />
+          </Box>  
         </SwipeableDrawer>
       )}
     </>
