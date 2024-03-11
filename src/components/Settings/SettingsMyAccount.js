@@ -15,7 +15,8 @@ import { Typography } from '@mui/material'
 import { useAuth } from '../../util/auth'
 import { requireAuth } from '../../util/auth'
 
-import Slide from '@mui/material/Slide';
+import Slide from '@mui/material/Slide'
+import Section from '../Section'
 
 
 function SettingsMyAccount(props) {
@@ -61,12 +62,12 @@ function SettingsMyAccount(props) {
   //ToDo: Make showComponent a custom hook so that we don't have to pass it in like this to each component.
 
   return (
-    <div style={{ marginLeft: '360px' }}>
+    <Section>
       <Container sx={{
         display: 'flex', 
         justifyContent:'space-between',
         alignItems: 'center',
-        padding: '52px 0 34px 0',
+        padding: '20px 0 34px 0',
         }}>
         <ArrowBack
           showComponent={showComponent}
@@ -122,7 +123,7 @@ function SettingsMyAccount(props) {
           />
         </Container>
       </Slide>
-    </div>
+    </Section>
   )
 }
 

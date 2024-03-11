@@ -151,8 +151,7 @@ function CourseSection({ courseData }) {
           </IconButton>
           </PageHeading>
         {/* Series name */}
-        <Box sx={{ padding: '0 2.5em 2em' }}>
-
+        <Box>
           <CardMedia
             component="img"
             alt={seriesName}

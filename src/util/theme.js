@@ -22,6 +22,11 @@ export const c2learn = (mode) => ({
       lineHeight: '2em',
       fontWeight: '700',
     },
+    h2: {
+      fontSize: '1.35em',
+      lineHeight: '1.3em',
+      fontWeight: '700',
+    },
     h3: {
       fontSize: '1.125em',
       lineHeight: '1.3em',
@@ -239,18 +244,37 @@ export const c2learn = (mode) => ({
         },
       ],
     },
+    MuiTabs: {
+      styleOverrides: {
+        root: {
+          borderBottom: '1px solid rgb(255, 255, 255, .16)',
+          paddingBottom: '0',
+          marginBottom: '15px'
+        }
+      }
+    },
     MuiTab: {
       styleOverrides: {
         root: {
           flex: '1',
           textTransform: 'capitalize',
           fontSize: '1em',
+          maxWidth: '50%',
           '&.Mui-selected': {
             color: '#fff',
             fontWeight: '700',
           },
         },
       },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          fontSize: '1.25em',
+          background: '#0c0919',
+          paddingRight: '7px'
+        }
+      }
     },
     MuiRadio: {
       styleOverrides: {

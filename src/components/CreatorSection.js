@@ -37,7 +37,7 @@ function CreatorSection({ coursesByCreator, creator }) {
               xs: '350px',
               sm: '500px',
             }}
-            sx={{ objectFit: 'cover', objectPosition: 'center top' }}
+            sx={{ objectFit: 'cover', objectPosition: 'center top', borderRadius: '6px' }}
             src={
               creator.image && creator.image.length
                 ? creator.image[0].downloadURL
@@ -81,11 +81,11 @@ function CreatorSection({ coursesByCreator, creator }) {
                   }}
                 >
                   <ShareIcon fontSize="large" />
-                  <Typography>Share</Typography>
+                  <Typography sx={{marginLeft:'8px'}}>Share</Typography>
                 </IconButton>
               </Box>
             </Box>
-            <Typography variant="h6">About me</Typography>
+            <Typography variant="h2">About me</Typography>
             <Box sx={{ padding: '20px 0' }}>
               <Typography>
                 {
@@ -97,7 +97,7 @@ function CreatorSection({ coursesByCreator, creator }) {
         </Box>
         {coursesByCreator.length > 0 && (
           <Box>
-            <Typography variant="h6">More from {creator.name}</Typography>
+            <Typography variant="h2">More from {creator.name}</Typography>
             {coursesByCreator.map((course, i) => (
               <Fragment key={i}>
                 <CourseCard course={course} />

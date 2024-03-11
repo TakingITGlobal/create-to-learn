@@ -42,7 +42,7 @@ function Contact(props) {
   }
 
   return (
-    <>
+    <Box sx={{marginTop:'20px'}}>
       {formAlert && (
         <Box mb={3}>
           <Alert severity={formAlert.type}>{formAlert.message}</Alert>
@@ -57,7 +57,9 @@ function Contact(props) {
                 variant="outlined"
                 type="text"
                 label="Name"
-                name="name"
+                InputLabelProps={{
+                  shrink: true,
+                }}
                 error={errors.name ? true : false}
                 helperText={errors.name && errors.name.message}
                 fullWidth={true}
@@ -74,6 +76,9 @@ function Contact(props) {
               type="email"
               label="Email"
               name="email"
+              InputLabelProps={{
+                shrink: true,
+              }}
               error={errors.email ? true : false}
               helperText={errors.email && errors.email.message}
               fullWidth={true}
@@ -88,6 +93,9 @@ function Contact(props) {
               type="text"
               label="Message"
               name="message"
+              InputLabelProps={{
+                shrink: true,
+              }}
               multiline={true}
               rows={5}
               error={errors.message ? true : false}
@@ -113,7 +121,7 @@ function Contact(props) {
           </Grid>
         </Grid>
       </form>
-    </>
+    </Box>
   )
 }
 

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
@@ -34,16 +33,15 @@ function SettingsDisplayName({ showComponent, setShowComponent }) {
           height: '700px',
         }}
       >
-        <Box sx={{ padding: '1.5rem 0' }}>
-          <Typography variant="h6">
-            {t('settings.change-display-name')}
-          </Typography>
-        </Box>
         
         <TextField
           id="displayName"
+          label={t('settings.change-display-name')}
           variant="outlined"
           defaultValue={name}
+          InputLabelProps={{
+            shrink: true,
+          }}
           onChange={(e) => setName(e.target.value)}
         />
         <Box

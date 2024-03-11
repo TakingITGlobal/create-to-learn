@@ -63,9 +63,9 @@ function SettingsCommunity({ showComponent, setShowComponent }) {
           }}
         >
           <Box sx={{ padding: '1.5rem 0' }}>
-            <Typography variant="h5" fontWeight={700} color={'lavender'} sx={{ paddingBottom: '10px' }}>
+            <h1 variant="h3" fontWeight={700} color={'lavender'} sx={{ paddingBottom: '10px' }}>
               I am ...
-            </Typography>
+            </h1>
             <Typography>
               Tell us more about you, so we can personalize your experience.
             </Typography>
@@ -77,6 +77,7 @@ function SettingsCommunity({ showComponent, setShowComponent }) {
           >
             {culturalGroups.map((community, index) => (
               <ListItem
+                disablePadding
                 key={index}
                 sx={{
                   backgroundColor: communities.includes(community)
@@ -93,12 +94,13 @@ function SettingsCommunity({ showComponent, setShowComponent }) {
                   )
                 }
               >
-                <ListItemButton onClick={() => handleCommunity(community)}>
+                <ListItemButton onClick={() => handleCommunity(community)} sx={{padding: '16px 20px'}}>
                   <ListItemText>{community}</ListItemText>
                 </ListItemButton>
               </ListItem>
             ))}
             <ListItem
+              disablePadding
               sx={{
                 backgroundColor: communities.includes('') ? '#6956F1' : '#211E34',
                 marginBottom: '15px',
@@ -112,11 +114,12 @@ function SettingsCommunity({ showComponent, setShowComponent }) {
                 )
               }
             >
-              <ListItemButton onClick={() => handleCommunity(NONE_OF_THE_ABOVE)}>
+              <ListItemButton onClick={() => handleCommunity(NONE_OF_THE_ABOVE)} sx={{padding: '16px 20px'}}>
                 <ListItemText>{t('settings.none-of-the-above')}</ListItemText>
               </ListItemButton>
             </ListItem>
             <ListItem
+            disablePadding
               sx={{
                 backgroundColor: !communities.length ? '#6956F1' : '#211E34',
                 marginBottom: '15px',
@@ -130,7 +133,7 @@ function SettingsCommunity({ showComponent, setShowComponent }) {
                 )
               }
             >
-              <ListItemButton onClick={() => handleCommunity(PREFER_NOT_TO_SAY)}>
+              <ListItemButton onClick={() => handleCommunity(PREFER_NOT_TO_SAY)} sx={{padding: '16px 20px'}}>
                 <ListItemText>{t('settings.prefer-not-to-say')}</ListItemText>
               </ListItemButton>
             </ListItem>

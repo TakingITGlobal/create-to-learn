@@ -58,7 +58,7 @@ function MyCoursesSection(props) {
       >
         <PageHeading headingText={t('my-courses.my-courses')} />
         <Box>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Box>
             <Tabs
               value={tabIndex}
               textColor="secondary"

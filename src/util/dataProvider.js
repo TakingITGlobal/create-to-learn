@@ -4,9 +4,7 @@ import { firebaseApp } from './firebase'
 import { useCourses, useCreators } from './db'
 
 const db = getFirestore(firebaseApp)
-
 export const useData = () => useContext(db)
-
 export const dataContext = createContext()
 
 export function DataProvider({ children }) {

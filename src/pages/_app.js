@@ -1,10 +1,9 @@
 import React from 'react'
-import Navbar from './../components/Navbar'
 import IndexPage from './index'
 import AboutPage from './about'
+import LessonPlansPage from './lessonPlans'
 import FaqPage from './faq'
 import ContactPage from './contact'
-import PricingPage from './pricing'
 import DashboardPage from './dashboard'
 import BrowsePage from './browse'
 import MyCoursesPage from './myCourses'
@@ -17,7 +16,6 @@ import Verified from './verified'
 import NotFoundPage from './404'
 import Footer from './../components/Footer'
 import './../util/analytics'
-import Chat from '../components/Unused/Chat'
 import { AuthProvider } from './../util/auth'
 import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles'
 import { c2learn } from './../util/theme'
@@ -31,6 +29,7 @@ import SignUpPage from './signUp'
 import CoursePage from './course'
 import CreatorPage from './creator'
 import SettingsMyAccount from 'components/Settings/SettingsMyAccount'
+import Navbar from './../components/Navbar'
 
 const LocationProvider = ({ children }) => {
   const { pathname } = useLocation()
@@ -64,8 +63,6 @@ function App(props) {
                   <Hidden mdDown>
                     <Navbar
                       color="default"
-                      logo="https://uploads.divjoy.com/logo.svg"
-                      logoInverted="https://uploads.divjoy.com/logo-white.svg"
                     />
                   </Hidden>
                   <Switch>
@@ -75,9 +72,9 @@ function App(props) {
 
                     <Route exact path="/faq" component={FaqPage} />
 
-                    <Route exact path="/contact" component={ContactPage} />
+                    <Route exact path="/lesson-plans" component={LessonPlansPage} />
 
-                    <Route exact path="/pricing" component={PricingPage} />
+                    <Route exact path="/contact" component={ContactPage} />
 
                     <Route exact path="/dashboard" component={DashboardPage} />
 

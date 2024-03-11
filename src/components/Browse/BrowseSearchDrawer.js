@@ -30,40 +30,45 @@ function BrowseSearchDrawer({ openSearchDrawer, setOpenSearchDrawer }) {
       open={openSearchDrawer}
       onOpen={(event) => setOpenSearchDrawer(true)}
       onClose={(event) => setOpenSearchDrawer(false)}
-      style={{ backgroundColor: '#313131' }}
+      elevation={0}
+      style={{ backgroundColor: 'rgba(0,0,0,0.75)' }}
     >
-      <Box
-        sx={{
-          display: 'inline-block',
-        }}
-      >
-        <BrowseSearchBar
-          setSearch={setSearch}
-          search={search}
-          setOpenSearchDrawer={setOpenSearchDrawer}
-        />
-      </Box>
-      {search !== '' ? (
-        <Box sx={{ padding: '0 20px' }}>
-          {filterCourses?.length || filterCreators?.length ? (
-            <Box>
-              {filterCreators.map((creator, index) => (
-                <BrowseCreatorCard key={index} creator={creator} />
-              ))}
-              {filterCourses.map((course, index) => (
-                <CourseCard key={index} course={course} />
-              ))}
-            </Box>
-          ) : (
-            <>
-              <BrowseSearchEmptyState search={search} />
-              <PopularSearches />
-            </>
-          )}
+      <Box sx={{
+        background: '#0B0919',
+        backgroundImage: 'none',
+        maxWidth: '500px',
+        width: '100%',
+        minWidth: '40vw'
+      }}>
+        <Box>
+          <BrowseSearchBar
+            setSearch={setSearch}
+            search={search}
+            setOpenSearchDrawer={setOpenSearchDrawer}
+          />
         </Box>
-      ) : (
-        <PopularSearches />
-      )}
+        {search !== '' ? (
+          <Box sx={{ padding: '0 20px' }}>
+            {filterCourses?.length || filterCreators?.length ? (
+              <Box>
+                {filterCreators.map((creator, index) => (
+                  <BrowseCreatorCard key={index} creator={creator} />
+                ))}
+                {filterCourses.map((course, index) => (
+                  <CourseCard key={index} course={course} />
+                ))}
+              </Box>
+            ) : (
+              <>
+                <BrowseSearchEmptyState search={search} />
+                <PopularSearches />
+              </>
+            )}
+          </Box>
+        ) : (
+          <PopularSearches />
+        )}
+      </Box>
     </SwipeableDrawer>
   )
 }

@@ -73,13 +73,11 @@ function SettingsSection(props) {
         />
       )}
       <Box sx={{ paddingBottom: '15px' }}>
-        <Container maxWidth="468px">
           {formAlert && (
             <Box mb={4}>
               <Alert severity={formAlert.type}>{formAlert.message}</Alert>
             </Box>
           )}
-
           {section === 'profile' && <SettingsProfile onStatus={handleStatus} />}
 
           {section === 'password' && (
@@ -100,7 +98,6 @@ function SettingsSection(props) {
           {section === 'legal-and-about' && (
             <SettingsLegal onStatus={handleStatus} />
           )}
-        </Container>
       </Box>
     </Section>
   )

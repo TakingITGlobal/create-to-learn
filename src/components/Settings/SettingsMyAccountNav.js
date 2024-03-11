@@ -3,7 +3,6 @@ import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
-import ListItemText from '@mui/material/ListItemText'
 import ListItemButton from '@mui/material/ListItemButton'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import EastIcon from '@mui/icons-material/East'
@@ -53,15 +52,18 @@ export default function MyAccountNav({
           aria-labelledby="settings-my-account"
         >
           {myAccountLinks.map((accLink) => (
-            <ListItem
+            <ListItem disablePadding
               onClick={() => {
                 setShowComponent(accLink.id)
               }}
               key={accLink.title}
-              secondaryAction={<ChevronRightIcon />}
               sx={{ borderBottom: '1px solid #333' }}
+              secondaryAction={
+                <ChevronRightIcon />
+              }
             >
               <ListItemButton 
+              sx={{padding: '18px 10px 18px 10px'}}
               >
                 <Grid container>
                   <Grid item xs={accLink.userInfo ? 7 : 12} >
@@ -76,8 +78,9 @@ export default function MyAccountNav({
               </ListItemButton>
             </ListItem>
           ))}
-          <ListItem>
+          <ListItem disablePadding>
             <ListItemButton
+              sx={{padding: '18px 12px', marginTop: '2rem'}}
               onClick={() => {
                 setShowComponent('deleteAccount')
               }}

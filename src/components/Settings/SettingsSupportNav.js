@@ -1,6 +1,5 @@
 import React from 'react'
 import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
@@ -9,10 +8,10 @@ import Button from '@mui/material/Button'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import BugReportIcon from '@mui/icons-material/BugReport'
 import EmailIcon from '@mui/icons-material/Email'
-import ForumIcon from '@mui/icons-material/Forum'
 import LinkComp from '@mui/material/Link'
 
 import { useTranslation } from 'react-i18next'
+import { ListItemButton } from '@mui/material'
 
 export default function SupportNav({ setShowComponent }) {
   const { t } = useTranslation()
@@ -29,8 +28,8 @@ export default function SupportNav({ setShowComponent }) {
 
   return (
     <>
-      <Box sx={{ padding: '.5rem 1rem' }}>
-        <Typography variant="h6">Common Questions</Typography>
+      <Box sx={{ padding: '.5rem 0 0' }}>
+        <h2 variant="h3">Common Questions</h2>
       </Box>
       <List
         sx={{
@@ -41,28 +40,34 @@ export default function SupportNav({ setShowComponent }) {
       >
         {myAccountLinks.map((accLink) => (
           <ListItem
-            button
-            onClick={() => {
-              setShowComponent(accLink.id)
-            }}
-            key={accLink.title}
+            disablePadding
             sx={{ borderBottom: '1px solid #333'}}
           >
-            <ListItemText>{accLink.title}</ListItemText>
+            <ListItemButton 
+              onClick={() => {
+                setShowComponent(accLink.id)
+              }}
+              sx={{padding: '18px 10px 18px 10px'}}
+              key={accLink.title}>
+              <ListItemText>{accLink.title}</ListItemText>
 
-            <ListItemSecondaryAction edge="end">
-              <ChevronRightIcon />
-            </ListItemSecondaryAction>
+              <ListItemSecondaryAction edge="end">
+                <ChevronRightIcon />
+              </ListItemSecondaryAction>
+            </ListItemButton>
           </ListItem>
         ))}
-        <ListItem>
-          <LinkComp onClick={() => setShowComponent('faqs')}>
+        <ListItem disablePadding>
+          <ListItemButton 
+            to="/faq"
+            sx={{padding: '18px 10px 18px 10px'}}
+          >
             See all FAQs
-          </LinkComp>
+          </ListItemButton>
         </ListItem>
       </List>
       <Box sx={{ padding: '.5rem 1rem' }}>
-        <Typography variant="h6">Support</Typography>
+        <h2 variant="h3">Support</h2>
       </Box>
       <Box
         sx={{
@@ -77,6 +82,10 @@ export default function SupportNav({ setShowComponent }) {
           variant="outlined"
           startIcon={<BugReportIcon />}
           onClick={() => setShowComponent('bugReport')}
+          sx={{
+            padding: '12px 20px 15px',
+            maxWidth: '350px'
+          }}
         >
           {t('settings.report-bug')}
         </Button>
@@ -84,6 +93,10 @@ export default function SupportNav({ setShowComponent }) {
           variant="outlined"
           startIcon={<EmailIcon />}
           onClick={() => setShowComponent('provideFeedback')}
+          sx={{
+            padding: '12px 20px 15px',
+            maxWidth: '350px'
+          }}
         >
           {t('settings.provide-feedback')}
         </Button>

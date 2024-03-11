@@ -37,7 +37,7 @@ const BrowseCourseDrawerContent = ({
   return (
     <>
       <Box mt={1}>
-        <Typography variant="h3" sx={{ fontWeight: 'bold' }} mb="10px">
+        <Typography variant="h2" sx={{ fontWeight: 'bold' }} mb="10px">
           {t('featured')}
         </Typography>
         <Stack direction="row" spacing={1}>
@@ -56,7 +56,7 @@ const BrowseCourseDrawerContent = ({
         </Stack>
       </Box>
       <Box mt={3}>
-        <Typography variant="h3" sx={{ fontWeight: 'bold' }} mb="10px">
+        <Typography variant="h2" sx={{ fontWeight: 'bold' }} mb="10px">
           {t('community')}
         </Typography>
         <Stack
@@ -95,7 +95,7 @@ const BrowseCourseDrawerContent = ({
         </Stack>
       </Box>
       <Box mt={3}>
-        <Typography variant="h3" sx={{ fontWeight: 'bold' }} mb="10px">
+        <Typography variant="h2" sx={{ fontWeight: 'bold' }} mb="10px">
           {t('browse.difficulty')}
         </Typography>
         <Stack direction="row" spacing={1}
@@ -131,7 +131,7 @@ const BrowseCourseDrawerContent = ({
         </Stack>
       </Box>
       <Box mt={3}>
-        <Typography variant="h3" sx={{ fontWeight: 'bold' }} mb="10px">
+        <Typography variant="h2" sx={{ fontWeight: 'bold' }} mb="10px">
           {t('duration')}
         </Typography>
         <Stack
@@ -170,7 +170,7 @@ const BrowseCourseDrawerContent = ({
       </Box>
 
       <Box mt={3}>
-        <Typography variant="h3" sx={{ fontWeight: 'bold' }} mb="10px">
+        <Typography variant="h2" sx={{ fontWeight: 'bold' }} mb="10px">
           {t('browse.materials')}
         </Typography>
         <Stack

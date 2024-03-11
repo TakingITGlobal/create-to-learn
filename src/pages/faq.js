@@ -1,6 +1,6 @@
 import React from 'react'
 import Meta from './../components/Meta'
-import FaqSection from '../components/Unused/FaqSection'
+import FaqSection from '../components/ContentPages/FaqSection'
 
 function FaqPage(props) {
   return (

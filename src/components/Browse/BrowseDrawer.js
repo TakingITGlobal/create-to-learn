@@ -36,13 +36,17 @@ const BrowseDrawer = ({
       onOpen={(event) => toggleDrawer(event, true)}
       onClose={(event) => toggleDrawer(event, false)}
       elevation={0}
+      style={{ backgroundColor: 'rgba(0,0,0,0.65)' }}
     >
       <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          width: '300px',
+          maxWidth: '500px',
           padding: '0px 10px 10px',
+          background: '#0B0919',
+          backgroundImage: 'none',
+          minWidth: '40vw'
         }}
       >
         <Box
