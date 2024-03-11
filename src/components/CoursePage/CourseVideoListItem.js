@@ -106,36 +106,35 @@ function CourseVideoListItem({
   }
   return (
     <Paper elevation="1">
-      <Grid container sx={{ display: 'flex', paddingBottom: '20px', borderRadius: '6px' }}>
+      <Grid container sx={{ display: 'flex', paddingBottom: '20px', borderRadius: '5px !important' }}>
         <Grid item xs={8}>
           <Typography variant="bold">{video.name}</Typography>
         </Grid>
         <Grid item xs={4} textAlign="center">
           {videoProgressPercentage ? (
             completed ? (
-              <Stack direction="row">
+              <Stack direction="row" sx={{ justifyContent: 'flex-end' }}>
                 <CheckIcon
                   sx={{
                     backgroundColor: 'inherit !important',
                     color: '#fff !important',
                   }}
                 />
-
                 <Typography sx={{ display: 'inline-block' }}>
                   {t('course.finished')}
                 </Typography>
               </Stack>
             ) : (
-              <>
-                <Typography>{displayTime(timeLeft)} left</Typography>
+              <Grid container sx={{ gridTemplateColumns: '2fr 1fr', alignItems: 'center' }}>
                 <LinearProgress
                   variant="determinate"
                   value={videoProgressPercentage}
                 />
-              </>
+                <Typography sx={{textAlign: 'right'}}>{displayTime(timeLeft)} left</Typography>
+              </Grid>
             )
           ) : (
-            <Typography>{displayTime(video.duration)}</Typography>
+            <Typography sx={{textAlign: 'right'}}>{displayTime(video.duration)}</Typography>
           )}
         </Grid>
       </Grid>
@@ -144,7 +143,8 @@ function CourseVideoListItem({
         direction="row"
         spacing={1}
         alignItems="center"
-        sx={{ paddingLeft: '20px', paddingTop: '20px' }}
+        justifyContent="spaceBetween"
+        sx={{ paddingLeft: '0px', paddingTop: '20px' }}
       >
         {isDownloaded(video?.uri) ? (
           <Button
@@ -185,6 +185,7 @@ function CourseVideoListItem({
               size="large"
               sx={{
                 flex: '1',
+                maxWidth: '400px'
               }}
             >
               {t('course.start-over')}
@@ -201,6 +202,7 @@ function CourseVideoListItem({
                 backgroundColor: 'white',
                 color: 'black',
                 borderRadius: '25px',
+                maxWidth: '400px'
               }}
             >
               {t('btn.continue')}
@@ -215,7 +217,7 @@ function CourseVideoListItem({
             variant="contained"
             color="primary"
             size="large"
-            sx={{ flex: '1' }}
+            sx={{ flex: '1', maxWidth: '400px' }}
           >
             {t('course.start')}
           </Button>
