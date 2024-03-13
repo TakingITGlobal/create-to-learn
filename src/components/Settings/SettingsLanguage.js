@@ -26,16 +26,11 @@ function SettingsLanguage({ showComponent, setShowComponent }) {
   const [languages, setLanguages] = useState(auth?.user?.language ?? [])
 
   const handleLanguages = (lan) => {
-    if (lan === LANGUAGE_NOT_HERE) {
-      setLanguages([])
-      return
+    const isSelected = languages.includes(lan);
+    if (isSelected) {
+      setLanguages(currentItems => currentItems.filter(item => item !== lan));  
     } else {
-      const isInLanguages = languages.some((language) => language === lan)
-      if (isInLanguages) {
-        setLanguages(languages.filter((language) => language !== lan))
-      } else {
-        setLanguages([...languages, lan])
-      }
+      setLanguages(currentItems => [...currentItems, lan]);
     }
   }
 
@@ -96,21 +91,23 @@ function SettingsLanguage({ showComponent, setShowComponent }) {
                 </ListItemButton>
               </ListItem>
             ))}
+
             <ListItem
+              disablePadding
               sx={{
-                backgroundColor: !languages.length ? '#6956F1' : '#211E34',
-                marginBottom: '15px',
+                backgroundColor: languages.includes(LANGUAGE_NOT_HERE) ? '#6956F1' : '#211E34',
+                marginBottom: '10px',
                 borderRadius: '5px',
               }}
               secondaryAction={
-                !languages.length && (
+                languages.includes(LANGUAGE_NOT_HERE) && (
                   <IconButton size="large">
                     <CheckCircleIcon />
                   </IconButton>
                 )
               }
             >
-              <ListItemButton onClick={() => handleLanguages(LANGUAGE_NOT_HERE)}>
+              <ListItemButton onClick={() => handleLanguages(LANGUAGE_NOT_HERE)} sx={{padding: '16px 20px'}}>
                 <ListItemText>My language is not here</ListItemText>
               </ListItemButton>
             </ListItem>

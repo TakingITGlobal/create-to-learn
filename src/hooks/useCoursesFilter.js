@@ -75,7 +75,7 @@ const handleCulturalGroup = (culturalGroupFilter, courseIndigenousGroups) => {
     return true
   }
   return culturalGroupFilter.some((culturalGroup) =>
-    courseIndigenousGroups.includes(culturalGroup),
+    courseIndigenousGroups?.includes(culturalGroup) || false,
   )
 }
 

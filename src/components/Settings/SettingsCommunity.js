@@ -24,25 +24,23 @@ function SettingsCommunity({ showComponent, setShowComponent }) {
   const auth = useAuth()
 
   const [communities, setCommunities] = useState(auth?.user?.fnmi)
-
+  const [disable, setDisable] = useState(communities.includes(PREFER_NOT_TO_SAY));
   //To Do- make this simpler!
-  const handleCommunity = (comm) => {
-    if (comm === PREFER_NOT_TO_SAY) {
-      setCommunities([''])
-      return
-    }
-    if (comm === PREFER_NOT_TO_SAY) {
-      setCommunities([])
-      return
+  const handleCommunities = (id) => {
+    const isSelected = communities.includes(id);
+    if (isSelected) {
+      setCommunities(currentItems => currentItems.filter(item => item !== id));  
     } else {
-      const isInCommunities = communities.some(
-        (community) => community === comm,
-      )
-      if (isInCommunities) {
-        setCommunities(communities.filter((community) => community !== comm))
-      } else {
-        setCommunities([...communities, comm].filter((comm) => comm !== ''))
-      }
+      setCommunities(currentItems => [...currentItems, id]);
+    }
+  }
+  const handleNone = () => {
+    if(communities.includes(PREFER_NOT_TO_SAY)){
+      setDisable(false);
+      setCommunities([]);
+    } else {
+      setDisable(true);
+      setCommunities([PREFER_NOT_TO_SAY]);
     }
   }
 
@@ -94,7 +92,7 @@ function SettingsCommunity({ showComponent, setShowComponent }) {
                   )
                 }
               >
-                <ListItemButton onClick={() => handleCommunity(community)} sx={{padding: '16px 20px'}}>
+                <ListItemButton onClick={() => handleCommunities(community)} sx={{padding: '16px 20px'}} disabled={disable}>
                   <ListItemText>{community}</ListItemText>
                 </ListItemButton>
               </ListItem>
@@ -102,38 +100,38 @@ function SettingsCommunity({ showComponent, setShowComponent }) {
             <ListItem
               disablePadding
               sx={{
-                backgroundColor: communities.includes('') ? '#6956F1' : '#211E34',
+                backgroundColor: communities.includes(NONE_OF_THE_ABOVE) ? '#6956F1' : '#211E34',
                 marginBottom: '15px',
                 borderRadius: '5px',
               }}
               secondaryAction={
-                communities.includes('') && (
+                communities.includes(NONE_OF_THE_ABOVE) && (
                   <IconButton size="large">
                     <CheckCircleIcon />
                   </IconButton>
                 )
               }
             >
-              <ListItemButton onClick={() => handleCommunity(NONE_OF_THE_ABOVE)} sx={{padding: '16px 20px'}}>
+              <ListItemButton onClick={() => handleCommunities(NONE_OF_THE_ABOVE)} sx={{padding: '16px 20px'}} disabled={disable}>
                 <ListItemText>{t('settings.none-of-the-above')}</ListItemText>
               </ListItemButton>
             </ListItem>
             <ListItem
             disablePadding
               sx={{
-                backgroundColor: !communities.length ? '#6956F1' : '#211E34',
+                backgroundColor: communities.includes(PREFER_NOT_TO_SAY) ? '#E57373' : '#211E34',
                 marginBottom: '15px',
                 borderRadius: '5px',
               }}
               secondaryAction={
-                !communities.length && (
+                communities.includes(PREFER_NOT_TO_SAY) && (
                   <IconButton size="large">
                     <CheckCircleIcon />
                   </IconButton>
                 )
               }
             >
-              <ListItemButton onClick={() => handleCommunity(PREFER_NOT_TO_SAY)} sx={{padding: '16px 20px'}}>
+              <ListItemButton onClick={() => handleNone()} sx={{padding: '16px 20px'}}>
                 <ListItemText>{t('settings.prefer-not-to-say')}</ListItemText>
               </ListItemButton>
             </ListItem>

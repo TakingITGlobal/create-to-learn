@@ -5,12 +5,32 @@
   "sign-in": "Sign In",
   "or-sign-in": "Or go to sign In",
   "let-me-browse": "Let me browse first",
+  "courses": "Courses",
+  "creators": "Creators",
+  "topics": "Topics",
+  "featured": "Featured",
+  "duration": "Duration",
+  "videos": "videos",
+  "video": "video",
+  "close": "Close",
+  "course-page": "Go to course page",
+  "deselect-all": "Deselect All",
+  "start": "Start now",
+  "help-us-know-you": "It helps us know you better, show you things you like, and track your progress",
+  "do-not-require-account": "Sign up for a free account to track your progress and get customized recommendations!",
+  "sign-up-or": "Sign up or sign in",
+  "sign-up": "Sign Up",
+  "cancel": "Cancel",
+  "community": "Community",
+  "dismiss": "Dismiss",
+  "add-to-watchlist": "Add to watchlist",
   "featured-course": "Featured Course",
   "btn": {
     "prev": "Prev",
     "next": "Next",
     "continue": "Continue",
-    "missing": "My {{value}} isn't here"
+    "missing": "My {{value}} isn't here",
+    "submit": "Submit"
   },
   "onboarding": {
     "screen-1": "A space where you can learn by making, creating, and taking part.",
@@ -23,9 +43,9 @@
       "skip-btn": "Prefer not to say"
     },
     "language": {
-      "subheader": "[Reason for asking]",
-      "header": "I am..",
-      "header2": "",
+      "subheader": "So that we can greet and congratulate you in the future",
+      "header": "My language is",
+      "header2": "Or a language I'm learning",
       "skip-btn": "My language is not here"
     },
     "greeting": {
@@ -35,26 +55,26 @@
       "skip-btn": "Maybe later"
     },
     "school": {
-      "subheader": "Find your school",
-      "header": "I'm attending...",
+      "subheader": "Scroll or search to find your school",
+      "header": "I'm attending",
       "header2": "",
       "skip-btn": "I'm not attending school"
     },
     "interests": {
-      "subheader": "Pick three topics you're interested in",
-      "header": "I'm interested in...",
+      "subheader": "Pick up to three topics you're interested in",
+      "header": "I am interested in..",
       "header2": "",
       "skip-btn": "Prefer not to say"
     },
     "email": {
       "subheader": "Tell us more about you, so we can personalize your experience",
-      "header": "I am..",
+      "header": "I want to be a.",
       "header2": "",
       "skip-btn": "Prefer not to say"
     },
     "displayName": {
-      "subheader": "Tell us more about you, so we can personalize your experience",
-      "header": "I am..",
+      "subheader": "This is your name on the app",
+      "header": "I want to be called ...",
       "header2": "",
       "skip-btn": "Prefer not to say"
     },
@@ -62,6 +82,97 @@
       "header": "Personalizing For You",
       "header2": "We're looking for videos we think you'll love."
     }
+  },
+  "dashboard": {
+    "creators-message": "A message from your creators",
+    "students-also-viewing": "Students are also viewing",
+    "featured-video": "Featured Video",
+    "error": "Uh oh! An error has occurred."
+  },
+  "browse": {
+    "search": "Search",
+    "show-filters": "Filter",
+    "apply-filters": "Apply filter",
+    "clear-filters": "Clear filters",
+    "browse": "Browse",
+    "popular-searches": "Popular Searches",
+    "no-matches": "Sorry we couldn't find any matches for",
+    "search-another-term": "Please try searching with another term.",
+    "materials": "Materials",
+    "difficulty": "Difficulty Level"
+  },
+  "course": {
+    "start-over": "Start over",
+    "finished": "Finished",
+    "download": "Download",
+    "start": "Start",
+    "what-you-need": "What you'll need",
+    "what-you-learn": "What you'll learn",
+    "topic": "Topic",
+    "start-creating": "Start Creating",
+    "added-to-watchlist": "Added to Watchlist",
+    "downloaded": "Redownload",
+    "download-all": "Download all lessons",
+    "quality": "Quality"
+  },
+  "my-courses": {
+    "my-courses": "My Courses",
+    "downloads": "Downloads",
+    "my-progress": "My Progress",
+    "watchlist": "Watchlist",
+    "continue-watching": "Continue watching",
+    "download-episode": "Download this episode",
+    "see-details": "See details",
+    "in-progress": "In Progress",
+    "remove-from-list": "Remove from list",
+    "download": "Download...",
+    "completed": "Completed",
+    "progress-empty-state-title": "Courses you’ve started will appear here",
+    "guest-progress-empty-state-title": "You need to be signed in to see videos in progress",
+    "progress-empty-state-subtitle": "Watch a video to have it appear here!",
+    "guest-progress-empty-state-subtitle": "Any videos you’ve started will appear here",
+    "find-course": "Find a course",
+    "create-account-sign-in": "Create account or sign in",
+    "guest-watchlist-empty-state-title": "You need to be signed in to see videos in watchlist",
+    "watchlist-empty-state-title": "You haven’t saved any courses",
+    "guest-watchlist-empty-state-subtitle": "Any videos you’ve added will appear here",
+    "watchlist-empty-state-subtitle": "Save a video to have it appear here!",
+    "downloads-empty-state-title": "You haven’t downloaded any courses",
+    "downloads-empty-state-subtitle": "Download a video to have it appear here!",
+    "guest-downloads-empty-state-title": "You need to be signed in to see downloaded videos",
+    "guest-downloads-empty-state-subtitle": "Any videos you've downloaded will appear here"
+  },
+  "settings": {
+    "profile": "Profile",
+    "courses-taken": "courses taken",
+    "course-taken": "course taken",    
+    "minutes-watched": "minutes watched",
+    "videos-completed": "videos completed",
+    "sign-out": "Sign Out",
+    "are-you-sure-sign-out": "Are you sure you want to sign out?",
+    "yes-sign-out": "Yes, sign out",
+    "update": "Update",
+    "change-email": "Change Email",
+    "change-display-name": "Change display name",
+    "prefer-not-to-say": "Prefer not to say",
+    "none-of-the-above": "None of the above",
+    "delete-my-account": "Delete my account",
+    "delete-your-account": "Deleting your account",
+    "delete-account": "Delete Account",
+    "notification": "Notifications",
+    "confirm-delete": "Confirm Delete",
+    "yes-delete": "Yes, delete it",
+    "are-you-sure": "Are you sure you want to delete your account?",
+    "account-deleted": "Account Deleted",
+    "account-deleted-success": "Your account has been successfully deleted, and you will not be able to sign in again.",
+    "okay-got-it": "Okay, got it",
+    "provide-feedback": "Provide Feedback",
+    "feedback-subtitle": " The following information will be included in your email.",
+    "my-name": "My name",
+    "my-email": "My email",
+    "message": "Message",
+    "report-bug": "Report a Bug",
+    "tell-us-more": "Tell us a little more about the issue"
   },
   "by": "by"
 }

@@ -10,7 +10,7 @@ import InputAdornment from '@mui/material/InputAdornment'
 import SearchIcon from '@mui/icons-material/Search'
 import ButtonBase from '@mui/material/ButtonBase'
 import Paper from '@mui/material/Paper'
-import { FixedSizeList } from 'react-window'
+import { FixedSizeList as List } from 'react-window'
 
 import schools from '../../assets/options/schools'
 
@@ -39,24 +39,29 @@ function SettingsSchools({ showComponent, setShowComponent }) {
 
   const onChange = useCallback((e) => setSearch(e.target.value), [])
 
-  const Row = ({ data, index }) => (
-    <ButtonBase
-      onClick={() => setSchool(data[index])}
-      sx={{ 
-        width: '100%', 
-        fontSize: 16,
-        textAlign: 'left',
-        margin: '5px 0',
-        padding: '20px',
-        width: '100%',
-        justifyContent: 'flex-start',
-        backgroundColor: school === data[index] ? '#6956F1' : '#211E34',
-        borderRadius: '5px'
-       }}
-    >
-      {data[index]}
-    </ButtonBase>
-  )
+  const Row = ({ data, index, style, e }) => {
+    const cur = data[index];
+    return (
+    <div style={style}>
+      <ButtonBase
+        onClick={() => setSchool(cur)}
+        id={cur}
+        sx={{ 
+          width: '100%', 
+          fontSize: 16,
+          textAlign: 'left',
+          margin: '5px 0',
+          padding: '20px',
+          width: '100%',
+          justifyContent: 'flex-start',
+          backgroundColor: school === cur ? '#6956F1' : '#211E34',
+          borderRadius: '5px'
+        }}
+      >
+       {cur}
+      </ButtonBase>
+    </div>
+  )}
 
   return (
     showComponent === 'school' && (
@@ -100,7 +105,7 @@ function SettingsSchools({ showComponent, setShowComponent }) {
             variant="outlined"
           />
         </Box>
-        <FixedSizeList
+        {/* <FixedSizeList
           height={450}
           width="100%"
           itemSize={50}
@@ -109,7 +114,18 @@ function SettingsSchools({ showComponent, setShowComponent }) {
           overscanCount={50}
         >
           {Row}
-        </FixedSizeList>
+        </FixedSizeList> */}
+        <List
+          itemData={filteredSchools}
+          itemCount={filteredSchools.length}
+          height={450}
+          itemSize={84}
+          width="100%"
+          sx={{textAlign: 'left'}}
+        >
+          {Row}
+        </List>
+
         <Box
           sx={{
             display: 'flex',

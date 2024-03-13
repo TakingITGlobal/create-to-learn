@@ -22,7 +22,10 @@ function SettingsInterests({ showComponent, setShowComponent }) {
       ? setInterests(interests.filter((item) => item !== category))
       : setInterests([...interests, category])
   }
-  const clippedCategories = categories.slice(1)
+  const clearInterests = () => {
+    setInterests([]);
+  }
+  const clippedCategories = categories.slice(1).map(({ label }) => label);
 
   return (
     showComponent === 'interests' && (
@@ -46,18 +49,18 @@ function SettingsInterests({ showComponent, setShowComponent }) {
               <Typography>Pick up to three topics you're interested in</Typography>
             </Box>
             <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap">
-              {clippedCategories.splice(1).map((category, index) => {
-                const clicked = interests.includes(category.label)
+              {clippedCategories.map((category, index) => {
+                const clicked = interests.includes(category)
                 return (
                   <Chip
                     key={index}
-                    label={category.label}
+                    label={category}
                     clickable
                     disabled={
-                      interests.length === 3 &&
-                      !interests.includes(category.label)
+                      interests.length >= 3 &&
+                      !interests.includes(category)
                     }
-                    onClick={() => handleInterests(category.label)}
+                    onClick={() => handleInterests(category)}
                     sx={{
                       fontSize: 16,
                       fontWeight: 700,
@@ -70,6 +73,22 @@ function SettingsInterests({ showComponent, setShowComponent }) {
                   />
                 )
               })}
+                <Chip
+                  label={t('deselect-all')}
+                  clickable
+                  disabled={ interests.length === 0 }
+                  onClick={() => clearInterests()}
+                  sx={{
+                    fontSize: 16,
+                    fontWeight: 700,
+                    marginLeft: 0,
+                    padding: '14px 2px',
+                    disiplay: 'inline-block',
+                    backgroundColor: '#E57373',
+                  }}
+                  variant="default"
+                />
+              
             </Stack>
           </Box>
           <Box
