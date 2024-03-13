@@ -71,7 +71,8 @@
     "start:netlify": "netlify dev",
     "start": "npm run start:netlify",
     "build": "react-scripts build",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "postbuild": "react-snap"
   },
   "eslintConfig": {
     "extends": "react-app"
