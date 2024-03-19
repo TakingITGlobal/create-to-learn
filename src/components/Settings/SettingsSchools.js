@@ -4,69 +4,85 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import Slide from '@mui/material/Slide';
+import { debounce } from 'lodash';
 
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
 import SearchIcon from '@mui/icons-material/Search'
 import ButtonBase from '@mui/material/ButtonBase'
 import Paper from '@mui/material/Paper'
-import { FixedSizeList } from 'react-window'
+import { FixedSizeList as List } from 'react-window'
 
 import schools from '../../assets/options/schools'
 
 import { updateUser } from '../../util/db'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../../util/auth'
+import { Stack } from '@mui/material';
 
 function SettingsSchools({ showComponent, setShowComponent }) {
   const { t } = useTranslation()
   const auth = useAuth()
+  const schoolData = schools.map((x) => x.School);
 
-  const [school, setSchool] = useState(auth?.user?.school)
-  const [search, setSearch] = useState('')
-  const [filteredSchools, setFilteredSchools] = useState([])
+  const [inputValue, setInputValue] = useState('');
+  const [selected, setSelected] = useState(auth?.user?.school || '');
+  const filtered = inputValue !== '' ? 
+    [...schoolData.filter((x) =>
+      x.toLowerCase().includes(inputValue.toLowerCase()),),'other'] 
+    : []
+ 
+  const handleTextChange = debounce((val) => {
+    if(val.length > 2 ) setInputValue(val);
+    else {
+      setInputValue('');
+    }
+  }, 300);
 
-  useMemo(() => {
-    setFilteredSchools(
-      schools
-        .map((x) => x.School)
-        .filter((sch) => {
-          const schoolName = sch.toLowerCase()
-          return schoolName.search(search.toLowerCase()) !== -1
-        }),
-    )
-  }, [search])
+  const handleSelectChange = (val) => {
+    if(selected === val){
+      setSelected('');
+    } else {
+      setSelected(val);
+    }
+    
+  }
 
-  const onChange = useCallback((e) => setSearch(e.target.value), [])
-
-  const Row = ({ data, index }) => (
-    <ButtonBase
-      onClick={() => setSchool(data[index])}
-      sx={{ 
-        width: '100%', 
-        fontSize: 16,
-        textAlign: 'left',
-        margin: '5px 0',
-        padding: '20px',
-        width: '100%',
-        justifyContent: 'flex-start',
-        backgroundColor: school === data[index] ? '#6956F1' : '#211E34',
-        borderRadius: '5px'
-       }}
-    >
-      {data[index]}
-    </ButtonBase>
-  )
+  const Row = ({ data, index, style, e }) => {
+    const isLast = data.length - 1 === index;
+    const cur = data[index];
+    const active = cur === selected;
+    return (
+    <div style={style}>
+      <ButtonBase
+        onClick={() => handleSelectChange(cur)}
+        id={cur}
+        sx={{ 
+          width: '100%', 
+          fontSize: 16,
+          textAlign: 'left',
+          margin: '5px 0',
+          padding: '20px',
+          width: '100%',
+          justifyContent: 'flex-start',
+          backgroundColor: active ? '#6956F1' : '#211E34',
+          borderRadius: '5px'
+        }}
+      >
+        {isLast ? t('btn.missing', { value: 'school' }) : cur}
+      </ButtonBase>
+    </div>
+  )}
 
   return (
     showComponent === 'school' && (
       <Slide
-      direction="left"
-      in={showComponent}
-      timeout={500}
-      mountOnEnter
-      unmountOnExit
-    >
+        direction="left"
+        in={showComponent}
+        timeout={500}
+        mountOnEnter
+        unmountOnExit
+      >
       <Box
         sx={{
           display: 'flex',
@@ -79,17 +95,32 @@ function SettingsSchools({ showComponent, setShowComponent }) {
             Change School
           </h1>
           <Typography>Scroll or search to find your school </Typography>
-          <Box sx={{ paddingTop: '40px' }}>
-          </Box>
+          <Stack direction="column" 
+            sx={{ 
+              width: '100%', 
+              fontSize: 16,
+              textAlign: 'left',
+              margin: '40px 0 40PX',
+              padding: '20px',
+              width: '100%',
+              justifyContent: 'flex-start',
+              backgroundColor: '#211E34',
+              borderRadius: '5px'
+            }}
+          >
+
+          <Typography color={'#a095ff'}>{selected || 'None Selected'}</Typography>
+
+          </Stack>
+
           <TextField
-            onInput={(e) => onChange(e)}
+            onChange={(e) => handleTextChange(e.target.value)}
             id="filled-start-adornment"
             sx={{
               borderRadius: '8px',
               width: '100%',
             }}
             label="Search your school"
-            value={search}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -100,16 +131,17 @@ function SettingsSchools({ showComponent, setShowComponent }) {
             variant="outlined"
           />
         </Box>
-        <FixedSizeList
+        <List
+          itemData={filtered}
+          itemCount={filtered.length}
           height={450}
+          itemSize={84}
           width="100%"
-          itemSize={50}
-          itemData={filteredSchools}
-          itemCount={filteredSchools.length}
-          overscanCount={50}
+          sx={{textAlign: 'left'}}
         >
           {Row}
-        </FixedSizeList>
+        </List>
+
         <Box
           sx={{
             display: 'flex',
@@ -126,7 +158,7 @@ function SettingsSchools({ showComponent, setShowComponent }) {
               padding: "16px 24px"
             }}
             onClick={() => {
-              updateUser(auth.user.uid, { school: school })
+              updateUser(auth.user.uid, { school: selected })
               setShowComponent('nav')
             }}
           >
