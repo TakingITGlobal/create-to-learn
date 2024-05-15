@@ -103,7 +103,7 @@ function LegalNav({ setShowComponent }) {
             setShowComponent('aboutOrganization')
           }}
         >
-          <ListItemText>About the Organization</ListItemText>
+          <ListItemText>About TakingITGlobal</ListItemText>
           <ListItemSecondaryAction>
             <IconButton>
               <ChevronRightIcon />
@@ -163,7 +163,7 @@ function PrivacyPolicy({ setShowComponent }) {
         <Typography variant="h6">Privacy Policy</Typography>
       </Box>
       <Box sx={{ paddingBottom: '1rem' }}>
-        <Typography>Effective: January 7th, 2021 </Typography>
+        <Typography>Effective: January 7th, 2021</Typography>
       </Box>
       <Box sx={{ paddingBottom: '1rem' }}>
         <Typography>
@@ -251,18 +251,16 @@ function AboutOrganization({ setShowComponent }) {
       }}
     >
       <Box sx={{ padding: '1.5rem 0' }}>
-        <Typography variant="h6">About Taking It Global</Typography>
+        <Typography variant="h6">About TakingITGlobal</Typography>
       </Box>
       <Box sx={{ paddingBottom: '1rem' }}>
         <Typography>
-          TakingITGlobal empowers youth to understand and act on local and
-          global challenges.
+          TakingITGlobal (TIG) is a registered charity that works to design and deliver innovative youth engagement programs. TIG's vision is that young people are actively engaged and connected in shaping a more inclusive, peaceful and sustainable world.
         </Typography>
       </Box>
-
       <Box>
         <LinkComp href="https://www.tigweb.org">
-          Check more on tigweb.org
+          Learn more at www.tigweb.org
         </LinkComp>
       </Box>
     </Box>
